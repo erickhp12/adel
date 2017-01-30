@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Creacion de empleados {% endblock %}
+{% block albums_active %} active {% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+	<form action="{% url 'create.employee.url' %}"	method="post">
+		{% csrf_token %}
+		<input name="nombres" placeholder="nombres" id="#" type="text" value="{{ form.nombres}}"/>
+		<input name="apellido" placeholder="apellido" id="#" type="text" value="{{ form.apellidos}}"/>
+		<input name="puesto" placeholder="puesto" id="#" type="text" value="{{ form.puesto}}"/>
+		<input name="telefono" placeholder="telefono" id="#" type="number" value="{{ form.telefono}}"/>
+		<input name="correo" placeholder="correo" id="#" type="text" value="{{ form.correo}}"/>
+	</form>
+</div>
+{% endblock %}
