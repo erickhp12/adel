@@ -1,22 +1,48 @@
-from django.views import generic
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.shortcuts import render
 from django.views.generic import View, FormView
-from django.core.urlresolvers import reverse_lazy
 from .models import Empleado
-from .forms import EmployeeForm
+from .forms import RegistrarEmpleado
+
 
 class EmployeeListView(View):
     template_name = "empleados.html"
 
     def get(self, request, *args, **kwargs):
-    	empleados_activos = Empleado.objects.all()
-        return render(request, self.template_name, {'empleados':empleados_activos})
+        empleados_activos = Empleado.objects.all()
+        return render(request, self.template_name, {
+            'empleados': empleados_activos,
+            'message': 'Aqui andamos'
+        })
 
 
 class CreateEmployeeView(FormView):
     template_name = "creacion_empleados.html"
-    form_class = EmployeeForm
+    message = "Aqui andamos al cien"
 
     def get(self, request, *args, **kwargs):
-    	return render(request, self.template_name)
+        form = RegistrarEmpleado()
+        data = {
+            'form': form
+        }
+        return render(request,  self.template_name,  data)
+
+    def post(self, request, *args, **kwargs):
+        form = RegistrarEmpleado(request.POST)
+        data = {
+            'form': form,
+        }
+        if form.is_valid():
+            form.save(commit=True)
+            message = "Agregado correctamente"
+            data = {
+                'form': form,
+                'message': message
+            }
+            return render(request, self.template_name, data)
+        else:
+            message = "algo no es valido"
+            data = {
+                'form': form,
+                'message': message,
+            }
+            return render(request, self.template_name, data)

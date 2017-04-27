@@ -4,3 +4,6 @@ MySQL-python==1.2.5
 packaging==16.8
 pyparsing==2.1.10
 six==1.10.0
+django-pylibmc==0.6.1
+gunicorn==19.4.5
+pylibmc==1.5.1

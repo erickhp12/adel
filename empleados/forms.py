@@ -1,10 +1,18 @@
-from django.contrib.auth.models import User
+from django.forms import ModelForm
 from django import forms
-from django.forms.widgets import TextInput
+from .models import Empleado
 
-class EmployeeForm(forms.ModelForm):
-    nombres = forms.CharField(label='nombres', widget=forms.TextInput(attrs={'required':'true'}))
-    apellidos = forms.CharField(label='apellidos', widget=forms.TextInput(attrs={'required':'true'}))
-    puesto = forms.CharField(label='puesto', widget=forms.TextInput(attrs={'required':'true'}))
-    telefono = forms.CharField(label='telefono', widget=forms.TextInput(attrs={'required':'true'}))
-    correo = forms.EmailField(label='correo', widget=forms.TextInput(attrs={'required':'true'}))
+
+class RegistrarEmpleado(ModelForm):
+    class Meta:
+        model = Empleado
+        nombres = forms.CharField(label='Nombre(s)'),
+        apellidos = forms.CharField(label='Apellido(s)'),
+        puesto = forms.CharField(label='Puesto'),
+        telefono = forms.CharField(label='Telefono'),
+        correo = forms.EmailField(label='Correo'),
+        fields = '__all__'
+
+
+def __unicode__(self):
+    return "%s" % self.nombres

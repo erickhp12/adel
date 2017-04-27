@@ -3,14 +3,32 @@
 {% block albums_active %} active {% endblock %}
 
 {% block body %}
-<div class="container-fluid">
-	<form action="{% url 'create.employee.url' %}"	method="post">
-		{% csrf_token %}
-		<input name="nombres" placeholder="nombres" id="#" type="text" value="{{ form.nombres}}"/>
-		<input name="apellido" placeholder="apellido" id="#" type="text" value="{{ form.apellidos}}"/>
-		<input name="puesto" placeholder="puesto" id="#" type="text" value="{{ form.puesto}}"/>
-		<input name="telefono" placeholder="telefono" id="#" type="number" value="{{ form.telefono}}"/>
-		<input name="correo" placeholder="correo" id="#" type="text" value="{{ form.correo}}"/>
-	</form>
-</div>
+
+<form action="{% url 'registeremployee.url'%}" method="POST">
+    {% csrf_token %}
+    {% if form.non_field_errors %}
+        <ul>
+            {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% for field in form %}
+        <div id="{{ field.auto_id }}_container" class="div-regempleados">
+            {{ field.help_text }}
+            <div style="margin-left:36px;" class="label-regempleados">
+                {{ field.label_tag }}
+            </div>
+            <div style="margin-left:36px;" class="field-regempleados">
+                {{ field }}
+            </div>
+            <div id="{{ field.auto_id }}_errors">
+                {{ field.errors }}
+            </div>
+        </div>
+    {% endfor %}
+
+    {{ message }}
+    <input style="margin:36px;" id="save_contact" type="submit" value="Registrar" />
+</form>
 {% endblock %}
