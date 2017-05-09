@@ -13,13 +13,15 @@
             {% endfor %}
         </ul>
     {% endif %}
+    <h1>Agregar un nuevo empleado</h1>
+    <section class="seccion_formulario">
     {% for field in form %}
         <div id="{{ field.auto_id }}_container" class="div-regempleados">
             {{ field.help_text }}
-            <div style="margin-left:36px;" class="label-regempleados">
+            <div class="label-regempleados">
                 {{ field.label_tag }}
             </div>
-            <div style="margin-left:36px;" class="field-regempleados">
+            <div class="field-regempleados">
                 {{ field }}
             </div>
             <div id="{{ field.auto_id }}_errors">
@@ -27,8 +29,9 @@
             </div>
         </div>
     {% endfor %}
+    </section>
 
     {{ message }}
-    <input style="margin:36px;" id="save_contact" type="submit" value="Registrar" />
+    <input class="submit" id="save_contact" type="submit" value="Registrar" />
 </form>
 {% endblock %}

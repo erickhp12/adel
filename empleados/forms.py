@@ -11,6 +11,7 @@ class RegistrarEmpleado(ModelForm):
         puesto = forms.CharField(label='Puesto'),
         telefono = forms.CharField(label='Telefono'),
         correo = forms.EmailField(label='Correo'),
+        direccion = forms.CharField(label='Direccion'),
         fields = '__all__'
 
 

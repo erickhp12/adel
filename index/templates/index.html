@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/index/index.css' %}"/>
+{% block body %}
+<ul>
+	<li class="pacientes">
+		<a href="">Pacientes</a>
+	</li>
+	<li class="empleados">
+		<a href="/lista.empleados">Empleados</a>
+	</li>
+	<li class="ingresos">
+		<a href="">Ingresos</a>
+	</li>
+	<li class="gastos">
+		<a href="">Gastos</a>
+	</li>
+</ul>
+
+{% endblock %}

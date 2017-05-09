@@ -1,8 +1,30 @@
- {% extends "base.html" %}
- 
+{% extends "base.html" %}
+{% load staticfiles %}
+
 {% block body %}
-{% for usuario in empleados %}
-     <P>Nombre: {{ usuario.nombres}}</p>
-     <p>Nombre: {{ usuario.puesto}}</p>
-{% endfor %}
+
+<h1 class="titulo">Empleados actuales</h1>
+<table>
+     <thead class="columna">
+          <th>Nombre</th>
+          <th>apellido</th>
+          <th>puesto</th>
+          <th>telefono</th>
+          <th>correo</th>
+          <th>direccion</th>
+          <th>Fecha inicio</th>
+     </thead>
+     {% for usuario in empleados %}
+     <tbody class="contenido">
+          <td>{{ usuario.nombres}}</td>
+          <td>{{ usuario.apellidos}}</td>
+          <td>{{ usuario.puesto}}</td>
+          <td>{{ usuario.telefono}}</td>
+          <td>{{ usuario.correo}}</td>
+          <td>{{ usuario.direccion}}</td>
+          <td>{{ usuario.fecha_inicio}}</td>
+     </tbody>
+     {% endfor %}
+     </table>
+
 {% endblock %}

@@ -40,7 +40,7 @@ class CreateEmployeeView(FormView):
             }
             return render(request, self.template_name, data)
         else:
-            message = "algo no es valido"
+            message = "Faltan campos por llenar"
             data = {
                 'form': form,
                 'message': message,

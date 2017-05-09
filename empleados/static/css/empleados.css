@@ -1,0 +1,19 @@
+
+.titulo{
+		text-align: center;
+}
+table{
+	width: 95%; 
+	border: 1px solid black;
+	margin-left: 2em;
+}
+.columna{
+	border: 1px solid black;
+}
+	th{
+		background-color: #AAAAAA;
+		text-align: center;
+	}
+.contenido{
+	text-align:center;
+}
