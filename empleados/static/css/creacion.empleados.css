@@ -1,5 +1,23 @@
+
+.header{
+	background-color: #006F9F;
+	width: 95%;
+	padding: 0.4%;
+	margin: 2em;
+	box-shadow: 0 12px 22px 0 rgba(0,0,0,0.2);
+	border: 1px solid #555555;
+}
+	p{
+		color: white;
+		font-family: roboto;
+		font-size: 24px;
+		text-align: center;
+	}
 .seccion_formulario{
 	width:95%;
+	box-shadow: 0 12px 22px 0 rgba(0,0,0,0.2);
+	margin: 2em;
+	margin-bottom: 2em;
 }
 
 .label-regempleados{
@@ -13,5 +31,9 @@
 		width:40%;
 	}
 .submit{
+	margin-top:2em;
 	margin-left: 10em;
+	width:36%;
+	margin-bottom: 2em;
+	border: 1px solid black;
 }

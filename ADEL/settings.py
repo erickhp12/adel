@@ -26,7 +26,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'empleados',
-    'login'
+    'login',
+    'pacientes'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -79,7 +80,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'adel_db',
         'USER': 'root',
-        'PASSWORD': 'root'
+        'PASSWORD': ''
     }
 }
 

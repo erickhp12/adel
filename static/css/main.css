@@ -1,0 +1,34 @@
+.header{
+	width: 95%;
+	margin: 2em;
+	box-shadow: 0 8px 4px 0 rgba(0,8,0,0.2);
+	border: 1px solid #999999;
+}
+	.header_text{
+		text-align: center;
+	}
+.container-fluid{
+	background-color: #0874C6;
+	border: 0.5px solid black;
+	color: white;
+}
+
+a{
+	color: #333333;
+}
+a:hover{
+	color: #009AC9;
+	text-decoration: none;
+}
+.icono_menu_principal{
+	color: white;
+}
+	ul{
+		color: white;
+	}
+
+.btn_naranja{
+	border: 0.5px solid black;
+	background-color: #FF6B00;
+	color: white;
+}

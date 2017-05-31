@@ -1,0 +1,34 @@
+.fondo_menu_principal{
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    width:95%;
+	display: inline-block;
+	margin: 1em;
+}
+
+.card_menu_cards{
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    width: 17.3%;
+	display: inline-block;
+	margin: 1em;
+	margin-bottom: 2em;
+}
+
+.img_menu_cards{
+	margin: 1em;
+	width: auto;
+    height: auto;
+}
+.texto_menu_cards{
+	text-align:center;
+}
+.card_menu_cards:hover {
+    box-shadow: 0 8px 26px 0 rgba(0,0,0,0.2);
+}
+
+.container {
+    padding: 2px 16px;
+}
+.p_menu_cards{
+	overflow: auto;
+	text-align:center;
+}

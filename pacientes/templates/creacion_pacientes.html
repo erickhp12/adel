@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}ADEL | agregar paciente {% endblock %}
+{% block albums_active %} active {% endblock %}
+
+{% block body %}
+
+<form action="{% url 'registerpatient.url'%}" method="POST">
+    {% csrf_token %}
+    {% if form.non_field_errors %}
+        <ul>
+            {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <div class = "header">
+        <p class="header_text">Registrar paciente</p>
+    </div>
+    <section class="seccion_formulario">
+    {% for field in form %}
+        <div id="{{ field.auto_id }}_container" class="div-regempleados">
+            {{ field.help_text }}
+            <div class="label-regempleados">
+                {{ field.label_tag }}
+            </div>
+            <div class="field-regempleados">
+                {{ field }}
+            </div>
+            <div id="{{ field.auto_id }}_errors">
+                {{ field.errors }}
+            </div>
+        </div>
+    {% endfor %}
+
+    {{ message }}
+    <input class="btn btn-outline-success my-2 my-sm-0 submit" id="save_contact" type="submit" value="Registrar" />
+    </section>
+</form>
+{% endblock %}

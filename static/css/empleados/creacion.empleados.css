@@ -1,0 +1,17 @@
+.seccion_formulario{
+	width:97%;
+	box-shadow: 0 12px 22px 0 rgba(0,0,0,0.2);
+	margin-bottom: 2em;
+}
+
+.label-regempleados{
+	margin-left:10em;
+}
+.field-regempleados{
+	margin-left:10em;
+	width:90%;
+}
+	input{
+		width:40%;
+	}
+

@@ -6,6 +6,7 @@ from ADEL import settings
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include("empleados.urls")),
+    url(r'^', include("pacientes.urls")),
     url(r'^', include("login.urls")),
 
 ] + static(

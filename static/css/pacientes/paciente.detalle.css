@@ -1,0 +1,31 @@
+.formulario_detalles{
+	width:95%;
+	box-shadow: 0 12px 22px 0 rgba(0,0,0,0.2);
+	margin: 2em;
+}
+	form{
+		margin-left: 2em;
+	}
+		.formulario_paciente_seccion_1{
+			width:45%;
+			display: inline-block;
+		}
+		.formulario_paciente_seccion_2{
+			width:45%;
+			display: inline-block;
+		}
+			p{
+				font-size:16px;
+				margin-top:1em;
+				font-weight: bold;
+			}
+			input{
+				width:500px;
+				height: 30px;
+			}
+	.edicion_paciente_boton{
+		margin-top: 2em;
+		margin-left: 20em;
+		padding-bottom: 5em;
+		width: 30px;
+	}

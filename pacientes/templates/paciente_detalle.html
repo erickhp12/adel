@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block body %}
+
+<div class = "header">
+        <p class="header_text">Edicion de {{ paciente.nombres}}  {{ paciente.apellidos}}</p>
+</div>
+<div class="formulario_detalles">
+	<form>
+  		<section class="formulario_paciente_seccion_1">
+  			<p>Nombre</p>
+	  		<input type="text" name="firstname" id="editar_nombre"  
+	  		value="{{ paciente.nombres}}" disabled="">
+	  		<p>Apellidos</p>
+	  		<input type="text" name="firstname" id="editar_apellido" 
+	  		value="{{ paciente.apellidos}}" disabled>
+	  		<p>Tipo de paciente</p>
+	  		<input type="text" name="firstname" id="editar_tipo" 
+	  		value="{{ paciente.tipo_paciente}}" disabled>
+	  		<p>Aseguranza</p>
+	  		<input type="text" name="firstname" id="editar_aseguranza" 
+	  		value="{{ paciente.aseguranza}}" disabled>
+	  		<p>Telefono</p>
+	  		<input type="text" name="firstname" id="editar_telefono" 
+	  		value="{{ paciente.telefono}}" disabled>
+	  	</section>
+		<section class="formulario_paciente_seccion_2">
+	  		<br><p>Correo</p>
+	  		<input type="text" name="firstname" id="editar_correo" 
+	  		value="{{ paciente.correo}}" disabled>
+	  		<p>Direccion</p>
+	  		<input type="text" name="direccion" id="editar_direccion" 
+	  		value="{{ paciente.direccion}}" disabled>
+	  		<p>Comentarios</p>
+	  		<input type="text" name="comentarios" id="editar_comentarios" value="{{ paciente.comentarios}}" disabled style="height:100px">
+	  		<p>Fecha de inicio</p>
+	  		<input type="text" name="fecha_inicio" value="{{ paciente.fecha_inicio}}" disabled>
+		</section>
+	</form>
+	<section class="edicion_paciente_boton">
+		<input type="button" name="btn_editar" class="btn_naranja" id="btn_editar" 
+		value="Editar" onclick="enable_text()">
+	</section>
+</div>
+
+<script>
+function enable_text() {
+    document.getElementById("editar_nombre").disabled = false;
+    document.getElementById("editar_apellido").disabled = false;
+    document.getElementById("editar_tipo").disabled = false;
+    document.getElementById("editar_aseguranza").disabled = false;
+    document.getElementById("editar_telefono").disabled = false;
+    document.getElementById("editar_correo").disabled = false;
+    document.getElementById("editar_direccion").disabled = false;
+    document.getElementById("editar_comentarios").disabled = false;
+    var elem = document.getElementById("btn_editar");
+    if (elem.value=="Editar"){
+     	elem.value = "Guardar cambios";	
+    } else {
+    	elem.value = "Editar";
+	    document.getElementById("editar_nombre").disabled = true;
+	    document.getElementById("editar_apellido").disabled = true;
+	    document.getElementById("editar_tipo").disabled = true;
+	    document.getElementById("editar_aseguranza").disabled = true;
+	    document.getElementById("editar_telefono").disabled = true;
+	    document.getElementById("editar_correo").disabled = true;
+	    document.getElementById("editar_direccion").disabled = true;
+	    document.getElementById("editar_comentarios").disabled = true;
+	}
+}
+</script>
+{% endblock %}

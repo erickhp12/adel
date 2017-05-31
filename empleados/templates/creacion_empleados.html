@@ -1,19 +1,22 @@
 {% extends 'base.html' %}
-{% block title %}Creacion de empleados {% endblock %}
+{% block title %}ADEL | agregar empleado {% endblock %}
 {% block albums_active %} active {% endblock %}
 
 {% block body %}
+<div class = "header">
+        <p class="header_text">Agregar empleado</p>
+</div>
 
 <form action="{% url 'registeremployee.url'%}" method="POST">
     {% csrf_token %}
     {% if form.non_field_errors %}
         <ul>
             {% for error in form.non_field_errors %}
-                <li>{{ error }}</li>
+                <li>{{ error }}error</li>
             {% endfor %}
         </ul>
     {% endif %}
-    <h1>Agregar un nuevo empleado</h1>
+    
     <section class="seccion_formulario">
     {% for field in form %}
         <div id="{{ field.auto_id }}_container" class="div-regempleados">
@@ -29,9 +32,9 @@
             </div>
         </div>
     {% endfor %}
-    </section>
 
     {{ message }}
-    <input class="submit" id="save_contact" type="submit" value="Registrar" />
+    <input class="btn_naranja" id="save_contact" type="submit" value="Registrar"/>
+    </section>
 </form>
 {% endblock %}
