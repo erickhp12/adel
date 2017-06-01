@@ -1,48 +1,27 @@
 from django.shortcuts import render
-from django.views.generic import View, FormView
+from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic import ListView, DetailView
+from django.core.urlresolvers import reverse_lazy
 from .models import Empleado
 from .forms import RegistrarEmpleado
 
 
-class EmployeeListView(View):
+class EmployeeListView(ListView):
+    queryset = Empleado.objects.all()
     template_name = "empleados.html"
 
-    def get(self, request, *args, **kwargs):
-        empleados_activos = Empleado.objects.all()
-        return render(request, self.template_name, {
-            'empleados': empleados_activos,
-            'message': 'Aqui andamos'
-        })
-
-
-class CreateEmployeeView(FormView):
+class CreateEmployeeView(CreateView):
+    form_class = RegistrarEmpleado
     template_name = "creacion_empleados.html"
-    message = "Aqui andamos al cien"
+    success_url = reverse_lazy('list_empleados')
 
-    def get(self, request, *args, **kwargs):
-        form = RegistrarEmpleado()
-        data = {
-            'form': form
-        }
-        return render(request,  self.template_name,  data)
+class UpdateEmployeeView(UpdateView):
+    model = Empleado
+    form_class = RegistrarEmpleado
+    template_name = "creacion_empleados.html"
+    success_url = reverse_lazy('list_empleados')	
 
-    def post(self, request, *args, **kwargs):
-        form = RegistrarEmpleado(request.POST)
-        data = {
-            'form': form,
-        }
-        if form.is_valid():
-            form.save(commit=True)
-            message = "Agregado correctamente"
-            data = {
-                'form': form,
-                'message': message
-            }
-            return render(request, self.template_name, data)
-        else:
-            message = "Faltan campos por llenar"
-            data = {
-                'form': form,
-                'message': message,
-            }
-            return render(request, self.template_name, data)
+
+class DetailEmployeeView(DetailView):
+    model = Empleado
+    template_name = "empleado_detalle.html"

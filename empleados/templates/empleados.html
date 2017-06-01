@@ -14,18 +14,22 @@
           <th>puesto</th>
           <th>telefono</th>
           <th>correo</th>
-          <th>direccion</th>
-          <th>Fecha inicio</th>
+          <th>Detalles</th>
+          <th>Edicion</th>
      </thead>
-     {% for usuario in empleados %}
+     {% for usuario in object_list %}
      <tbody class="contenido">
           <td>{{ usuario.nombres }}</td>
           <td>{{ usuario.apellidos }}</td>
           <td>{{ usuario.puesto }}</td>
           <td>{{ usuario.telefono }}</td>
           <td>{{ usuario.correo }}</td>
-          <td>{{ usuario.direccion }}</td>
-          <td>{{ usuario.fecha_inicio }}</td>
+          <td>
+               <a href="{{ usuario.url_ver }}">Ver</a>
+          </td>
+          <td>
+               <a href="{{ usuario.url_editar }}">Editar</a>
+          </td>
      </tbody>
      {% endfor %}
      </table>

@@ -1,19 +1,15 @@
 from django.forms import ModelForm
 from django import forms
 from .models import Empleado
+from django.forms import TextInput
 
 
 class RegistrarEmpleado(ModelForm):
     class Meta:
         model = Empleado
-        nombres = forms.CharField(label='Nombre(s)'),
-        apellidos = forms.CharField(label='Apellido(s)'),
-        puesto = forms.CharField(label='Puesto'),
-        telefono = forms.CharField(label='Telefono'),
-        correo = forms.EmailField(label='Correo'),
-        direccion = forms.CharField(label='Direccion'),
-        fields = '__all__'
-
-
-def __unicode__(self):
-    return "%s" % self.nombres
+        exclude = []
+        widget = {
+            'nombres': TextInput(
+                attrs={'autofocus': '','class': 'form-control'}
+            )
+        }

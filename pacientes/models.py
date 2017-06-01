@@ -1,8 +1,9 @@
 from django.db import models
+from django.db.models import permalink
+
 TIPOS_PACIENTES = (("Particular", "Particular"),("Aseguranza", "Aseguranza"))
 
 class Paciente(models.Model):
-    id_paciente = models.AutoField(primary_key=True)
     nombres = models.CharField(max_length=100, null=False, unique=True, verbose_name=u'nombre(s)')
     apellidos = models.CharField(max_length=100, null=False, unique=False, verbose_name=u'apellido(s)')
     tipo_paciente = models.CharField(max_length=100, choices=TIPOS_PACIENTES,null=False, unique=False, verbose_name=u'tipo paciente')
@@ -15,3 +16,11 @@ class Paciente(models.Model):
 
     def __str__(self):
         return self.nombres + ' - ' + self.apellidos
+
+    @permalink
+    def url_ver(self):
+        return ('ver_paciente', [int(self.pk)])
+
+    @permalink
+    def url_editar(self):
+        return ('editar_paciente', [int(self.pk)])

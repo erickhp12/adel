@@ -1,17 +1,28 @@
 .seccion_formulario{
 	width:97%;
-	box-shadow: 0 12px 22px 0 rgba(0,0,0,0.2);
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	border: 1px solid #999999;
+}
+.seccion_1{
+	width:46%;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	margin-left: 2em;	
+	display: inline-block;
+	padding: 2em;
+	margin-top:2em;
+}
+
+.seccion_2{
+	width:46%;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	margin-bottom: 2em;	
+	margin-left: 2em;	
+	display: inline-block;
+	padding: 2em;
+}
+.btn_naranja_empleados{
+	margin-left: 25em;
 	margin-bottom: 2em;
 }
 
-.label-regempleados{
-	margin-left:10em;
-}
-.field-regempleados{
-	margin-left:10em;
-	width:90%;
-}
-	input{
-		width:40%;
-	}
 

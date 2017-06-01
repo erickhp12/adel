@@ -1,32 +1,34 @@
 {% extends "base.html" %}
-{% block title %}ADEL | pacientes {% endblock %}
+{% block title %}ADEL | Pacientes {% endblock %}
 {% load staticfiles %}
 
 {% block body %}
 
  <div class = "header">
-        <p class="header_text">Pacientes registrados</p>
+        <p class="header_text">Pacientes actuales</p>
     </div>
 <table>
+
      <thead class="columna">
           <th>Nombre</th>
-          <th>apellido</th>
-          <th>tipo paciente</th>
+          <th>tipo de paciente</th>
+          <th>Aseguranza</th>
           <th>telefono</th>
-          <th>correo</th>
           <th>Informacion</th>
+          <th>Edicion</th>
      </thead>
-     {% for paciente in pacientes %}
+     {% for paciente in object_list %}
      <tbody class="contenido">
-          <td>{{ paciente.nombres }}</td>
-          <td>{{ paciente.apellidos }}</td>
+          <td>{{ paciente.nombres }} {{ paciente.apellidos }}</td>
           <td>{{ paciente.tipo_paciente }}</td>
+          <td>{{ paciente.aseguranza }}</td>
           <td>{{ paciente.telefono }}</td>
-          <td>{{ paciente.correo }}</td>
-          <td><a href="http://127.0.0.1:8000/paciente.detalle/{{paciente.id_paciente}}/">
-               Ver detalles</a>
+          <td>
+              <a href="{{ paciente.url_ver }}">Ver</a>
           </td>
-
+          <td>
+               <a href="{{ paciente.url_editar }}">Editar</a>
+          </td>
      </tbody>
      {% endfor %}
      </table>
