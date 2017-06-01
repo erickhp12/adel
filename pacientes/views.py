@@ -10,16 +10,21 @@ class PatientListView(ListView):
     queryset = Paciente.objects.all()
     template_name = "pacientes.html"
 
+    def get_context_data(self, **kwargs):
+        context = super(PatientListView, self).get_context_data(**kwargs)
+        context['total'] = Paciente.objects.all().count()
+        return context
+
 class CreatePatientView(CreateView):
     form_class = RegistrarPaciente
     template_name = "creacion_pacientes.html"
-    success_url = reverse_lazy('list_Pacientes')
+    success_url = reverse_lazy('list_pacientes')
 
 class UpdatePatientView(UpdateView):
     model = Paciente
     form_class = RegistrarPaciente
     template_name = "creacion_pacientes.html"
-    success_url = reverse_lazy('list_Pacientes')    
+    success_url = reverse_lazy('list_pacientes')    
 
 
 class DetailPatientView(DetailView):

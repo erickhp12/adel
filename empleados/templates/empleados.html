@@ -5,25 +5,21 @@
 {% block body %}
 
  <div class = "header">
-        <p class="header_text">Empleados actuales</p>
+        <p class="header_text">Empleados actuales ({{ total }})</p>
     </div>
 <table>
      <thead class="columna">
           <th>Nombre</th>
-          <th>apellido</th>
           <th>puesto</th>
           <th>telefono</th>
-          <th>correo</th>
           <th>Detalles</th>
           <th>Edicion</th>
      </thead>
      {% for usuario in object_list %}
      <tbody class="contenido">
-          <td>{{ usuario.nombres }}</td>
-          <td>{{ usuario.apellidos }}</td>
+          <td>{{ usuario.nombres }} {{ usuario.apellidos }}</td>
           <td>{{ usuario.puesto }}</td>
           <td>{{ usuario.telefono }}</td>
-          <td>{{ usuario.correo }}</td>
           <td>
                <a href="{{ usuario.url_ver }}">Ver</a>
           </td>
@@ -33,5 +29,9 @@
      </tbody>
      {% endfor %}
      </table>
+     <a href="/registro.empleado">
+          <input type="button" name="link_add_empleado" class="btn_naranja btn_agregar_empleado"
+          value="Agregar un nuevo empleado"/>
+     </a>
 
 {% endblock %}

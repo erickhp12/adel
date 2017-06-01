@@ -5,7 +5,7 @@
 {% block body %}
 
  <div class = "header">
-        <p class="header_text">Pacientes actuales</p>
+        <p class="header_text">Pacientes actuales ({{ total }})</p>
     </div>
 <table>
 
@@ -32,5 +32,9 @@
      </tbody>
      {% endfor %}
      </table>
+     <a href="/registro.paciente">
+          <input type="button" name="link_add_empleado" class="btn_naranja btn_agregar_empleado"
+          value="Agregar un nuevo paciente"/>
+     </a>
 
 {% endblock %}

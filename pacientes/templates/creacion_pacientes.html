@@ -3,37 +3,62 @@
 {% block albums_active %} active {% endblock %}
 
 {% block body %}
+<div class = "header">
+        <p class="header_text">Agregar paciente</p>
+</div>
 
-<form method="POST">
-    {% csrf_token %}
-    {% if form.non_field_errors %}
-        <ul>
-            {% for error in form.non_field_errors %}
-                <li>{{ error }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-    <div class = "header">
-        <p class="header_text">Registrar paciente</p>
-    </div>
-    <section class="seccion_formulario">
-    {% for field in form %}
-        <div id="{{ field.auto_id }}_container" class="div-regempleados">
-            {{ field.help_text }}
-            <div class="label-regempleados">
-                {{ field.label_tag }}
+    <form method=post>
+        {% csrf_token %}
+        <section class="seccion_formulario">
+            <div class="seccion_1">
+                <div class="">
+                    <label>{{ form.nombres.label}}</label>
+                    {{ form.nombres }}
+                    <span>{{ form.nombres.errors }}</span>
+                </div>
+                <div class="">
+                    <label>{{ form.apellidos.label}}</label>
+                    {{ form.apellidos }}
+                    <span>{{ form.apellidos.errors }}</span>
+                </div>
+                <div class="select_tipo_paciente">
+                    <p><label>{{ form.tipo_paciente.label}}</label></p>
+                    {{ form.tipo_paciente }}
+                    <span>{{ form.tipo_paciente.errors }}</span>
+                </div>
+                <div class="">
+                    <label>{{ form.aseguranza.label}}</label>
+                    {{ form.aseguranza }}
+                    <span>{{ form.aseguranza.errors }}</span>
+                </div>
             </div>
-            <div class="field-regempleados">
-                {{ field }}
-            </div>
-            <div id="{{ field.auto_id }}_errors">
-                {{ field.errors }}
-            </div>
+            <div class="seccion_2">
+            <p></p>
+                <div class="">
+                    <label>{{ form.telefono.label}}</label>
+                    {{ form.telefono }}
+                    <span>{{ form.telefono.errors }}</span>
+                </div>
+                <div class="">
+                    <label>{{ form.correo.label}}</label>
+                    {{ form.correo }}
+                    <span>{{ form.correo.errors }}</span>
+                </div>
+                <div class="">
+                    <label>{{ form.direccion.label}}</label>
+                    {{ form.direccion }}
+                    <span>{{ form.direccion.errors }}</span>
+                </div>
+                <div class="">
+                    <label>{{ form.comentarios.label}}</label>
+                    {{ form.comentarios }}
+                    <span>{{ form.comentarios.errors }}</span>
+                </div>
         </div>
-    {% endfor %}
+        <input class="btn_naranja btn_naranja_empleados"
+         id="save_contact" type="submit" value="Registrar"/>
+        </section>
+    </form>
+</div>
 
-    {{ message }}
-    <input class="btn btn-outline-success my-2 my-sm-0 submit" id="save_contact" type="submit" value="Registrar" />
-    </section>
-</form>
 {% endblock %}
