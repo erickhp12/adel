@@ -3,7 +3,9 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import ListView, DetailView
 from django.core.urlresolvers import reverse_lazy
 from .models import Paciente
+from visitas.models import Visitas
 from .forms import RegistrarPaciente
+from django.http import HttpResponse
 
 
 class PatientListView(ListView):
@@ -30,3 +32,15 @@ class UpdatePatientView(UpdateView):
 class DetailPatientView(DetailView):
     model = Paciente
     template_name = "paciente_detalle.html"
+ 
+    def get(self, request, pk, **kwargs):
+        paciente = Paciente.objects.all().filter(id=pk)
+        print "paciente " + str(paciente)
+        visitas = Visitas.objects.all().filter(paciente_id=pk)
+        context = {'visitas':visitas,
+                    'paciente':paciente,
+                    }
+        return render(request,self.template_name, context)
+
+ 
+

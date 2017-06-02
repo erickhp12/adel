@@ -1,31 +1,33 @@
-.formulario_detalles{
-	width:95%;
-	box-shadow: 0 12px 22px 0 rgba(0,0,0,0.2);
-	margin: 2em;
+.paciente_detalles{
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    width: 95%;
+    margin-left: 2em;
 }
-	form{
+
+.paciente_detalles_informacion{
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border: 1px solid black;
+    margin-left: 1em;
+}	
+	span{
 		margin-left: 2em;
+		margin-bottom: 2em;
 	}
-		.formulario_paciente_seccion_1{
-			width:45%;
-			display: inline-block;
-		}
-		.formulario_paciente_seccion_2{
-			width:45%;
-			display: inline-block;
-		}
-			p{
-				font-size:16px;
-				margin-top:1em;
-				font-weight: bold;
-			}
-			input{
-				width:500px;
-				height: 30px;
-			}
-	.edicion_paciente_boton{
-		margin-top: 2em;
-		margin-left: 20em;
-		padding-bottom: 5em;
-		width: 30px;
+.paciente_detalles_visitas{
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border: 1px solid black;
+    margin-top: 2em;
+    margin-left: 1em;
+}
+	h4{
+		margin-left: 1em;
 	}
+	span{
+		margin-left: 2em;
+		margin-bottom: 2em;
+	}
+
+.paciente_detalles_header{
+	text-align: center;
+	font-size: 24px;
+}

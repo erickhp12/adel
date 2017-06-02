@@ -6,6 +6,7 @@
 }
 	.header_text{
 		text-align: center;
+		font-weight: bold;
 	}
 .container-fluid{
 	background-color: #0874C6;
@@ -28,4 +29,7 @@ a:hover{
 	border: 0.5px solid black;
 	background-color: #FF6B00;
 	color: white;
+}
+input{
+	width: 500px;
 }

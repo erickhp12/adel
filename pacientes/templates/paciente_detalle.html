@@ -1,29 +1,34 @@
 {% extends "base.html" %}
-{% block title %}ADEL | empleados {% endblock %}
+{% block title %}ADEL | pacientes {% endblock %}
 {% load staticfiles %}
 
 {% block body %}
 <div class = "header">
-        <p class="header_text">Informacion de {{ object.nombres }}</p>
+{% for paciente in paciente %}
+        <p class="header_text">Informacion de {{ paciente.nombres }}</p>
 </div>
-<section class="empleado_detalles">
-	<section class="empleado_detalles_informacion">
+<section class="paciente_detalles">
+	<section class="paciente_detalles_informacion">
 		<p class="empleado_detalles_header">Datos generales</p>
-			<span><b>Nombre</b> {{ object.nombres }}  {{ object.apellidos }}</span><br>
-			<span><b>Puesto</b> {{ object.puesto }}</span><br>
-			<span><b>Telefono</b> {{ object.telefono }}</span><br>
-			<span><b>Correo</b> {{ object.correo }}</span><br>
-			<span><b>Direccion</b> {{ object.direccion }}</span><br>
-			<span><b>Fecha de inicio</b> {{ object.fecha_inicio }}</span>
+			<span><b>Nombre</b> {{ paciente.nombres }}  {{ paciente.apellidos }}</span><br>
+			<span><b>Tipo de paciente</b> {{ paciente.tipo_paciente}}</span><br>
+			<span><b>Telefono</b> {{ paciente.telefono }}</span><br>
+			<span><b>Correo</b> {{ paciente.correo }}</span><br>
+			<span><b>Direccion</b> {{ paciente.direccion }}</span><br>
+			<span><b>Fecha de inicio</b> {{ paciente.fecha_inicio }}</span>
 	</section>
-	<section class="empleado_detalles_visitas">
+	{% endfor %}
+	<section class="paciente_detalles_visitas">
 		<p class="empleado_detalles_header">Visitas registradas</p>
-			<span><b>Visita 1 </b>{{ object.fecha_inicio}}</span><br>
-			<span><b>Visita 1 </b>{{ object.fecha_inicio}}</span><br>
-			<span><b>Visita 1 </b>{{ object.fecha_inicio}}</span><br>
-			<span><b>Visita 2 </b>{{ object.fecha_inicio}}</span><br>
-			<span><b>Visita 3 </b>{{ object.fecha_inicio}}</span><br>
-			<span><b>Visita 4 </b>{{ object.fecha_inicio}}</span><br>
+		{% for visita in visitas %}
+		<h4>Visita {{ visita.id }}</h1>
+		<span><b>Atendido por: </b>{{ visita.dentista}}</span><br>
+		<span><b>fecha de visita: </b>{{ visita.fecha_visita}}</span><br>
+		<span><b>Motivo: </b>{{ visita.motivo}}</span><br>
+		<span><b>Precio: </b>{{ visita.precio}} {{ visita.dolares }}</span><br>
+		<span><b>Tipo de pago: </b>{{ visita.tipo_pago }}</span><br>
+
+		{% endfor %}
 	</section>
 	<br><br>
 </section>	

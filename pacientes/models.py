@@ -15,10 +15,10 @@ class Paciente(models.Model):
     fecha_inicio = models.DateTimeField(auto_now_add=True, verbose_name=u'fecha_inicio')
 
     def __str__(self):
-        return self.nombres + ' - ' + self.apellidos
+        return self.nombres + ' ' + self.apellidos
 
     @permalink
-    def url_ver(self):
+    def url_ver_paciente(self):
         return ('ver_paciente', [int(self.pk)])
 
     @permalink
