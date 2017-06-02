@@ -1,10 +1,10 @@
-.paciente_detalles{
+.visitas_detalles{
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     width: 95%;
     margin-left: 2em;
 }
 
-.paciente_detalles_informacion{
+.visitas_detalles_informacion{
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     border: 1px solid black;
     margin-left: 1em;
@@ -13,7 +13,7 @@
 		margin-left: 2em;
 		margin-bottom: 2em;
 	}
-.paciente_detalles_visitas{
+.visitas_detalles_visitas{
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     border: 1px solid black;
     margin-top: 2em;
@@ -27,7 +27,7 @@
 		margin-bottom: 2em;
 	}
 
-.paciente_detalles_header{
+.visitas_detalles_header{
 	text-align: center;
 	font-size: 24px;
 }

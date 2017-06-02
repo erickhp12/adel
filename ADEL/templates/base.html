@@ -16,49 +16,33 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/pacientes/creacion.pacientes.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/visitas/visitas.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/visitas/creacion.visitas.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/visitas/visitas.detalle.css' %}"/>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
 <body>
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="http://127.0.0.1:8000">
-                <span class="icono_menu_principal">ADEL</span>
+<nav class="navbar_base">
+    <div class="container_base">
+        <div class="base_menus base_adel">
+            <a href="http://localhost:8000"><span>ADEL</span></a>
+        </div>
+        <div class="base_menus base_visitas">
+            <a href="/lista.visitas">
+                <span class="glyphicon glyphicon-home  icono_menu_principal"> Visitas</span>
             </a>
         </div>
-
-        <!-- Items -->
-        <div class="collapse navbar-collapse" id="topNavBar">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="/lista.empleados">
-                        <span class="glyphicon glyphicon-user  icono_menu_principal"> Empleados</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/registro.empleado" class="icono_menu_principal">
-                    <span class="glyphicon glyphicon-plus icono_menu_principal"> Agregar empleado</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/lista.pacientes">
-                        <span class="glyphicon glyphicon-user icono_menu_principal"> Pacientes</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/registro.paciente" class="icono_menu_principal">
-                    <span class="glyphicon glyphicon-plus icono_menu_principal"> Agregar paciente</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="" class="icono_menu_principal">
-                        <span class="glyphicon glyphicon-off icono_menu_principal"> Cerrar sesion</span>
-                    </a>
-                </li>
-            </ul>
+        <div class="base_menus base_visitas">
+            <a href="/lista.empleados">
+                <span class="glyphicon glyphicon-user  icono_menu_principal"> Empleados</span>
+            </a>
         </div>
+        <div class="base_menus base_pacientes">
+            <a href="/lista.pacientes">
+                <span class="glyphicon glyphicon-user  icono_menu_principal"> Pacientes</span>
+            </a>
+        </div>
+    </div>
 </nav>
 {% block body %}
 {% endblock %}

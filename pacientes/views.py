@@ -35,7 +35,6 @@ class DetailPatientView(DetailView):
  
     def get(self, request, pk, **kwargs):
         paciente = Paciente.objects.all().filter(id=pk)
-        print "paciente " + str(paciente)
         visitas = Visitas.objects.all().filter(paciente_id=pk)
         context = {'visitas':visitas,
                     'paciente':paciente,

@@ -22,5 +22,5 @@ class Paciente(models.Model):
         return ('ver_paciente', [int(self.pk)])
 
     @permalink
-    def url_editar(self):
+    def url_editar_paciente(self):
         return ('editar_paciente', [int(self.pk)])

@@ -1,3 +1,26 @@
+.seccion_fondo{	
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    width: 95%;
+    margin-left: 2em;
+}
+.herramientas_menu{
+	margin-bottom: 2%;
+	padding-top: 2%;
+}
+.seccion_busqueda{
+	width: 40%;
+	display: inline;
+	float:lef;
+}
+.seccion_agregar_nuevo{
+	width: 40%;
+	display: inline;
+	float:right;
+}
+.btn_agregar_elemento{
+	width: 75%;
+	margin-left: 18%;
+}
 .titulo{
 		text-align: center;
 }
@@ -5,10 +28,6 @@ table{
 	width: 95%; 
 	border: 1px solid black;
 	margin-left: 2em;
-}
-.search_input_visitas{
-	margin-left: 2em;
-	margin-bottom: 2em;
 }
 .columna{
 	border: 1px solid black;
@@ -19,9 +38,4 @@ table{
 	}
 .contenido{
 	text-align:center;
-}
-.btn_agregar_visita{
-	margin-left: 2em;
-	margin-top: 2em;
-	width: 25%;
 }

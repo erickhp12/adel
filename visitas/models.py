@@ -15,13 +15,10 @@ class Visitas(models.Model):
     dolares = models.CharField(max_length=50,choices=TIPOS_DIVISAS,verbose_name=u'Divisa')
     tipo_pago = models.CharField(max_length=50,choices=TIPOS_PAGO,null=True,unique=False,verbose_name=u'tipo de pago')
 
-    # def __str__(self):
-    #     return self.nombres
-
     @permalink
-    def url_ver(self):
+    def url_ver_visitas(self):
         return ('ver_visita', [int(self.pk)])
 
     @permalink
-    def url_editar(self):
+    def url_editar_visitas(self):
         return ('editar_visita', [int(self.pk)])

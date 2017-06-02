@@ -7,10 +7,21 @@
  <div class = "header">
         <p class="header_text">Empleados actuales ({{ total }})</p>
     </div>
-<table>
+<section class="seccion_fondo">
+  
+  <section class="herramientas_menu">  
+    <div class="seccion_busqueda">   
+      <span>Buscar algun registro </span><input type="text" id="myInput" onkeyup="myFunction()" placeholder="buscar" class="search_visitas"/>
+    </div>
+    <div class="seccion_agregar_nuevo">
+      <a href="/registro.visita">
+            <input type="button" name="link_add_visita" 
+            class="btn_naranja btn_agregar_elemento" value="Agregar un nuevo empleado"/>
+      </a>
+    </div>
+  </section>
 
-<span>Buscar empleados</span>
-<input type="text" id="myInput" onkeyup="myFunction()" placeholder="buscar" class="search_input">
+  <table>
      <thead class="columna">
           <th>Nombre</th>
           <th>puesto</th>
@@ -32,10 +43,8 @@
      </tbody>
      {% endfor %}
      </table>
-     <a href="/registro.empleado">
-          <input type="button" name="link_add_empleado" class="btn_naranja btn_agregar_empleado"
-          value="Agregar un nuevo empleado"/>
-     </a>
+     <br><br>
+  </section>
 
 
 <script>

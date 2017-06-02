@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}ADEL | visitas {% endblock %}
+{% load staticfiles %}
+
+{% block body %}
+<div class = "header">
+{% for visita in Visitas %}
+        <p class="header_text">Visita de {{ visita.paciente }}</p>
+</div>
+<section class="visitas_detalles">
+	<section class="visitas_detalles_informacion">
+		<p class="empleado_detalles_header">Datos generales</p>
+			<span><b>Paciente </b> {{ visitas.paciente }}</span><br>
+			<span><b>Fecha de visita </b> {{ visitas.fecha_visita }}</span><br>
+			<span><b>Motivo </b> {{ visitas.motivo }}</span><br>
+			<span><b>Dentista que atendio </b> {{ visitas.dentista }}</span><br>
+			<span><b>Precio </b> {{ visitas.precio }} {{visitas.dolare }} </span><br>
+			<span><b>Tipo de pago </b> {{ visitas.tipo_pago }}</span>
+	</section>
+	{% endfor %}
+	</section>
+	<a href="/lista.visitas">
+		<input type="button" value="volver a lista de visitass" class="btn_naranja btn_volver">
+	</a>
+</section>	
+{% endblock %}

@@ -1,8 +1,30 @@
+/*---------------------------- base ------------------------*/
+.container_base{
+	background-color: #00A4DB;
+	border: 1px solid black;
+}
+.base_menus{
+	display: inline-block;
+}
+.base_menus>a{
+	text-align: center;
+	color: white;
+	}
+.base_menus>a>span{
+	margin-top: 10%;
+	margin-bottom: 10%;
+}
+.base_menus>a:hover{
+	color: #777777;
+}
+
+/*---------------------------- login ------------------------*/
 .fondo_menu_principal{
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    width:98%;
+    width:97%;
 	display: inline-block;
-	margin: 1em;
+	margin-top: 1%;
+	margin-left: 1%;
 }
 
 .card_menu_cards{
