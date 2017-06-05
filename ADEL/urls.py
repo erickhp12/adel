@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^', include("pacientes.urls")),
     url(r'^', include("login.urls")),
     url(r'^', include("visitas.urls")),
+    url(r'^', include("proveedores.urls")),
 
 ] + static(
         settings.STATIC_URL,

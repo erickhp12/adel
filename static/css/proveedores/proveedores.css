@@ -1,0 +1,28 @@
+.titulo{
+		text-align: center;
+}
+table{
+	width: 95%; 
+	border: 1px solid black;
+	margin-left: 2em;
+}
+.search_input{
+	margin-left: 2em;
+	margin-bottom: 2em;
+}
+.columna{
+	border: 1px solid black;
+}
+	th{
+		background-color: #AAAAAA;
+		text-align: center;
+	}
+.contenido{
+	text-align:center;
+}
+.btn_agregar_proveedor{
+	width: 15%;
+	margin-top: 1em;
+	margin-left: 2em;
+	float: right:
+}

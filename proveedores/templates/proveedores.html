@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-{% block title %}ADEL | Pacientes {% endblock %}
+{% block title %}ADEL | Proveedores {% endblock %}
 {% load staticfiles %}
 
 {% block body %}
 
  <div class = "header">
-        <p class="header_text">Pacientes actuales ({{ total }})</p>
+        <p class="header_text">Proveedores actuales ({{ total }})</p>
     </div>
 <section class="seccion_fondo">
   
@@ -14,9 +14,9 @@
       <span>Buscar algun registro </span><input type="text" id="myInput" onkeyup="myFunction()" placeholder="buscar" class="search_visitas"/>
     </div>
     <div class="seccion_agregar_nuevo">
-      <a href="/registro.paciente">
+      <a href="/registro.proveedor">
             <input type="button" name="link_add_visita" 
-            class="btn_naranja btn_agregar_elemento" value="Agregar un nuevo paciente"/>
+            class="btn_naranja btn_agregar_elemento" value="Agregar un nuevo proveedor"/>
       </a>
     </div>
   </section>
@@ -24,23 +24,23 @@
 
      <thead class="columna">
           <th>Nombre</th>
-          <th>tipo de paciente</th>
-          <th>Aseguranza</th>
+          <th>Contacto</th>
           <th>telefono</th>
+          <th>Producto</th>
           <th>Informacion</th>
           <th>Edicion</th>
      </thead>
-     {% for paciente in object_list %}
+     {% for proveedor in object_list %}
      <tbody class="contenido">
-          <td>{{ paciente.nombres }} {{ paciente.apellidos }}</td>
-          <td>{{ paciente.tipo_paciente }}</td>
-          <td>{{ paciente.aseguranza }}</td>
-          <td>{{ paciente.telefono }}</td>
+          <td>{{ proveedor.nombre }} </td>
+          <td>{{ proveedor.contacto }}</td>
+          <td>{{ proveedor.telefono }}</td>
+          <td>{{ proveedor.telefono }}</td>
           <td>
-              <a href="{{ paciente.url_ver_paciente }}">Ver</a>
+              <a href="{{ proveedor.url_ver_proveedor }}">Ver</a>
           </td>
           <td>
-               <a href="{{ paciente.url_editar_paciente }}">Editar</a>
+               <a href="{{ proveedor.url_editar_proveedor }}">Editar</a>
           </td>
      </tbody>
      {% endfor %}

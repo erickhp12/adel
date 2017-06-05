@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}ADEL | proveedores {% endblock %}
+{% load staticfiles %}
+
+{% block body %}
+<div class = "header">
+        <p class="header_text">Informacion de {{ proveedor.nombre }}</p>
+</div>
+<section class="proveedor_detalles">
+	<section class="proveedor_detalles_informacion">
+		<p class="proveedor_detalles_header">Datos generales</p>
+			<span><b>Nombre</b> {{ proveedor.nombre }}</span><br>
+			<span><b>Contacto</b> {{ proveedor.contacto }}</span><br>
+			<span><b>Telefono</b> {{ proveedor.telefono }}</span><br>
+			<span><b>Correo</b> {{ proveedor.correo }}</span><br>
+			<span><b>Direccion</b> {{ proveedor.direccion }}</span><br>
+			<span><b>producto</b> {{ proveedor.producto }}</span><br>
+			<span><b>fecha de inicio</b> {{ proveedor.fecha_inicio }}</span>
+	</section>
+	<a href="/lista.proveedores">
+		<input type="button" value="volver a lista de proveedores" class="btn_naranja btn_volver">
+	</a>
+</section>	
+{% endblock %}
