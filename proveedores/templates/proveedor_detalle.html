@@ -8,17 +8,46 @@
 </div>
 <section class="proveedor_detalles">
 	<section class="proveedor_detalles_informacion">
-		<p class="proveedor_detalles_header">Datos generales</p>
-			<span><b>Nombre</b> {{ proveedor.nombre }}</span><br>
-			<span><b>Contacto</b> {{ proveedor.contacto }}</span><br>
-			<span><b>Telefono</b> {{ proveedor.telefono }}</span><br>
-			<span><b>Correo</b> {{ proveedor.correo }}</span><br>
-			<span><b>Direccion</b> {{ proveedor.direccion }}</span><br>
-			<span><b>producto</b> {{ proveedor.producto }}</span><br>
-			<span><b>fecha de inicio</b> {{ proveedor.fecha_inicio }}</span>
+		
+			<table class="tbl_proveedor_detalle">
+				<thead>
+					<th></th>
+					<th></th>
+				</thead>
+				<tbody>
+					<tr>	
+						<td>Producto</td>
+						<td>{{ proveedor.nombre }}</td>
+					</tr>
+					<tr>
+						<td>Contacto</td>						
+						<td>{{ proveedor.contacto }}</td>
+					</tr>
+					<tr>
+						<td>Telefono</td>
+						<td>{{ proveedor.telefono }}</td>
+					</tr>
+					<tr>	
+						<td>Correo</td>
+						<td>{{ proveedor.correo }}</td>
+					</tr>
+					<tr>
+						<td>Direccion</td>
+						<td>{{ proveedor.direccion }}</td>
+					</tr>
+					<tr>
+						<td>Producto</td>
+						<td>{{ proveedor.producto }}</td>
+					</tr>
+					<tr>
+						<td>Fecha de inicio</td>
+						<td>{{ proveedor.fecha_inicio }}</td>
+					</tr>
+				</tbody>
+			</table>
 	</section>
 	<a href="/lista.proveedores">
-		<input type="button" value="volver a lista de proveedores" class="btn_naranja btn_volver">
+		<input type="button" value="volver a lista de proveedores" class="btn_naranja btn_volver btn_volver_proveedores">
 	</a>
 </section>	
 {% endblock %}

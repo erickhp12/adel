@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}ADEL | agregar gasto{% endblock %}
+{% block albums_active %} active {% endblock %}
+
+{% block body %}
+<div class = "header">
+        <p class="header_text">gastos</p>
+</div>
+
+    <form method=post>
+        {% csrf_token %}
+        <section class="seccion_formulario">
+            <div class="seccion_1">
+                <div class="">
+                    <label>{{ form.proveedor.label}}</label>
+                    {{ form.proveedor }}
+                    <span>{{ form.proveedor.errors }}</span>
+                </div>
+                <div class="motivo">
+                    <label>{{ form.motivo.label}}</label>
+                    {{ form.motivo }}
+                    <span>{{ form.motivo.errors }}</span>
+                </div>
+            </div>
+
+            <div class="seccion_2">
+                <div>
+                    <label>{{ form.empleado.label}}</label>
+                    {{ form.empleado }}
+                    <span>{{ form.empleado.errors }}</span>
+                </div>
+                <div>
+                    <label>{{ form.precio.label}}</label>
+                    {{ form.precio }}
+                    <span>{{ form.precio.errors }}</span>
+                </div>
+                <div>
+                    <label>{{ form.dolares.label}}</label>
+                    {{ form.dolares }}
+                    <span>{{ form.dolares.errors }}</span>
+                </div>
+                <div>
+                    <label>{{ form.tipo_pago.label}}</label>
+                    {{ form.tipo_pago }}
+                    <span>{{ form.tipo_pago.errors }}</span>
+                </div>
+        </div>
+        <div class="seccion_botones">           
+            <input class="btn_naranja btn_naranja_main" id="save_contact" 
+            type="submit" value="Registrar"/>
+            <a href="/lista.gastos" class="btn_volver btn_volver_main">Volver a lista de gastos</a>
+        </div>
+        </section>
+    </form>
+</div>
+
+{% endblock %}

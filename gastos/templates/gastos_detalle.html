@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}ADEL | gastos {% endblock %}
+{% load staticfiles %}
+
+{% block body %}
+<div class = "header">
+{% for gasto in gastos %}
+        <p class="header_text">Gasto de {{ gasto.proveedor }}</p>
+</div>
+<section class="gastos_detalles">
+	<section class="gastos_detalles_informacion">
+		<p class="gastos_detalles_header">Datos generales</p>
+			<span><b>Proveedor </b> {{ gasto.proveedor }}</span><br>
+			<span><b>Fecha de gasto </b> {{ gasto.fecha_gasto }}</span><br>
+			<span><b>Motivo </b> {{ gasto.motivo }}</span><br>
+			<span><b>Empleado que pago </b> {{ gasto.empleado }}</span><br>
+			<span><b>Precio </b> {{ gasto.precio }} {{gasto.dolares }} </span><br>
+			<span><b>Tipo de pago </b> {{ gasto.tipo_pago }}</span>
+	</section>
+	{% endfor %}
+	</section>
+	<a href="/lista.gastos">
+		<input type="button" value="volver a lista de gastos" class="btn_naranja btn_volver">
+	</a>
+</section>	
+{% endblock %}

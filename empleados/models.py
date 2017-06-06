@@ -14,9 +14,9 @@ class Empleado(models.Model):
         return self.nombres + ' ' + self.apellidos
 
     @permalink
-    def url_ver(self):
+    def url_ver_empleado(self):
         return ('ver_empleado', [int(self.pk)])
 
     @permalink
-    def url_editar(self):
+    def url_editar_empleado(self):
         return ('editar_empleado', [int(self.pk)])

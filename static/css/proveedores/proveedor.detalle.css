@@ -23,8 +23,20 @@
 		margin-left: 2em;
 		margin-bottom: 2em;
 	}
+.tbl_proveedor_detalle{
+	text-align: center;
+	width: 50%;
+}
+.tbl_proveedor_detalle>tbody>tr>td{
+	border: 1pt solid white;
+}
+
 
 .proveedor_detalles_header{
 	text-align: center;
 	font-size: 24px;
+}
+.btn_volver_proveedores{
+	width: 25%;
+	margin: 2%;
 }

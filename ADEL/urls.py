@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^', include("login.urls")),
     url(r'^', include("visitas.urls")),
     url(r'^', include("proveedores.urls")),
+    url(r'^', include("gastos.urls")),
 
 ] + static(
         settings.STATIC_URL,
