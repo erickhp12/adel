@@ -12,7 +12,7 @@ class EmployeeListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(EmployeeListView, self).get_context_data(**kwargs)
-        context['total'] = Empleado.objects.all().count()
+        context['total'] = self.object_list.count()
         return context
 
 class CreateEmployeeView(CreateView):

@@ -5,13 +5,13 @@
 {% block body %}
 
  <div class = "header">
-        <p class="header_text">Empleados actuales ({{ total }})</p>
+        <p class="header_text">Empleados actuales ({{ object_list.count }})</p>
     </div>
 <section class="seccion_fondo">
   
   <section class="herramientas_menu">  
     <div class="seccion_busqueda">   
-      <span>Buscar algun registro </span><input type="text" id="myInput" onkeyup="myFunction()" placeholder="buscar" class="search_visitas"/>
+      <span>Buscar algun registro </span><input type="text" id="myInput" onkeyup="myFunction()" placeholder="buscar" class="search_busqueda"/>
     </div>
     <div class="seccion_agregar_nuevo">
       <a href="/registro.empleado">

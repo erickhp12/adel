@@ -5,7 +5,7 @@
 {% block body %}
  
  <div class = "header">
-        <p class="header_text">Gastos actuales ({{ total }})</p>
+        <p class="header_text">Gastos actuales ({{ total_gastos }})</p>
     </div>
 <section class="seccion_fondo">
   
@@ -25,19 +25,24 @@
      <thead class="columna">
           <th>Proveedor</th>
           <th>Motivo</th>
+          <th>Precio</th>
           <th>Informacion</th>
           <th>Edicion</th>
      </thead>
-     {% for gasto in object_list %}
+     {% for gasto in total %}
      <tbody class="contenido" id="contenido">
           <td>{{ gasto.proveedor }}</td>
           <td>{{ gasto.motivo }}</td>
+          <td>{{ gasto.precio }} {{ gasto.dolares }}</td>
           <td><a href="{{ gasto.url_ver_gasto }}">Ver</a></td>
           <td><a href="{{ gasto.url_editar_gasto }}">Editar</a></td>
      </tbody>
      {% endfor %}
      </table>
-     <br><br>
+      <span class="total_gastos">Ingreso en pesos: {% for key, value in total_value.items %}
+        {{ value }}
+        {% endfor %}
+        </span><br>
 </section>
 
 <script>

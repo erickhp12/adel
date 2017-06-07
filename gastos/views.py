@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import ListView, DetailView
 from django.core.urlresolvers import reverse_lazy
+from django.db.models import Sum
 from .models import Gasto
 from .forms import RegistrarGasto
 
@@ -10,10 +11,16 @@ class SpendingListView(ListView):
     queryset = Gasto.objects.all().order_by('fecha_gasto')
     template_name = "gastos.html"
 
-    def get_context_data(self, **kwargs):
-        context = super(SpendingListView, self).get_context_data(**kwargs)
-        context['total'] = Gasto.objects.all().count()
-        return context
+    def get(self, request, *args, **kwargs):
+        gastos = Gasto.objects.all()
+        total_gastos = Gasto.objects.all().count
+        total_value = Gasto.objects.filter(precio__isnull=False).aggregate(Sum('precio'))
+
+        context = {'total':gastos,
+                    'total_gastos':total_gastos,
+                    'total_value':total_value,
+                    }
+        return render(request,self.template_name, context)
 
 class CreateSpendingView(CreateView):
     form_class = RegistrarGasto

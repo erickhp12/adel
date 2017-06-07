@@ -5,10 +5,8 @@
 }
 
 .empleado_detalles_informacion{
-	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    width: 30%;
+	width: 95%;
     display: inline-block;
-    border: 1px solid black;
     margin-left: 1em;
 }	
 	span{
@@ -25,8 +23,10 @@
 		margin-left: 2em;
 		margin-bottom: 2em;
 	}
-
-.empleado_detalles_header{
+.tbl_empleado_detalle{
 	text-align: center;
-	font-size: 24px;
+	width: 80%;
+}
+.tbl_empleado_detalle>tbody>tr>td{
+	border: 1pt solid white;
 }

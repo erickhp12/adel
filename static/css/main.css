@@ -1,8 +1,12 @@
+body{
+	background-color: #F7F7F7;
+}
 .header{
 	width: 95%;
 	margin: 2em;
-	box-shadow: 0 8px 4px 0 rgba(0,8,0,0.2);
-	border: 1px solid #999999;
+	box-shadow: 0 4px 4px 0 rgba(0,8,0,0.2);
+	border: 1px solid #AAAAAA;
+	background-color: white;
 }
 	.header_text{
 		text-align: center;
@@ -10,11 +14,6 @@
 		font-size: 18px;
 		margin-top: 1%;
 	}
-.container-fluid{
-	background-color: #0874C6;
-	border: 0.5px solid black;
-	color: white;
-}
 
 a{
 	color: #333333;
@@ -43,22 +42,23 @@ img{
 }
 th{
 	background-color: #222222;
-	border:1pt solid black;
+	border: 0.1px solid black;
 	color: white;
 }
-
 td{
-	border: 1pt solid black;
+	border: 0.1px solid black;
 }
-td:hover{
+tr:hover{
 	background-color: #DDDDDD;
 }
 
 /*----------------------------------- Barra de busqueda ----------------------------------------------*/
 .seccion_fondo{	
-	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	box-shadow: 0 4px 4px 0 rgba(0,0,0,0.2);
     width: 95%;
     margin-left: 2em;
+	border: 1px solid #888888;
+	background-color: white;
 }
 .herramientas_menu{
 	margin-bottom: 2%;
@@ -103,8 +103,10 @@ td:hover{
 }
 .btn_volver_main{
 	width: 35%;
-	margin-left: 15%;
 	height: 50%;
+	margin: 1em;
+	margin-left: 15%;
 }
+
 
 

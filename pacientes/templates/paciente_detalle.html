@@ -15,7 +15,8 @@
 			<span><b>Telefono</b> {{ paciente.telefono }}</span><br>
 			<span><b>Correo</b> {{ paciente.correo }}</span><br>
 			<span><b>Direccion</b> {{ paciente.direccion }}</span><br>
-			<span><b>Fecha de inicio</b> {{ paciente.fecha_inicio }}</span>
+			<span><b>Observaciones: </b> {{ paciente.comentarios }}</span><br>
+			<span><b>Fecha de inicio</b> {{ paciente.fecha_inicio }}</span><br><br>
 	</section>
 	{% endfor %}
 	<section class="paciente_detalles_visitas">
@@ -31,7 +32,7 @@
 		{% endfor %}
 	</section>
 	<a href="/lista.pacientes">
-		<input type="button" value="volver a lista de pacientes" class="btn_volver btn_volver_pacientes">
+		<input type="button" value="volver a lista de pacientes" class="btn_volver btn_volver_main">
 	</a>
 </section>	
 {% endblock %}

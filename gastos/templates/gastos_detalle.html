@@ -4,23 +4,47 @@
 
 {% block body %}
 <div class = "header">
-{% for gasto in gastos %}
-        <p class="header_text">Gasto de {{ gasto.proveedor }}</p>
+        <p class="header_text">Gasto de {{ object.proveedor }}</p>
 </div>
-<section class="gastos_detalles">
-	<section class="gastos_detalles_informacion">
-		<p class="gastos_detalles_header">Datos generales</p>
-			<span><b>Proveedor </b> {{ gasto.proveedor }}</span><br>
-			<span><b>Fecha de gasto </b> {{ gasto.fecha_gasto }}</span><br>
-			<span><b>Motivo </b> {{ gasto.motivo }}</span><br>
-			<span><b>Empleado que pago </b> {{ gasto.empleado }}</span><br>
-			<span><b>Precio </b> {{ gasto.precio }} {{gasto.dolares }} </span><br>
-			<span><b>Tipo de pago </b> {{ gasto.tipo_pago }}</span>
-	</section>
-	{% endfor %}
+<section class="empleado_detalles">
+	<section class="empleado_detalles_informacion">
+	<br><br>
+			<table class="tbl_empleado_detalle">
+				<thead>
+					<th></th>
+					<th></th>
+				</thead>
+				<tbody>
+					<tr>	
+						<td>Proveedor</td>
+						<td>{{ object.proveedor }}</td>
+					</tr>
+					<tr>
+						<td>Motivo</td>						
+						<td>{{ object.motivo }}</td>
+					</tr>
+					<tr>
+						<td>Personal que pago</td>
+						<td>{{ object.empleado }}</td>
+					</tr>
+					<tr>	
+						<td>Precio</td>
+						<td>{{ object.precio }} {{ object.dolares }} </td>
+					</tr>
+					<tr>
+						<td>Tipo de pago</td>
+						<td>{{ object.tipo_pago }}</td>
+					</tr>
+					<tr>
+						<td>Fecha de gasto</td>
+						<td>{{ object.fecha_gasto }}</td>
+					</tr>
+				</tbody>
+			</table>
+			<br><br>
 	</section>
 	<a href="/lista.gastos">
-		<input type="button" value="volver a lista de gastos" class="btn_naranja btn_volver">
+		<input type="button" value="volver a lista de gastos" class="btn_volver btn_volver_main">
 	</a>
 </section>	
 {% endblock %}

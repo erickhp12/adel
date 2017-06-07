@@ -25,12 +25,12 @@
 	}
 .tbl_proveedor_detalle{
 	text-align: center;
-	width: 50%;
+	width: 80%;
 }
 .tbl_proveedor_detalle>tbody>tr>td{
 	border: 1pt solid white;
+	background-color: white;
 }
-
 
 .proveedor_detalles_header{
 	text-align: center;

@@ -1,32 +1,50 @@
 {% extends "base.html" %}
-{% block title %}ADEL | empleados {% endblock %}
+{% block title %}ADEL | Empleados {% endblock %}
 {% load staticfiles %}
 
 {% block body %}
 <div class = "header">
-        <p class="header_text">Informacion de {{ object.nombres }}</p>
+        <p class="header_text">Informacion de {{ object.nombres }} {{ object.apellidos }}</p>
 </div>
 <section class="empleado_detalles">
 	<section class="empleado_detalles_informacion">
-		<p class="empleado_detalles_header">Datos generales</p>
-			<span><b>Nombre</b> {{ object.nombres }}  {{ object.apellidos }}</span><br>
-			<span><b>Puesto</b> {{ object.puesto }}</span><br>
-			<span><b>Telefono</b> {{ object.telefono }}</span><br>
-			<span><b>Correo</b> {{ object.correo }}</span><br>
-			<span><b>Direccion</b> {{ object.direccion }}</span><br>
-			<span><b>Fecha de inicio</b> {{ object.fecha_inicio }}</span>
-	</section>
-	<section class="empleado_detalles_visitas">
-		<p class="empleado_detalles_header">Visitas registradas</p>
-			<span><b>Visita 1 </b>{{ object.fecha_inicio}}</span><br>
-			<span><b>Visita 1 </b>{{ object.fecha_inicio}}</span><br>
-			<span><b>Visita 1 </b>{{ object.fecha_inicio}}</span><br>
-			<span><b>Visita 2 </b>{{ object.fecha_inicio}}</span><br>
-			<span><b>Visita 3 </b>{{ object.fecha_inicio}}</span><br>
-			<span><b>Visita 4 </b>{{ object.fecha_inicio}}</span><br>
+	<br><br>
+			<table class="tbl_empleado_detalle">
+				<thead>
+					<th></th>
+					<th></th>
+				</thead>
+				<tbody>
+					<tr>	
+						<td>Puesto</td>
+						<td>{{ object.puesto }}</td>
+					</tr>
+					<tr>
+						<td>Telefono</td>						
+						<td>{{ object.telefono }}</td>
+					</tr>
+					<tr>
+						<td>Correo</td>
+						<td>{{ object.correo }}</td>
+					</tr>
+					<tr>	
+						<td>Direccion</td>
+						<td>{{ object.direccion }}</td>
+					</tr>
+					<tr>
+						<td>Direccion</td>
+						<td>{{ object.direccion }}</td>
+					</tr>
+						<td>Fecha de inicio</td>
+						<td>{{ object.fecha_inicio }}</td>
+					</tr>
+					<th></th>
+					<th></th>
+				</tbody>
+			</table>
 	</section>
 	<a href="/lista.empleados">
-		<input type="button" value="volver a lista de empleados" class="btn_naranja btn_volver">
+		<input type="button" value="volver a lista de proveedores" class="btn_volver btn_volver_main">
 	</a>
 </section>	
 {% endblock %}
