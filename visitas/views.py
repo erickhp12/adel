@@ -33,7 +33,7 @@ class UpdateVisitView(UpdateView):
     model = Visitas
     form_class = RegistrarVisita
     template_name = "creacion_visitas.html"
-    success_url = reverse_lazy('editar_visita')	
+    success_url = reverse_lazy('list_visitas')	
  
 class DetailVisitView(DetailView):
     model = Visitas
