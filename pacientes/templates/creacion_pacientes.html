@@ -26,6 +26,11 @@
                     {{ form.tipo_paciente }}
                     <span>{{ form.tipo_paciente.errors }}</span>
                 </div>
+                <div>
+                    <p><label>{{ form.edad.label}}</label></p>
+                    {{ form.edad }}
+                    <span>{{ form.edad.errors }}</span>
+                </div>
                 <div class="">
                     <label>{{ form.aseguranza.label}}</label>
                     {{ form.aseguranza }}
@@ -49,7 +54,7 @@
                     {{ form.direccion }}
                     <span>{{ form.direccion.errors }}</span>
                 </div>
-                <div class="">
+                <div class="pacientes_comentarios">
                     <label>{{ form.comentarios.label}}</label>
                     {{ form.comentarios }}
                     <span>{{ form.comentarios.errors }}</span>

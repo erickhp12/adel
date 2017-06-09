@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}ADEL | Agendar cita {% endblock %}
+{% block albums_active %} active {% endblock %}
+
+{% block body %}
+<div class = "header">
+        <p class="header_text">Agendar cita</p>
+</div>
+
+    <form method=post>
+        {% csrf_token %}
+        <section class="seccion_formulario">
+            <div class="seccion_1">
+                <div>
+                    <label>{{ form.paciente.label}}</label>
+                    {{ form.paciente }}
+                    <span>{{ form.paciente.errors }}</span>
+                </div>
+
+                <div>
+                    <label>{{ form.fecha_agenda.label}}</label>
+                    <input type="text" id="datepicker" value="{{ form.fecha_agenda }}" />
+                    <span>{{ form.fecha_agenda.errors }}</span>
+                </div>
+            </div>
+            <div class="seccion_2">
+                <div class="motivo_agenda">
+                    <label>{{ form.motivo.label}}</label>
+                    {{ form.motivo }}
+                    <span>{{ form.motivo.errors }}</span>
+                </div>
+        </div>
+        <div class="seccion_botones">           
+            <input class="btn_naranja btn_naranja_main" id="save_contact" 
+            type="submit" value="Registrar"/>
+            <a href="/lista.agenda" class="btn_volver btn_volver_main">Volver a la agenda</a>
+        </div>
+        </section>
+    </form>
+</div>
+ 
+<script>
+$(function () {
+$.datepicker.setDefaults($.datepicker.regional["es"]);
+$("#datepicker").datepicker({
+firstDay: 1,
+monthNames: ['Enero', 'Febrero', 'Marzo','Abril', 'Mayo','Junio',
+'Julio','Agosto','Septiempbre','Octubre','Noviembre','Diciembre'],
+dayNamesMin: ['Dom','Lun','Mar','Mier','Jue','Vier','Sab'],
+dateFormat: 'dd-mm-yy',
+timeFormat:  "hh:mm:ss"
+});
+});
+</script>
+
+{% endblock %}

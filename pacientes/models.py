@@ -4,8 +4,9 @@ from django.db.models import permalink
 TIPOS_PACIENTES = (("Particular", "Particular"),("Aseguranza", "Aseguranza"))
 
 class Paciente(models.Model):
-    nombres = models.CharField(max_length=100, null=False, unique=True, verbose_name=u'nombre(s)')
+    nombres = models.CharField(max_length=100, null=False, unique=False, verbose_name=u'nombre(s)')
     apellidos = models.CharField(max_length=100, null=False, unique=False, verbose_name=u'apellido(s)')
+    edad = models.IntegerField(null=True, unique=False, verbose_name='Edad')
     tipo_paciente = models.CharField(max_length=100, choices=TIPOS_PACIENTES,null=False, unique=False, verbose_name=u'tipo paciente')
     aseguranza = models.CharField(max_length=100, default='',null=True, unique=False, verbose_name=u'aseguranza')
     telefono = models.CharField(max_length=100, null=True, unique=False, verbose_name=u'telefono')

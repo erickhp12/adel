@@ -30,7 +30,8 @@ INSTALLED_APPS = [
     'pacientes',
     'visitas',
     'proveedores',
-    'gastos'
+    'gastos',
+    'agenda'
 ]
 
 MIDDLEWARE_CLASSES = [

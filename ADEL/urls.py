@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^', include("visitas.urls")),
     url(r'^', include("proveedores.urls")),
     url(r'^', include("gastos.urls")),
+    url(r'^', include("agenda.urls")),
 
 ] + static(
         settings.STATIC_URL,

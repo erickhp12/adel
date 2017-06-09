@@ -26,6 +26,9 @@
 		height: 20px;
 		width: 100%;
 	}
+.pacientes_comentarios>input{
+	height: 100px;
+}
 .btn_naranja_pacientes{
 	margin-bottom: 2em;
 	width: 25%;

@@ -9,9 +9,10 @@
 </div>
 <section class="paciente_detalles">
 	<section class="paciente_detalles_informacion">
-		<p class="empleado_detalles_header">Datos generales</p>
+		<p class="paciente_detalles_header">Datos generales</p>
 			<span><b>Nombre</b> {{ paciente.nombres }}  {{ paciente.apellidos }}</span><br>
-			<span><b>Tipo de paciente</b> {{ paciente.tipo_paciente}}</span><br>
+			<span><b>Tipo de paciente</b> {{ paciente.tipo_paciente }}</span><br>
+			<span><b>Edad</b> {{ paciente.edad }} años</span><br>
 			<span><b>Telefono</b> {{ paciente.telefono }}</span><br>
 			<span><b>Correo</b> {{ paciente.correo }}</span><br>
 			<span><b>Direccion</b> {{ paciente.direccion }}</span><br>
@@ -20,11 +21,10 @@
 	</section>
 	{% endfor %}
 	<section class="paciente_detalles_visitas">
-		<p class="empleado_detalles_header">Visitas registradas</p>
+		<p class="paciente_detalles_header">Visitas registradas</p>
 		{% for visita in visitas %}
-		<h4>Visita {{ visita.id }}</h1>
+		<h4>Dia: {{ visita.fecha_visita }}</h1>
 		<span><b>Atendido por: </b>{{ visita.dentista}}</span><br>
-		<span><b>fecha de visita: </b>{{ visita.fecha_visita}}</span><br>
 		<span><b>Motivo: </b>{{ visita.motivo}}</span><br>
 		<span><b>Precio: </b>{{ visita.precio}} {{ visita.dolares }}</span><br>
 		<span><b>Tipo de pago: </b>{{ visita.tipo_pago }}</span><br>
