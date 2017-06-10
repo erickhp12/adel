@@ -34,6 +34,8 @@
           <td>{{ agenda.paciente }}</td>
           <td>{{ agenda.motivo }}</td>
           <td>{{ agenda.fecha_agenda }}</td> 
+          <td><a href="{{ agenda.url_ver_agenda }}">Ver </a></td>
+          <td><a href="{{  agenda.url_editar_agenda }}">Editar</a></td>
      </tbody>
      {% endfor %}
      </table>

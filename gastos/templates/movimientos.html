@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}ADEL | Gastos {% endblock %}
+{% load staticfiles %}
+
+{% block body %}
+ 
+ <div class = "header">
+        <p class="header_text">Mis movimientos</p>
+    </div>
+<section class="seccion_fondo">
+	<section class="seccion_movimientos_general">
+		<section class="seccion_ingresos">
+			<table class="tbl_ingresos">
+				<thead>
+					<th>Paciente</th>
+					<th>Concepto</th>
+					<th>Total</th>
+				</thead>
+				{% for ingreso in ingresos %}
+				<tbody>
+					<td>{{ ingreso.paciente }}</td>
+					<td>{{ ingreso.motivo }}</td>
+					<td>{{ ingreso.precio }}</td>
+				</tbody>
+				{% endfor %}
+				<span class="span_ingresos"> Total ingresos {{ total_ingresos }}</span>
+			</table>
+		</section>
+		<section class="seccion_egresos">
+			<table class="tbl_egresos" valign="top" >
+				<thead>
+					<th>Proveedor</th>
+					<th>Concepto</th>
+					<th>Total</th>
+				</thead>
+				{% for egreso in egresos %}
+				<tbody>
+					<td>{{ egreso.proveedor }}</td>
+					<td>{{ egreso.motivo }}</td>
+					<td>{{ egreso.precio }} {{ egreso.dolares }}</td>
+				</tbody>
+				{% endfor %}
+				<span class="span_egresos"> Total egresos {{ total_egresos }}</span>
+			</table>
+		</section>
+	</section>
+<section class="footer total_movimientos">
+	<span class="span_diferencia">Diferencia ${{ total_diferencia }}</span>
+</section>
+</section>
+
+{% endblock %}

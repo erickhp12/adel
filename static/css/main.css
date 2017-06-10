@@ -40,13 +40,32 @@ input{
 img{
 	max-height: 50%;
 }
-th{
-	background-color: #222222;
-	border: 0.1px solid black;
-	color: white;
+/*----------------------------------- Tabla de usuarios ----------------------------------------------*/
+.titulo{
+		text-align: center;
 }
-td{
-	border: 0.1px solid black;
+table{
+	width: 95%; 
+	margin-left: 2em;
+}
+.search_input{
+	margin-left: 2em;
+	margin-bottom: 2em;
+}
+.columna{
+	border: 1px solid white;
+}
+	th{
+		background-color: #AAAAAA;
+		text-align: center;
+	}
+.contenido{
+	text-align:center;
+}
+
+th{
+	background-color: #AAAAAA;
+	color: white;
 }
 tr:hover{
 	background-color: #DDDDDD;
@@ -81,7 +100,6 @@ tr:hover{
 .titulo{
 		text-align: center;
 }
-/*----------------------------------- Barra de busqueda ----------------------------------------------*/
 .search_busqueda{
 	width: 40%;
 }

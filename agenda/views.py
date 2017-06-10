@@ -25,3 +25,19 @@ class CreateAgendaView(CreateView):
     form_class = RegistrarAgenda
     template_name = "creacion_agenda.html"
     success_url = reverse_lazy('list_agenda')
+
+
+class UpdateAgendaView(UpdateView):
+    model = Agenda
+    form_class = RegistrarAgenda
+    template_name = "creacion_agenda.html"
+    success_url = reverse_lazy('list_agenda')    
+
+
+class DetailAgendaView(DetailView):
+    model = Agenda
+    template_name = "agenda_detalle.html"
+
+
+ 
+

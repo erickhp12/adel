@@ -1,0 +1,37 @@
+
+.seccion_movimientos_general{
+	margin: 1em;
+	display: inline-block;
+}
+.seccion_ingresos{
+	width: 49.5%;
+	display: inline-block;
+}
+.seccion_egresos{
+	width: 49.5%;
+	display: inline-block;
+}
+.total_movimientos{
+	width: 95%;
+	margin: 2em;
+	box-shadow: 0 4px 4px 0 rgba(0,8,0,0.2);
+	border: 1px solid black;
+}
+.span_ingresos{
+	font-size: 18px;
+	font-weight: bold;
+	color: #009302;
+}
+.span_egresos{
+	font-size: 18px;
+	font-weight: bold;
+	color: #F50000;	
+}
+.td_ingresos{
+	border: 1px solid black;
+}
+.span_diferencia{
+	float: right;
+	font-size: 18px;
+	font-weight: bold;
+}
