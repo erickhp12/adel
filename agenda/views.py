@@ -16,8 +16,7 @@ class AgendaListView(ListView):
         total_agenda = Agenda.objects.all().count
         
         context = {'Agenda':total,
-                    'total_agenda':total_agenda,
-                    
+                    'total_agenda':total_agenda,        
                     }
         return render(request,self.template_name, context)
 

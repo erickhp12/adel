@@ -4,12 +4,10 @@
 	display: inline-block;
 }
 .seccion_ingresos{
-	width: 49.5%;
-	display: inline-block;
+	width: 1200px;
 }
 .seccion_egresos{
-	width: 49.5%;
-	display: inline-block;
+	width: 1200px;
 }
 .total_movimientos{
 	width: 95%;
@@ -34,4 +32,15 @@
 	float: right;
 	font-size: 18px;
 	font-weight: bold;
+}
+.seccion_fondo_fechas{
+	width: 95%;
+	margin: 2em;
+}
+.seccion_fondo_fechas>form>div{
+	width: 25%;
+	display: inline-block;
+}
+.seccion_fondo_fechas>form>div>input{
+	width: 150px;
 }

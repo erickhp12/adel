@@ -6,6 +6,7 @@ from django.db.models import Sum
 from .models import Gasto 
 from visitas.models import Visitas
 from .forms import RegistrarGasto
+import time
 
 
 class SpendingListView(ListView):
@@ -43,17 +44,53 @@ class MovementsView(ListView):
     template_name = "movimientos.html"
 
     def get(self, request, *args, **kwargs):
-        ingresos = Visitas.objects.all()
-        egresos = Gasto.objects.all()
-        total_ingresos = Visitas.objects.filter(precio__isnull=False).aggregate(Sum('precio'))
-        total_egresos = Gasto.objects.filter(precio__isnull=False).aggregate(Sum('precio'))
-        total_diferencia = (total_ingresos.get('precio__sum') - total_egresos.get('precio__sum'))
-        i1 = total_ingresos.get('precio__sum')
-        i2 = total_egresos.get('precio__sum')
+        dia = time.strftime("%Y-%m-%d")
+        ingresos = Visitas.objects.filter(fecha_visita__range=[dia, dia])
+        egresos = Gasto.objects.filter(fecha_gasto__range=[dia, dia])
+        total_ingresos = ingresos.aggregate(Sum('precio')).get('precio__sum') 
+        total_egresos = egresos.aggregate(Sum('precio')).get('precio__sum')
+        total_diferencia = 0
+        if total_ingresos is not None and total_egresos is not None: 
+            total_diferencia = (total_ingresos - total_egresos) 
+        elif total_ingresos is None:
+            total_ingresos = 0
+        if total_egresos is None:
+            total_egresos = 0
+            total_diferencia = total_ingresos
+
         context = {'ingresos':ingresos,
                     'egresos':egresos,
-                    'total_ingresos':i1,
-                    'total_egresos':i2,
+                    'total_ingresos':total_ingresos,
+                    'total_egresos':total_egresos,
                     'total_diferencia':total_diferencia,
+                    'fechai':dia,
+                    'fechaf':dia,
+                    }
+        return render(request,self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        fecha_inicio = request.POST.get('fecha1')
+        fecha_final = request.POST.get('fecha2')
+        ingresos = Visitas.objects.filter(fecha_visita__range=[fecha_inicio, fecha_final])
+        egresos = Gasto.objects.filter(fecha_gasto__range=[fecha_inicio, fecha_final])
+        total_ingresos = ingresos.aggregate(Sum('precio')).get('precio__sum') 
+        total_egresos = egresos.aggregate(Sum('precio')).get('precio__sum')
+        total_diferencia = 0
+        
+        if total_ingresos is not None and total_egresos is not None: 
+            total_diferencia = (total_ingresos - total_egresos) 
+        elif total_ingresos is None:
+            total_ingresos = 0
+        if total_egresos is None:
+            total_egresos = 0
+            total_diferencia = total_ingresos
+         
+        context = {'ingresos':ingresos,
+                    'egresos':egresos,
+                    'total_ingresos':total_ingresos,
+                    'total_egresos':total_egresos,
+                    'total_diferencia': total_diferencia,
+                    'fechai':fecha_inicio,
+                    'fechaf':fecha_inicio
                     }
         return render(request,self.template_name, context)

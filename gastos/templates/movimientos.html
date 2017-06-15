@@ -8,39 +8,61 @@
         <p class="header_text">Mis movimientos</p>
     </div>
 <section class="seccion_fondo">
+	<section class="seccion_fondo_fechas">
+		<form action="" method="post">
+		{% csrf_token %}
+		<div>
+			<label for="Fecha de inicio">Fecha de inicio</label>
+			<input type="text" value="{{ fechai }}" placeholder="{{ fechai }}"
+			id="datepicker" class="fecha_inicio" name="fecha1">	
+		</div>
+		<div>
+			<label for="Fecha de final">Fecha final</label>
+			<input type="text" value="{{ fechaf }}" placeholder="{{ fechaf }}" 
+			id="datepickerf" class="fecha_final" name="fecha2">
+		</div>
+		<div>
+			<input type="submit" value="Enviar" class="btn_naranja">
+		</div>
+		</form>
+	</section>
 	<section class="seccion_movimientos_general">
 		<section class="seccion_ingresos">
 			<table class="tbl_ingresos">
 				<thead>
+					<th>Fecha de visita</th>
 					<th>Paciente</th>
 					<th>Concepto</th>
 					<th>Total</th>
 				</thead>
 				{% for ingreso in ingresos %}
 				<tbody>
-					<td>{{ ingreso.paciente }}</td>
+					<td>{{ ingreso.fecha_visita }}</td>
+					<td>{{ ingreso.paciente}}</td>
 					<td>{{ ingreso.motivo }}</td>
-					<td>{{ ingreso.precio }}</td>
+					<td>{{ ingreso.precio }} {{ ingreso.dolares }}</td>
 				</tbody>
 				{% endfor %}
-				<span class="span_ingresos"> Total ingresos {{ total_ingresos }}</span>
+				<span class="span_ingresos"> Total ingresos ${{ total_ingresos }}</span>
 			</table>
 		</section>
 		<section class="seccion_egresos">
 			<table class="tbl_egresos" valign="top" >
 				<thead>
+					<th>Fecha</th>
 					<th>Proveedor</th>
 					<th>Concepto</th>
 					<th>Total</th>
 				</thead>
 				{% for egreso in egresos %}
 				<tbody>
+					<td>{{ egreso.fecha_gasto }}</td>
 					<td>{{ egreso.proveedor }}</td>
 					<td>{{ egreso.motivo }}</td>
 					<td>{{ egreso.precio }} {{ egreso.dolares }}</td>
 				</tbody>
 				{% endfor %}
-				<span class="span_egresos"> Total egresos {{ total_egresos }}</span>
+				<span class="span_egresos"> Total egresos ${{ total_egresos }}</span>
 			</table>
 		</section>
 	</section>
@@ -48,5 +70,31 @@
 	<span class="span_diferencia">Diferencia ${{ total_diferencia }}</span>
 </section>
 </section>
+
+<script>
+$(function () {
+$.datepicker.setDefaults($.datepicker.regional["es"]);
+$("#datepicker").datepicker({
+firstDay: 1,
+monthNames: ['Enero', 'Febrero', 'Marzo','Abril', 'Mayo','Junio',
+'Julio','Agosto','Septiempbre','Octubre','Noviembre','Diciembre'],
+dayNamesMin: ['Dom','Lun','Mar','Mier','Jue','Vier','Sab'],
+dateFormat: 'yy-mm-dd',
+timeFormat:  "hh:mm:ss"
+});
+});
+
+$(function () {
+$.datepicker.setDefaults($.datepicker.regional["es"]);
+$("#datepickerf").datepicker({
+firstDay: 1,
+monthNames: ['Enero', 'Febrero', 'Marzo','Abril', 'Mayo','Junio',
+'Julio','Agosto','Septiempbre','Octubre','Noviembre','Diciembre'],
+dayNamesMin: ['Dom','Lun','Mar','Mier','Jue','Vier','Sab'],
+dateFormat: 'yy-mm-dd',
+timeFormat:  "hh:mm:ss"
+});
+});
+</script>
 
 {% endblock %}
