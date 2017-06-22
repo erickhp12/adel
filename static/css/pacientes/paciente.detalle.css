@@ -1,13 +1,13 @@
 .paciente_detalles{
-	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	/*box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);*/
     width: 95%;
     margin-left: 2em;
 }
 
 .paciente_detalles_informacion{
-	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    border: 1px solid black;
-    margin-left: 1em;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
+    border: 1px solid #DDDDDD;
+
 }	
 	span{
 		margin-left: 2em;
@@ -15,11 +15,11 @@
 	}
 .paciente_detalles_visitas{
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    border: 1px solid black;
+    border: 1px solid #DDDDDD;
     margin-top: 2em;
-    margin-left: 1em;
+
 }
-	h4{
+	h5{
 		margin-left: 1em;
 	}
 	span{
@@ -30,4 +30,8 @@
 .paciente_detalles_header{
 	text-align: center;
 	font-size: 24px;
+}
+.btn_volver_paciente_detalle{
+	width: 25%;
+	margin: 1em;
 }

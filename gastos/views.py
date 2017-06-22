@@ -44,12 +44,13 @@ class MovementsView(ListView):
     template_name = "movimientos.html"
 
     def get(self, request, *args, **kwargs):
+        total_diferencia = 0
         dia = time.strftime("%Y-%m-%d")
         ingresos = Visitas.objects.filter(fecha_visita__range=[dia, dia])
         egresos = Gasto.objects.filter(fecha_gasto__range=[dia, dia])
         total_ingresos = ingresos.aggregate(Sum('precio')).get('precio__sum') 
         total_egresos = egresos.aggregate(Sum('precio')).get('precio__sum')
-        total_diferencia = 0
+        
         if total_ingresos is not None and total_egresos is not None: 
             total_diferencia = (total_ingresos - total_egresos) 
         elif total_ingresos is None:
@@ -91,6 +92,6 @@ class MovementsView(ListView):
                     'total_egresos':total_egresos,
                     'total_diferencia': total_diferencia,
                     'fechai':fecha_inicio,
-                    'fechaf':fecha_inicio
+                    'fechaf':fecha_final
                     }
         return render(request,self.template_name, context)

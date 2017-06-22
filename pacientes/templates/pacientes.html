@@ -1,25 +1,41 @@
 {% extends "base.html" %}
-{% block title %}ADEL | Pacientes {% endblock %}
+{% block title %}ADEL | Agenda {% endblock %}
 {% load staticfiles %}
 
 {% block body %}
+ 
+<div class = "header">
+        <p class="header_text">Pacientes registrados  ({{ total }})</p>
+</div>
 
- <div class = "header">
-        <p class="header_text">Pacientes actuales ({{ total }})</p>
-    </div>
+<!-- herramientas de menu -->
 <section class="seccion_fondo">
-  
-  <section class="herramientas_menu">  
-    <div class="seccion_busqueda">   
-      <span>Buscar algun registro </span><input type="text" id="myInput" onkeyup="myFunction()" placeholder="buscar" class="search_busqueda"/>
-    </div>
-    <div class="seccion_agregar_nuevo">
-      <a href="/registro.paciente">
-            <input type="button" name="link_add_visita" 
-            class="btn_naranja btn_agregar_elemento" value="Agregar un nuevo paciente"/>
-      </a>
-    </div>
+  <section class="herramientas_menu">      
+    <form method=post>
+    {% csrf_token %}
+      <!-- barra de busqueda -->
+      <div class="seccion_busqueda">   
+        <span><b>Buscar algun registro</b> </span>
+        <input type="text" id="myInput" onkeyup="myFunction()" name="paciente" 
+        placeholder="buscar" class="search_busqueda">
+      </div>
+      
+      <!-- Seccion botones -->
+      <div class="seccion_agregar_nuevo">
+        <a class="btn_busqueda">
+          <input type="submit" name="link_add_gasto" 
+          class="btn_agregar_elemento_agenda btn_busqueda" value="Buscar"/>
+        </a>
+        <a href="/registro.paciente" class="btn_naranja_main">
+          <input type="button" name="link_add_gasto" 
+          class="btn_naranja" value="Agregar un paciente"/>
+        </a>
+      </div>
+    </form>
   </section>
+<hr>
+<!-- tabla de datos -->
+  <section>
   <table>
 
      <thead class="columna">
@@ -30,7 +46,7 @@
           <th>Informacion</th>
           <th>Edicion</th>
      </thead>
-     {% for paciente in object_list %}
+     {% for paciente in Paciente %}
      <tbody class="contenido">
           <td>{{ paciente.nombres }} {{ paciente.apellidos }}</td>
           <td>{{ paciente.tipo_paciente }}</td>
@@ -46,6 +62,7 @@
      {% endfor %}
  </table>
      <br><br>
+  </section>
 </section>
 
 {% endblock %}

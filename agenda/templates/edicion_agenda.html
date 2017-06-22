@@ -11,24 +11,19 @@
         {% csrf_token %}
         <section class="seccion_formulario">
             <div class="seccion_1 seccion_1_agenda">
-                <label for="Paciente">Paciente</label>
-                <select class="select_input" name="paciente" id="paciente">
-                    <option value="0">-------</option>
-                    {% for paciente in pacientes %}
-                        <option value="{{ paciente.pk }}">{{ paciente.nombres }} {{ paciente.apellidos }}</option>
-                    {% endfor %}
-                </select>
+                <div class="motivo_agenda">
+                    <label for="Paciente">Paciente</label>
+                    <input type="text" name="motivo" value="{{ paciente.paciente }}">
+                </div>
                 <div>
                     <label for="Fecha">Fecha</label>
-                    <input type="text" id="datepicker" value="{{ fechai }}" name="fecha" >
-                    <span>{{ form.fecha_agenda.errors }}</span>
+                    <input type="text" id="datepicker" value="{{ paciente.fecha_agenda }}" name="fecha" >
                 </div>
             </div>
             <div class="seccion_2">
                 <div class="motivo_agenda">
                     <label for="motivo">Motivo</label>
-                    <input type="text" name="motivo" >
-                    <span>{{ form.fecha_agenda.errors }}</span>
+                    <input type="text" name="motivo"  value="{{ paciente.motivo }}">
                 </div>
         </div>
         <div class="seccion_botones">           

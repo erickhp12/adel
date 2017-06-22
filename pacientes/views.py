@@ -12,10 +12,28 @@ class PatientListView(ListView):
     queryset = Paciente.objects.all()
     template_name = "pacientes.html"
 
-    def get_context_data(self, **kwargs):
-        context = super(PatientListView, self).get_context_data(**kwargs)
-        context['total'] = Paciente.objects.all().count()
-        return context
+    def get(self, request, *args, **kwargs):
+        total = Paciente.objects.all()
+        total_pacientes = Paciente.objects.all().count
+        
+        context = {'Paciente':total,
+                    'total':total_pacientes,        
+                    }
+
+        return render(request,self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        paciente_input = request.POST.get('paciente')
+
+        paciente = Paciente.objects.all().filter(nombres__contains=paciente_input
+            ) | Paciente.objects.all().filter(apellidos__contains=paciente_input)
+        total_paciente = paciente.count()
+
+        context = {'Paciente':paciente,
+                    'total':total_paciente
+                    }
+        
+        return render(self.request, self.template_name, context)
 
 class CreatePatientView(CreateView):
     form_class = RegistrarPaciente

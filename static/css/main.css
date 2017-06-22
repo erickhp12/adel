@@ -5,7 +5,7 @@ body{
 	width: 95%;
 	margin: 2em;
 	box-shadow: 0 4px 4px 0 rgba(0,8,0,0.2);
-	border: 1px solid black;
+	border: 1px solid #AAAAAA;
 	background-color: white;
 }
 	.header_text{
@@ -23,23 +23,13 @@ a:hover{
 	text-decoration: none;
 }
 
-.btn_naranja{
-	border: 0.5px solid black;
-	background-color: #FF6B00;
-	color: white;
-}
-.btn_volver{
-	border: 0.5px solid black;
-	background-color: #009302;
-	color: white;
-	text-align: center;
-}
 input{
 	width: 100%;
 }
 img{
 	max-height: 50%;
 }
+
 /*----------------------------------- Tabla de usuarios ----------------------------------------------*/
 .titulo{
 		text-align: center;
@@ -72,12 +62,22 @@ tr:hover{
 }
 
 /*----------------------------------- Barra de busqueda ----------------------------------------------*/
-.seccion_fondo{	
-	box-shadow: 0 4px 4px 0 rgba(0,0,0,0.2);
-    width: 95%;
-    margin-left: 2em;
-	border: 1px solid #888888;
+.seccion_fondo{
 	background-color: white;
+	border: 1px solid #AAAAAA;
+	box-shadow: 0 4px 4px 0 rgba(0,8,0,0.2);
+	padding: 1em;
+	width: 95%;
+	margin-left: 2em;
+}
+
+.seccion_agregar_nuevo{
+	display: inline;
+}
+.seccion_agregar_nuevo>a{
+	display: inline-block;
+	width: 15%;
+	margin-left: 5%;
 }
 .herramientas_menu{
 	margin-bottom: 2%;
@@ -88,15 +88,7 @@ tr:hover{
 	display: inline;
 	float:lef;
 }
-.seccion_agregar_nuevo{
-	width: 40%;
-	display: inline;
-	float:right;
-}
-.btn_agregar_elemento{
-	width: 75%;
-	margin-left: 18%;
-}
+ 
 .titulo{
 		text-align: center;
 }
@@ -107,24 +99,47 @@ tr:hover{
 
 .seccion_botones{
 	margin-bottom: 2%;
+	margin-left: 12%; 
 }
 .seccion_botones>input{
 	display: inline-block;
-	height: 50%;
 }
 .seccion_botones>a{
 	display: inline-block;
 }
-.btn_naranja_main{
-	width: 30%;
-	margin-left: 10%;
-}
-.btn_volver_main{
+.btn_formulario{
 	width: 35%;
-	height: 50%;
-	margin: 1em;
-	margin-left: 15%;
 }
+.btn_volver_formulario{
+	width: 35%;
+	margin-left: 17%;
+	height: 26px;
+}
+/*----------------------------------------  botones -------------------------------------------------- */
+.btn_naranja{ 
+	background-color: #FF6B00;
+	border: 1px solid #777777;
+	color: white;
+}
+
+.btn_busqueda{
+	background-color: #009534;
+	border: 0.1px solid #777777;
+	color: white;
+}
+
+.btn_agregar_elemento{
+	width: 75%;
+	margin-left: 18%;
+}
+
+.btn_volver{
+	background-color: #009302;
+	border: 1px solid #777777;
+	color: white;
+	text-align: center;
+}
+
 
 
 

@@ -10,29 +10,68 @@
 <section class="paciente_detalles">
 	<section class="paciente_detalles_informacion">
 		<p class="paciente_detalles_header">Datos generales</p>
-			<span><b>Nombre</b> {{ paciente.nombres }}  {{ paciente.apellidos }}</span><br>
-			<span><b>Tipo de paciente</b> {{ paciente.tipo_paciente }}</span><br>
-			<span><b>Edad</b> {{ paciente.edad }} años</span><br>
-			<span><b>Telefono</b> {{ paciente.telefono }}</span><br>
-			<span><b>Correo</b> {{ paciente.correo }}</span><br>
-			<span><b>Direccion</b> {{ paciente.direccion }}</span><br>
-			<span><b>Observaciones: </b> {{ paciente.comentarios }}</span><br>
-			<span><b>Fecha de inicio</b> {{ paciente.fecha_inicio }}</span><br><br>
+		<table>
+			<tr>
+				<td><b>Nombre</b></td>	
+				<td>{{ paciente.nombres }} {{ paciente.apellidos }}</td>
+			</tr>
+			<tr>
+				<td><b>Tipo de paciente</b></td>
+				<td>{{ paciente.tipo_paciente }}</td>
+			</tr>
+			<tr>
+				<td><b>Edad</b></td>
+				<td>{{ paciente.edad }} años</td>
+			</tr>
+			<tr>
+				<td><b>Correo</b></td>
+				<td>{{ paciente.correo }}</td>
+			</tr>
+			<tr>
+				<td><b>Direccion</b></td>
+				<td>{{ paciente.direccion }}</td>
+			</tr>
+			<tr>
+				<td><b>Observaciones</b></td>
+				<td>{{ paciente.comentarios }}</td>
+			</tr>
+			<tr>
+				<td><b>Fecha de inicio</b></td>
+				<td>{{ paciente.fecha_inicio }}</td>
+			</tr>
+		</table>
+		<br>
 	</section>
 	{% endfor %}
 	<section class="paciente_detalles_visitas">
 		<p class="paciente_detalles_header">Visitas registradas</p>
 		{% for visita in visitas %}
-		<h4>Dia: {{ visita.fecha_visita }}</h1>
-		<span><b>Atendido por: </b>{{ visita.dentista}}</span><br>
-		<span><b>Motivo: </b>{{ visita.motivo}}</span><br>
-		<span><b>Precio: </b>{{ visita.precio}} {{ visita.dolares }}</span><br>
-		<span><b>Tipo de pago: </b>{{ visita.tipo_pago }}</span><br>
-
+		<hr>
+		<h5>Dia: {{ visita.fecha_visita }}</h1>
+		<table>
+			<tr>
+				<td><b>Atendido por</b></td>
+				<td>{{ visita.dentista }}</td>
+			</tr>
+			<tr>
+				<td><b>Motivo</b></td>
+				<td>{{ visita.motivo }}</td>
+			</tr>
+			<tr>
+				<td><b>Precio</b></td>
+				<td>{{ visita.precio }} {{ visita.dolares }}</td>
+			</tr>
+			<tr>
+				<td><b>Tipo de pago</b></td>
+				<td>{{ visita.tipo_pago }}</td>
+			</tr>
+		</table>
+		
 		{% endfor %}
+		<br>
 	</section>
-	<a href="/lista.pacientes">
-		<input type="button" value="volver a lista de pacientes" class="btn_volver btn_volver_main">
+	<a href="/lista.pacientes" class="btn_volver_paciente_detalle">
+	<input type="button" value="volver a lista de pacientes" class="btn_volver btn_volver_paciente_detalle">
 	</a>
 </section>	
 {% endblock %}
