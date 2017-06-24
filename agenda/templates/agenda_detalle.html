@@ -6,7 +6,7 @@
 <div class = "header">
         <p class="header_text">Cita de {{ agenda.paciente }}</p>
 </div>
-<section class="proveedor_detalles">
+<section class="proveedor_detalles" style="background-color: white">
 	<section class="proveedor_detalles_informacion">
 			<table class="tbl_proveedor_detalle">
 				<thead>
@@ -15,15 +15,15 @@
 				</thead>
 				<tbody>
 					<tr>	
-						<td>Paciente</td>
+						<td><b>Paciente</b></td>
 						<td>{{ agenda.paciente }}</td>
 					</tr>
 					<tr>
-						<td>Motivo</td>						
+						<td><b>Motivo</b></td>						
 						<td>{{ agenda.motivo }}</td>
 					</tr>
 					<tr>
-						<td>Fecha</td>
+						<td><b>Fecha</b></td>
 						<td>{{ agenda.fecha_agenda }}</td>
 					</tr>
 					<th></th>
@@ -32,7 +32,7 @@
 			</table>
 	</section>
 	<a href="/lista.agenda">
-		<input type="button" value="volver a la agenda" class="btn_naranja btn_volver btn_volver_main">
+		<input type="button" value="volver a la agenda" class="btn_naranja btn_volver btn_volver_detalle">
 	</a>
 </section>	
 {% endblock %}

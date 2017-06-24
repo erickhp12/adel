@@ -1,0 +1,18 @@
+.search_busqueda_agenda{
+	width: 18%;
+}
+.search_busqueda_fecha_inicial{
+	width: 10%;
+}
+.search_busqueda_fecha_final{
+	width: 10%;
+}
+.seccion_agregar_nuevo_agenda{
+	display: inline;
+}
+
+.seccion_agregar_nuevo_agenda>a{
+	display: inline-block;
+	width: 15%;
+	margin-left: 2%;
+}

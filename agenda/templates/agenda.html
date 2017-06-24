@@ -15,20 +15,27 @@
     {% csrf_token %}
       <!-- barra de busqueda -->
       <div class="seccion_busqueda">   
-        <span><b>Buscar algun registro</b> </span>
+        <span><b>Buscar</b> </span>
         <input type="text" id="myInput" onkeyup="myFunction()" name="paciente" 
-        placeholder="buscar" class="search_busqueda">
+        placeholder="buscar" class="search_busqueda_agenda">
+        <span><b>Fecha inicial</b> </span>
+        <input type="text" id="datepicker" name="fecha_inicial" 
+        placeholder="buscar" class="search_busqueda_fecha_inicial" value="{{ fecha_inicial }}">
+        <span><b>Fecha final</b> </span>
+        <input type="text" id="datepickerf" name="fecha_final" 
+        placeholder="buscar" class="search_busqueda_fecha_final" value="{{ fecha_final }}">
+
       </div>
       
       <!-- Seccion botones -->
-      <div class="seccion_agregar_nuevo">
+      <div class="seccion_agregar_nuevo_agenda">
         <a href="/registro.agenda" class="btn_busqueda">
           <input type="submit" name="link_add_gasto" 
-          class="btn_agregar_elemento_agenda btn_busqueda" value="Buscar"/>
+          class="btn_busqueda" value="Buscar"/>
         </a>
-        <a href="/registro.agenda" class="btn_na">
+        <a href="/registro.agenda">
           <input type="button" name="link_add_gasto" 
-          class="btn_naranja btn_agregar_elemento_agenda" value="Agendar una cita"/>
+          class="btn_naranja" value="Agendar una cita"/>
         </a>
       </div>
     </form>
@@ -56,6 +63,34 @@
     </table><br><br>
   </section>
 </section>
+
+<script>
+$(function () {
+$.datepicker.setDefaults($.datepicker.regional["es"]);
+$("#datepicker").datepicker({
+firstDay: 1,
+monthNames: ['Enero', 'Febrero', 'Marzo','Abril', 'Mayo','Junio',
+'Julio','Agosto','Septiempbre','Octubre','Noviembre','Diciembre'],
+dayNamesMin: ['Dom','Lun','Mar','Mier','Jue','Vier','Sab'],
+dateFormat: 'yy-mm-dd',
+timeFormat:  "hh:mm:ss"
+});
+});
+</script>
+
+<script>
+$(function () {
+$.datepicker.setDefaults($.datepicker.regional["es"]);
+$("#datepickerf").datepicker({
+firstDay: 1,
+monthNames: ['Enero', 'Febrero', 'Marzo','Abril', 'Mayo','Junio',
+'Julio','Agosto','Septiempbre','Octubre','Noviembre','Diciembre'],
+dayNamesMin: ['Dom','Lun','Mar','Mier','Jue','Vier','Sab'],
+dateFormat: 'yy-mm-dd',
+timeFormat:  "hh:mm:ss"
+});
+});
+</script>
 
 {% endblock %}
 

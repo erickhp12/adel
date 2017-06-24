@@ -6,9 +6,17 @@
 .seccion_ingresos{
 	width: 1200px;
 }
+.th_ingresos{
+	text-align: left;
+}
 .seccion_egresos{
 	width: 1200px;
 }
+
+.th_egresos{
+	text-align: left;
+}
+
 .total_movimientos{
 	width: 95%;
 	margin: 2em;

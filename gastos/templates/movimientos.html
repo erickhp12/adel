@@ -30,29 +30,30 @@
 		<section class="seccion_ingresos">
 			<table class="tbl_ingresos">
 				<thead>
-					<th>Fecha de visita</th>
-					<th>Paciente</th>
-					<th>Concepto</th>
-					<th>Total</th>
+					<th class="th_ingresos">Fecha de visita</th>
+					<th class="th_ingresos">Paciente</th>
+					<th class="th_ingresos">Concepto</th>
+					<th class="th_ingresos">Total</th>
 				</thead>
 				{% for ingreso in ingresos %}
 				<tbody>
-					<td>{{ ingreso.fecha_visita }}</td>
-					<td>{{ ingreso.paciente}}</td>
-					<td>{{ ingreso.motivo }}</td>
-					<td>{{ ingreso.precio }} {{ ingreso.dolares }}</td>
+					<td class="th_ingresos">{{ ingreso.fecha_visita }}</td>
+					<td class="th_ingresos">{{ ingreso.paciente}}</td>
+					<td class="th_ingresos">{{ ingreso.motivo }}</td>
+					<td class="th_ingresos">{{ ingreso.precio }} {{ ingreso.dolares }}</td>
 				</tbody>
 				{% endfor %}
 				<span class="span_ingresos"> Total ingresos ${{ total_ingresos }}</span>
 			</table>
 		</section>
+		<hr>
 		<section class="seccion_egresos">
 			<table class="tbl_egresos" valign="top" >
 				<thead>
-					<th>Fecha</th>
-					<th>Proveedor</th>
-					<th>Concepto</th>
-					<th>Total</th>
+					<th class="th_egresos">Fecha</th>
+					<th class="th_egresos">Proveedor</th>
+					<th class="th_egresos">Concepto</th>
+					<th class="th_egresos">Total</th>
 				</thead>
 				{% for egreso in egresos %}
 				<tbody>

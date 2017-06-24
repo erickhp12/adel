@@ -10,19 +10,28 @@ import time
 
 
 class SpendingListView(ListView):
-    queryset = Gasto.objects.all().order_by('fecha_gasto')
     template_name = "gastos.html"
 
     def get(self, request, *args, **kwargs):
-        gastos = Gasto.objects.all()
+        gastos = Gasto.objects.all().order_by('fecha_gasto')
         total_gastos = Gasto.objects.all().count
-        total_value = Gasto.objects.filter(precio__isnull=False).aggregate(Sum('precio'))
-
-        context = {'total':gastos,
-                    'total_gastos':total_gastos,
-                    'total_value':total_value,
+        
+        context = {'gastos':gastos,
+                    'total_gastos':total_gastos,        
                     }
         return render(request,self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        gastos = request.POST.get('gasto')
+        gastos = Gasto.objects.all().filter(proveedor__nombre__contains=gastos
+            ) | Gasto.objects.all().filter(proveedor__contacto__contains=gastos)
+        total_gastos = gastos.count()
+
+        context = {'gastos':gastos,
+                    'total_gastos':total_gastos,
+                    }
+        
+        return render(self.request, self.template_name, context)
 
 class CreateSpendingView(CreateView):
     form_class = RegistrarGasto
@@ -46,11 +55,11 @@ class MovementsView(ListView):
     def get(self, request, *args, **kwargs):
         total_diferencia = 0
         dia = time.strftime("%Y-%m-%d")
-        ingresos = Visitas.objects.filter(fecha_visita__range=[dia, dia])
-        egresos = Gasto.objects.filter(fecha_gasto__range=[dia, dia])
+        ingresos = Visitas.objects.filter(fecha_visita__range=[dia, dia + " 23:59:59"])
+        egresos = Gasto.objects.filter(fecha_gasto__range=[dia, dia + " 23:59:59"])
         total_ingresos = ingresos.aggregate(Sum('precio')).get('precio__sum') 
         total_egresos = egresos.aggregate(Sum('precio')).get('precio__sum')
-        
+ 
         if total_ingresos is not None and total_egresos is not None: 
             total_diferencia = (total_ingresos - total_egresos) 
         elif total_ingresos is None:
@@ -71,12 +80,14 @@ class MovementsView(ListView):
 
     def post(self, request, *args, **kwargs):
         fecha_inicio = request.POST.get('fecha1')
-        fecha_final = request.POST.get('fecha2')
+        fecha_final = request.POST.get('fecha2') + " 23:59:59"
+        
         ingresos = Visitas.objects.filter(fecha_visita__range=[fecha_inicio, fecha_final])
         egresos = Gasto.objects.filter(fecha_gasto__range=[fecha_inicio, fecha_final])
         total_ingresos = ingresos.aggregate(Sum('precio')).get('precio__sum') 
         total_egresos = egresos.aggregate(Sum('precio')).get('precio__sum')
         total_diferencia = 0
+        fecha_final = request.POST.get('fecha2')
         
         if total_ingresos is not None and total_egresos is not None: 
             total_diferencia = (total_ingresos - total_egresos) 

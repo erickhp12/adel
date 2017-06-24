@@ -11,10 +11,28 @@ class ProviderListView(ListView):
     queryset = Proveedor.objects.all()
     template_name = "proveedores.html"
 
-    def get_context_data(self, **kwargs):
-        context = super(ProviderListView, self).get_context_data(**kwargs)
-        context['total'] = Proveedor.objects.all().count()
-        return context
+    def get(self, request, *args, **kwargs):
+        proveedores = Proveedor.objects.all()
+        total_proveedores = Proveedor.objects.all().count
+        
+        context = {'proveedores':proveedores,
+                    'total_proveedores':total_proveedores,        
+                    }
+
+        return render(request,self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        proveedor_input = request.POST.get('proveedor')
+
+        proveedores = Proveedor.objects.all().filter(nombre__contains=proveedor_input
+            ) | Proveedor.objects.all().filter(contacto__contains=proveedor_input)
+        total_proveedores = proveedores.count()
+
+        context = {'proveedores':proveedores,
+                    'total_proveedores':total_proveedores
+                    }
+        
+        return render(self.request, self.template_name, context)
 
 class CreateProviderView(CreateView):
     form_class = RegistrarProveedor

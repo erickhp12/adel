@@ -14,21 +14,44 @@ class AgendaListView(ListView):
     template_name = "agenda.html"
 
     def get(self, request, *args, **kwargs):
-        total = Agenda.objects.all()
-        total_agenda = Agenda.objects.all().count
-        
+        fecha_inicial = time.strftime("%Y-%m-%d")
+        fecha_final = time.strftime("%Y-%m-%d")
+        total = Agenda.objects.all().filter(fecha_agenda__range=[fecha_inicial, fecha_final + " 23:59:59"])
+        total_agenda = total.count()
+
         context = {'Agenda':total,
-                    'total_agenda':total_agenda,        
+                    'total_agenda':total_agenda,
+                    'fecha_inicial':fecha_inicial,
+                    'fecha_final':fecha_final        
                     }
+
         return render(request,self.template_name, context)
 
     def post(self, request, *args, **kwargs):
         paciente = request.POST.get('paciente')
-        total_agenda = Agenda.objects.all().filter(paciente__nombres__contains=paciente
-            ) | Agenda.objects.all().filter(paciente__apellidos__contains=paciente)
-        total = total_agenda.count()
-
-        context = {'Agenda':total_agenda,'total_agenda':total}
+        
+        if paciente == "":
+            fecha_inicial = request.POST.get('fecha_inicial')
+            fecha_final = request.POST.get('fecha_final') 
+        
+            print "ENTRE IF"
+            print fecha_inicial
+            fecha_final = fecha_final + " 23:59:59"
+            print fecha_final
+            total_agenda = Agenda.objects.all().filter(fecha_agenda__range=[fecha_inicial, fecha_final])
+            total = total_agenda.count()
+        else:
+            total_agenda = Agenda.objects.all().filter(paciente__nombres__contains=paciente
+                ) | Agenda.objects.all().filter(paciente__apellidos__contains=paciente)
+            total = total_agenda.count()
+        print "FECHA FINAL"
+        print fecha_final
+        fecha_final_post = request.POST.get('fecha_final')
+        print fecha_final
+        context = {'Agenda':total_agenda,
+                    'total_agenda':total,
+                    'fecha_inicial':fecha_inicial,
+                    'fecha_final':fecha_final}
         
         return render(self.request, self.template_name, context)
 
