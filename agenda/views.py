@@ -27,7 +27,7 @@ class AgendaListView(ListView):
 
         return render(request,self.template_name, context)
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs): 
         paciente = request.POST.get('paciente')
         
         if paciente == "":
