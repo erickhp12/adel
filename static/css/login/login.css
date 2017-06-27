@@ -34,11 +34,16 @@
 	margin: 1em;
 	margin-bottom: 2em;
 }
-
-.img_menu_cards{
+.img_menu_card_main{
 	margin: 1em;
 	width: auto;
     height: auto;
+}
+.img_menu_cards{
+	margin-left: 20%;
+	width: auto;
+    height: auto;
+    margin-bottom: 1em;
 }
 .texto_menu_cards{
 	text-align:center;

@@ -33,21 +33,18 @@ class AgendaListView(ListView):
         if paciente == "":
             fecha_inicial = request.POST.get('fecha_inicial')
             fecha_final = request.POST.get('fecha_final') 
-        
-            print "ENTRE IF"
-            print fecha_inicial
-            fecha_final = fecha_final + " 23:59:59"
-            print fecha_final
-            total_agenda = Agenda.objects.all().filter(fecha_agenda__range=[fecha_inicial, fecha_final])
+            fecha_final = fecha_final
+            total_agenda = Agenda.objects.all().filter(fecha_agenda__range=[fecha_inicial, fecha_final + " 23:59:59"])
             total = total_agenda.count()
         else:
+            fecha_inicial = request.POST.get('fecha_inicial')
+            fecha_final = request.POST.get('fecha_final') 
             total_agenda = Agenda.objects.all().filter(paciente__nombres__contains=paciente
                 ) | Agenda.objects.all().filter(paciente__apellidos__contains=paciente)
             total = total_agenda.count()
-        print "FECHA FINAL"
-        print fecha_final
+
         fecha_final_post = request.POST.get('fecha_final')
-        print fecha_final
+
         context = {'Agenda':total_agenda,
                     'total_agenda':total,
                     'fecha_inicial':fecha_inicial,

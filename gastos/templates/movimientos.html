@@ -43,7 +43,8 @@
 					<td class="th_ingresos">{{ ingreso.precio }} {{ ingreso.dolares }}</td>
 				</tbody>
 				{% endfor %}
-				<span class="span_ingresos"> Total ingresos ${{ total_ingresos }}</span>
+				<span class="span_ingresos"> Total ingresos Pesos ${{ total_ingresos_pesos}} 
+				/ Dolares ${{ total_ingresos_dolares }}</span>
 			</table>
 		</section>
 		<hr>
@@ -63,12 +64,14 @@
 					<td>{{ egreso.precio }} {{ egreso.dolares }}</td>
 				</tbody>
 				{% endfor %}
-				<span class="span_egresos"> Total egresos ${{ total_egresos }}</span>
+				<span class="span_egresos"> Total gastos pesos ${{ total_egresos_pesos }}
+				 / Dolares ${{ total_egresos_dolares}}</span>
 			</table>
 		</section>
 	</section>
 <section class="footer total_movimientos">
-	<span class="span_diferencia">Diferencia ${{ total_diferencia }}</span>
+	<span class="span_diferencia">Diferencia Pesos ${{ total_diferencia_pesos }} 
+	/ Dolares ${{ total_diferencia_dolares }} </span>
 </section>
 </section>
 
