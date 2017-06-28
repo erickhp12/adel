@@ -49,8 +49,8 @@
             <td>{{ gasto.proveedor }}</td>
             <td>{{ gasto.motivo }}</td>
             <td>{{ gasto.precio }} {{ gasto.dolares }}</td>
-            <td><a href="{{ gasto.url_ver_gasto }}">Ver</a></td>
-            <td><a href="{{ gasto.url_editar_gasto }}">Editar</a></td>
+            <td><a href="{{ gasto.url_ver_gasto }}" class="glyphicon glyphicon-search"> Ver</a></td>
+            <td><a href="{{ gasto.url_editar_gasto }}" class="glyphicon glyphicon-pencil"> Editar</a></td>
        </tbody>
        {% endfor %}
       </table>

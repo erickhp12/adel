@@ -55,8 +55,8 @@
           <td>{{ visita.paciente }}</td>
           <td>{{ visita.motivo }}</td>
           <td>{{ visita.fecha_visita }}</td>
-          <td><a href="{{ visita.url_ver_visitas }}">Ver</a></td>
-          <td><a href="{{ visita.url_editar_visitas }}">Editar</a></td>
+          <td><a href="{{ visita.url_ver_visitas }}" class="glyphicon glyphicon-search"> Ver</a></td>
+          <td><a href="{{ visita.url_editar_visitas }}" class="glyphicon glyphicon-pencil"> Editar</a></td>
      </tbody>
      {% endfor %}
     </table>
