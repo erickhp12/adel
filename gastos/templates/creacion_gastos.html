@@ -11,7 +11,7 @@
         {% csrf_token %}
         <section class="seccion_formulario">
             <div class="seccion_1">
-                <div class="">
+                <div class="select">
                     <label>{{ form.proveedor.label}}</label>
                     {{ form.proveedor }}
                     <span>{{ form.proveedor.errors }}</span>
@@ -24,7 +24,7 @@
             </div>
 
             <div class="seccion_2">
-                <div>
+                <div class="select">
                     <label>{{ form.empleado.label}}</label>
                     {{ form.empleado }}
                     <span>{{ form.empleado.errors }}</span>
@@ -34,21 +34,21 @@
                     {{ form.precio }}
                     <span>{{ form.precio.errors }}</span>
                 </div>
-                <div>
+                <div class="select">
                     <label>{{ form.dolares.label}}</label>
                     {{ form.dolares }}
                     <span>{{ form.dolares.errors }}</span>
                 </div>
-                <div>
+                <div class="select">
                     <label>{{ form.tipo_pago.label}}</label>
                     {{ form.tipo_pago }}
                     <span>{{ form.tipo_pago.errors }}</span>
                 </div>
         </div>
         <div class="seccion_botones">           
-            <input class="btn_naranja btn_formulario" id="save_contact" 
+            <input class="btn_confirmar" id="save_contact" 
             type="submit" value="Registrar"/>
-            <a href="/lista.gastos" class="btn_volver btn_volver_formulario">Volver a lista de gastos</a>
+            <a href="/lista.gastos" class="btn_volver">Volver a lista de gastos</a>
         </div>
         </section>
     </form>

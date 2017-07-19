@@ -1,0 +1,5 @@
+.tbl_visitas{
+	height: 450px;
+    overflow-y: scroll;
+    border-radius: 5px;
+}

@@ -16,11 +16,13 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/pacientes/creacion.pacientes.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/visitas/creacion.visitas.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/visitas/visitas.detalle.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/visitas/visitas.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/gastos/gastos.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/gastos/creacion.gastos.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/gastos/movimientos.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/gastos/gastos.detalle.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/proveedores/proveedores.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/generic/borrar.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/proveedores/creacion.proveedores.css'%}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/proveedores/proveedor.detalle.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/agenda/agenda.css'%}"/>
@@ -35,46 +37,50 @@
 
 </head>
 <body>
-<nav class="navbar_base">
-    <div class="container_base">
-        <div class="base_menus base_adel">
-            <a href="http://localhost:8000"><span>ADEL</span></a>
-        </div>
-        <div class="base_menus base_visitas">
-            <a href="/lista.visitas">
-                <span class="glyphicon glyphicon-home  icono_menu_principal"> Visitas</span>
+<nav class="container_menu">
+    <div class="menu_logo">
+        <div class="div_logo">
+            <a href="../">
+                <img src="{% static 'img/iconos/logo.png' %}" alt="Empleados">
             </a>
         </div>
-        <div class="base_menus base_visitas">
-            <a href="/lista.empleados">
-                <span class="glyphicon glyphicon-user  icono_menu_principal"> Empleados</span>
-            </a>
-        </div>
-        <div class="base_menus base_pacientes">
-            <a href="/lista.pacientes">
-                <span class="glyphicon glyphicon-user  icono_menu_principal"> Pacientes</span>
-            </a>
-        </div>
-        <div class="base_menus base_proveedores">
-            <a href="/lista.proveedores">
-                <span class="glyphicon glyphicon-user  icono_menu_principal"> Proveedores</span>
-            </a>
-        </div>
-        <div class="base_menus base_gastos">
-            <a href="/lista.gastos">
-                <span class="glyphicon glyphicon-usd  icono_menu_principal"> Gastos</span>
-            </a>
-        </div>
-        <div class="base_menus base_agenda">
-            <a href="/lista.agenda">
-                <span class="glyphicon glyphicon-list-alt  icono_menu_principal"> Agenda</span>
-            </a>
-        </div>
-        <div class="base_menus base_agenda">
-            <a href="/movimientos">
-                <span class="glyphicon glyphicon-th-list  icono_menu_principal"> Movimientos</span>
-            </a>
-        </div>
+    </div>
+    <div class="menu_content">
+            <div class="base_menus base_visitas">
+                <a href="/lista.visitas">
+                    <span class="glyphicon glyphicon-home  icono_menu_principal"> Visitas</span>
+                </a>
+            </div>
+            <div class="base_menus base_visitas">
+                <a href="/lista.empleados">
+                    <span class="glyphicon glyphicon-user  icono_menu_principal"> Empleados</span>
+                </a>
+            </div>
+            <div class="base_menus base_pacientes">
+                <a href="/lista.pacientes">
+                    <span class="glyphicon glyphicon-user  icono_menu_principal"> Pacientes</span>
+                </a>
+            </div>
+            <div class="base_menus base_proveedores">
+                <a href="/lista.proveedores">
+                    <span class="glyphicon glyphicon-object-align-bottom icono_menu_principal"> Proveedores</span>
+                </a>
+            </div>
+            <div class="base_menus base_gastos">
+                <a href="/lista.gastos">
+                    <span class="glyphicon glyphicon-usd  icono_menu_principal"> Gastos</span>
+                </a>
+            </div>
+            <div class="base_menus base_agenda">
+                <a href="/lista.agenda">
+                    <span class="glyphicon glyphicon-list-alt  icono_menu_principal"> Agenda</span>
+                </a>
+            </div>
+            <div class="base_menus base_agenda">
+                <a href="/movimientos">
+                    <span class="glyphicon glyphicon-th-list  icono_menu_principal"> Movimientos</span>
+                </a>
+            </div>
     </div>
 </nav>
 {% block body %}

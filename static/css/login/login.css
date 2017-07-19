@@ -1,8 +1,28 @@
 /*---------------------------- base ------------------------*/
-.container_base{
+.container_menu{
 	background-color: #00A4DB;
 	border: 1px solid black;
+	display: inline;
+	padding: 20px 0px;
+	
 }
+.menu_logo{
+	width: 15%;
+	display: inline-block;
+	padding-left: 20px;
+}
+.menu_content{
+	width: 84%;
+	display: inline-block;
+}
+.menu_content_superior{
+	display: block;
+	background-color: red;
+}
+.menu_content_inferior{
+	display: block;
+}
+
 .base_menus{
 	display: inline-block;
 }
@@ -24,6 +44,7 @@
     width:97%;
 	display: inline-block;
 	margin-top: 1%;
+	margin-bottom: 5%;
 	margin-left: 1%;
 }
 
@@ -32,11 +53,11 @@
     width: 17.3%;
 	display: inline-block;
 	margin: 1em;
-	margin-bottom: 2em;
+	margin-bottom: 1em;
 }
 .img_menu_card_main{
-	margin: 1em;
-	width: auto;
+	padding: 1em;
+	width: 100%;
     height: auto;
 }
 .img_menu_cards{

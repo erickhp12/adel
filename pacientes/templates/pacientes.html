@@ -5,7 +5,7 @@
 {% block body %}
  
 <div class = "header">
-        <p class="header_text">Pacientes registrados  ({{ total }})</p>
+        <p class="header_text">Pacientes registrados | {{ total }}</p>
 </div>
 
 <!-- herramientas de menu -->
@@ -14,22 +14,20 @@
     <form method=post>
     {% csrf_token %}
       <!-- barra de busqueda -->
-      <div class="seccion_busqueda">   
-        <span><b>Buscar algun registro</b> </span>
+      <div class="seccion_busqueda_2">   
+        <span><b>Buscar</b> </span>
         <input type="text" id="myInput" onkeyup="myFunction()" name="paciente" 
-        placeholder="buscar" class="search_busqueda">
+        placeholder="nombre, tipo de paciente, o aseguranza" class="search_busqueda_2">
       </div>
       
-      <!-- Seccion botones -->
-      <div class="seccion_agregar_nuevo">
-        <a class="btn_busqueda">
-          <input type="submit" name="link_add_gasto" 
-          class="btn_agregar_elemento_agenda btn_busqueda" value="Buscar"/>
+      <a>
+        <input type="submit" name="link_add_gasto" 
+        class="btn_agregar_elemento_agenda btn_busqueda" value="Buscar"/>
         </a>
-        <a href="/registro.paciente" class="btn_naranja_main">
-          <input type="button" name="link_add_gasto" 
-          class="btn_naranja" value="Agregar un paciente"/>
-        </a>
+      <a href="/registro.paciente">
+        <input type="button" name="link_add_gasto" 
+        class="btn_agregar_elemento_2" value="Agregar un paciente"/>
+      </a>
       </div>
     </form>
   </section>
@@ -45,6 +43,7 @@
           <th>telefono</th>
           <th>Informacion</th>
           <th>Edicion</th>
+          <th>Accion</th>
      </thead>
      {% for paciente in Paciente %}
      <tbody class="contenido">
@@ -57,6 +56,9 @@
           </td>
           <td>
                <a href="{{ paciente.url_editar_paciente }}" class="glyphicon glyphicon-pencil"> Editar</a>
+          </td>
+          <td>
+               <a href="{{ paciente.url_borrar_paciente }}" class="glyphicon glyphicon-trash"> Borrar</a>
           </td>
      </tbody>
      {% endfor %}

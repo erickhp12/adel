@@ -20,3 +20,7 @@ class Proveedor(models.Model):
     @permalink
     def url_editar_proveedor(self):
         return ('editar_proveedor', [int(self.pk)])
+
+    @permalink
+    def url_borrar_proveedor(self):
+        return ('borrar_proveedor', [int(self.pk)])

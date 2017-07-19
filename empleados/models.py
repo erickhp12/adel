@@ -20,3 +20,7 @@ class Empleado(models.Model):
     @permalink
     def url_editar_empleado(self):
         return ('editar_empleado', [int(self.pk)])
+
+    @permalink
+    def url_borrar_empleado(self):
+        return ('borrar_empleado', [int(self.pk)])

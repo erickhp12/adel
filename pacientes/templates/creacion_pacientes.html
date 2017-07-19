@@ -21,7 +21,7 @@
                     {{ form.apellidos }}
                     <span>{{ form.apellidos.errors }}</span>
                 </div>
-                <div class="select_tipo_paciente">
+                <div class="select_tipo_paciente select">
                     <p><label>{{ form.tipo_paciente.label}}</label></p>
                     {{ form.tipo_paciente }}
                     <span>{{ form.tipo_paciente.errors }}</span>
@@ -61,9 +61,9 @@
                 </div>
         </div>
         <div class="seccion_botones">           
-            <input class="btn_naranja btn_formulario" id="save_contact" 
+            <input class="btn_confirmar" id="save_contact" 
             type="submit" value="Registrar"/>
-            <a href="/lista.pacientes" class="btn_volver btn_volver_formulario">
+            <a href="/lista.pacientes" class="btn_volver">
                 Volver a lista de pacientes
             </a>
         </div>

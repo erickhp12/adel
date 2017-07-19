@@ -6,6 +6,7 @@ from .models import Paciente
 from visitas.models import Visitas
 from .forms import RegistrarPaciente
 from django.http import HttpResponse
+from django.conf import settings
 
 
 class PatientListView(ListView):
@@ -25,8 +26,8 @@ class PatientListView(ListView):
     def post(self, request, *args, **kwargs):
         paciente_input = request.POST.get('paciente')
 
-        paciente = Paciente.objects.all().filter(nombres__contains=paciente_input
-            ) | Paciente.objects.all().filter(apellidos__contains=paciente_input)
+        paciente = Paciente.objects.all().filter(nombres__icontains=paciente_input
+            ) | Paciente.objects.all().filter(apellidos__icontains=paciente_input)
         total_paciente = paciente.count()
 
         context = {'Paciente':paciente,
@@ -50,14 +51,45 @@ class UpdatePatientView(UpdateView):
 class DetailPatientView(DetailView):
     model = Paciente
     template_name = "paciente_detalle.html"
- 
+
     def get(self, request, pk, **kwargs):
         paciente = Paciente.objects.all().filter(id=pk)
         visitas = Visitas.objects.all().filter(paciente_id=pk)
+        precio_pesos = 0
+        precio_dolares = 0
+        precio_total = 0
+
+        for visita in visitas:
+            if visita.dolares == "Dolares":
+                precio_dolares += visita.precio * settings.DIVISA
+                print precio_dolares
+            else:
+                precio_pesos += visita.precio
+
+        precio_total = precio_pesos + precio_dolares
+
+
         context = {'visitas':visitas,
                     'paciente':paciente,
+                    'precio_total':precio_total,
                     }
         return render(request,self.template_name, context)
+
+
+class DeletePatientView(ListView):
+    template_name = "eliminar_paciente.html"
+
+    def get(self, request, pk, **kwargs):
+        paciente = Paciente.objects.all().filter(id=pk)
+
+        context = {'paciente':paciente}
+
+        return render(request,self.template_name, context)
+
+    def post(self, request, pk, *args, **kwargs):
+        Paciente.objects.all().filter(id=pk).delete()
+
+        return render(self.request,'pacientes.html')
 
  
 

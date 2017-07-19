@@ -5,30 +5,26 @@
 {% block body %}
 
 <div class = "header">
-  <p class="header_text">Proveedores actuales ({{ total_proveedores }})</p>
+  <p class="header_text">Proveedores actuales | {{ total_proveedores }}</p>
 </div>
 <section class="seccion_fondo">
   <section class="herramientas_menu">      
     <form method=post>
     {% csrf_token %}
       <!-- barra de busqueda -->
-      <div class="seccion_busqueda">   
-        <span><b>Buscar algun registro</b> </span>
+      <div class="seccion_busqueda_2">   
+        <span><b>Buscar</b> </span>
         <input type="text" id="myInput" onkeyup="myFunction()" name="proveedor" 
-        placeholder="buscar" class="search_busqueda">
+        placeholder="nombre o contacto" class="search_busqueda_2">
       </div>
-      
-      <!-- Seccion botones -->
-      <div class="seccion_agregar_nuevo">
-        <a class="btn_busqueda">
+        <a>
           <input type="submit" name="link_add_gasto" 
-          class="btn_agregar_elemento_agenda btn_busqueda" value="Buscar"/>
+          class="btn_busqueda" value="Buscar"/>
         </a>
-        <a href="/registro.proveedor" class="btn_naranja_main">
+        <a href="/registro.proveedor">
           <input type="button" name="link_add_gasto" 
-          class="btn_naranja" value="Agregar un proveedor"/>
+          class="btn_agregar_elemento_2" value="Agregar un proveedor"/>
         </a>
-      </div>
     </form>
   </section>
 <hr>
@@ -41,6 +37,7 @@
           <th>Producto</th>
           <th>Informacion</th>
           <th>Edicion</th>
+          <th>Accion</th>
      </thead>
      {% for proveedor in proveedores %}
      <tbody class="contenido">
@@ -53,6 +50,9 @@
           </td>
           <td>
                <a href="{{ proveedor.url_editar_proveedor }}" class="glyphicon glyphicon-pencil"> Editar</a>
+          </td>
+          <td>
+               <a href="{{ proveedor.url_borrar_proveedor }}" class="glyphicon glyphicon-trash"> Borrar</a>
           </td>
      </tbody>
      {% endfor %}
