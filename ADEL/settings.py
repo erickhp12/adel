@@ -12,6 +12,7 @@ SECRET_KEY = '5wn2r-7r5%gn%us%(^16pe#5lcae-o3v32ive_lrev$$5l()n)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+LOCAL = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -25,7 +26,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'south',
     'empleados',
     'login',
     'pacientes',
@@ -97,18 +97,18 @@ DATABASES = {
 #         'ENGINE': 'django.db.backends.mysql',
 #         'NAME': 'adel',
 #         'USER': 'root',
-#         'PASSWORD': '',
-#         'HOST': '',
-#         'PORT': 3306
+#         'PASSWORD': 'root',
+#         # 'HOST': '',
+#         # 'PORT': 3306
 #     }
 # }
 # Cache
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '127.0.0.1:11211',
-    }
-}
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+#         'LOCATION': '127.0.0.1:11211',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
@@ -154,3 +154,12 @@ STATICFILES_DIRS = [
 
 
 MEDIA_URL = '/static/media/'
+
+
+if LOCAL:
+    try:
+        from local_settings import *
+    except Exception, e:
+        print "Error!"
+        print "Se genero un error al tratar de cargar la configuracion local"
+        print e.message
