@@ -25,3 +25,7 @@ class Gasto(models.Model):
     @permalink
     def url_editar_gasto(self):
         return ('editar_gasto', [int(self.pk)])
+
+    @permalink
+    def url_borrar_gasto(self):
+        return ('borrar_gasto', [int(self.pk)])

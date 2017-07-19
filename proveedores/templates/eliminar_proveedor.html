@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}ADEL | eliminar proveedor {% endblock %}
+{% load staticfiles %}
+
+{% block body %}
+
+<section class="seccion_eliminar">
+	<form method=post>
+		{% csrf_token %}
+		{% for proveedor in proveedor %}
+		<span class="p_confirmacion" style="margin-left: 18%;">¿Estás seguro de eliminar a {{ proveedor.nombre }} {{ proveedor.apellidos }} ?</span><br><br>
+		{% endfor %}
+		<input type="submit" value="confirmar" class="btn_confirmar">
+		<a href="/lista.proveedores">
+		<input type="button" value="volver a la lista" class="btn_volver"><br><br>
+		</a>
+	</form>
+</section>	
+{% endblock %}

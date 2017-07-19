@@ -5,7 +5,7 @@
 {% block body %}
 
 <div class = "header">
-  <p class="header_text">Empleados actuales ( {{ total_empleados }} )</p>
+  <p class="header_text">Empleados actuales | {{ total_empleados }}</p>
 </div>
 
 <!-- herramientas de menu -->
@@ -14,21 +14,18 @@
     <form method=post>
     {% csrf_token %}
       <!-- barra de busqueda -->
-      <div class="seccion_busqueda">   
-        <span><b>Buscar algun registro</b> </span>
+      <div class="seccion_busqueda_2">   
+        <span><b>Buscar</b></span>
         <input type="text" id="myInput" onkeyup="myFunction()" name="empleado" 
-        placeholder="buscar" class="search_busqueda">
-      </div>
+        placeholder="nombre o puesto" class="search_busqueda_2">
       
-      <!-- Seccion botones -->
-      <div class="seccion_agregar_nuevo">
-        <a class="btn_busqueda">
+        <a class="btn_busquea_2">
           <input type="submit" name="link_add_gasto" 
-          class="btn_agregar_elemento_agenda btn_busqueda" value="Buscar"/>
+          class="btn_agregar_elemento_agenda btn_busqueda_2" value="Buscar"/>
         </a>
-        <a href="/registro.empleado" class="btn_naranja_main">
+        <a href="/registro.empleado">
           <input type="button" name="link_add_gasto" 
-          class="btn_naranja" value="Agregar un empleado"/>
+          class="btn_agregar_elemento_2" value="Agregar un empleado"/>
         </a>
       </div>
     </form>
@@ -43,6 +40,7 @@
           <th>telefono</th>
           <th>Detalles</th>
           <th>Edicion</th>
+          <th>Accion</th>
      </thead>
      {% for empleado in empleados %}
      <tbody class="contenido" id="contenido">
@@ -54,6 +52,9 @@
           </td>
           <td>
                <a href="{{ empleado.url_editar_empleado }}" class="glyphicon glyphicon-pencil"> Editar</a>
+          </td>
+          <td>
+               <a href="{{ empleado.url_borrar_empleado }}" class="glyphicon glyphicon-trash"> Borrar</a>
           </td>
      </tbody>
      {% endfor %}

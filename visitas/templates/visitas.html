@@ -5,58 +5,65 @@
 {% block body %}
  
 <div class = "header">
-  <p class="header_text">Visitas actuales ({{ total_visitas }})</p>
+  <p class="header_text">Visitas actuales | {{ total_visitas }} </p>
 </div>
 
- <!-- herramientas de menu -->
 <section class="seccion_fondo">
+  <!-- *********************************** barra de busqueda *********************************** -->
   <section class="herramientas_menu">      
     <form method=post>
     {% csrf_token %}
-      <!-- barra de busqueda -->
       <div class="seccion_busqueda">   
-        <span><b>Buscar</b> </span>
-        <input type="text" id="myInput" onkeyup="myFunction()" name="visita" 
-        placeholder="buscar" class="search_busqueda_agenda">
-        <span><b>Fecha inicial</b> </span>
-        <input type="text" id="datepicker" name="fecha_inicial" 
-        placeholder="buscar" class="search_busqueda_fecha_inicial" value="{{ fecha_inicial }}">
-        <span><b>Fecha final</b> </span>
-        <input type="text" id="datepickerf" name="fecha_final" 
-        placeholder="buscar" class="search_busqueda_fecha_final" value="{{ fecha_final }}">
-      </div>
-      
+        <span><b>Buscar</b></span>
+        
+        <input type="text" id="myInput" name="visita" 
+        placeholder="nombre o motivo" class="search_busqueda"/>
+        
+        <input type="text" id="datepicker" name="fecha_inicial" onclick="clear_text()" 
+        placeholder="fecha inicial" class="search_busqueda_fecha_inicial"/>
+
+        <input type="text" id="datepickerf" name="fecha_final" onclick="clear_textf()" 
+        placeholder="fecha final" class="search_busqueda_fecha_final"/>
+
+
       <!-- Seccion botones -->
-      <div class="seccion_agregar_nuevo_agenda">
-        <a class="btn_busqueda">
+        <a class="">
           <input type="submit" name="link_add_gasto" 
-          class="btn_agregar_elemento_agenda btn_busqueda" value="Buscar"/>
+          class="btn_busqueda" value="Buscar"/>
         </a>
-        <a href="/registro.visita" class="btn_naranja_main">
+        <a href="/registro.visita">
           <input type="button" name="link_add_gasto" 
-          class="btn_naranja" value="Agregar una visita"/>
+          class="btn_agregar_elemento" value=" Agregar una visita"/>
         </a>
       </div>
+
     </form>
   </section>
 <hr>
 <!-- tabla de datos -->
-  <section>
+  <section class="tbl_visitas">
    <table>
      <thead class="columna">
-          <th>Paciente</th>
-          <th>Motivo</th>
-          <th>Fecha</th>
-          <th>Informacion</th>
-          <th>Edicion</th>
+          <th style="width: 15%;">Paciente</th>
+          <th style="width: 25%;">Motivo</th>
+          <th style="width: 20%;">Fecha</th>
+          <th style="width: 5%;">Informacion</th>
+          <th style="width: 6%;">Edicion</th>
+          <th style="width: 7%;">Acciones</th>
      </thead>
       {% for visita in visitas %}
      <tbody class="contenido">
-          <td>{{ visita.paciente }}</td>
-          <td>{{ visita.motivo }}</td>
-          <td>{{ visita.fecha_visita }}</td>
-          <td><a href="{{ visita.url_ver_visitas }}" class="glyphicon glyphicon-search"> Ver</a></td>
-          <td><a href="{{ visita.url_editar_visitas }}" class="glyphicon glyphicon-pencil"> Editar</a></td>
+          <td style="width: 15%;">{{ visita.paciente }}</td>
+          <td style="width: 25%;">{{ visita.motivo }}</td>
+          <td style="width: 20%;">{{ visita.fecha_visita }}</td>
+          <td style="width: 6%;">
+            <a href="{{ visita.url_ver_visitas }}" class="glyphicon glyphicon-search"> Ver</a></td>
+          <td style="width: 7%;">
+            <a href="{{ visita.url_editar_visitas }}" class="glyphicon glyphicon-pencil"> Editar</a>
+          </td>
+          <td style="width: 7%;">
+            <a href="{{ visita.url_borrar_visitas }}" class="glyphicon glyphicon-trash"> Borrar</a>
+          </td>
      </tbody>
      {% endfor %}
     </table>
@@ -64,33 +71,42 @@
   </section>
 </section>
 
+
 <script>
+function clear_text() { 
+    document.getElementById('datepicker').placeholder = "";
+}
+function clear_textf() { 
+    document.getElementById('datepickerf').placeholder = "";
+}
+
 $(function () {
-$.datepicker.setDefaults($.datepicker.regional["es"]);
-$("#datepicker").datepicker({
-firstDay: 1,
-monthNames: ['Enero', 'Febrero', 'Marzo','Abril', 'Mayo','Junio',
-'Julio','Agosto','Septiempbre','Octubre','Noviembre','Diciembre'],
-dayNamesMin: ['Dom','Lun','Mar','Mier','Jue','Vier','Sab'],
-dateFormat: 'yy-mm-dd',
-timeFormat:  "hh:mm:ss"
-});
-});
+  $.datepicker.setDefaults($.datepicker.regional["es"]);
+  $("#datepicker").datepicker({
+    firstDay: 1,
+    monthNames: ['Enero', 'Febrero', 'Marzo','Abril', 'Mayo','Junio',
+    'Julio','Agosto','Septiempbre','Octubre','Noviembre','Diciembre'],
+    dayNamesMin: ['Dom','Lun','Mar','Mier','Jue','Vier','Sab'],
+    dateFormat: 'yy-mm-dd',
+    timeFormat:  "hh:mm:ss"
+    });
+  });
 </script>
 
 <script>
-$(function () {
-$.datepicker.setDefaults($.datepicker.regional["es"]);
-$("#datepickerf").datepicker({
-firstDay: 1,
-monthNames: ['Enero', 'Febrero', 'Marzo','Abril', 'Mayo','Junio',
-'Julio','Agosto','Septiempbre','Octubre','Noviembre','Diciembre'],
-dayNamesMin: ['Dom','Lun','Mar','Mier','Jue','Vier','Sab'],
-dateFormat: 'yy-mm-dd',
-timeFormat:  "hh:mm:ss"
-});
-});
+  $(function () {
+  $.datepicker.setDefaults($.datepicker.regional["es"]);
+  $("#datepickerf").datepicker({
+    firstDay: 1,
+    monthNames: ['Enero', 'Febrero', 'Marzo','Abril', 'Mayo','Junio',
+    'Julio','Agosto','Septiempbre','Octubre','Noviembre','Diciembre'],
+    dayNamesMin: ['Dom','Lun','Mar','Mier','Jue','Vier','Sab'],
+    dateFormat: 'yy-mm-dd',
+    timeFormat:  "hh:mm:ss"
+    });
+  });
 </script>
+
 {% endblock %}
 
 

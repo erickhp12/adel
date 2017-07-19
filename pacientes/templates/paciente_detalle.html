@@ -1,13 +1,13 @@
-{% extends "base.html" %}
-{% block title %}ADEL | pacientes {% endblock %}
+{% extends "base.html" %} 
+{% block title %}ADEL | detalles {% endblock %}
 {% load staticfiles %}
 
 {% block body %}
-<div class = "header">
-{% for paciente in paciente %}
+<div class = "header">{% for paciente in paciente %}
         <p class="header_text">Informacion de {{ paciente.nombres }}</p>
 </div>
-
+{% endfor %}
+{% for paciente in paciente %}
 <section class="paciente_detalles">
 	<section class="paciente_detalles_informacion">
 		<p class="paciente_detalles_header">Datos generales</p>
@@ -29,6 +29,11 @@
 				<td>{{ paciente.correo }}</td>
 			</tr>
 			<tr>
+			<tr>
+				<td><b>Telefono</b></td>
+				<td>{{ paciente.telefono }}</td>
+			</tr>
+			<tr>
 				<td><b>Direccion</b></td>
 				<td>{{ paciente.direccion }}</td>
 			</tr>
@@ -46,30 +51,26 @@
 	{% endfor %}
 	<section class="paciente_detalles_visitas">
 		<p class="paciente_detalles_header">Visitas registradas</p>
-		{% for visita in visitas %}
-		<hr>
-		<h5>Dia: {{ visita.fecha_visita }}</h1>
-		<table>
-			<tr>
-				<td><b>Atendido por</b></td>
+		<table class="tbl_egresos" valign="top" >
+			<thead>
+				<th>Fecha</th>
+				<th>Dentista</th>
+				<th>Motivo</th>
+				<th>Precio</th>
+				<th>Tipo de pago</th>
+			</thead>
+			{% for visita in visitas %}
+			<tbody>
+				<td>{{ visita.fecha_visita }}</td>
 				<td>{{ visita.dentista }}</td>
-			</tr>
-			<tr>
-				<td><b>Motivo</b></td>
 				<td>{{ visita.motivo }}</td>
-			</tr>
-			<tr>
-				<td><b>Precio</b></td>
 				<td>{{ visita.precio }} {{ visita.dolares }}</td>
-			</tr>
-			<tr>
-				<td><b>Tipo de pago</b></td>
 				<td>{{ visita.tipo_pago }}</td>
-			</tr>
+			</tbody>
+			{% endfor %}
 		</table>
-		
-		{% endfor %}
 		<br>
+		<p class="paciente_detalles_total">Total {{ precio_total }}</p>
 	</section>
 	<a href="/lista.pacientes" class="btn_volver_detalle">
 		<input type="button" value="volver a lista de pacientes" class="btn_volver btn_volver_detalle">

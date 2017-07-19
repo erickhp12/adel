@@ -22,3 +22,7 @@ class Visitas(models.Model):
     @permalink
     def url_editar_visitas(self):
         return ('editar_visita', [int(self.pk)])
+
+    @permalink
+    def url_borrar_visitas(self):
+        return ('borrar_visita', [int(self.pk)])

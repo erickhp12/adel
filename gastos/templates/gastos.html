@@ -5,7 +5,7 @@
 {% block body %}
   
 <div class = "header">
-        <p class="header_text">Gastos actuales ({{ total_gastos }})</p>
+        <p class="header_text">Gastos actuales | {{ total_gastos }}</p>
 </div>
 
 <!-- herramientas de menu -->
@@ -14,21 +14,18 @@
     <form method=post>
     {% csrf_token %}
       <!-- barra de busqueda -->
-      <div class="seccion_busqueda">   
-        <span><b>Buscar algun registro</b> </span>
+      <div class="seccion_busqueda_2">    
+        <span><b>Buscar</b> </span>
         <input type="text" id="myInput" onkeyup="myFunction()" name="gasto" 
-        placeholder="buscar" class="search_busqueda">
+        placeholder="nombre" class="search_busqueda_2">
       </div>
-      
-      <!-- Seccion botones -->
-      <div class="seccion_agregar_nuevo">
-        <a class="btn_busqueda">
+        <a>
           <input type="submit" name="link_add_gasto" 
-          class="btn_agregar_elemento_agenda btn_busqueda" value="Buscar"/>
+          class="btn_busqueda" value="Buscar"/>
         </a>
-        <a href="/registro.gastos" class="btn_naranja_main">
+        <a href="/registro.gastos">
           <input type="button" name="link_add_gasto" 
-          class="btn_naranja" value="Agregar un gasto"/>
+          class="btn_agregar_elemento_2" value="Agregar un gasto"/>
         </a>
       </div>
     </form>
@@ -43,6 +40,7 @@
             <th>Precio</th>
             <th>Informacion</th>
             <th>Edicion</th>
+            <th>Acciones</th>
        </thead>
        {% for gasto in gastos %}
        <tbody class="contenido" id="contenido">
@@ -51,6 +49,7 @@
             <td>{{ gasto.precio }} {{ gasto.dolares }}</td>
             <td><a href="{{ gasto.url_ver_gasto }}" class="glyphicon glyphicon-search"> Ver</a></td>
             <td><a href="{{ gasto.url_editar_gasto }}" class="glyphicon glyphicon-pencil"> Editar</a></td>
+            <td><a href="{{ gasto.url_borrar_gasto }}" class="glyphicon glyphicon-trash"> Borrar</a></td>
        </tbody>
        {% endfor %}
       </table>

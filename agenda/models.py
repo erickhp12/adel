@@ -14,3 +14,7 @@ class Agenda(models.Model):
     @permalink
     def url_editar_agenda(self):
         return ('editar_agenda', [int(self.pk)])
+
+    @permalink
+    def url_borrar_agenda(self):
+        return ('borrar_agenda', [int(self.pk)])

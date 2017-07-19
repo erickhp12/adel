@@ -23,8 +23,9 @@ class EmployeeListView(ListView):
     def post(self, request, *args, **kwargs):
         empleado_input = request.POST.get('empleado')
 
-        empleados = Empleado.objects.all().filter(nombres__contains=empleado_input
-            ) | Empleado.objects.all().filter(apellidos__contains=empleado_input)
+        empleados = Empleado.objects.all().filter(nombres__icontains=empleado_input
+            ) | Empleado.objects.all().filter(apellidos__icontains=empleado_input
+            ) | Empleado.objects.all().filter(puesto__icontains=empleado_input)
         total_empleados = empleados.count()
 
         context = {'empleados':empleados,
@@ -47,3 +48,18 @@ class UpdateEmployeeView(UpdateView):
 class DetailEmployeeView(DetailView):
     model = Empleado
     template_name = "empleado_detalle.html"
+
+
+class DeleteEmployeeView(ListView):
+    template_name = "eliminar_empleado.html"
+
+    def get(self, request, pk, **kwargs):
+        empleado = Empleado.objects.all().filter(id=pk)
+
+        context = {'empleado':empleado}
+
+        return render(request,self.template_name, context)
+
+    def post(self, request, pk, *args, **kwargs):
+        Empleado.objects.all().filter(id=pk).delete()
+        return render(self.request,'empleados.html')

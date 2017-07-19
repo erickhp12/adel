@@ -24,8 +24,8 @@ class ProviderListView(ListView):
     def post(self, request, *args, **kwargs):
         proveedor_input = request.POST.get('proveedor')
 
-        proveedores = Proveedor.objects.all().filter(nombre__contains=proveedor_input
-            ) | Proveedor.objects.all().filter(contacto__contains=proveedor_input)
+        proveedores = Proveedor.objects.all().filter(nombre__icontains=proveedor_input
+            ) | Proveedor.objects.all().filter(contacto__icontains=proveedor_input)
         total_proveedores = proveedores.count()
 
         context = {'proveedores':proveedores,
@@ -39,6 +39,7 @@ class CreateProviderView(CreateView):
     template_name = "creacion_proveedores.html"
     success_url = reverse_lazy('list_proveedores')
 
+
 class UpdateProviderView(UpdateView):
     model = Proveedor
     form_class = RegistrarProveedor
@@ -49,6 +50,21 @@ class UpdateProviderView(UpdateView):
 class DetailProviderView(DetailView):
     model = Proveedor
     template_name = "proveedor_detalle.html"
+
+
+class DeleteProviderView(ListView):
+    template_name = "eliminar_proveedor.html"
+
+    def get(self, request, pk, **kwargs):
+        proveedor = Proveedor.objects.all().filter(id=pk)
+
+        context = {'proveedor':proveedor}
+
+        return render(request,self.template_name, context)
+
+    def post(self, request, pk, *args, **kwargs):
+        Proveedor.objects.all().filter(id=pk).delete()
+        return render(self.request,'proveedores.html')
 
 
  

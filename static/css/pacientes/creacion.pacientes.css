@@ -2,6 +2,7 @@
 	width:97%;
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 	border: 1px solid #999999;
+	margin-bottom: 2%;
 }
 .seccion_1{
 	width:46%;
@@ -27,7 +28,7 @@
 		width: 100%;
 	}
 .pacientes_comentarios>input{
-	height: 100px;
+	height: 105px;
 }
 .btn_naranja_pacientes{
 	margin-bottom: 2em;

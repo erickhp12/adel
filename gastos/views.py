@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from django.db.models import Sum
 from .models import Gasto 
@@ -23,8 +23,8 @@ class SpendingListView(ListView):
 
     def post(self, request, *args, **kwargs):
         gastos = request.POST.get('gasto')
-        gastos = Gasto.objects.all().filter(proveedor__nombre__contains=gastos
-            ) | Gasto.objects.all().filter(proveedor__contacto__contains=gastos)
+        gastos = Gasto.objects.all().filter(proveedor__nombre__icontains=gastos
+            ) | Gasto.objects.all().filter(proveedor__contacto__icontains=gastos)
         total_gastos = gastos.count()
 
         context = {'gastos':gastos,
@@ -43,6 +43,20 @@ class UpdateSpendingView(UpdateView):
     form_class = RegistrarGasto
     template_name = "creacion_gastos.html"
     success_url = reverse_lazy('list_gastos')	
+
+class DeleteSpendingView(ListView):
+    template_name = "eliminar_gastos.html"
+
+    def get(self, request, pk, **kwargs):
+        gastos = Gasto.objects.all().filter(id=pk)
+
+        context = {'gastos':gastos,      
+                    }
+        return render(request,self.template_name, context)
+
+    def post(self, request, pk, *args, **kwargs):
+        Gasto.objects.all().filter(id=pk).delete()
+        return render(self.request,'gastos.html')
  
 class DetailSpendingView(DetailView):
     model = Gasto

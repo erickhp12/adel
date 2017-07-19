@@ -5,39 +5,38 @@
 {% block body %}
  
 <div class = "header">
-        <p class="header_text">Agenda para el dia de hoy ({{ total_agenda }})</p>
-</div>
+        <p class="header_text">Agenda para el dia de hoy | {{ total_agenda }}</p>
+</div> 
 
-<!-- herramientas de menu -->
 <section class="seccion_fondo">
+  <!-- *********************************** barra de busqueda *********************************** -->
   <section class="herramientas_menu">      
     <form method=post>
     {% csrf_token %}
-      <!-- barra de busqueda -->
       <div class="seccion_busqueda">   
-        <span><b>Buscar</b> </span>
-        <input type="text" id="myInput" onkeyup="myFunction()" name="paciente" 
-        placeholder="buscar" class="search_busqueda_agenda">
-        <span><b>Fecha inicial</b> </span>
-        <input type="text" id="datepicker" name="fecha_inicial" 
-        placeholder="buscar" class="search_busqueda_fecha_inicial" value="{{ fecha_inicial }}">
-        <span><b>Fecha final</b> </span>
-        <input type="text" id="datepickerf" name="fecha_final" 
-        placeholder="buscar" class="search_busqueda_fecha_final" value="{{ fecha_final }}">
+        <span><b>Buscar</b></span>
+        
+        <input type="text" id="myInput" name="paciente" 
+        placeholder="nombre o motivo" class="search_busqueda"/>
+        
+        <input type="text" id="datepicker" name="fecha_inicial" onclick="clear_text()" 
+        placeholder="fecha inicial" class="search_busqueda_fecha_inicial"/>
 
-      </div>
-      
+        <input type="text" id="datepickerf" name="fecha_final" onclick="clear_textf()" 
+        placeholder="fecha final" class="search_busqueda_fecha_final"/>
+
+
       <!-- Seccion botones -->
-      <div class="seccion_agregar_nuevo_agenda">
-        <a href="/registro.agenda" class="btn_busqueda">
+        <a class="">
           <input type="submit" name="link_add_gasto" 
           class="btn_busqueda" value="Buscar"/>
         </a>
         <a href="/registro.agenda">
           <input type="button" name="link_add_gasto" 
-          class="btn_naranja" value="Agendar una cita"/>
+          class="btn_agregar_elemento" value=" Agregar una cita"/>
         </a>
       </div>
+
     </form>
   </section>
 <hr>
@@ -50,14 +49,16 @@
         <th>Fecha</th>
         <th>Informacion</th>
         <th>Edicion</th>
+        <th>Accion</th>
       </thead>
       {% for agenda in Agenda %}
       <tbody class="contenido" id="contenido">
-        <td>{{ agenda.paciente }}</td>
+        <td>{{ agenda.paciente   }}</td>
         <td>{{ agenda.motivo }}</td>
         <td>{{ agenda.fecha_agenda }}</td> 
         <td><a href="{{ agenda.url_ver_agenda }}" class="glyphicon glyphicon-search"> Ver </a></td>
-        <td><a href="{{  agenda.url_editar_agenda }}" class="glyphicon glyphicon-pencil"> Editar</a></td>
+        <td><a href="{{ agenda.url_editar_agenda }}" class="glyphicon glyphicon-pencil"> Editar</a></td>
+        <td><a href="{{ agenda.url_borrar_agenda }}" class="glyphicon glyphicon-trash"> Eliminar</a></td>
      </tbody>
      {% endfor %}
     </table><br><br>

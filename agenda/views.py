@@ -39,8 +39,8 @@ class AgendaListView(ListView):
         else:
             fecha_inicial = request.POST.get('fecha_inicial')
             fecha_final = request.POST.get('fecha_final') 
-            total_agenda = Agenda.objects.all().filter(paciente__nombres__contains=paciente
-                ) | Agenda.objects.all().filter(paciente__apellidos__contains=paciente)
+            total_agenda = Agenda.objects.all().filter(paciente__nombres__icontains=paciente
+                ) | Agenda.objects.all().filter(paciente__apellidos__icontains=paciente)
             total = total_agenda.count()
 
         fecha_final_post = request.POST.get('fecha_final')
@@ -86,23 +86,25 @@ class UpdateAgendaView(UpdateView):
 
         return render(request,self.template_name,ctx)
 
-    # def post(self, request, *args, **kwargs):
-    #     fecha_agenda = request.POST.get('fecha')
-    #     paciente_id = request.POST.get('paciente')
-    #     paciente = Paciente.objects.get(pk=paciente_id)
-    #     motivo = request.POST.get('motivo')
-    #     fecha_agenda += " 00:00:00"
-
-    #     Agenda.objects.create(paciente=paciente,motivo=motivo, fecha_agenda=fecha_agenda)
-
-    #     context = {'ingresos':fecha_agenda}
-
-    #     return render(self.request, self.template_name, context)   
-
 
 class DetailAgendaView(DetailView):
     model = Agenda
     template_name = "agenda_detalle.html"
+
+
+class DeleteAgendaView(ListView):
+    template_name = "eliminar_agenda.html"
+
+    def get(self, request, pk, **kwargs):
+        agenda = Agenda.objects.all().filter(id=pk)
+
+        context = {'agenda':agenda}
+
+        return render(request,self.template_name, context)
+
+    def post(self, request, pk, *args, **kwargs):
+        Agenda.objects.all().filter(id=pk).delete()
+        return render(self.request,'agenda.html')
 
 
  
