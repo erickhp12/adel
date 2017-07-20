@@ -14,7 +14,6 @@ cd /www/adel
 echo "Ejecutando migraciones de base de datos"
 python manage.py makemigrations
 python manage.py migrate
-python manage.py createcachetable cache_records
 python manage.py collectstatic --noinput
 
 

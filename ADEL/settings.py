@@ -147,10 +147,10 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/static/media/'
 
 
-# if LOCAL:
-#     try:
-#         from local_settings import *
-#     except Exception, e:
-#         print "Error!"
-#         print "Se genero un error al tratar de cargar la configuracion local"
-#         print e.message
+if LOCAL:
+    try:
+        from local_settings import *
+    except Exception, e:
+        print "Error!"
+        print "Se genero un error al tratar de cargar la configuracion local"
+        print e.message
