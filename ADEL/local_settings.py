@@ -12,8 +12,6 @@ DATABASES = {
         'NAME': 'adel',
         'USER': 'root',
         'PASSWORD': 'root',
-        # 'HOST': '',
-        # 'PORT': 3306
     }
 }
 
