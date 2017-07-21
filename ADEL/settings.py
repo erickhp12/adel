@@ -12,7 +12,7 @@ SECRET_KEY = '5wn2r-7r5%gn%us%(^16pe#5lcae-o3v32ive_lrev$$5l()n)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-LOCAL = False
+LOCAL = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -136,12 +136,19 @@ USE_TZ = True
 DIVISA = 18
 
 # Static files (CSS, JavaScript, Images)
-STATIC_ROOT = os.path.join(BASE_DIR, "/static/")
-STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, "/static/")
+# STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, "static"),
+# ]
+
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
+STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
-]
+)
+STATIC_URL = '/static/'
 
 
 MEDIA_URL = '/static/media/'
