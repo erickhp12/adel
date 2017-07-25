@@ -12,7 +12,6 @@ SECRET_KEY = '5wn2r-7r5%gn%us%(^16pe#5lcae-o3v32ive_lrev$$5l()n)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-LOCAL = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -64,6 +63,16 @@ DATABASES = {
         'PORT': 3306
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'adel',
+#         'USER': 'root',
+#         'PASSWORD': 'root',
+#     }
+# }
+
 
 # Cache
 CACHES = {
@@ -117,12 +126,3 @@ STATICFILES_DIRS = [
 
 
 MEDIA_URL = '/static/media/'
-
-
-if LOCAL:
-    try:
-        from local_settings import *
-    except Exception, e:
-        print "Error!"
-        print "Se genero un error al tratar de cargar la configuracion local"
-        print e.message
