@@ -65,16 +65,6 @@ DATABASES = {
     }
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'adel',
-#         'USER': 'root',
-#         'PASSWORD': '',
-#         'HOST': '',
-#         'PORT': 3306
-#     }
-# }
 # Cache
 CACHES = {
     'default': {
