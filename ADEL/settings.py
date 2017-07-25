@@ -11,13 +11,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '5wn2r-7r5%gn%us%(^16pe#5lcae-o3v32ive_lrev$$5l()n)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+LOCAL = False
 
 ALLOWED_HOSTS = ['*']
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -117,3 +117,12 @@ STATICFILES_DIRS = [
 
 
 MEDIA_URL = '/static/media/'
+
+
+if LOCAL:
+    try:
+        from local_settings import *
+    except Exception, e:
+        print "Error!"
+        print "Se genero un error al tratar de cargar la configuracion local"
+        print e.message
