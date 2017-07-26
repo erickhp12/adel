@@ -4,12 +4,15 @@ from django.views.generic import ListView, DetailView
 from django.core.urlresolvers import reverse_lazy
 from .models import Empleado
 from .forms import RegistrarEmpleado
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 
 class EmployeeListView(ListView):
     queryset = Empleado.objects.all().order_by('nombres')
     template_name = "empleados.html"
 
+    @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
         empleados = Empleado.objects.all()
         total_empleados = Empleado.objects.all().count

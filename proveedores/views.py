@@ -5,12 +5,15 @@ from django.core.urlresolvers import reverse_lazy
 from .models import Proveedor
 from .forms import RegistrarProveedor
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 
 class ProviderListView(ListView):
     queryset = Proveedor.objects.all()
     template_name = "proveedores.html"
 
+    @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
         proveedores = Proveedor.objects.all()
         total_proveedores = Proveedor.objects.all().count

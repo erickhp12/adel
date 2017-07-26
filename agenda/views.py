@@ -7,12 +7,15 @@ from .models import Agenda
 from pacientes.models import Paciente
 from .forms import RegistrarAgenda
 import time
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 
 class AgendaListView(ListView):
     queryset = Agenda.objects.all().order_by('fecha_agenda')
     template_name = "agenda.html"
 
+    @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
         fecha_inicial = time.strftime("%Y-%m-%d")
         fecha_final = time.strftime("%Y-%m-%d")

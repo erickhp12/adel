@@ -3,7 +3,9 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import ListView, DetailView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from django.db.models import Sum
-from .models import Gasto 
+from .models import Gasto
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from visitas.models import Visitas
 from .forms import RegistrarGasto
 import time
@@ -12,6 +14,7 @@ import time
 class SpendingListView(ListView):
     template_name = "gastos.html"
 
+    @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
         gastos = Gasto.objects.all().order_by('fecha_gasto')
         total_gastos = Gasto.objects.all().count
@@ -60,12 +63,13 @@ class DeleteSpendingView(ListView):
  
 class DetailSpendingView(DetailView):
     model = Gasto
-    template_name = "gastos_detalle.html"  
+    template_name = "gastos_detalle.html"
 
 
 class MovementsView(ListView):
     template_name = "movimientos.html"
 
+    @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
         total_diferencia = 0
         dia = time.strftime("%Y-%m-%d")

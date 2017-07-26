@@ -7,12 +7,15 @@ from visitas.models import Visitas
 from .forms import RegistrarPaciente
 from django.http import HttpResponse
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 
 class PatientListView(ListView):
     queryset = Paciente.objects.all()
     template_name = "pacientes.html"
 
+    @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
         total = Paciente.objects.all()
         total_pacientes = Paciente.objects.all().count

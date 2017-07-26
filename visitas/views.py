@@ -8,10 +8,13 @@ from django.http import HttpResponseRedirect
 from .models import Visitas
 from .forms import RegistrarVisita
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 class VisitListView(ListView):
     template_name = "visitas.html"
 
+    @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
         total = Visitas.objects.all().order_by('fecha_visita')
         total_visitas = Visitas.objects.all().count
