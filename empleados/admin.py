@@ -1,5 +1,9 @@
 from django.contrib import admin
-from .models import Empleado
+from . import models as m
 
-# Register your models here.
-admin.site.register(Empleado)
+class EmpleadoAdmin(admin.ModelAdmin):
+    list_display = ('nombres','puesto' ,'telefono','correo','direccion','fecha_inicio')
+    list_filter = ('nombres',)
+    search_fields = ['nombre']
+
+admin.site.register(m.Empleado, EmpleadoAdmin)

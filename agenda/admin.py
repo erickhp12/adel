@@ -1,5 +1,9 @@
 from django.contrib import admin
-from .models import Agenda
+from . import models as m
 
-# Register your models here.
-admin.site.register(Agenda)
+class AgendaAdmin(admin.ModelAdmin):
+    list_display = ('paciente','motivo' ,'fecha_agenda')
+    list_filter = ('paciente',)
+    search_fields = ['paciente']
+
+admin.site.register(m.Agenda, AgendaAdmin)

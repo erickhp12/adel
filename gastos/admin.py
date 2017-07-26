@@ -1,5 +1,11 @@
 from django.contrib import admin
-from .models import Gasto
+from . import models as m
 
-# Register your models here.
-admin.site.register(Gasto)
+class GastoAdmin(admin.ModelAdmin):
+    list_display = ('proveedor','empleado' ,'motivo','precio','dolares','tipo_pago','fecha_gasto')
+    list_filter = ('motivo',)
+    search_fields = ['motivo']
+
+admin.site.register(m.Gasto, GastoAdmin)
+
+    
