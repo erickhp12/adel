@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -49,5 +49,11 @@ class LoginView(TemplateView):
                 else:
                     mensaje = "Nombre y/o password incorrectos"
 
-            ctx = {'mensaje':mensaje}
+            ctx = {'mensaje': mensaje}
             return render(request, self.template_name, ctx)
+
+
+class LogoutView(TemplateView):
+    def get(self, request, *args, **kwargs):
+        logout(request)
+        return HttpResponseRedirect('/')
