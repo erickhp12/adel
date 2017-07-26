@@ -7,6 +7,8 @@ from .models import Agenda
 from pacientes.models import Paciente
 from visitas.models import Visitas
 from .forms import RegistrarAgenda
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 import time
 
 
