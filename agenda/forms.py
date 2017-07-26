@@ -3,7 +3,6 @@ from django import forms
 from .models import Agenda
 from django.forms import TextInput
 
-
 class RegistrarAgenda(ModelForm):
     class Meta:
         model = Agenda
