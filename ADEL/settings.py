@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -105,15 +107,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
 LANGUAGE_CODE = 'es-mx'
-
 TIME_ZONE = 'America/Chihuahua'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
-
 DIVISA = 18
 
 # Static files (CSS, JavaScript, Images)

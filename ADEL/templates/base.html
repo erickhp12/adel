@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>{% block title %}ADEL{% endblock %}</title>
     {% load staticfiles %}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}"/>
@@ -79,6 +80,11 @@
             <div class="base_menus base_agenda">
                 <a href="/movimientos">
                     <span class="glyphicon glyphicon-th-list  icono_menu_principal"> Movimientos</span>
+                </a>
+            </div>
+            <div class="base_menus base_agenda salir">
+                <a href="/movimientos">
+                    <span class="icono_menu_principal"> Salir</span>
                 </a>
             </div>
     </div>

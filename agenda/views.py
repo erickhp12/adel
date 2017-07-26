@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView, View
 from django.views.generic import ListView, DetailView
@@ -23,11 +24,6 @@ class AgendaListView(ListView):
         estado = 0
         total = Agenda.objects.all().filter(fecha_agenda__range=[fecha_inicial, fecha_final + " 23:59:59"]).order_by('fecha_agenda')
         total_agenda = total.count()
-        print "ESTADO"
-        estado = Visitas.objects.filter(paciente__nombres__icontains='Karina').count()
-        print estado
-        if estado >= 1:
-            estado = 1
 
         context = {'Agenda':total,
                     'total_agenda':total_agenda,

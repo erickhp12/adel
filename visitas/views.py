@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView
@@ -10,6 +11,7 @@ from .forms import RegistrarVisita
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+
 
 class VisitListView(ListView):
     template_name = "visitas.html"

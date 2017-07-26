@@ -37,11 +37,15 @@
 .base_menus>a:hover{
 	color: #777777;
 }
+.salir{
+	font-size: 16px;
+	margin-left: 23%;
+}
 
 /*---------------------------- login ------------------------*/
 .fondo_menu_principal{
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    width:97%;
+    width:98%;
 	display: inline-block;
 	margin-top: 1%;
 	margin-bottom: 5%;
@@ -61,7 +65,7 @@
     height: auto;
 }
 .img_menu_cards{
-	margin-left: 20%;
+	margin-left: 25%;
 	width: auto;
     height: auto;
     margin-bottom: 1em;
