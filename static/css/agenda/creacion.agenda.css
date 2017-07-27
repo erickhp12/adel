@@ -1,0 +1,10 @@
+.motivo_agenda>input{
+	height: 90px;
+}
+.seccion_1_agenda>div>select{
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	border: 1px solid #BBBBBB;
+}
+
+

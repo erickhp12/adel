@@ -1,0 +1,79 @@
+{% extends "base.html" %} 
+{% block title %}ADEL | detalles {% endblock %}
+{% load staticfiles %}
+
+{% block body %}
+<div class = "header">{% for paciente in paciente %}
+        <p class="header_text">Informacion de {{ paciente.nombres }}</p>
+</div>
+{% endfor %}
+{% for paciente in paciente %}
+<section class="paciente_detalles">
+	<section class="paciente_detalles_informacion">
+		<p class="paciente_detalles_header">Datos generales</p>
+		<table>
+			<tr>
+				<td><b>Nombre</b></td>	
+				<td>{{ paciente.nombres }} {{ paciente.apellidos }}</td>
+			</tr>
+			<tr>
+				<td><b>Tipo de paciente</b></td>
+				<td>{{ paciente.tipo_paciente }}</td>
+			</tr>
+			<tr>
+				<td><b>Edad</b></td>
+				<td>{{ paciente.edad }} años</td>
+			</tr>
+			<tr>
+				<td><b>Correo</b></td>
+				<td>{{ paciente.correo }}</td>
+			</tr>
+			<tr>
+			<tr>
+				<td><b>Telefono</b></td>
+				<td>{{ paciente.telefono }}</td>
+			</tr>
+			<tr>
+				<td><b>Direccion</b></td>
+				<td>{{ paciente.direccion }}</td>
+			</tr>
+			<tr>
+				<td><b>Observaciones</b></td>
+				<td>{{ paciente.comentarios }}</td>
+			</tr>
+			<tr>
+				<td><b>Fecha de inicio</b></td>
+				<td>{{ paciente.fecha_inicio }}</td>
+			</tr>
+		</table>
+		<br>
+	</section>
+	{% endfor %}
+	<section class="paciente_detalles_visitas">
+		<p class="paciente_detalles_header">Visitas registradas</p>
+		<table class="tbl_egresos" valign="top" >
+			<thead>
+				<th>Fecha</th>
+				<th>Dentista</th>
+				<th>Motivo</th>
+				<th>Precio</th>
+				<th>Tipo de pago</th>
+			</thead>
+			{% for visita in visitas %}
+			<tbody>
+				<td>{{ visita.fecha_visita }}</td>
+				<td>{{ visita.dentista }}</td>
+				<td>{{ visita.motivo }}</td>
+				<td>{{ visita.precio }} {{ visita.dolares }}</td>
+				<td>{{ visita.tipo_pago }}</td>
+			</tbody>
+			{% endfor %}
+		</table>
+		<br>
+		<p class="paciente_detalles_total">Total {{ precio_total }}</p>
+	</section>
+	<a href="/lista.pacientes" class="btn_volver_detalle">
+		<input type="button" value="volver a lista de pacientes" class="btn_volver btn_volver_detalle">
+	</a>
+</section>	
+{% endblock %}

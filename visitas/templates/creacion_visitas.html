@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}ADEL | agregar visita{% endblock %}
+{% block albums_active %} active {% endblock %}
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+{% block body %}
+<div class = "header">
+        <p class="header_text">visita</p>
+</div>
+
+    <form method=post>
+        {% csrf_token %}
+        <section class="seccion_formulario">
+            <div class="seccion_1">
+                <div class="select">
+                    <label>{{ form.paciente.label}}</label>
+                    {{ form.paciente }}
+                    <span>{{ form.paciente.errors }}</span>
+                </div>
+                <div class="motivo1">
+                    <label>{{ form.motivo.label}}</label>
+                    {{ form.motivo }}
+                    <span>{{ form.motivo.errors }}</span>
+                </div>
+            </div>
+
+            <div class="seccion_2">
+                <div class="select">
+                    <label>{{ form.dentista.label}}</label>
+                    {{ form.dentista }}
+                    <span>{{ form.dentista.errors }}</span>
+                </div>
+                <div>
+                    <label>{{ form.precio.label}}</label>
+                    {{ form.precio }}
+                    <span>{{ form.precio.errors }}</span>
+                </div>
+                <div class="select">
+                    <label>{{ form.dolares.label}}</label>
+                    {{ form.dolares }}
+                    <span>{{ form.dolares.errors }}</span>
+                </div>
+                <div class="select">
+                    <label>{{ form.tipo_pago.label}}</label>
+                    {{ form.tipo_pago }}
+                    <span>{{ form.tipo_pago.errors }}</span>
+                </div>
+        </div>
+        <div class="seccion_botones">           
+            <input class="btn_confirmar" id="save_contact" 
+            type="submit" value="Registrar"/>
+            <a href="/lista.visitas" class="btn_volver">Volver a lista de visitas</a>
+        </div>
+        </section>
+    </form>
+</div>
+
+{% endblock %}
