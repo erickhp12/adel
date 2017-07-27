@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% block title %}ADEL | Gastos {% endblock %}
+{% load staticfiles %}
+
+{% block body %}
+<body onload="hide_show_section()"> 
+</div>
+
+ <div class = "header">
+        <p class="header_text">Mis movimientos</p>
+    </div>
+<section class="seccion_fondo">
+	<section class="seccion_fondo_fechas">
+		<form action="" method="post">
+		{% csrf_token %}
+		<div>
+			<label for="Fecha de inicio">Fecha de inicio</label>
+			<input type="text" value="{{ fechai }}" placeholder="{{ fechai }}"
+			id="datepicker" class="search_busqueda" name="fecha1">	
+		</div>
+		<div>
+			<label for="Fecha de final">Fecha final</label>
+			<input type="text" value="{{ fechaf }}" placeholder="{{ fechaf }}" 
+			id="datepickerf" class="fecha_final" name="fecha2">
+		</div>
+		<div>
+			<input type="submit" value="Buscar" class="btn_agregar_elemento">
+		</div>
+		</form>
+	</section>
+	<hr>
+	<section class="seccion_movimientos_general" id="seccion_movimientos_general">
+		<section class="seccion_ingresos">
+			<table class="tbl_ingresos">
+				<h3 style="text-align: center;">Mis ingresos</h3><br>
+				<thead>
+					<th class="th_ingresos">&nbsp;&nbsp;Fecha de visita</th>
+					<th class="th_ingresos">Paciente&nbsp; &nbsp;</th>
+					<th class="th_ingresos">Concepto</th>
+					<th class="th_ingresos">Total</th>
+				</thead>
+				{% for ingreso in ingresos %}
+				<tbody>
+					<td class="th_ingresos">{{ ingreso.fecha_visita }}</td>
+					<td class="th_ingresos">{{ ingreso.paciente}}</td>
+					<td class="th_ingresos">{{ ingreso.motivo }}</td>
+					<td class="th_ingresos">{{ ingreso.precio }} {{ ingreso.dolares }}</td>
+				</tbody>
+				{% endfor %}
+			</table>
+		</section>
+		<hr>
+		<section class="seccion_egresos">
+			<table class="tbl_egresos" valign="top" >
+				<h3 style="text-align: center;">Mis gastos</h3><br>
+				<thead>
+					<th class="th_egresos">&nbsp; &nbsp;Fecha de gasto</th>
+					<th class="th_egresos">Proveedor</th>
+					<th class="th_egresos">Concepto</th>
+					<th class="th_egresos">Total</th>
+				</thead>
+				{% for egreso in egresos %}
+				<tbody>
+					<td>{{ egreso.fecha_gasto }}</td>
+					<td>{{ egreso.proveedor }}</td>
+					<td>{{ egreso.motivo }}</td>
+					<td>{{ egreso.precio }} {{ egreso.dolares }}</td>
+				</tbody>
+				{% endfor %}
+			</table>
+		</section>
+	</section>
+</section>
+
+<section class="seccion_movimientos_resumen" id="seccion_movimientos_resumen" onload="hide_show_section()">
+	<p class="resumen_p">Mi resumen de <b>{{ fechai }}</b> a <b>{{ fechaf }}</b></p>
+	<div class="seccion_movimientos_resumen_pesos">
+		<p class="span_ingresos">Pesos $
+			<span id="span_ingresos_pesos" class="span_totales">{{ total_ingresos_pesos}}</span></p>
+		<p class="span_egresos">Pesos $
+			<span id="span_egresos_pesos" class="span_totales">{{ total_egresos_pesos }}</span>
+		</p>
+		<hr>
+		<p class="span_diferencia">Total $
+			{{ total_diferencia_pesos }}
+		</p>
+	</div>
+	<div class="seccion_movimientos_resumen_dolares">
+		<p class="span_ingresos">Dolares &nbsp;$ 
+			<span id="span_ingresos_dolares" class="span_totales">{{ total_ingresos_dolares }}</span>
+		</p>
+		<p class="span_egresos">Dolares &nbsp;$
+			<span id="span_egresos_dolares"  class="span_totales">{{ total_egresos_dolares }}</p>
+		<hr>
+		<p class="span_diferencia">Total ${{ total_diferencia_dolares }}</p>
+	</div>
+	
+</section>
+
+<script>
+$(function () {
+$.datepicker.setDefaults($.datepicker.regional["es"]);
+$("#datepicker").datepicker({
+firstDay: 1,
+monthNames: ['Enero', 'Febrero', 'Marzo','Abril', 'Mayo','Junio',
+'Julio','Agosto','Septiempbre','Octubre','Noviembre','Diciembre'],
+dayNamesMin: ['Dom','Lun','Mar','Mier','Jue','Vier','Sab'],
+dateFormat: 'yy-mm-dd',
+timeFormat:  "hh:mm:ss"
+});
+});
+
+$(function () {
+$.datepicker.setDefaults($.datepicker.regional["es"]);
+$("#datepickerf").datepicker({
+firstDay: 1,
+monthNames: ['Enero', 'Febrero', 'Marzo','Abril', 'Mayo','Junio',
+'Julio','Agosto','Septiempbre','Octubre','Noviembre','Diciembre'],
+dayNamesMin: ['Dom','Lun','Mar','Mier','Jue','Vier','Sab'],
+dateFormat: 'yy-mm-dd',
+timeFormat:  "hh:mm:ss"
+});
+});
+
+function hide_show_section() { 
+    var x = document.getElementById('seccion_movimientos_resumen');
+    var y = document.getElementById('seccion_movimientos_general');
+    var ingresos_pesos = document.getElementById('span_ingresos_pesos').innerHTML;
+    var egresos_pesos = document.getElementById('span_egresos_pesos').innerHTML; 
+    var ingresos_dolares = document.getElementById('span_ingresos_dolares').innerHTML; 
+    var egresos_dolares = document.getElementById('span_egresos_dolares').innerHTML;  
+
+    if (ingresos_pesos == "0" && ingresos_dolares == "0" && egresos_pesos == "0" && egresos_dolares == "0") { 
+        x.style.display = 'none';
+        y.style.display = 'none';
+    } else {
+        x.style.display = 'block';
+        y.style.display = 'block';
+    }
+}
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,32 @@
+.seccion_formulario{
+	height:25%;
+	margin-left: 2%;
+	width: 95%;
+}
+.select>label{
+	text-align: center;
+}
+.seccion_1{
+	border-radius: 5px;
+}
+.seccion_2{
+	border-radius: 5px;
+}
+.select>select{
+	-webkit-appearance: none;
+	font-size: 16px;
+	height: 10%;
+	border: 1px solid #777;
+}
+.select>select>option{
+	text-align: center;
+	color: red;
+	margin-left: 100px;
+}
+.seccion_botones>a{
+	margin-left: 32%;
+	text-align: center;
+}
+.motivo1>input{
+	height: 160px;
+}
