@@ -1,9 +1,10 @@
-.paciente_detalles_informacion{
+.paciente_detalles_card{
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
     border: 1px solid #DDDDDD;
     width: 95%;
     margin: 2em;
     margin-top: 1em;
+    background-color: white;
 }	
 .paciente_detalles_visitas{
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -30,5 +31,8 @@
 	font-size: 16px;
 	font-size: 700;
 	font-weight: bold;
+}
+.paciente_detalles_checkbox{
+	width: 36%;
 }
 

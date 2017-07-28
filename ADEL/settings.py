@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'visitas',
     'proveedores',
     'gastos',
+    'historial',
     'agenda'
 ]
 
@@ -71,7 +72,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'adel',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'root',
     }
 }
 

@@ -3,14 +3,16 @@
 {% load staticfiles %}
 
 {% block body %}
-<div class = "header">{% for paciente in paciente %}
+<div class = "header">
+		{% for paciente in paciente %}
         <p class="header_text">Informacion de {{ paciente.nombres }}</p>
+		{% endfor %}
 </div>
-{% endfor %}
-{% for paciente in paciente %}
+
 <section class="paciente_detalles">
-	<section class="paciente_detalles_informacion">
+	<section class="paciente_detalles_card">
 		<p class="paciente_detalles_header">Datos generales</p>
+		{% for paciente in paciente %}
 		<table>
 			<tr>
 				<td><b>Nombre</b></td>	
@@ -46,10 +48,62 @@
 				<td>{{ paciente.fecha_inicio }}</td>
 			</tr>
 		</table>
+		{% endfor %}
 		<br>
 	</section>
-	{% endfor %}
-	<section class="paciente_detalles_visitas">
+
+	<section class="paciente_detalles_card">
+		<p class="paciente_detalles_header">Historial</p>
+			<table>
+			<tr>
+				<td class="paciente_detalles_checkbox"><b>Sexo</b></td>
+				<td>{{ historial.sexo }}</td>
+			</tr>
+			<tr>
+				<td class="paciente_detalles_checkbox"><b>Estado civil</b></td>
+				<td>{{ historial.estado_civil }}</td>
+			</tr>
+			<tr>
+				<td class="paciente_detalles_checkbox"><b>Ocupacion</b></td>
+				<td>{{ historial.ocupacion }}</td>
+			</tr>
+			<tr>
+				<td class="paciente_detalles_checkbox"><b>Alergias</b></td>
+				<td><input type="checkbox" {{ alergias_value }}/></td>
+			</tr>
+			<tr>
+				<td class="paciente_detalles_checkbox"><b>Enfermedades del corazon</b></td>
+				<td><input type="checkbox" {{ corazon_value }}/></td>
+			</tr>
+			<tr>
+				<td class="paciente_detalles_checkbox"><b>Problemas de presion Arterial</b></td>
+				<td><input type="checkbox" {{ presion_arterial_value }}/></td>
+			</tr>
+			<tr>
+				<td class="paciente_detalles_checkbox"><b>Diabetes</b></td>
+				<td><input type="checkbox" {{ diabetes_value }}/></td>
+			</tr>
+			<tr>
+				<td class="paciente_detalles_checkbox"><b>Hepatitis</b></td>
+				<td><input type="checkbox" {{ hepatitis_value }}/></td>
+			</tr>
+			<tr>
+				<td class="paciente_detalles_checkbox"><b>Portador de VIH</b></td>
+				<td><input type="checkbox" {{ vih_value }}/></td>
+			</tr>
+			<tr>
+				<td class="paciente_detalles_checkbox"><b>Embarazada</b></td>
+				<td><input type="checkbox" {{ embarazada_value }}/></td>
+			</tr>
+			<tr>
+				<td class="paciente_detalles_checkbox"><b>Medicamentos</b></td>
+				<td><input type="checkbox" {{ medicamentos_value }}/></td>
+			</tr>
+		</table>
+		<br>
+	</section>
+
+	<section class="paciente_detalles_card">
 		<p class="paciente_detalles_header">Visitas registradas</p>
 		<table class="tbl_egresos" valign="top" >
 			<thead>

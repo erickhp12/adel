@@ -4,6 +4,7 @@ from django.views.generic import ListView, DetailView
 from django.core.urlresolvers import reverse_lazy
 from .models import Paciente
 from visitas.models import Visitas
+from historial.models import Historial
 from .forms import RegistrarPaciente
 from django.http import HttpResponse
 from django.conf import settings
@@ -57,10 +58,38 @@ class DetailPatientView(DetailView):
 
     def get(self, request, pk, **kwargs):
         paciente = Paciente.objects.all().filter(id=pk)
+        historial = Historial.objects.get(paciente=pk)
         visitas = Visitas.objects.all().filter(paciente_id=pk)
         precio_pesos = 0
         precio_dolares = 0
         precio_total = 0
+        
+        # validaciones para check
+        alergias_value = "unchecked"
+        corazon_value = "unchecked"
+        presion_arterial_value = "unchecked"
+        diabetes_value = "unchecked"
+        hepatitis_value = "unchecked"
+        vih_value = "unchecked"
+        embarazada_value = "unchecked"
+        medicamentos_value = "unchecked"
+
+        if historial.alergias == True:
+            alergias_value = "checked"
+        if historial.corazon == True:
+            corazon_value = "checked"
+        if historial.presion_arterial == True:
+            presion_arterial_value = "checked"
+        if historial.diabetes == True:
+            diabetes_value = "checked"
+        if historial.hepatitis == True:
+            hepatitis_value = "checked"
+        if historial.vih == True:
+            vih_value = "checked"
+        if historial.embarazada == True:
+            embarazada_value = "checked"
+        if historial.medicamentos == True:
+            medicamentos_value = "checked"
 
         for visita in visitas:
             if visita.dolares == "Dolares":
@@ -74,6 +103,15 @@ class DetailPatientView(DetailView):
 
         context = {'visitas':visitas,
                     'paciente':paciente,
+                    'historial':historial,
+                    'alergias_value':alergias_value,
+                    'corazon_value':corazon_value,
+                    'presion_arterial_value':presion_arterial_value,
+                    'diabetes_value':diabetes_value,
+                    'hepatitis_value':hepatitis_value,
+                    'vih_value':vih_value,
+                    'embarazada_value':embarazada_value,
+                    'medicamentos_value':medicamentos_value,
                     'precio_total':precio_total,
                     }
         return render(request,self.template_name, context)
