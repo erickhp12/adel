@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import permalink
+from django.db.models import permalink 
 
 class Empleado(models.Model):
     nombres = models.CharField(max_length=200, null=False, unique=False,verbose_name=u'nombre(s)')
