@@ -58,13 +58,9 @@ class DetailPatientView(DetailView):
 
     def get(self, request, pk, **kwargs):
         paciente = Paciente.objects.all().filter(id=pk)
-        historial = Historial.objects.get(paciente=pk)
         visitas = Visitas.objects.all().filter(paciente_id=pk)
-        precio_pesos = 0
-        precio_dolares = 0
-        precio_total = 0
-        
-        # validaciones para check
+        historial = ""
+        message = ""
         alergias_value = "unchecked"
         corazon_value = "unchecked"
         presion_arterial_value = "unchecked"
@@ -73,23 +69,31 @@ class DetailPatientView(DetailView):
         vih_value = "unchecked"
         embarazada_value = "unchecked"
         medicamentos_value = "unchecked"
+        precio_pesos = 0
+        precio_dolares = 0
+        precio_total = 0
+        
+        try:
+            historial = Historial.objects.get(paciente=pk)
 
-        if historial.alergias == True:
-            alergias_value = "checked"
-        if historial.corazon == True:
-            corazon_value = "checked"
-        if historial.presion_arterial == True:
-            presion_arterial_value = "checked"
-        if historial.diabetes == True:
-            diabetes_value = "checked"
-        if historial.hepatitis == True:
-            hepatitis_value = "checked"
-        if historial.vih == True:
-            vih_value = "checked"
-        if historial.embarazada == True:
-            embarazada_value = "checked"
-        if historial.medicamentos == True:
-            medicamentos_value = "checked"
+            if historial.alergias == True:
+                alergias_value = "checked"
+            if historial.corazon == True:
+                corazon_value = "checked"
+            if historial.presion_arterial == True:
+                presion_arterial_value = "checked"
+            if historial.diabetes == True:
+                diabetes_value = "checked"
+            if historial.hepatitis == True:
+                hepatitis_value = "checked"
+            if historial.vih == True:
+                vih_value = "checked"
+            if historial.embarazada == True:
+                embarazada_value = "checked"
+            if historial.medicamentos == True:
+                medicamentos_value = "checked"
+        except:
+            message = "Edita tu historial"
 
         for visita in visitas:
             if visita.dolares == "Dolares":
@@ -113,6 +117,7 @@ class DetailPatientView(DetailView):
                     'embarazada_value':embarazada_value,
                     'medicamentos_value':medicamentos_value,
                     'precio_total':precio_total,
+                    'message':message,
                     }
         return render(request,self.template_name, context)
 

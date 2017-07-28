@@ -22,7 +22,10 @@
 .menu_content_inferior{
 	display: block;
 }
-
+.main_logo{
+	width: 90%;
+	height: 1200px;
+}
 .base_menus{
 	display: inline-block;
 }

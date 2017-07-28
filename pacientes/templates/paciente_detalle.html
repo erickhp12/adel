@@ -138,10 +138,13 @@
 	<br>
 	<p class="paciente_detalles_total">Total {{ precio_total }}</p>
 </section>
-
-
-<a href="/lista.pacientes" class="btn_volver_detalle">
-	<input type="button" value="volver a lista de pacientes" class="btn_volver btn_volver_detalle">
-</a>
+<section class="paciente_detalles_botones">
+	<a href="/lista.pacientes" class="btn_volver_detalle">
+		<input type="button" value="volver a lista de pacientes" class="btn_volver btn_volver_detalle">
+	</a>
+	<a href="/editar.historial" class="btn_volver_detalle">
+		<input type="button" value="Editar historial" class="btn_volver btn_volver_detalle">
+	</a>
+</section>
 
 {% endblock %}
