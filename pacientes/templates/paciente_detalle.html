@@ -8,9 +8,9 @@
         <p class="header_text">Informacion de {{ paciente.nombres }}</p>
 		{% endfor %}
 </div>
-
-<section class="paciente_detalles">
-	<section class="paciente_detalles_card">
+<section class="paciente_detalles_card paciente_detalles_info">
+	<!-- seccion de datos generales -->
+	<section class="paciente_detalles_general">
 		<p class="paciente_detalles_header">Datos generales</p>
 		{% for paciente in paciente %}
 		<table>
@@ -47,12 +47,24 @@
 				<td><b>Fecha de inicio</b></td>
 				<td>{{ paciente.fecha_inicio }}</td>
 			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
 		</table>
 		{% endfor %}
 		<br>
 	</section>
-
-	<section class="paciente_detalles_card">
+	<!-- seccion de historial -->
+	<section class="paciente_detalles_historial">
 		<p class="paciente_detalles_header">Historial</p>
 			<table>
 			<tr>
@@ -102,32 +114,34 @@
 		</table>
 		<br>
 	</section>
+</section>
+<section class="paciente_detalles_card paciente_detalles_visitas">
+	<p class="paciente_detalles_header">Visitas registradas</p>
+	<table class="tbl_egresos" valign="top" >
+		<thead>
+			<th>Fecha</th>
+			<th>Dentista</th>
+			<th>Motivo</th>
+			<th>Precio</th>
+			<th>Tipo de pago</th>
+		</thead>
+		{% for visita in visitas %}
+		<tbody>
+			<td>{{ visita.fecha_visita }}</td>
+			<td>{{ visita.dentista }}</td>
+			<td>{{ visita.motivo }}</td>
+			<td>{{ visita.precio }} {{ visita.dolares }}</td>
+			<td>{{ visita.tipo_pago }}</td>
+		</tbody>
+		{% endfor %}
+	</table>
+	<br>
+	<p class="paciente_detalles_total">Total {{ precio_total }}</p>
+</section>
 
-	<section class="paciente_detalles_card">
-		<p class="paciente_detalles_header">Visitas registradas</p>
-		<table class="tbl_egresos" valign="top" >
-			<thead>
-				<th>Fecha</th>
-				<th>Dentista</th>
-				<th>Motivo</th>
-				<th>Precio</th>
-				<th>Tipo de pago</th>
-			</thead>
-			{% for visita in visitas %}
-			<tbody>
-				<td>{{ visita.fecha_visita }}</td>
-				<td>{{ visita.dentista }}</td>
-				<td>{{ visita.motivo }}</td>
-				<td>{{ visita.precio }} {{ visita.dolares }}</td>
-				<td>{{ visita.tipo_pago }}</td>
-			</tbody>
-			{% endfor %}
-		</table>
-		<br>
-		<p class="paciente_detalles_total">Total {{ precio_total }}</p>
-	</section>
-	<a href="/lista.pacientes" class="btn_volver_detalle">
-		<input type="button" value="volver a lista de pacientes" class="btn_volver btn_volver_detalle">
-	</a>
-</section>	
+
+<a href="/lista.pacientes" class="btn_volver_detalle">
+	<input type="button" value="volver a lista de pacientes" class="btn_volver btn_volver_detalle">
+</a>
+
 {% endblock %}

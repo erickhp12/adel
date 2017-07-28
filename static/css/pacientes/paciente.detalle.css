@@ -1,12 +1,27 @@
 .paciente_detalles_card{
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
     border: 1px solid #DDDDDD;
-    border-radius: 5px;
     width: 95%;
     margin: 2em;
     margin-top: 1em;
     background-color: white;
 }	
+
+.paciente_detalles_info{
+	display: inline-block;
+}
+
+.paciente_detalles_general{
+	display: inline-block;
+	width: 39.1%;
+	border-right: 1px solid #999999;
+}
+.paciente_detalles_historial{
+	display: inline-block;
+	width: 60.5%;
+	border-left: 1px solid #999999;
+}
+
 .paciente_detalles_visitas{
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     border: 1px solid #DDDDDD;
@@ -36,6 +51,6 @@
 	font-weight: bold;
 }
 .paciente_detalles_checkbox{
-	width: 36%;
+	/*width: 36%;*/
 }
 
