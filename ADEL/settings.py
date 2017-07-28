@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'visitas',
     'proveedores',
     'gastos',
+    'historial',
     'agenda'
 ]
 
@@ -55,25 +56,25 @@ TEMPLATE_DIRS = (
 
 WSGI_APPLICATION = 'ADEL.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'docker',
-        'USER': 'docker',
-        'PASSWORD': 'docker',
-        'HOST': 'db',
-        'PORT': 3306
-    }
-}
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'adel',
-#         'USER': 'root',
-#         'PASSWORD': 'root',
+#         'NAME': 'docker',
+#         'USER': 'docker',
+#         'PASSWORD': 'docker',
+#         'HOST': 'db',
+#         'PORT': 3306
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'adel',
+        'USER': 'root',
+        'PASSWORD': 'root',
+    }
+}
 
 
 # Cache
