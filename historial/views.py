@@ -1,3 +1,24 @@
-from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
-# Create your views here.
+from historial.models import Historial
+from historial.serializers import HistorialSerializer
+
+
+class Requests(APIView):
+    @method_decorator(login_required(login_url='login.view.url'))
+    def get(self, request, format=None):
+        snippets = Historial.objects.all()
+        serializer = HistorialSerializer(snippets, many=True)
+        return Response(serializer.data)
+
+    # 'user','rfc_sent', 'rfc_reciever', 'uuid','created'
+    def post(self, request, format=None):
+        serializer = HistorialSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"Answer": 1}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_302_FOUND)
