@@ -18,10 +18,10 @@ class VisitListView(ListView):
 
     @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
-        total = Visitas.objects.all().order_by('fecha_visita')
-        total_visitas = Visitas.objects.all().count
+        visitas = Visitas.objects.all().order_by('fecha_visita')
+        total_visitas = visitas.count
         
-        context = {'visitas':total,
+        context = {'visitas':visitas,
                     'total_visitas':total_visitas,        
                     }
         return render(request,self.template_name, context)
