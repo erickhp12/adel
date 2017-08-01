@@ -6,7 +6,10 @@ from .models import Paciente
 from visitas.models import Visitas
 from historial.models import Historial
 from .forms import RegistrarPaciente
-from django.http import HttpResponse
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.views import APIView
+from .serializers import PacienteSerializer
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -137,5 +140,20 @@ class DeletePatientView(ListView):
 
         return render(self.request,'pacientes.html')
 
- 
 
+class RequestPaciente(APIView):
+    @method_decorator(login_required(login_url='login.view.url'))
+    def get(self, request, format=None):
+        snippets = Paciente.objects.all()
+        serializer = PacienteSerializer(snippets, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = PacienteSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {"Response": "Agregado correctamente"},
+                status=status.HTTP_201_CREATED
+            )
+        return Response(serializer.errors, status=status.HTTP_302_FOUND)

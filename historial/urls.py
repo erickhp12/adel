@@ -1,7 +1,7 @@
 from django.conf.urls import url
 
-from historial.views import Requests
+from historial.views import RequestHistorial
 
 urlpatterns = [
-    url(r'^request/$', Requests.as_view()),
+    url(r'^request-historial/$', RequestHistorial.as_view()),
 ]

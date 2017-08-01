@@ -8,14 +8,13 @@ from historial.models import Historial
 from historial.serializers import HistorialSerializer
 
 
-class Requests(APIView):
+class RequestHistorial(APIView):
     @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, format=None):
         snippets = Historial.objects.all()
         serializer = HistorialSerializer(snippets, many=True)
         return Response(serializer.data)
 
-    # 'user','rfc_sent', 'rfc_reciever', 'uuid','created'
     def post(self, request, format=None):
         serializer = HistorialSerializer(data=request.data)
         if serializer.is_valid():
