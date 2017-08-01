@@ -1,0 +1,45 @@
+.paciente_detalles_card{
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
+    border: 1px solid #DDDDDD;
+    width: 95%;
+    margin: 2em;
+    background-color: white;
+    border-radius: 5px;
+}	
+.paciente_detalles_info{
+	display: inline-block;
+	margin-top: -1em;
+}
+
+.paciente_detalles_general{
+	display: inline-block;
+	width: 35.1%;
+}
+.paciente_detalles_historial{
+	display: inline-block;
+	margin-left: 4%;
+	width: 60.5%;
+}
+.paciente_detalles_visitas{
+	margin-top: -1em;
+}
+
+.paciente_detalles_header{
+	text-align: center;
+	font-size: 18px;
+	font-weight: bold;
+	border-bottom: 1px solid black;
+}
+.paciente_detalles_total{
+	margin-left: 2%;
+	font-size: 16px;
+	font-size: 700;
+	font-weight: bold;
+}
+.paciente_detalles_checkbox{
+	width: 40%;
+}
+.paciente_detalles_botones{
+	margin-top: -2em;
+}
+

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}ADEL | agregar empleado {% endblock %}
+{% block albums_active %} active {% endblock %}
+
+{% block body %}
+<div class = "header">
+        <p class="header_text">Agregar empleado</p>
+</div>
+
+    <form method=post>
+        {% csrf_token %}
+        <section class="seccion_formulario">
+            <div class="seccion_1">
+                <div class="">
+                    <label>{{ form.nombres.label}}</label>
+                    {{ form.nombres }}
+                    <span>{{ form.nombres.errors }}</span>
+                </div>
+                <div class="">
+                    <label>{{ form.apellidos.label}}</label>
+                    {{ form.apellidos }}
+                    <span>{{ form.apellidos.errors }}</span>
+                </div>
+                <div class="">
+                    <label>{{ form.puesto.label}}</label>
+                    {{ form.puesto }}
+                    <span>{{ form.puesto.errors }}</span>
+                </div>
+            </div>
+
+            <div class="seccion_2">
+                <div class="">
+                    <label>{{ form.telefono.label}}</label>
+                    {{ form.telefono }}
+                    <span>{{ form.telefono.errors }}</span>
+                </div>
+                <div class="">
+                    <label>{{ form.correo.label}}</label>
+                    {{ form.correo }}
+                    <span>{{ form.correo.errors }}</span>
+                </div>
+                <div class="">
+                <label>{{ form.direccion.label}}</label>
+                {{ form.direccion }}
+                <span>{{ form.direccion.errors }}</span>
+            </div>
+        </div>
+        <div class="seccion_botones">           
+            <input class="btn_confirmar" id="save_contact" 
+            type="submit" value="Registrar"/>
+            <a href="/lista.empleados" class="btn_volver">Volver a lista de empleados</a>
+        </div>
+        </section>
+    </form>
+</div>
+
+{% endblock %}
