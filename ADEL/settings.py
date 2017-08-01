@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'empleados',
     'login',
     'pacientes',
@@ -72,7 +73,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'adel',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'root',
     }
 }
 
