@@ -5,9 +5,7 @@
 {% block body %}
 
 <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="{% static '/static/js/generic/calendarios.js'%}"></script>
  
 <div class = "header">
   <p class="header_text">Visitas actuales | {{ total_visitas }} </p>
@@ -45,7 +43,9 @@
     </form>
   </section>
 <hr>
-<!-- tabla de datos -->
+
+<!-- *********************************** tabla de datos *********************************** -->  
+
   <section class="tbl_visitas">
    <table>
      <thead class="columna">
@@ -61,11 +61,10 @@
           <td style="width: 15%;">{{ visita.paciente }}</td>
           <td style="width: 25%;">{{ visita.motivo }}</td>
           <td style="width: 20%;">{{ visita.fecha_visita }}</td>
-          <!-- <td style="width: 6%;">
-            <a href="{{ visita.url_ver_visitas }}" class="glyphicon glyphicon-search"> Ver</a>
-          </td> -->
           <td>
-             <a type="button" class="glyphicon glyphicon-search" onclick="open_modal('{{visita.fecha_visita}}','{{visita.motivo}}','{{visita.dentista}}','{{visita.precio}}')"> Ver
+             <a type="button" class="glyphicon glyphicon-search" 
+             onclick="open_modal('{{visita.paciente}}','{{visita.fecha_visita}}','{{visita.motivo}}',
+             '{{visita.dentista}}','{{visita.precio}}','{{ visita.dolares }}','{{ visita.pk }}')"> Ver
              </a>
           </td>
           <td style="width: 7%;">
@@ -81,75 +80,66 @@
   </section>
 </section>
 
+
+<!-- *********************************** modal ver *********************************** -->  
 <div id="myModal" class="modal">
   <!-- Modal content -->
   <div class="modal-content">
     <div class="modal-header">
-      <span class="close">&times;</span>
-      <h2>Paciente</h2>
+      <p id="textoPaciente" class="modal-header-p"></p>
     </div>
     <div class="modal-body">
-      <p id="textoFecha">Fecha </p>
-      <p id="textoMotivo">Motivo </p>
-      <p id="textoDentista">Dentista </p>
-      <p id="textoPrecio">Precio </p>
+      <table>
+        <tr>
+          <td><b>Fecha</b></td>
+          <td id="textoFecha"></td>
+        </tr>
+        <tr>
+          <td><b>Motivo</b></td>
+          <td id="textoMotivo"></td>
+        </tr>
+        <tr>
+          <td><b>Dentista</b></td>
+          <td id="textoDentista"></td>
+        </tr>
+        <tr>
+          <td><b>Precio</b></td>
+          <td id="textoPrecio"></td>
+        </tr>
+      </table>
+    </div>
+    <div class="modal-footer">
+      <a href=" " id="id_editar">
+        <button  class="btn btn-modal-edit">Editar</button>
+      </a>
+      <button class="btn btn-modal-close"> Cerrar </button>
     </div>
   </div>
 </div>
 
 
-<script>
-function clear_text() { 
-    document.getElementById('datepicker').placeholder = "";
-}
-function clear_textf() { 
-    document.getElementById('datepickerf').placeholder = "";
-}
-
-$(function () {
-  $.datepicker.setDefaults($.datepicker.regional["es"]);
-  $("#datepicker").datepicker({
-    firstDay: 1,
-    monthNames: ['Enero', 'Febrero', 'Marzo','Abril', 'Mayo','Junio',
-    'Julio','Agosto','Septiempbre','Octubre','Noviembre','Diciembre'],
-    dayNamesMin: ['Dom','Lun','Mar','Mier','Jue','Vier','Sab'],
-    dateFormat: 'yy-mm-dd',
-    timeFormat:  "hh:mm:ss"
-    });
-  });
-</script>
-
-<script>
-  $(function () {
-  $.datepicker.setDefaults($.datepicker.regional["es"]);
-  $("#datepickerf").datepicker({
-    firstDay: 1,
-    monthNames: ['Enero', 'Febrero', 'Marzo','Abril', 'Mayo','Junio',
-    'Julio','Agosto','Septiempbre','Octubre','Noviembre','Diciembre'],
-    dayNamesMin: ['Dom','Lun','Mar','Mier','Jue','Vier','Sab'],
-    dateFormat: 'yy-mm-dd',
-    timeFormat:  "hh:mm:ss"
-    });
-  });
-</script>
 
 <script>
   var modal = document.getElementById('myModal');
-  var pFecha = document.getElementById('textoFecha');
-  var pMotivo = document.getElementById('textoMotivo');
-  var pDentista = document.getElementById('textoDentista');
-  var pPrecio = document.getElementById('textoPrecio');
-  var span = document.getElementsByClassName("close")[0];
+  var content_paciente = document.getElementById('textoPaciente');
+  var content_fecha = document.getElementById('textoFecha');
+  var content_motivo = document.getElementById('textoMotivo');
+  var content_dentista = document.getElementById('textoDentista');
+  var content_precio = document.getElementById('textoPrecio');
+  var content_editar = document.getElementById('id_editar');
+  var close = document.getElementsByClassName("btn-modal-close")[0];
 
-  function open_modal(fecha, motivo, dentista, precio) { 
+  function open_modal(paciente, fecha, motivo, dentista, precio, divisa, pk) { 
     modal.style.display = "block";
-    pFecha.innerHTML = "Fecha: "+fecha;
-    pMotivo.innerHTML = "Motivo: "+motivo;
-    pDentista.innerHTML = "Dentista: "+dentista;
-    pPrecio.innerHTML = "Precio: "+precio;
+    content_paciente.innerHTML = "Visita de "+paciente;
+    content_fecha.innerHTML = fecha;
+    content_motivo.innerHTML = motivo;
+    content_dentista.innerHTML = dentista;
+    content_precio.innerHTML = precio + " " + divisa;
+    content_editar.href = "/visitas/editar/"+ pk;
   }
 
-  span.onclick = function() {
+  close.onclick = function() {
       modal.style.display = "none";
   }
 

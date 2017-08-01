@@ -17,17 +17,24 @@ class SpendingListView(ListView):
     @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
         gastos = Gasto.objects.all().order_by('fecha_gasto')
-        total_gastos = Gasto.objects.all().count
+        total_gastos = gastos.count
 
         context = {'gastos':gastos,
                     'total_gastos':total_gastos,        
                     }
         return render(request,self.template_name, context)
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs): 
         gastos = request.POST.get('gasto')
-        gastos = Gasto.objects.all().filter(proveedor__nombre__icontains=gastos
-            ) | Gasto.objects.all().filter(proveedor__contacto__icontains=gastos)
+        fecha_inicial = request.POST.get('fecha_inicial')
+        fecha_final = request.POST.get('fecha_final')
+
+        if fecha_final and fecha_final != "":
+             gastos = Gasto.objects.all().filter(fecha_gasto__range=[fecha_inicial, fecha_final + " 23:59:59"])
+        else:
+            gastos = Gasto.objects.all().filter(proveedor__nombre__icontains=gastos
+                ) | Gasto.objects.all().filter(proveedor__contacto__icontains=gastos
+                ) | Gasto.objects.all().filter(motivo__icontains=gastos)
         total_gastos = gastos.count()
 
         context = {'gastos':gastos,
@@ -61,10 +68,6 @@ class DeleteSpendingView(ListView):
         Gasto.objects.all().filter(id=pk).delete()
         return render(self.request,'gastos.html')
  
-class DetailSpendingView(DetailView):
-    model = Gasto
-    template_name = "gastos_detalle.html"
-
 
 class MovementsView(ListView):
     template_name = "movimientos.html"

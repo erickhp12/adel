@@ -55,15 +55,7 @@ class UpdateVisitView(UpdateView):
     form_class = RegistrarVisita
     template_name = "creacion_visitas.html"
     success_url = reverse_lazy('list_visitas')	
- 
-class DetailVisitView(DetailView):
-    template_name = "visita_detalle.html" 
 
-    def get(self, request, pk, **kwargs):
-        visitas = Visitas.objects.filter(id=pk)
-        context = {'visitas':visitas,
-                    }
-        return render(request,self.template_name, context)
 
 class DeleteVisitView(ListView):
     template_name = "eliminar_visita.html"

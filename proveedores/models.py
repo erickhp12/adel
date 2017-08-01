@@ -14,10 +14,6 @@ class Proveedor(models.Model):
         return self.nombre + ' ' + self.contacto
 
     @permalink
-    def url_ver_proveedor(self):
-        return ('ver_proveedor', [int(self.pk)])
-
-    @permalink
     def url_editar_proveedor(self):
         return ('editar_proveedor', [int(self.pk)])
 
