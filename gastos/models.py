@@ -19,10 +19,6 @@ class Gasto(models.Model):
         return self.proveedor
 
     @permalink
-    def url_ver_gasto(self):
-        return ('ver_gasto', [int(self.pk)])
-
-    @permalink
     def url_editar_gasto(self):
         return ('editar_gasto', [int(self.pk)])
 

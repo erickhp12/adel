@@ -4,6 +4,9 @@
 
 {% block body %}
  
+<script src="{% static '/static/js/generic/calendarios.js'%}"></script>
+
+
 <div class = "header">
         <p class="header_text">Agenda para el dia de hoy | {{ total_agenda }}</p>
 </div> 
@@ -56,7 +59,12 @@
         <td>{{ agenda.paciente   }}</td>
         <td>{{ agenda.motivo }}</td>
         <td>{{ agenda.fecha_agenda }}</td> 
-        <td><a href="{{ agenda.url_ver_agenda }}" class="glyphicon glyphicon-search"> Ver </a></td>
+        <td>
+          <a type="button" class="glyphicon glyphicon-search" 
+             onclick="open_modal('{{ agenda.paciente }}','{{ agenda.motivo }}',
+             '{{ agenda.fecha_agenda }}','{{ agenda.pk }}')"> Ver
+             </a>
+       </td>
         <td><a href="{{ agenda.url_editar_agenda }}" class="glyphicon glyphicon-pencil"> Editar</a></td>
         <td><a href="{{ agenda.url_borrar_agenda }}" class="glyphicon glyphicon-trash"> Eliminar</a></td>
      </tbody>
@@ -65,32 +73,60 @@
   </section>
 </section>
 
-<script>
-$(function () {
-$.datepicker.setDefaults($.datepicker.regional["es"]);
-$("#datepicker").datepicker({
-firstDay: 1,
-monthNames: ['Enero', 'Febrero', 'Marzo','Abril', 'Mayo','Junio',
-'Julio','Agosto','Septiempbre','Octubre','Noviembre','Diciembre'],
-dayNamesMin: ['Dom','Lun','Mar','Mier','Jue','Vier','Sab'],
-dateFormat: 'yy-mm-dd',
-timeFormat:  "hh:mm:ss"
-});
-});
-</script>
+<!-- *********************************** modal ver *********************************** -->  
+<div id="myModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <p id="textoPaciente" class="modal-header-p"></p>
+    </div>
+    <div class="modal-body">
+      <table>
+        <tr>
+          <td><b>Motivo</b></td>
+          <td id="textoMotivo"></td>
+        </tr>
+        <tr>
+          <td><b>Fecha</b></td>
+          <td id="textoFechaAgenda"></td>
+        </tr>
+      </table>
+    </div>
+    <div class="modal-footer">
+      <a href="" id="id_editar">
+        <button  class="btn btn-modal-edit">Editar</button>
+      </a>
+      <button class="btn btn-modal-close"> Cerrar </button>
+    </div>
+  </div>
+</div>
 
 <script>
-$(function () {
-$.datepicker.setDefaults($.datepicker.regional["es"]);
-$("#datepickerf").datepicker({
-firstDay: 1,
-monthNames: ['Enero', 'Febrero', 'Marzo','Abril', 'Mayo','Junio',
-'Julio','Agosto','Septiempbre','Octubre','Noviembre','Diciembre'],
-dayNamesMin: ['Dom','Lun','Mar','Mier','Jue','Vier','Sab'],
-dateFormat: 'yy-mm-dd',
-timeFormat:  "hh:mm:ss"
-});
-});
+  var modal = document.getElementById('myModal');
+  var content_paciente = document.getElementById('textoPaciente');
+  var content_motivo = document.getElementById('textoMotivo');
+  var content_fecha = document.getElementById('textoFechaAgenda');
+  var content_editar = document.getElementById('id_editar');
+
+  var close = document.getElementsByClassName("btn-modal-close")[0];
+
+  function open_modal(paciente, motivo, fecha,pk) { 
+    modal.style.display = "block";
+    content_paciente.innerHTML = "Cita de "+ paciente;
+    content_motivo.innerHTML = motivo;
+    content_fecha.innerHTML = fecha;
+    content_editar.href = "/agenda/editar/"+ pk;
+  }
+
+  close.onclick = function() {
+      modal.style.display = "none";
+  }
+
+  window.onclick = function(event) {
+      if (event.target == modal) {
+          modal.style.display = "none";
+      }
+  }
 </script>
 
 {% endblock %}

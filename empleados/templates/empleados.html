@@ -48,8 +48,12 @@
           <td>{{ empleado.puesto }}</td>
           <td>{{ empleado.telefono }}</td>
           <td>
-               <a href="{{ empleado.url_ver_empleado }}" class="glyphicon glyphicon-search"> Ver</a>
-          </td>
+              <a type="button" class="glyphicon glyphicon-search" 
+             onclick="open_modal('{{ empleado.nombres }}','{{ empleado.apellidos }}',
+              '{{ empleado.puesto }}','{{ empleado.telefono }}','{{ empleado.correo }}',
+              '{{ empleado.direccion }}','{{ empleado.fecha_inicio }}','{{ empleado.pk }}')"> Ver
+             </a>
+         </td>
           <td>
                <a href="{{ empleado.url_editar_empleado }}" class="glyphicon glyphicon-pencil"> Editar</a>
           </td>
@@ -62,6 +66,85 @@
      <br><br>
 </section>
 
+<!-- *********************************** modal ver *********************************** -->  
+<div id="myModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <p id="textoEmpleado" class="modal-header-p"></p>
+    </div>
+    <div class="modal-body">
+      <table>
+        <tr>
+          <td><b>Puesto</b></td>
+          <td id="textoPuesto"></td>
+        </tr>
+        <tr>
+          <td><b>Telefono</b></td>
+          <td id="textoTelefono"></td>
+        </tr>
+        <tr>
+          <td><b>Correo</b></td>
+          <td id="textoCorreo"></td>
+        </tr>
+        <tr>
+          <td><b>Direccion</b></td>
+          <td id="textoDireccion"></td>
+        </tr>
+        <tr>
+          <td><b>Precio</b></td>
+          <td id="textoFecha"></td>
+        </tr>
+      </table>
+    </div>
+    <div class="modal-footer">
+      <a href="" id="id_editar">
+        <button  class="btn btn-modal-edit">Editar</button>
+      </a>
+      <button class="btn btn-modal-close"> Cerrar </button>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+  var modal = document.getElementById('myModal');
+  var content_empleado = document.getElementById('textoEmpleado');
+  var content_puesto = document.getElementById('textoPuesto');
+  var content_telefono = document.getElementById('textoTelefono');
+  var content_correo = document.getElementById('textoCorreo');
+  var content_direccion = document.getElementById('textoDireccion');
+  var content_fecha = document.getElementById('textoFecha');
+  var content_editar = document.getElementById('id_editar');
+  var close = document.getElementsByClassName("btn-modal-close")[0];
+
+  function open_modal(nombres, apellidos, puesto, telefono, correo, direccion, fecha, pk) { 
+    modal.style.display = "block";
+    content_empleado.innerHTML = nombres + " "+ apellidos;
+    content_puesto.innerHTML = puesto;
+    content_telefono.innerHTML = telefono;
+    content_correo.innerHTML = correo;
+    content_direccion.innerHTML = direccion;
+    content_fecha.innerHTML = fecha;
+    content_editar.href = "/empleados/editar/"+ pk;
+  }
+
+  close.onclick = function() {
+      modal.style.display = "none";
+  }
+
+  window.onclick = function(event) {
+      if (event.target == modal) {
+          modal.style.display = "none";
+      }
+  }
+</script>
+
+
 {% endblock %}
+
+
+
 
 

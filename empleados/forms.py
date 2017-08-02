@@ -1,15 +1,28 @@
 from django.forms import ModelForm
 from django import forms
 from .models import Empleado
-from django.forms import TextInput
+from django.forms import TextInput 
 
+# class RegistrarEmpleado(ModelForm):
+#     class Meta:
+#         model = Empleado
+#         exclude = []
+        # widget = {
+        #     'nombres': TextInput(
+        #         attrs={'autofocus': '','class': 'form-control'}
+        #     ),
+        #     'telefono': TextInput(
+        #     	attrs={'placeholder':'telefono!'})
+        # }
 
-class RegistrarEmpleado(ModelForm):
+class RegistrarEmpleado(forms.ModelForm):
     class Meta:
         model = Empleado
         exclude = []
+        fields =['nombres','apellidos','puesto','telefono','correo','direccion']
         widget = {
-            'nombres': TextInput(
-                attrs={'autofocus': '','class': 'form-control'}
-            )
-        }
+            'telefono': TextInput(
+                attrs={'placeholder':'telefono'}
+                )
+            }
+

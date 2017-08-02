@@ -1,0 +1,106 @@
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 150px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Contenido del modal */
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 50%;
+    height: 50%;
+    max-width: 50%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+
+.modal-header {
+    padding: 2px 16px;
+    background-color: #00A4DB;
+    height: 60px;
+    color: white;
+}
+.modal-header-p{
+    font-size: 26px;
+    margin-top: 2%;
+    font-weight: 900;
+    text-align: center;
+
+}
+
+.modal-body {
+    padding: 16px;
+    font-size: 20px;
+}
+
+.modal-footer{
+    padding: 2px 16px;
+    color: white;
+}
+
+/* Animacion para el modal */
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+/* Boton de cerrar */
+.btn-modal-close{
+    background-color: rgb(126, 128, 128);
+    padding: 5px;
+    padding-left: 4%;
+    padding-right: 4%;
+    float: right;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 2%;
+}
+
+.btn-modal-close:hover,
+.btn-modal-close:focus {
+    color: #AAAAAA;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Boton de editar */
+.btn-modal-edit{
+    background-color: rgb(126, 128, 128);
+    padding: 5px;
+    margin-right: 2%;
+    padding-left: 4%;
+    padding-right: 4%;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 2%;
+    color: white;
+}
+
+.btn-modal-edit:hover,
+.btn-modal-edit:focus {
+    color: #AAAAAA;
+    text-decoration: none;
+    cursor: pointer;
+}
+

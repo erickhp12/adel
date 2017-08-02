@@ -22,7 +22,10 @@
 .menu_content_inferior{
 	display: block;
 }
-
+.main_logo{
+	width: 90%;
+	height: 1200px;
+}
 .base_menus{
 	display: inline-block;
 }
@@ -39,7 +42,9 @@
 }
 .salir{
 	font-size: 16px;
-	margin-left: 23%;
+	margin-top: 1%;
+	margin-right: 2%;
+	float: right;
 }
 
 /*---------------------------- login ------------------------*/

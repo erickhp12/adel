@@ -10,7 +10,6 @@ from django.utils.decorators import method_decorator
 
 
 class ProviderListView(ListView):
-    queryset = Proveedor.objects.all()
     template_name = "proveedores.html"
 
     @method_decorator(login_required(login_url='login.view.url'))
@@ -48,11 +47,6 @@ class UpdateProviderView(UpdateView):
     form_class = RegistrarProveedor
     template_name = "creacion_proveedores.html"
     success_url = reverse_lazy('list_proveedores')    
-
-
-class DetailProviderView(DetailView):
-    model = Proveedor
-    template_name = "proveedor_detalle.html"
 
 
 class DeleteProviderView(ListView):
