@@ -112,7 +112,7 @@ LANGUAGE_CODE = 'es-mx'
 TIME_ZONE = 'America/Chihuahua'
 USE_I18N = True
 USE_L10N = True
-USE_TZ = True
+USE_TZ = False
 DIVISA = 18
 
 # Static files (CSS, JavaScript, Images)
