@@ -4,7 +4,7 @@ from .models import Historial
 from django.forms import TextInput
 
 
-class RegistrarVisita(ModelForm):
+class RegistrarHistorial(ModelForm):
     class Meta:
         model = Historial
         exclude = []

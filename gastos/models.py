@@ -4,7 +4,8 @@ from empleados.models import Empleado
 from django.db.models import permalink
 
 TIPOS_DIVISAS = (("Pesos", "Pesos"),("Dolares", "Dolares"))
-TIPOS_PAGO = (("Efectivo", "Efectivo"),("Tarjeta", "Tarjeta"),("Cheque", "Cheque"))
+TIPOS_PAGO = (("Efectivo", "Efectivo"),("Tarjeta", "Tarjeta"),
+            ("Cheque", "Cheque"),("Transferencia bancaria", "Transferencia bancaria"))
 
 class Gasto(models.Model):
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)

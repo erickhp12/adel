@@ -4,15 +4,15 @@
 	display: inline-block;
 }
 .seccion_ingresos{
-	width: 1200px;
-	margin-left: -2em;
+	width: 99.5%;
+	/*margin-left: -2em;*/
 }
 .th_ingresos{
 	text-align: left;
 }
 .seccion_egresos{
-	width: 1200px;
-	margin-left: -2em;
+	width: 99.5%;
+	/*margin-left: -2em;*/
 }
 
 .th_egresos{

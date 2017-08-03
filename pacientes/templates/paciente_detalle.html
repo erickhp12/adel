@@ -63,8 +63,18 @@
 		{% endfor %}
 		<br>
 	</section>
-	<!-- seccion de historial -->
 	<section class="paciente_detalles_historial">
+    <!-- ***************************** Si el historial esta vacio ************************************* -->
+	{% if  message == 'Registrar historial' %}
+		<div>
+		<p class="paciente_detalles_historial_p_vacio">Este paciente no tiene Historia clinica registrada
+			<br><br>
+			<a href="/historial/editar/2" class="btn_confirmar" style="width:200px;">{{ message }}</a>
+		</p>
+			
+		</div>
+	<!-- *************************** Si el historial contiene datos ************************************* -->
+	{% else%}	
 		<p class="paciente_detalles_header">Historial</p>
 			<table>
 			<tr>
@@ -113,7 +123,9 @@
 			</tr>
 		</table>
 		<br>
+	{% endif %}
 	</section>
+
 </section>
 <section class="paciente_detalles_card paciente_detalles_visitas">
 	<p class="paciente_detalles_header">Visitas registradas</p>
@@ -140,7 +152,7 @@
 </section>
 <section class="paciente_detalles_botones">
 	<a href="/lista.pacientes" class="btn_volver_detalle">
-		<input type="button" value="volver a lista de pacientes" class="btn_volver btn_volver_detalle">
+		<input type="button" value="volver" class="btn_volver btn_volver_detalle">
 	</a>
 	<a href="/editar.historial" class="btn_volver_detalle">
 		<input type="button" value="Editar historial" class="btn_volver btn_volver_detalle">

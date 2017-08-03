@@ -7,7 +7,7 @@ class Proveedor(models.Model):
     telefono = models.CharField(max_length=15,null=True, unique=False, verbose_name=u'telefono')
     correo = models.EmailField(max_length=100,null=True, unique=False, verbose_name=u'correo')
     direccion = models.CharField(max_length=150, null=True, unique=False, verbose_name=u'direccion')
-    producto = models.CharField(max_length=200, null=True, unique=True, verbose_name=u'productos/servicios')
+    producto = models.CharField(max_length=200, null=True, unique=False, verbose_name=u'productos/servicios')
     fecha_inicio = models.DateTimeField(auto_now_add=True, verbose_name=u'fecha_inicio')
 
     def __str__(self):

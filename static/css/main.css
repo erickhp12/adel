@@ -17,7 +17,11 @@ body{
 	}
 
 a{
+	font-family: roboto;
 	color: #333333;
+}
+p,span{
+	font-family:roboto;
 }
 a:hover{
 	color: #009AC9;
@@ -144,6 +148,7 @@ th{
 .contenido>tr>td{
 	padding-top: 5px;
 	padding-bottom: 5px;
+	font-family: roboto;
 }
 tr:hover{
 	background-color: #DDDDDD;
