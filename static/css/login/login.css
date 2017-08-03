@@ -51,7 +51,7 @@
 .fondo_menu_principal{
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     width:98%;
-	display: inline-block;
+	height: 70%;
 	margin-top: 1%;
 	margin-bottom: 5%;
 	margin-left: 1%;
@@ -59,15 +59,17 @@
 
 .card_menu_cards{
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    width: 17.3%;
+    width: 18%;
+    padding: 1%;
 	display: inline-block;
 	margin: 1em;
 	margin-bottom: 1em;
 }
+
 .img_menu_card_main{
 	padding: 1em;
 	width: 100%;
-    height: auto;
+    height: 500px;
 }
 .img_menu_cards{
 	margin-left: 25%;
