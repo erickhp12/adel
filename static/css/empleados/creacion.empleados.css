@@ -1,9 +1,10 @@
 .seccion_formulario{
-	width:97%;
+	width:95%;
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 	border: 1px solid #999999;
 	background-color: white;
 	margin-bottom: 2%;
+	margin-left: 2%;
 }
 .seccion_1{
 	width:46%;
@@ -22,9 +23,9 @@
 	display: inline-block;
 	padding: 2em;
 }
-.btn_naranja_empleados{
-	margin-left: 25em;
-	margin-bottom: 2em;
+.seccion_botones>a{
+	margin-left: 32%;
+	text-align: center;
 }
 
 

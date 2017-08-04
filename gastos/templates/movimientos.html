@@ -1,14 +1,16 @@
 {% extends "base.html" %}
 {% block title %}ADEL | Gastos {% endblock %}
-{% load staticfiles %}
 
 {% block body %}
-<body onload="hide_show_section()"> 
+
+{% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/gastos/movimientos.css' %}"/>
+	<body onload="hide_show_section()"> </div>
+
+<div class = "header">
+    <p class="header_text">Mis movimientos</p>
 </div>
 
- <div class = "header">
-        <p class="header_text">Mis movimientos</p>
-    </div>
 <section class="seccion_fondo">
 	<section class="seccion_fondo_fechas">
 		<form action="" method="post">

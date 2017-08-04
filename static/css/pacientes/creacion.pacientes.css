@@ -1,8 +1,10 @@
 .seccion_formulario{
-	width:97%;
+	width:95%;
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 	border: 1px solid #999999;
 	margin-bottom: 2%;
+	background-color: white;
+	margin-left: 2%;
 }
 .seccion_1{
 	width:46%;
@@ -11,6 +13,7 @@
 	display: inline-block;
 	padding: 2em;
 	margin-top:2em;
+	background-color: white;
 }
 
 .seccion_2{
@@ -20,6 +23,7 @@
 	margin-left: 2em;	
 	display: inline-block;
 	padding: 2em;
+	background-color: white;
 }
 .select_tipo_paciente{
 }
@@ -30,7 +34,7 @@
 .pacientes_comentarios>input{
 	height: 105px;
 }
-.btn_naranja_pacientes{
-	margin-bottom: 2em;
-	width: 25%;
+.seccion_botones>a{
+	margin-left: 32%;
+	text-align: center;
 }

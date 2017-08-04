@@ -1,87 +1,88 @@
 {% extends 'base.html' %}
 {% block title %}ADEL | historial {% endblock %}
-{% block albums_active %} active {% endblock %}
 
 {% block body %}
+{% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/historial/creacion.historial.css'%}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/visitas/creacion.visitas.css'%}"/>
+
 <div class = "header">
-        <p class="header_text">Editar historial</p>
+    <p class="header_text">Editar historial</p>
 </div>
 
+<section class="seccion_formulario">
     <form method=post>
-        {% csrf_token %}
-        <section class="seccion_formulario">
-            <div class="seccion_1">
-                <div>
-                    <label>Paciente</label>
-                    <input type="text" value="{{ paciente }}" disabled="true"> <br><br>
-                </div>
-                <div>
-                    <label>Estado civil</label><br>
-                    <select class="select" name = "estado_civil" id="paciente">
-                        <option value="0" name="estado_civil">-------</option>
-                        <option value="Soltero" name="estado_civil">Soltero</option>
-                        <option value="Casado" name="estado_civil">Casado</option>
-                        <option value="Otros" name="estado_civil">Otros</option>
-                    </select><br><br>
-                </div>
-                <div>
-                    <label>Ocupacion</label>
-                    <input type="text" name="ocupacion"><br><br>
-                </div>
-                <div>
-                    <label>Es alergico a alguna droga,anestesia,antibiotico?</label>
-                    <input type="checkbox" name="alergias" id="alergias" 
-                        onclick="alergias_show()">
-                    <input type="text" style="display:none;" 
-                    id="alergias_comentarios" placeholder="a cuales?"><br><br>
-                </div>
-                <div>
-                    <label>Enfermedades del corazon</label>
-                    <input type="checkbox" name="corazon"><br><br>
-                </div>
-                <div>
-                    <label>Padece de presion arterial?</label>
-                    <input type="checkbox" name="presion_arterial"><br><br>
-                </div>
-            </div>
-
-            <div class="seccion_2">
-                
-                <div>
-                    <label>Diabetes</label>
-                    <input type="checkbox" name="diabetes"><br><br>
-                </div>
-                
-                <div>
-                    <label>Hepatitis</label>
-                    <input type="checkbox" name="Hepatitis"><br><br>
-                </div>
-                
-                <div>
-                    <label>Es usted portador del VIH?</label>
-                    <input type="checkbox" name="vih"><br><br>
-                </div>
-
-                <div>
-                    <label>{{ form.embarazada.label}}</label>
-                    <input type="checkbox" name="embarazada"><br><br>
-                </div>     
-                <div class="medicamentos_checkbox">
-                    <label>{{ form.medicamentos.label }}</label>
-                    <input type="checkbox" name="medicamentos" id="medicamentos" 
-                        onclick="medicamentos_show()">
-                    <input type="text" style="display:none;" 
-                    id="medicamentos_comentarios" placeholder="Describa el medicamento"><br><br>
-                </div>
+    {% csrf_token %}
+    <div class="seccion_1">
+        <div>
+            <label>Paciente</label>
+            <input type="text" value="{{ paciente }}" disabled="true"> <br><br>
         </div>
-        <div class="seccion_botones">           
-            <input class="btn_confirmar" id="save_contact" 
-            type="submit" value="Registrar"/>
-            <a href="/lista.pacientes" class="btn_volver">Volver</a>
+        <div>
+            <label>Estado civil</label><br>
+            <select class="select" name = "estado_civil" id="paciente">
+                <option value="0" name="estado_civil">-------</option>
+                <option value="Soltero" name="estado_civil">Soltero</option>
+                <option value="Casado" name="estado_civil">Casado</option>
+                <option value="Otros" name="estado_civil">Otros</option>
+            </select><br><br>
         </div>
-        </section>
+        <div>
+            <label>Ocupacion</label>
+            <input type="text" name="ocupacion"><br><br>
+        </div>
+        <div>
+            <label>Es alergico a alguna droga,anestesia,antibiotico?</label>
+            <input type="checkbox" name="alergias" id="alergias" 
+                onclick="alergias_show()">
+            <input type="text" style="display:none;" 
+            id="alergias_comentarios" placeholder="a cuales?"><br><br>
+        </div>
+        <div>
+            <label>Enfermedades del corazon</label>
+            <input type="checkbox" name="corazon"><br><br>
+        </div>
+        <div>
+            <label>Padece de presion arterial?</label>
+            <input type="checkbox" name="presion_arterial"><br><br>
+        </div>
+    </div>
+
+    <div class="seccion_2">
+        <div>
+            <label>Diabetes</label>
+            <input type="checkbox" name="diabetes"><br><br>
+        </div>
+        
+        <div>
+            <label>Hepatitis</label>
+            <input type="checkbox" name="Hepatitis"><br><br>
+        </div>
+        
+        <div>
+            <label>Es usted portador del VIH?</label>
+            <input type="checkbox" name="vih"><br><br>
+        </div>
+
+        <div>
+            <label>{{ form.embarazada.label}}</label>
+            <input type="checkbox" name="embarazada"><br><br>
+        </div>     
+        <div class="medicamentos_checkbox">
+            <label>{{ form.medicamentos.label }}</label>
+            <input type="checkbox" name="medicamentos" id="medicamentos" 
+                onclick="medicamentos_show()">
+            <input type="text" style="display:none;" 
+            id="medicamentos_comentarios" placeholder="Describa el medicamento"><br><br>
+        </div>
+    </div>
+    <div class="seccion_botones">           
+        <input class="btn_confirmar" id="save_contact" type="submit" value="Registrar"/>
+        <a href="/lista.pacientes" class="btn_volver">Volver</a>
+    </div>
     </form>
-</div>
+</section>
+
 
 
 <script>

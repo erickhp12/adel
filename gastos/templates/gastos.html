@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% block title %}ADEL | gastos {% endblock %}
-{% load staticfiles %}
 
 {% block body %}
+{%load staticfiles %}
+  <script src="{% static '/static/js/generic/calendarios.js'%}"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
 
-<script src="{% static '/static/js/generic/calendarios.js'%}"></script>
- 
-<div class = "header">
-  <p class="header_text">Visitas actuales | {{ total_gastos }} </p>
+  <div class = "header">
+  <p class="header_text">Gastos actuales | {{ total_gastos }} </p>
 </div>
 
 <section class="seccion_fondo">

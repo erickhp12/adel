@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 {% block title %}ADEL | Agenda {% endblock %}
-{% load staticfiles %}
 
 {% block body %}
- 
-<script src="{% static '/static/js/generic/calendarios.js'%}"></script>
+{% load staticfiles %}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/agenda/creacion.agenda.css' %}"/>
+    <script src="{% static '/static/js/generic/calendarios.js'%}"></script>
 
 
 <div class = "header">
-        <p class="header_text">Agenda para el dia de hoy | {{ total_agenda }}</p>
+  <p class="header_text">Agenda para el dia de hoy | {{ total_agenda }}</p>
 </div> 
 
 <section class="seccion_fondo">

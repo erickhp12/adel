@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block title %}ADEL | Visitas {% endblock %}
-{% load staticfiles %}
 
 {% block body %}
 
-<meta charset="utf-8">
+{% load staticfiles %}
+  <meta charset="utf-8">
   <script src="{% static '/static/js/generic/calendarios.js'%}"></script>
- 
+  <link rel="stylesheet" type="text/css" href="{% static 'css/visitas/visitas.css' %}"/>
 <div class = "header">
   <p class="header_text">Visitas actuales | {{ total_visitas }} </p>
 </div>

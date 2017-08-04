@@ -1,13 +1,16 @@
 {% extends "base.html" %} 
 {% block title %}ADEL | detalles {% endblock %}
-{% load staticfiles %}
 
 {% block body %}
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/pacientes/paciente.detalle.css' %}"/>
+
 <div class = "header">
 		{% for paciente in paciente %}
         <p class="header_text">Informacion de {{ paciente.nombres }}</p>
 		{% endfor %}
 </div>
+
 <section class="paciente_detalles_card paciente_detalles_info">
 	<!-- seccion de datos generales -->
 	<section class="paciente_detalles_general">

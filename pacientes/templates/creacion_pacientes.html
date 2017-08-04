@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 {% block title %}ADEL | agregar paciente {% endblock %}
-{% block albums_active %} active {% endblock %}
 
 {% block body %}
+{% load staticfiles %}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/pacientes/creacion.pacientes.css' %}"/>
+
 <div class = "header">
         <p class="header_text">Agregar paciente</p>
 </div>

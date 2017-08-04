@@ -1,17 +1,32 @@
 .seccion_formulario{
-	height:25%;
+	width:95%;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	border: 1px solid #999999;
+	background-color: white;
+	margin-bottom: 2%;
 	margin-left: 2%;
-	width: 95%;
+}
+.seccion_1{
+	width:46%;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	margin-left: 2em;	
+	display: inline-block;
+	padding: 2em;
+	margin-top:2em;
+}
+
+.seccion_2{
+	width:46%;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	margin-bottom: 2em;	
+	margin-left: 2em;	
+	display: inline-block;
+	padding: 2em;
 }
 .select>label{
 	text-align: center;
 }
-.seccion_1{
-	border-radius: 5px;
-}
-.seccion_2{
-	border-radius: 5px;
-}
+
 .select>select{
 	-webkit-appearance: none;
 	font-size: 16px;

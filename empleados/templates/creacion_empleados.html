@@ -1,57 +1,58 @@
 {% extends 'base.html' %}
 {% block title %}ADEL | agregar empleado {% endblock %}
-{% block albums_active %} active {% endblock %}
-
 {% block body %}
+
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/empleados/creacion.empleados.css' %}"/>
 <div class = "header">
         <p class="header_text">Agregar empleado</p>
 </div>
 
+<section class="seccion_formulario">
     <form method=post>
-        {% csrf_token %}
-        <section class="seccion_formulario">
-            <div class="seccion_1">
-                <div class="">
-                    <label>{{ form.nombres.label}}</label>
-                    {{ form.nombres }}
-                    <span>{{ form.nombres.errors }}</span>
-                </div>
-                <div class="">
-                    <label>{{ form.apellidos.label}}</label>
-                    {{ form.apellidos }}
-                    <span>{{ form.apellidos.errors }}</span>
-                </div>
-                <div class="">
-                    <label>{{ form.puesto.label}}</label>
-                    {{ form.puesto }}
-                    <span>{{ form.puesto.errors }}</span>
-                </div>
-            </div>
+    {% csrf_token %}
+    <div class="seccion_1">
+        <div>
+            <label>{{ form.nombres.label}}</label>
+            {{ form.nombres }}
+            <span>{{ form.nombres.errors }}</span>
+        </div>
+        <div>
+            <label>{{ form.apellidos.label}}</label>
+            {{ form.apellidos }}
+            <span>{{ form.apellidos.errors }}</span>
+        </div>
+        <div>
+            <label>{{ form.puesto.label}}</label>
+            {{ form.puesto }}
+            <span>{{ form.puesto.errors }}</span>
+        </div>
+    </div>
 
-            <div class="seccion_2">
-                <div class="">
-                    <label>{{ form.telefono.label}}</label>
-                    {{ form.telefono }}
-                    <span>{{ form.telefono.errors }}</span>
-                </div>
-                <div class="">
-                    <label>{{ form.correo.label}}</label>
-                    {{ form.correo }}
-                    <span>{{ form.correo.errors }}</span>
-                </div>
-                <div class="">
-                <label>{{ form.direccion.label}}</label>
-                {{ form.direccion }}
-                <span>{{ form.direccion.errors }}</span>
-            </div>
+    <div class="seccion_2">
+        <div>
+            <label>{{ form.telefono.label}}</label>
+            {{ form.telefono }}
+            <span>{{ form.telefono.errors }}</span>
         </div>
-        <div class="seccion_botones">           
-            <input class="btn_confirmar" id="save_contact" 
-            type="submit" value="Registrar"/>
-            <a href="/lista.empleados" class="btn_volver">Volver</a>
+        <div>
+            <label>{{ form.correo.label}}</label>
+            {{ form.correo }}
+            <span>{{ form.correo.errors }}</span>
         </div>
-        </section>
+        <div>
+            <label>{{ form.direccion.label}}</label>
+            {{ form.direccion }}
+            <span>{{ form.direccion.errors }}</span>
+        </div>
+    </div>
+    <div class="seccion_botones">           
+        <input class="btn_confirmar" id="save_contact" 
+        type="submit" value="Registrar"/>
+        <a href="/lista.empleados" class="btn_volver">Volver</a>
+    </div>
     </form>
+</section>
 </div>
 
 {% endblock %}

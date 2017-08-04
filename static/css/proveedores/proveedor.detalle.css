@@ -9,20 +9,20 @@
     display: inline-block;
     margin-left: 1em;
 }	
-	span{
+	/*span{
 		margin-left: 2em;
 		margin-bottom: 2em;
-	}
+	}*/
 .proveedor_detalles_visitas{
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     width:67.5%;  
     display: inline-block;
     border: 1px solid black;
 }
-	span{
+	/*span{
 		margin-left: 2em;
 		margin-bottom: 2em;
-	}
+	}*/
 .tbl_proveedor_detalle{
 	text-align: center;
 	width: 80%;

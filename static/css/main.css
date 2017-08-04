@@ -34,7 +34,14 @@ input{
 img{
 	max-height: 50%;
 }
-
+select{
+		height: 20px;
+		width: 100%;
+	}
+span{
+		margin-left: 2em;
+		margin-bottom: 2em;
+	}
 /*----------------------------------- Barra de busqueda ----------------------------------------------*/
 .herramientas_menu{
 	margin-left: -1%;

@@ -1,6 +1,5 @@
 {% extends "base.html" %}
-{% block title %}ADEL | Visitas {% endblock %}
-{% load staticfiles %}
+{% block title %}ADEL | eliminar visita {% endblock %}
 
 {% block body %}
 
@@ -17,9 +16,9 @@
 		<p>{{ visita.motivo }}</p><br>
 		{% endfor %}
 		<input type="submit" value="confirmar" class="btn_confirmar">
-	<a href="/lista.visitas">
-		<input type="button" value="volver a lista de visitas" class="btn_volver"><br><br>
-	</a>
+		<a href="/lista.visitas">
+			<input type="button" value="cancelar" class="btn_volver"><br><br>
+		</a>
 	</form>
 </section>	
 {% endblock %}

@@ -1,3 +1,51 @@
+.seccion_formulario{
+	width:95%;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	border: 1px solid #999999;
+	background-color: white;
+	margin-bottom: 2%;
+	margin-left: 2%;
+}
+.seccion_1{
+	width:46%;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	margin-left: 2em;	
+	display: inline-block;
+	padding: 2em;
+	margin-top:2em;
+}
+
+.seccion_2{
+	width:46%;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	margin-bottom: 2em;	
+	margin-left: 2em;	
+	display: inline-block;
+	padding: 2em;
+}
+.select>label{
+	text-align: center;
+}
+
+.select>select{
+	-webkit-appearance: none;
+	font-size: 16px;
+	height: 10%;
+	border: 1px solid #777;
+}
+.select>select>option{
+	text-align: center;
+	color: red;
+	margin-left: 100px;
+}
+.seccion_botones>a{
+	margin-left: 32%;
+	text-align: center;
+}
+.motivo>input{
+	height: 160px;
+}
+
 .motivo_agenda>input{
 	height: 90px;
 }
