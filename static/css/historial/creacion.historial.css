@@ -1,19 +1,25 @@
-.medicamentos_comentarios{
-	display:none;
+.seccion_2_historial{
+    height:435px;   
+} 
+
+.div_historial{
+    display: inline;
 }
- .span_diabetes{
-     margin-bottom:50%;
- }
 .span_historial{
-	margin-top: 2%;
 	font-size: 18px;
 	font-weight: 700;
-	margin-left: -2%;
-	margin-right: 2%;
+	margin-left: -1%;
+	margin-right: 1%;
+    width: 88%;
+    display: inline-block; 
 }
-.checkbox_historial{
-	float:right;
-	margin-right: 30%;
+
+.input_historial{
+    width: 8%;
+    display: inline-block;   
+}
+.text_comentarios{
+    display:block;
 }
 .material-switch > input[type="checkbox"] {
 	margin-top: 5%;
