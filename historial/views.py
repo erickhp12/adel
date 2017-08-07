@@ -9,6 +9,7 @@ from rest_framework.views import APIView
 from historial.serializers import HistorialSerializer
 from historial.models import Historial
 from pacientes.models import Paciente
+from visitas.models import Visitas
 from .forms import RegistrarHistorial
 from django.core.urlresolvers import reverse_lazy
 

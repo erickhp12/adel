@@ -16,7 +16,7 @@
     <div class="seccion_1">
         <div>
             <label>Paciente</label>
-            <input type="text" value="{{ paciente }}" disabled="true"> <br><br>
+            <input type="text" value="{{ paciente }}" name="paciente" disabled="true"> <br><br>
         </div>
         <div>
             <label>Estado civil</label><br>
@@ -31,47 +31,66 @@
             <label>Ocupacion</label>
             <input type="text" name="ocupacion"><br><br>
         </div>
-        <div>
-            <label>Es alergico a alguna droga,anestesia,antibiotico?</label>
-            <input type="checkbox" name="alergias" id="alergias" 
-                onclick="alergias_show()">
+        <div class="alergias_checkbox">
+            <div class="material-switch">
+                <span class="span_historial" style="margin-right:6.5%; margin-left: 1%;">Es alergico a alguna droga,anestesia,antibiotico?</span>
+                <input id="alergias" name="alergias" type="checkbox"
+                    onclick="alergias_show()" />
+                <label for="alergias" class="label-info"></label>
+            </div>
             <input type="text" style="display:none;" 
-            id="alergias_comentarios" placeholder="a cuales?"><br><br>
+            id="alergias_comentarios" placeholder="Describa">
         </div>
+        <br>
         <div>
-            <label>Enfermedades del corazon</label>
-            <input type="checkbox" name="corazon"><br><br>
+            <div class="material-switch">
+                <span class="span_historial" style="margin-right:41.5%; margin-left: 1%;">Enfermedades del corazon</span>
+                <input id="corazon" name="corazon" type="checkbox" />
+                <label for="corazon" class="label-info"></label> 
+            </div>
         </div>
+        <br>
         <div>
-            <label>Padece de presion arterial?</label>
-            <input type="checkbox" name="presion_arterial"><br><br>
+            <div class="material-switch">
+                <span class="span_historial" style="margin-right:59.9%; margin-left: 1%;">Presion arterial</span>
+                <input id="presion_arterial" name="presion_arterial" type="checkbox" />
+                <label for="presion_arterial" class="label-info"></label> 
+                </div>
         </div>
     </div>
 
     <div class="seccion_2">
-        <div>
-            <label>Diabetes</label>
-            <input type="checkbox" name="diabetes"><br><br>
+        <div class="material-switch">
+            <span class="span_historial span_diabetes" style="margin-right:55.3%;">Diabetes</span>
+            <input id="diabetes" name="diabetes" type="checkbox" />
+            <label for="diabetes" class="label-info"></label> 
         </div>
-        
-        <div>
-            <label>Hepatitis</label>
-            <input type="checkbox" name="Hepatitis"><br><br>
+        <br>
+        <div class="material-switch">
+            <span class="span_historial" style="margin-right:55.2%;">Hepatitis</span>
+            <input id="hepatitis" name="hepatitis" type="checkbox" />
+            <label for="hepatitis" class="label-info"></label> 
         </div>
-        
-        <div>
-            <label>Es usted portador del VIH?</label>
-            <input type="checkbox" name="vih"><br><br>
+        <br>
+        <div class="material-switch">
+            <span class="span_historial" style="margin-right:28.2%;">Es usted portador de VIH?</span>
+            <input id="vih" name="vih" type="checkbox" />
+            <label for="vih" class="label-info"></label> 
         </div>
-
-        <div>
-            <label>{{ form.embarazada.label}}</label>
-            <input type="checkbox" name="embarazada"><br><br>
-        </div>     
+        <br>
+        <div class="material-switch">
+            <span class="span_historial" style="margin-right:11.5%;">Si es mujer, Esta usted embarazada?</span>
+            <input id="embarazada" class="checkbox_historial" name="embarazada" type="checkbox" />
+            <label for="embarazada" class="label-info"></label> 
+        </div> 
+        <br>
         <div class="medicamentos_checkbox">
-            <label>{{ form.medicamentos.label }}</label>
-            <input type="checkbox" name="medicamentos" id="medicamentos" 
-                onclick="medicamentos_show()">
+            <div class="material-switch">
+                <span class="span_historial" style="margin-right:6.3%;">Actualmente toma algun medicamento?</span>
+                <input id="medicamentos" name="medicamentos" type="checkbox"
+                    onclick="medicamentos_show()" />
+                <label for="medicamentos" class="label-info"></label>
+            </div><br>
             <input type="text" style="display:none;" 
             id="medicamentos_comentarios" placeholder="Describa el medicamento"><br><br>
         </div>
@@ -96,6 +115,7 @@
     }  
 }
     function medicamentos_show() { 
+    console.log("Entre");
     var checkbox = document.getElementById('medicamentos');
     var comentarios = document.getElementById('medicamentos_comentarios');
     if (checkbox.checked == true) {
