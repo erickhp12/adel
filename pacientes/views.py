@@ -16,13 +16,12 @@ from django.utils.decorators import method_decorator
 
 
 class PatientListView(ListView):
-    queryset = Paciente.objects.all()
     template_name = "pacientes.html"
 
     @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
         total = Paciente.objects.all()
-        total_pacientes = Paciente.objects.all().count
+        total_pacientes = total.count
         
         context = {'Paciente':total,
                     'total':total_pacientes,        
@@ -33,8 +32,7 @@ class PatientListView(ListView):
     def post(self, request, *args, **kwargs):
         paciente_input = request.POST.get('paciente')
 
-        paciente = Paciente.objects.all().filter(nombres__icontains=paciente_input
-            ) | Paciente.objects.all().filter(apellidos__icontains=paciente_input)
+        paciente = Paciente.objects.all().filter(nombre__icontains=paciente_input)
         total_paciente = paciente.count()
 
         context = {'Paciente':paciente,

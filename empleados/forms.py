@@ -19,7 +19,7 @@ class RegistrarEmpleado(forms.ModelForm):
     class Meta:
         model = Empleado
         exclude = []
-        fields =['nombres','apellidos','puesto','telefono','correo','direccion']
+        fields =['nombre','puesto','edad','telefono','correo','direccion']
         widget = {
             'telefono': TextInput(
                 attrs={'placeholder':'telefono'}

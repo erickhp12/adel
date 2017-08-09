@@ -20,12 +20,3 @@
 .seccion_eliminar>form>input{
 	margin-left: 23%;
 }
-.btn_confirmar{
-	background-color: #FD4B33;
-	border: 0.1px solid #777777;
-	color: white;
-	width: 25%;
-	font-size: 20px;
-	padding: 3px 1px;
-	border-radius: 6px;
-}

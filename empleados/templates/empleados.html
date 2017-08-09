@@ -37,20 +37,20 @@
      <thead class="columna">
           <th>Nombre</th>
           <th>puesto</th>
-          <th>telefono</th>
+          <th>Telefono</th>
           <th>Detalles</th>
           <th>Edicion</th>
           <th>Accion</th>
      </thead>
      {% for empleado in empleados %}
      <tbody class="contenido" id="contenido">
-          <td>{{ empleado.nombres }} {{ empleado.apellidos }}</td>
+          <td>{{ empleado.nombre }}</td>
           <td>{{ empleado.puesto }}</td>
           <td>{{ empleado.telefono }}</td>
           <td>
               <a type="button" class="glyphicon glyphicon-search" 
-             onclick="open_modal('{{ empleado.nombres }}','{{ empleado.apellidos }}',
-              '{{ empleado.puesto }}','{{ empleado.telefono }}','{{ empleado.correo }}',
+             onclick="open_modal('{{ empleado.nombre }}','{{ empleado.puesto }}',
+              '{{ empleado.edad }}','{{ empleado.telefono }}','{{ empleado.correo }}',
               '{{ empleado.direccion }}','{{ empleado.fecha_inicio }}','{{ empleado.pk }}')"> Ver
              </a>
          </td>
@@ -78,6 +78,10 @@
         <tr>
           <td><b>Puesto</b></td>
           <td id="textoPuesto"></td>
+        </tr>
+        <tr>
+          <td><b>Edad</b></td>
+          <td id="textoEdad"></td>
         </tr>
         <tr>
           <td><b>Telefono</b></td>
@@ -112,6 +116,7 @@
   var modal = document.getElementById('myModal');
   var content_empleado = document.getElementById('textoEmpleado');
   var content_puesto = document.getElementById('textoPuesto');
+  var content_edad = document.getElementById('textoEdad');
   var content_telefono = document.getElementById('textoTelefono');
   var content_correo = document.getElementById('textoCorreo');
   var content_direccion = document.getElementById('textoDireccion');
@@ -119,10 +124,11 @@
   var content_editar = document.getElementById('id_editar');
   var close = document.getElementsByClassName("btn-modal-close")[0];
 
-  function open_modal(nombres, apellidos, puesto, telefono, correo, direccion, fecha, pk) { 
+  function open_modal(nombre, puesto, edad, telefono, correo, direccion, fecha, pk) { 
     modal.style.display = "block";
-    content_empleado.innerHTML = nombres + " "+ apellidos;
+    content_empleado.innerHTML = nombre;
     content_puesto.innerHTML = puesto;
+    content_edad.innerHTML = edad + "Años";
     content_telefono.innerHTML = telefono;
     content_correo.innerHTML = correo;
     content_direccion.innerHTML = direccion;

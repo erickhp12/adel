@@ -9,7 +9,7 @@ class RegistrarPaciente(ModelForm):
         model = Paciente
         exclude = []
         widget = {
-            'nombres': TextInput(
-                attrs={'autofocus': '','class': 'form-control'}
+            'aseguranza': TextInput(
+                attrs={'value': 'no aplica','placeholder': 'no aplica'}
             )
         }

@@ -75,11 +75,12 @@
 </section>
 
 <section class="seccion_movimientos_resumen" id="seccion_movimientos_resumen" onload="hide_show_section()">
-	<p class="resumen_p">Mi resumen de <b>{{ fechai }}</b> a <b>{{ fechaf }}</b></p>
+	<p class="resumen_p">Mi resumen del <b>{{ fechai }}</b> a <b>{{ fechaf }}</b></p>
 	<div class="seccion_movimientos_resumen_pesos">
-		<p class="span_ingresos">Pesos $
+		<p class="main_p">Pesos</p>
+		<p class="span_ingresos">+ $
 			<span id="span_ingresos_pesos" class="span_totales">{{ total_ingresos_pesos}}</span></p>
-		<p class="span_egresos">Pesos $
+		<p class="span_egresos">- $
 			<span id="span_egresos_pesos" class="span_totales">{{ total_egresos_pesos }}</span>
 		</p>
 		<hr>
@@ -88,10 +89,11 @@
 		</p>
 	</div>
 	<div class="seccion_movimientos_resumen_dolares">
-		<p class="span_ingresos">Dolares &nbsp;$ 
+		<p class="main_p">Dolares</p>
+		<p class="span_ingresos">+ &nbsp;$ 
 			<span id="span_ingresos_dolares" class="span_totales">{{ total_ingresos_dolares }}</span>
 		</p>
-		<p class="span_egresos">Dolares &nbsp;$
+		<p class="span_egresos">- &nbsp;$
 			<span id="span_egresos_dolares"  class="span_totales">{{ total_egresos_dolares }}</p>
 		<hr>
 		<p class="span_diferencia">Total ${{ total_diferencia_dolares }}</p>

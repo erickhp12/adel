@@ -3,12 +3,10 @@ from django.db import models
 from pacientes.models import Paciente
 from django.db.models import permalink
 
-TIPO_SEXO = (("Femenino", "Femenino"),("Masculino", "Masculino"))
 TIPO_ESTADO_CIVIL = (("Soltero", "Soltero"),("Casado", "Casado"),("Otros", "Otros"))
 
 class Historial(models.Model):
 	paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE)
-	sexo = models.CharField(max_length=10, null=True,choices=TIPO_SEXO, verbose_name=u'sexo')
 	estado_civil = models.CharField(max_length=20, null=True,choices=TIPO_ESTADO_CIVIL, verbose_name=u'estado civil')
 	ocupacion = models.CharField(max_length = 50, null = True, verbose_name=u'ocupacion')
 	alergias = models.BooleanField(default=False,verbose_name= u"Es alergico a alguna droga,anestesia,antibiotico?")
@@ -27,5 +25,5 @@ class Historial(models.Model):
 		verbose_name_plural = "Historial de pacientes"
 
 	def __unicode__(self):
-		return "%s" % (self.paciente.nombres)
+		return "%s" % (self.paciente.nombre)
 

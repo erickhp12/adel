@@ -8,7 +8,6 @@ class HistorialSerializer(serializers.ModelSerializer):
         model = Historial
         fields = (
             'paciente',
-            'sexo',
             'estado_civil',
             'ocupacion',
             'alergias',

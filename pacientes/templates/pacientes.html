@@ -38,16 +38,16 @@
 
      <thead class="columna">
           <th>Nombre</th>
-          <th>tipo de paciente</th>
+          <th>Tipo de paciente</th>
           <th>Aseguranza</th>
-          <th>telefono</th>
+          <th>Telefono</th>
           <th>Informacion</th>
           <th>Edicion</th>
           <th>Accion</th>
      </thead>
      {% for paciente in Paciente %}
      <tbody class="contenido">
-          <td>{{ paciente.nombres }} {{ paciente.apellidos }}</td>
+          <td>{{ paciente.nombre }}</td>
           <td>{{ paciente.tipo_paciente }}</td>
           <td>{{ paciente.aseguranza }}</td>
           <td>{{ paciente.telefono }}</td>

@@ -8,13 +8,20 @@ body{
 	border: 1px solid #AAAAAA;
 	background-color: white;
 	border-radius: 5px;
+	padding: 0.8em;
+	text-align: center;
 }
-	.header_text{
-		text-align: center;
+.header_text{
 		font-weight: bold;
 		font-size: 18px;
 		margin-top: 1%;
+		margin-left: 2em;
 	}
+.header>img{
+	float:right;
+	margin-top: -0.5%;
+	margin-right: 2em;
+}
 
 a{
 	font-family: roboto;
@@ -78,7 +85,7 @@ span{
 }
 
 .btn_agregar_elemento{
-	background-color: #FD4B33;
+	background-color: 	#3085d6;
 	border: 0.1px solid #777777;
 	color: white;
 	width: 15%;
@@ -122,7 +129,7 @@ span{
 	margin-left: 3%;
 }
 .btn_agregar_elemento_2{
-	background-color: #FD4B33;
+	background-color: 	#3085d6;
 	border: 0.1px solid #777777;
 	color: white;
 	width: 20%;
@@ -147,7 +154,7 @@ table{
 }
 
 th{
-	background-color: #333333;
+	background-color: #3085d6;
 	color: white;
 	padding: 3px;
 }
@@ -195,14 +202,22 @@ tr:hover{
 /*----------------------------------------  botones -------------------------------------------------- */
 
 .btn_agregar{
-	background-color: #FD4B33;
+	background-color: #0f861d;
 	border: 0.1px solid #777777;
 	color: white;
 	border-radius: 6px;
 	font-size: 20px;
 	padding: 2px 1px;
 }
-
+.btn_confirmar{
+	background-color: #0f861d;
+	border: 0.1px solid #777777;
+	color: white;
+	width: 25%;
+	font-size: 20px;
+	padding: 3px 1px;
+	border-radius: 3px;
+}
 
 .btn_volver{
 	background-color: #626A70;

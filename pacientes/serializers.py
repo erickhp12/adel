@@ -9,6 +9,7 @@ class PacienteSerializer(serializers.ModelSerializer):
         fields = (
             'nombres',
             'apellidos',
+            'sexo',
             'edad',
             'tipo_paciente',
             'aseguranza',

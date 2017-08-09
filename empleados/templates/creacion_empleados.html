@@ -13,19 +13,19 @@
     {% csrf_token %}
     <div class="seccion_1">
         <div>
-            <label>{{ form.nombres.label}}</label>
-            {{ form.nombres }}
-            <span>{{ form.nombres.errors }}</span>
-        </div>
-        <div>
-            <label>{{ form.apellidos.label}}</label>
-            {{ form.apellidos }}
-            <span>{{ form.apellidos.errors }}</span>
+            <label>{{ form.nombre.label}}</label>
+            {{ form.nombre }}
+            <span>{{ form.nombre.errors }}</span>
         </div>
         <div>
             <label>{{ form.puesto.label}}</label>
             {{ form.puesto }}
             <span>{{ form.puesto.errors }}</span>
+        </div>
+        <div>
+            <label>{{ form.edad.label}}</label>
+            {{ form.edad }}
+            <span>{{ form.edad.errors }}</span>
         </div>
     </div>
 

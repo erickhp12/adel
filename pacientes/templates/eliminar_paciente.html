@@ -8,7 +8,7 @@
 	<form method=post>
 		{% csrf_token %}
 		{% for paciente in paciente %}
-		<span class="p_confirmacion" style="margin-left: 18%;">¿Estás seguro de eliminar a {{ paciente.nombres }} {{ paciente.apellidos }} ?</span><br><br>
+		<span class="p_confirmacion" style="margin-left: 18%;">¿Estás seguro de eliminar a {{ paciente.nombre }} ?</span><br><br>
 		{% endfor %}
 		<input type="submit" value="confirmar" class="btn_confirmar">
 		<a href="/lista.pacientes">

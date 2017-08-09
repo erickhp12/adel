@@ -29,13 +29,13 @@
 	font-size: 18px;
 	font-weight: bold;
 	color: #009302;
-	margin-left: 2em;
+	text-align: center;
 }
 .span_egresos{
 	font-size: 18px;
 	font-weight: bold;
 	color: #F50000;	
-	margin-left: 2em;
+	text-align: center;
 }
 .td_ingresos{
 	border: 1px solid black;
@@ -61,12 +61,12 @@
 	margin-left: 2%;
 	display: inline-block;
 	width: 40%;
-	border: 1px solid #777777;
+	border: 1px solid #334fa5;
 	box-shadow: 0 4px 4px 0 rgba(0,8,0,0.2);
 	margin-bottom: 2%;
 }
 .resumen_p{
-	background-color: #333333;
+	background-color: #334fa5;
 	font-size: 16px;
 	text-align: center;
 	color: white;
@@ -81,5 +81,10 @@
 }
 .span_totales{
 	margin-left: -2px;
+}
+.main_p{
+	text-align:center;
+	font-weight: 700;
+	font-size: 18px;
 }
 

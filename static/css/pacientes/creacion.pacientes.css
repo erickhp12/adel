@@ -1,5 +1,6 @@
 .seccion_formulario{
 	width:95%;
+	height: 50%;
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 	border: 1px solid #999999;
 	margin-bottom: 2%;
@@ -10,29 +11,35 @@
 	width:46%;
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 	margin-left: 2em;
+	margin-top:-2em;
+	margin-bottom: 2em;	
 	display: inline-block;
 	padding: 2em;
-	margin-top:2em;
-	background-color: white;
+	height: 90%;
 }
 
 .seccion_2{
 	width:46%;
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	margin-left: 2em;
+	margin-top:2em;
 	margin-bottom: 2em;	
-	margin-left: 2em;	
 	display: inline-block;
 	padding: 2em;
-	background-color: white;
+	height: 90%;
 }
 .select_tipo_paciente{
 }
 	select{
 		height: 20px;
-		width: 100%;
+		width: 30%;
 	}
+
+.div_aseguranza>input{
+	readonly: readonly;
+}
 .pacientes_comentarios>input{
-	height: 105px;
+	height: 90px;
 }
 .seccion_botones>a{
 	margin-left: 32%;
