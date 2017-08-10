@@ -6,8 +6,9 @@
   <script src="{% static '/static/js/generic/calendarios.js'%}"></script>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
 
-  <div class = "header">
-  <p class="header_text">Gastos actuales | {{ total_gastos }} </p>
+<div class = "header">
+  <span class="header_text">Gastos actuales <label>{{ total_gastos }}<label> </span>
+  <img src="{% static 'img/iconos/gastos40.png' %}" alt="ups">
 </div>
 
 <section class="seccion_fondo">
@@ -75,6 +76,10 @@
        </tbody>
        {% endfor %}
       </table>
+  {% if mensaje != "" %}
+     <div class="empty_query_result">{{ mensaje }}</div>
+  {% endif %}
+  <br><br>
 </section>
 
 <!-- *********************************** modal ver *********************************** -->  

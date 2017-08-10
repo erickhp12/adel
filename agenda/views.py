@@ -16,20 +16,23 @@ import time
 class AgendaListView(ListView):
     template_name = "agenda.html" 
 
-    
     @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
         fecha_inicial = time.strftime("%Y-%m-%d")
         fecha_final = time.strftime("%Y-%m-%d")
         estado = 0
+        mensaje = ""
         total = Agenda.objects.all().filter(fecha_agenda__range=[fecha_inicial, fecha_final + " 23:59:59"]).order_by('fecha_agenda')
         total_agenda = total.count()
 
+        if total_agenda == 0:
+            mensaje = "No tienes citas para hoy, checa en otro horario"
         context = {'Agenda':total,
                     'total_agenda':total_agenda,
                     'estado':estado,
                     'fecha_inicial':fecha_inicial,
-                    'fecha_final':fecha_final        
+                    'fecha_final':fecha_final,
+                    'mensaje': mensaje      
                     }
 
         return render(request,self.template_name, context)
@@ -39,6 +42,7 @@ class AgendaListView(ListView):
         paciente = request.POST.get('paciente')
         fecha_inicial = request.POST.get('fecha_inicial')
         fecha_final = request.POST.get('fecha_final') 
+        mensaje = ""
 
         if paciente == "" and fecha_inicial == "" and fecha_final == "":
             total_agenda = Agenda.objects.all().filter(fecha_agenda__range=[dia, dia + " 23:59:59"]).order_by('fecha_agenda')
@@ -48,14 +52,18 @@ class AgendaListView(ListView):
             total_agenda = Agenda.objects.all().filter(fecha_agenda__range=[fecha_inicial, fecha_final + " 23:59:59"])
             total = total_agenda.count()
         else:
-            total_agenda = Agenda.objects.all().filter(paciente__nombres__icontains=paciente
-                ) | Agenda.objects.all().filter(paciente__apellidos__icontains=paciente)
+            total_agenda = Agenda.objects.all().filter(paciente__nombre__icontains=paciente)
             total = total_agenda.count()
+
+        if total == 0:
+            mensaje = "La busqueda no mostro ningun resultado"
 
         context = {'Agenda':total_agenda,
                     'total_agenda':total,
                     'fecha_inicial':fecha_inicial,
-                    'fecha_final':fecha_final}
+                    'fecha_final':fecha_final,
+                    'mensaje': mensaje
+                    }
         
         return render(self.request, self.template_name, context)
 
@@ -70,26 +78,21 @@ class CreateAgendaView(View):
         return render(request,self.template_name,ctx)
 
     def post(self, request, *args, **kwargs):
-
+        fecha_inicial = time.strftime("%Y-%m-%d")
+        fecha_final = time.strftime("%Y-%m-%d")
+        total = Agenda.objects.all().filter(fecha_agenda__range=[fecha_inicial, fecha_final + " 23:59:59"]).order_by('fecha_agenda')
+        total_agenda = total.count()
         fecha_agenda = request.POST.get('fecha')
         hora_agenda = request.POST.get('hora')
         paciente_id = request.POST.get('paciente')
         paciente = Paciente.objects.get(pk=paciente_id)
         motivo = request.POST.get('motivo')
 
-        print "Paciente"
-        print paciente
-        print "fecha"
-        print fecha_agenda
-        print "hora"
-        print hora_agenda
-        fecha_agenda = fecha_agenda + " " + hora_agenda + ":00"
-        print "fecha final"
-        print fecha_agenda
-
         Agenda.objects.create(paciente=paciente,motivo=motivo, fecha_agenda=fecha_agenda)
 
-        context = {'ingresos':fecha_agenda}
+        context = {'Agenda':total,
+                    'total_agenda':total_agenda,
+                    'ingresos':fecha_agenda}
 
         return render(self.request, "agenda.html", context)
 

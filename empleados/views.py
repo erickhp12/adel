@@ -16,23 +16,27 @@ class EmployeeListView(ListView):
     def get(self, request, *args, **kwargs):
         empleados = Empleado.objects.all()
         total_empleados = Empleado.objects.all().count
-        
+        mensaje = ""
         context = {'empleados':empleados,
-                    'total_empleados':total_empleados,        
+                    'total_empleados':total_empleados,
+                    'mensaje':mensaje      
                     }
 
         return render(request,self.template_name, context)
 
     def post(self, request, *args, **kwargs):
         empleado_input = request.POST.get('empleado')
-
-        empleados = Empleado.objects.all().filter(nombres__icontains=empleado_input
-            ) | Empleado.objects.all().filter(apellidos__icontains=empleado_input
+        empleados = Empleado.objects.all().filter(nombre__icontains=empleado_input
             ) | Empleado.objects.all().filter(puesto__icontains=empleado_input)
         total_empleados = empleados.count()
+        mensaje = ""
+
+        if total_empleados == 0:
+            mensaje = "La busqueda no mostro ningun resultado"
 
         context = {'empleados':empleados,
-                    'total_empleados':total_empleados
+                    'total_empleados':total_empleados,
+                    'mensaje': mensaje,
                     }
         
         return render(self.request, self.template_name, context)

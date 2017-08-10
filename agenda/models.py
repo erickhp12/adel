@@ -8,10 +8,6 @@ class Agenda(models.Model):
     fecha_agenda = models.DateTimeField(auto_now_add=False, verbose_name=u'fecha programada')
 
     @permalink
-    def url_ver_agenda(self):
-        return ('ver_agenda', [int(self.pk)])
-
-    @permalink
     def url_editar_agenda(self):
         return ('editar_agenda', [int(self.pk)])
 

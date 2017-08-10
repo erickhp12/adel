@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from visitas.models import Visitas
 from .forms import RegistrarGasto
-import time
+import time 
 
 
 class SpendingListView(ListView):
@@ -18,9 +18,10 @@ class SpendingListView(ListView):
     def get(self, request, *args, **kwargs):
         gastos = Gasto.objects.all().order_by('fecha_gasto')
         total_gastos = gastos.count
-
+        mensaje = ""
         context = {'gastos':gastos,
-                    'total_gastos':total_gastos,        
+                    'total_gastos':total_gastos, 
+                    'mensaje': mensaje       
                     }
         return render(request,self.template_name, context)
 
@@ -28,7 +29,7 @@ class SpendingListView(ListView):
         gastos = request.POST.get('gasto')
         fecha_inicial = request.POST.get('fecha_inicial')
         fecha_final = request.POST.get('fecha_final')
-
+        mensaje = ""
         if fecha_final and fecha_final != "":
              gastos = Gasto.objects.all().filter(fecha_gasto__range=[fecha_inicial, fecha_final + " 23:59:59"])
         else:
@@ -37,8 +38,11 @@ class SpendingListView(ListView):
                 ) | Gasto.objects.all().filter(motivo__icontains=gastos)
         total_gastos = gastos.count()
 
+        if total_gastos == 0:
+            mensaje = "La busqueda no mostro ningun resultado"
         context = {'gastos':gastos,
                     'total_gastos':total_gastos,
+                    'mensaje': mensaje
                     }
         
         return render(self.request, self.template_name, context)
@@ -76,6 +80,7 @@ class MovementsView(ListView):
     def get(self, request, *args, **kwargs):
         total_diferencia = 0
         dia = time.strftime("%Y-%m-%d")
+        mensaje = ""
         ingresos = Visitas.objects.filter(fecha_visita__range=[dia, dia + " 23:59:59"])
         egresos = Gasto.objects.filter(fecha_gasto__range=[dia, dia + " 23:59:59"])
         ingresos_pesos = Visitas.objects.all().filter(dolares='Pesos',fecha_visita__range=[dia, dia + " 23:59:59"])
@@ -89,6 +94,8 @@ class MovementsView(ListView):
         total_ingresos_dolares = ingresos_dolares.aggregate(Sum('precio')).get('precio__sum')
         total_egresos_dolares = egresos_dolares.aggregate(Sum('precio')).get('precio__sum')
 
+        if len(ingresos) == 0 or len(egresos) == 0:
+            mensaje = "No tienes movimientos el dia de hoy"
         #Validaciones aritmeticas
         if total_ingresos_pesos is None:
             total_ingresos_pesos = 0
@@ -112,6 +119,7 @@ class MovementsView(ListView):
                     'total_diferencia_dolares': total_diferencia_dolares,
                     'fechai':dia,
                     'fechaf':dia,
+                    'mensaje':mensaje,
                     }
         return render(request,self.template_name, context)
 
@@ -119,7 +127,7 @@ class MovementsView(ListView):
         total_diferencia = 0
         fecha_inicio = request.POST.get('fecha1')
         fecha_final = request.POST.get('fecha2') + " 23:59:59"
-        
+        mensaje = ""
         ingresos = Visitas.objects.filter(fecha_visita__range=[fecha_inicio, fecha_final])
         egresos = Gasto.objects.filter(fecha_gasto__range=[fecha_inicio, fecha_final])        
         ingresos_pesos = Visitas.objects.all().filter(dolares='Pesos',fecha_visita__range=[fecha_inicio, fecha_final])
@@ -134,6 +142,8 @@ class MovementsView(ListView):
         total_ingresos_dolares = ingresos_dolares.aggregate(Sum('precio')).get('precio__sum')
         total_egresos_dolares = egresos_dolares.aggregate(Sum('precio')).get('precio__sum')
 
+        if len(ingresos) == 0 or len(egresos) == 0:
+            mensaje = "No tienes movimientos el dia de hoy"
 
         #Validaciones aritmeticas
         if total_ingresos_pesos is None:
@@ -157,6 +167,7 @@ class MovementsView(ListView):
                     'total_diferencia_pesos': total_diferencia_pesos,
                     'total_diferencia_dolares': total_diferencia_dolares,
                     'fechai':fecha_inicio,
-                    'fechaf':fecha_final
+                    'fechaf':fecha_final,
+                    'mensaje':mensaje,
                     }
         return render(request,self.template_name, context)

@@ -5,8 +5,10 @@
 {% block body %}
  
 <div class = "header">
-        <p class="header_text">Pacientes registrados | {{ total }}</p>
+  <span class="header_text">Pacientes registrados <label>{{ total }}</label></span>
+  <img src="{% static 'img/iconos/pacientes40.png' %}" alt="ups">
 </div>
+
 
 <!-- herramientas de menu -->
 <section class="seccion_fondo">
@@ -33,9 +35,8 @@
   </section>
 <hr>
 <!-- tabla de datos -->
-  <section>
+<section>
   <table>
-
      <thead class="columna">
           <th>Nombre</th>
           <th>Tipo de paciente</th>
@@ -62,9 +63,11 @@
           </td>
      </tbody>
      {% endfor %}
- </table>
-     <br><br>
-  </section>
+  </table>
+  {% if mensaje != "" %}
+     <div class="empty_query_result">{{ mensaje }}</div>
+  {% endif %}
+  <br><br>
 </section>
 
 {% endblock %}

@@ -9,7 +9,7 @@
   <link rel="stylesheet" type="text/css" href="{% static 'css/visitas/visitas.css' %}"/>
 
 <div class = "header">
-  <span class="header_text">Visitas actuales | {{ total_visitas }} </span>
+  <span class="header_text">Visitas actuales <label>{{ total_visitas }}</label> </span>
   <img src="{% static 'img/iconos/visitas40.png' %}" alt="ups">
 </div>
 
@@ -78,6 +78,9 @@
      </tbody>
      {% endfor %}
     </table>
+    {% if mensaje != "" %}
+     <div class="empty_query_result">{{ mensaje }}</div>
+    {% endif %}
     <br><br>
   </section>
 </section>

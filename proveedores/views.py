@@ -16,22 +16,27 @@ class ProviderListView(ListView):
     def get(self, request, *args, **kwargs):
         proveedores = Proveedor.objects.all()
         total_proveedores = Proveedor.objects.all().count
-        
+        mensaje = ""
         context = {'proveedores':proveedores,
-                    'total_proveedores':total_proveedores,        
+                    'total_proveedores':total_proveedores,
+                    'mensaje': mensaje        
                     }
 
         return render(request,self.template_name, context)
 
     def post(self, request, *args, **kwargs):
         proveedor_input = request.POST.get('proveedor')
-
+        mensaje = ""
         proveedores = Proveedor.objects.all().filter(nombre__icontains=proveedor_input
             ) | Proveedor.objects.all().filter(contacto__icontains=proveedor_input)
         total_proveedores = proveedores.count()
 
+        if total_proveedores == 0:
+            mensaje = "La busqueda no mostro ningun resultado"
+
         context = {'proveedores':proveedores,
-                    'total_proveedores':total_proveedores
+                    'total_proveedores':total_proveedores,
+                    'mensaje': mensaje
                     }
         
         return render(self.request, self.template_name, context)

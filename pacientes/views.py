@@ -22,21 +22,28 @@ class PatientListView(ListView):
     def get(self, request, *args, **kwargs):
         total = Paciente.objects.all()
         total_pacientes = total.count
-        
+        mensaje = ""
         context = {'Paciente':total,
-                    'total':total_pacientes,        
+                    'total':total_pacientes,
+                    'mensaje':mensaje     
                     }
 
         return render(request,self.template_name, context)
 
     def post(self, request, *args, **kwargs):
         paciente_input = request.POST.get('paciente')
-
-        paciente = Paciente.objects.all().filter(nombre__icontains=paciente_input)
+        mensaje = ""
+        paciente = Paciente.objects.all().filter(nombre__icontains=paciente_input
+                ) | Paciente.objects.all().filter(tipo_paciente__icontains=paciente_input
+                ) | Paciente.objects.all().filter(aseguranza__icontains=paciente_input)
         total_paciente = paciente.count()
 
+        if total_paciente == 0:
+            mensaje = "La busqueda no mostro ningun resultado"
+
         context = {'Paciente':paciente,
-                    'total':total_paciente
+                    'total':total_paciente,
+                    'mensaje': mensaje,
                     }
         
         return render(self.request, self.template_name, context)

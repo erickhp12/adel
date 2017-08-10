@@ -5,7 +5,8 @@
 {% block body %}
 
 <div class = "header">
-  <p class="header_text">Empleados actuales | {{ total_empleados }}</p>
+  <span class="header_text">Empleados actuales <label>{{ total_empleados }}</label></span>
+  <img src="{% static 'img/iconos/empleados40.png' %}" alt="ups">
 </div>
 
 <!-- herramientas de menu -->
@@ -63,6 +64,9 @@
      </tbody>
      {% endfor %}
      </table>
+     {% if mensaje != "" %}
+     <div class="empty_query_result">{{ mensaje }}</div>
+     {% endif %}
      <br><br>
 </section>
 

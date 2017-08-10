@@ -7,10 +7,10 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/agenda/creacion.agenda.css' %}"/>
     <script src="{% static '/static/js/generic/calendarios.js'%}"></script>
 
-
 <div class = "header">
-  <p class="header_text">Agenda para el dia de hoy | {{ total_agenda }}</p>
-</div> 
+  <span class="header_text">Agenda para el dia de hoy  <label>{{ total_agenda }}</label></span>
+  <img src="{% static 'img/iconos/visitas40.png' %}" alt="ups">
+</div>
 
 <section class="seccion_fondo">
   <!-- *********************************** barra de busqueda *********************************** -->
@@ -70,7 +70,11 @@
         <td><a href="{{ agenda.url_borrar_agenda }}" class="glyphicon glyphicon-trash"> Eliminar</a></td>
      </tbody>
      {% endfor %}
-    </table><br><br>
+    </table>
+    {% if mensaje != "" %}
+     <div class="empty_query_result">{{ mensaje }}</div>
+    {% endif %}
+    <br><br>
   </section>
 </section>
 

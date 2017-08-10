@@ -20,7 +20,7 @@
         <select class="select" name="paciente" id="paciente">
             <option value="0">-------</option>
             {% for paciente in pacientes %}
-            <option value="{{ paciente.pk }}">{{ paciente.nombres }} {{ paciente.apellidos }}</option>
+            <option value="{{ paciente.pk }}">{{ paciente.nombre }}</option>
             {% endfor %}
         </select>
         <div><br>

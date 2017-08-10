@@ -1,14 +1,16 @@
 {% extends "base.html" %}
 {% block title %}ADEL | Gastos {% endblock %}
 
-{% block body %}
+{% block body %} 
 
 {% load staticfiles %}
+	<script src="{% static '/static/js/generic/calendarios.js'%}"></script>
 	<link rel="stylesheet" type="text/css" href="{% static 'css/gastos/movimientos.css' %}"/>
 	<body onload="hide_show_section()"> </div>
 
 <div class = "header">
-    <p class="header_text">Mis movimientos</p>
+    <span class="header_text">Mis movimientos</span>
+    <img src="{% static 'img/iconos/gastos40.png' %}" alt="ups">
 </div>
 
 <section class="seccion_fondo">
@@ -31,6 +33,9 @@
 		</form>
 	</section>
 	<hr>
+	{% if mensaje != "" %}
+	<div class="empty_query_result">{{ mensaje }}</div>
+	{% endif %}
 	<section class="seccion_movimientos_general" id="seccion_movimientos_general">
 		<section class="seccion_ingresos">
 			<table class="tbl_ingresos">
@@ -102,30 +107,6 @@
 </section>
 
 <script>
-$(function () {
-$.datepicker.setDefaults($.datepicker.regional["es"]);
-$("#datepicker").datepicker({
-firstDay: 1,
-monthNames: ['Enero', 'Febrero', 'Marzo','Abril', 'Mayo','Junio',
-'Julio','Agosto','Septiempbre','Octubre','Noviembre','Diciembre'],
-dayNamesMin: ['Dom','Lun','Mar','Mier','Jue','Vier','Sab'],
-dateFormat: 'yy-mm-dd',
-timeFormat:  "hh:mm:ss"
-});
-});
-
-$(function () {
-$.datepicker.setDefaults($.datepicker.regional["es"]);
-$("#datepickerf").datepicker({
-firstDay: 1,
-monthNames: ['Enero', 'Febrero', 'Marzo','Abril', 'Mayo','Junio',
-'Julio','Agosto','Septiempbre','Octubre','Noviembre','Diciembre'],
-dayNamesMin: ['Dom','Lun','Mar','Mier','Jue','Vier','Sab'],
-dateFormat: 'yy-mm-dd',
-timeFormat:  "hh:mm:ss"
-});
-});
-
 function hide_show_section() { 
     var x = document.getElementById('seccion_movimientos_resumen');
     var y = document.getElementById('seccion_movimientos_general');

@@ -20,9 +20,10 @@ class VisitListView(ListView):
     def get(self, request, *args, **kwargs):
         visitas = Visitas.objects.all().order_by('fecha_visita')
         total_visitas = visitas.count
-        
+        mensaje = ""
         context = {'visitas':visitas,
-                    'total_visitas':total_visitas,        
+                    'total_visitas':total_visitas,
+                    'mensaje': mensaje    
                     }
         return render(request,self.template_name, context)
 
@@ -30,16 +31,20 @@ class VisitListView(ListView):
         paciente = request.POST.get('visita')
         fecha_inicial = request.POST.get('fecha_inicial')
         fecha_final = request.POST.get('fecha_final')
+        mensaje = ""
 
+        
         if fecha_final and fecha_final != "":
             total_visitas = Visitas.objects.all().filter(fecha_visita__range=[fecha_inicial, fecha_final + " 23:59:59"])
         else:
-            total_visitas = Visitas.objects.all().filter(paciente__nombres__icontains=paciente
-                ) | Visitas.objects.all().filter(paciente__apellidos__icontains=paciente
+            total_visitas = Visitas.objects.all().filter(paciente__nombre__icontains=paciente
                 ) | Visitas.objects.all().filter(motivo__icontains=paciente)
         total = total_visitas.count()
 
-        context = {'visitas':total_visitas,'total_visitas':total}
+        if total == 0:
+            mensaje = "No tienes visitas en estas fechas"
+
+        context = {'visitas':total_visitas,'total_visitas':total,'mensaje':mensaje}
         
         return render(self.request, self.template_name, context)
 
