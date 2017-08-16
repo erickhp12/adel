@@ -1,32 +1,33 @@
+
 .seccion_formulario{
 	width:95%;
-	height: 50%;
-	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-	border: 1px solid #999999;
-	margin-bottom: 2%;
+	border: 0.5px solid #999999;
 	background-color: white;
+	border-radius: 5px;
 	margin-left: 2%;
 }
 .seccion_1{
 	width:46%;
-	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-	margin-left: 2em;
-	margin-top:-2em;
+	border: 0.5px solid #CCCCCC;
+	border-radius: 5px;
+	margin-top:2em;
 	margin-bottom: 2em;	
-	display: inline-block;
+	margin-left: 2em;	
+	float: left;
 	padding: 2em;
-	height: 90%;
+	height: 25em;
 }
 
 .seccion_2{
 	width:46%;
-	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-	margin-left: 2em;
+	border: 0.2px solid #CCCCCC;
+	border-radius: 5px;
 	margin-top:2em;
 	margin-bottom: 2em;	
-	display: inline-block;
+	margin-right: 3em;
+	float: right;
 	padding: 2em;
-	height: 90%;
+	height: 25em;
 }
 .select_tipo_paciente{
 }
@@ -41,7 +42,45 @@
 .pacientes_comentarios>input{
 	height: 90px;
 }
-.seccion_botones>a{
-	margin-left: 32%;
+.seccion_botones{
+	width: 100%;
+	display: inline-block;
+}
+.boton_1{
+	float: left;
+	width: 25%;
+	font-size: 18px;
+	font-family: roboto;
+}
+.boton_2{
+	margin-right: 25%;
+	float: right;
+	width: 25%;
+	font-size: 18px;
+	font-family: roboto;
+	background-color: rgba(13, 5, 9, 0.14);
+}
+.seccion_errores{
+	width:95%;
+	margin-top: 1em;
+	border: 0.5px solid #999999;
+	background-color: white;
+	border-radius: 5px;
+	margin-left: 2%;
+}
+.errores_p{
+	font-size: 18px;
+	font-weight: 700;
 	text-align: center;
+	color: red;
+}
+.label-sexo{
+	margin-left: 5%;
+}
+#id_tipo_paciente{
+	margin-left: 2%;
+}
+#id_sexo{
+	width: 25%;
+	margin-left: 2%;
 }

@@ -8,7 +8,7 @@
 	<form method=post>
 		{% csrf_token %}
 		{% for agenda in agenda %}
-		<span class="p_confirmacion" style="margin-left:25%">¿Estás seguro de eliminar esta cita?</span><br><br>
+		<span class="p_confirmacion" style="margin-left:30%">¿Estás seguro de eliminar esta cita?</span><br><br>
 		<p><b>Paciente</b></p>
 		<p>{{ agenda.paciente }}</p>
 		<p><b>Fecha</b></p>
@@ -16,9 +16,9 @@
 		<p><b>Motivo</b></p>
 		<p>{{ agenda.motivo }}</p><br>
 		{% endfor %}
-		<input type="submit" value="confirmar" class="btn_confirmar">
+		<input type="submit" value="confirmar" class="btn btn-danger btn_confirmar">
 	<a href="/lista.agenda">
-		<input type="button" value="volver a la lista" class="btn_volver"><br><br>
+		<input type="button" value="volver a la lista" class="btn_volver btn_volver_eliminar"><br><br>
 	</a>
 	</form>
 </section>	

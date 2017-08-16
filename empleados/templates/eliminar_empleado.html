@@ -8,11 +8,12 @@
 	<form method=post>
 		{% csrf_token %}
 		{% for empleado in empleado %}
-		<span class="p_confirmacion" style="margin-left: 18%;">¿Estás seguro de eliminar a {{ empleado.nombres }} {{ empleado.apellidos }} ?</span><br><br>
+		<p class="p_confirmacion" style="text-align: left;">¿Estás seguro de eliminar a {{ empleado.nombre }} ?</p>
+		<br>
 		{% endfor %}
-		<input type="submit" value="confirmar" class="btn_confirmar">
+		<input type="submit" value="confirmar" class="btn btn-danger btn_confirmar">
 		<a href="/lista.empleados">
-		<input type="button" value="volver a lista" class="btn_volver"><br><br>
+		<input type="button" value="volver a lista" class="btn_volver btn_volver_eliminar"><br><br>
 		</a>
 	</form>
 </section>	

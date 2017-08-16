@@ -97,6 +97,8 @@ span{
 	font-size: 18px;
 	padding: 2px 1px;
 	margin-left: 2%;
+	margin-bottom: 8px;
+	height: 30px;
 }
 
 .btn_agregar_elemento{
@@ -107,6 +109,8 @@ span{
 	padding: 2px 1px;
 	border-radius: 3px;
 	margin-left: 2%;
+	margin-bottom: 8px;
+	height: 30px;
 }
 
 .seccion_agregar_nuevo>a{
@@ -232,11 +236,9 @@ tr:hover{
 	padding: 2px 1px;
 }
 .btn_confirmar{
-	background-color: #DDDDDD;
-	color: #0f861d;
 	border: 0.1px solid #777777;
 	width: 25%;
-	font-size: 20px;
+	font-size: 19px;
 	border-radius: 3px;
 }
 
@@ -253,6 +255,11 @@ tr:hover{
 .btn_volver_detalle{
 	width: 25%;
 	margin: 1em;
+}
+.btn_volver_eliminar{
+	height: 38px;
+	margin-top: 3px;
+	border-radius: 3px;
 }
 
 .empty_query_result{

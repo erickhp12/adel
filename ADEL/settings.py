@@ -79,25 +79,25 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ADEL.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'docker',
-        'USER': 'docker',
-        'PASSWORD': 'docker',
-        'HOST': 'db',
-        'PORT': 3306
-    }
-}
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'adel',
-#         'USER': 'root',
-#         'PASSWORD': '',
+#         'NAME': 'docker',
+#         'USER': 'docker',
+#         'PASSWORD': 'docker',
+#         'HOST': 'db',
+#         'PORT': 3306
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'adel',
+        'USER': 'root',
+        'PASSWORD': '',
+    }
+}
 
 
 # Cache
