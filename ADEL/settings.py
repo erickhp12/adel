@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django.contrib.sites',
     'empleados',
     'login',
     'pacientes',
@@ -142,8 +143,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, "/static/")
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "/static"),
+    os.path.join(BASE_DIR, "static"),
 ]
 
 
-MEDIA_URL = '/static/media/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR),'adel/static/images/')
