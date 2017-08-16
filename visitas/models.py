@@ -10,7 +10,7 @@ TIPOS_PAGO = (("Efectivo", "Efectivo"),("Tarjeta", "Tarjeta"),
 
 class Visitas(models.Model):
     paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE)
-    fecha_visita = models.DateTimeField(auto_now_add=True, verbose_name=u'fecha de visita')
+    fecha_visita = models.DateTimeField(verbose_name=u'Fecha')
     motivo = models.CharField(max_length=300, default='',null=True, unique=False, verbose_name=u'motivo')
     dentista = models.ForeignKey(Empleado, on_delete=models.CASCADE)
     precio = models.DecimalField(max_digits=10,decimal_places=2,null=True,unique=False,verbose_name=u'Precio')

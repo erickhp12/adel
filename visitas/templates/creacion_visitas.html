@@ -2,12 +2,16 @@
 {% block title %}ADEL | agregar visita{% endblock %}
 
 {% block body %}
+<body onload="set_initial_date()">    
 {% load staticfiles %}
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="{% static '/static/js/generic/calendarios.js'%}"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'css/visitas/creacion.visitas.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/generic/table.css' %}"/>
 
 <div class = "header">
-    <p class="header_text">visita</p>
+  <span class="header_text">Agregar una visita</span>
+  <img src="{% static 'img/iconos/visitas40.png' %}" alt="ups">
 </div>
 
 <section class="seccion_formulario">
@@ -15,46 +19,129 @@
     {% csrf_token %}
     <div class="seccion_1">
         <div class="select">
-            <label>{{ form.paciente.label}}</label>
-            {{ form.paciente }}
-            <span>{{ form.paciente.errors }}</span>
-        </div>
-        <div class="motivo1">
-            <label>{{ form.motivo.label}}</label>
+            <label class="label-formularios">{{ form.paciente.label}}</label>
+            {{ form.paciente }}       
+        </div><br>
+        <div class="motivo">
+            <label class="label-formularios">{{ form.motivo.label}}</label>
             {{ form.motivo }}
-            <span>{{ form.motivo.errors }}</span>
         </div>
+
     </div>
 
     <div class="seccion_2">
-        <div class="select">
-            <label>{{ form.dentista.label}}</label>
-            {{ form.dentista }}
-            <span>{{ form.dentista.errors }}</span>
-        </div>
-        <div>
-            <label>{{ form.precio.label}}</label>
-            {{ form.precio }}
-            <span>{{ form.precio.errors }}</span>
-        </div>
-        <div class="select">
-            <label>{{ form.dolares.label}}</label>
-            {{ form.dolares }}
-            <span>{{ form.dolares.errors }}</span>
-        </div>
-        <div class="select">
-            <label>{{ form.tipo_pago.label}}</label>
-            {{ form.tipo_pago }}
-            <span>{{ form.tipo_pago.errors }}</span>
-        </div>
+        <table style="width: 99%;">
+            <tbody>      
+            <tr class="generic-tr">
+                <td class="td-left"><label class="label-formularios">Dentista que atendio</label></td>
+                <td class="td-right">{{ form.dentista }}  </td>
+            </tr>
+            <tr class="generic-tr">
+                <td class="td-left"><label class="label-formularios">{{ form.tipo_pago.label}}</label></td>
+                <td class="td-right">{{ form.tipo_pago }}  </td>
+            </tr>
+            <tr class="generic-tr">
+                <td class="td-left"><label class="label-formularios">{{ form.precio.label }}</label></td>
+                <td class="td-right">{{ form.precio }}</td>
+            </tr>
+            <tr class="generic-tr">
+                <td class="td-left"><label class="label-formularios">{{ form.dolares.label}}</label></td>
+                <td class="td-right">{{ form.dolares }}  </td>
+            </tr>
+            <tr class="generic-tr">
+                <td class="td-left"><label class="label-formularios">{{ form.fecha_visita.label}}</label></td>
+                <td class="td-right">{{ form.fecha_visita }}
+                    <select name = "hora" id="hora" onchange="set_date()">
+                        <option value="00:00">Hora</option>
+                        <option name = "hora" id="hora" value="08:00">08:00</option>
+                        <option name = "hora" id="hora" value="08:30">08:30</option>
+                        <option name = "hora" id="hora" value="09:00">09:00</option>
+                        <option name = "hora" id="hora" value="09:30">09:30</option>
+                        <option name = "hora" id="hora" value="10:00">10:00</option>
+                        <option name = "hora" id="hora" value="10:30">10:30</option>
+                        <option name = "hora" id="hora" value="11:00">11:00</option>
+                        <option name = "hora" id="hora" value="11:30">11:30</option>
+                        <option name = "hora" id="hora" value="12:00">12:00</option>
+                        <option name = "hora" id="hora" value="12:30">12:30</option>
+                        <option name = "hora" id="hora" value="13:00">13:00</option>
+                        <option name = "hora" id="hora" value="13:30">13:30</option>
+                        <option name = "hora" id="hora" value="14:00">14:00</option>
+                        <option name = "hora" id="hora" value="14:30">14:30</option>
+                        <option name = "hora" id="hora" value="15:00">15:00</option>
+                        <option name = "hora" id="hora" value="15:30">15:30</option>
+                        <option name = "hora" id="hora" value="16:00">16:00</option>
+                        <option name = "hora" id="hora" value="16:30">16:30</option>
+                        <option name = "hora" id="hora" value="17:00">17:00</option>
+                        <option name = "hora" id="hora" value="17:30">17:30</option>
+                        <option name = "hora" id="hora" value="18:00">18:00</option>
+                        <option name = "hora" id="hora" value="18:30">18:30</option>
+                        <option name = "hora" id="hora" value="19:00">19:00</option>
+                        <option name = "hora" id="hora" value="19:30">19:30</option>
+                        <option name = "hora" id="hora" value="20:00">20:00</option>
+                        <option name = "hora" id="hora" value="20:30">20:30</option>
+                    </select>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
     <div class="seccion_botones">           
-            <input class="btn_confirmar" id="save_contact" 
-            type="submit" value="Registrar"/>
-            <a href="/lista.visitas" class="btn_volver">Volver</a>
+        <input class="btn btn-success boton_1" id="save_contact" 
+        type="submit" value="Registrar"/>
+        <a href="/lista.visitas" class="btn btn-default boton_2">Volver</a>
     </div>
     </form>
 </section>
-</div>
 
+<!-- <section class="seccion_errores">   
+    <p class="errores_p">Corrige los siguientes errores</p> 
+    <p>paciente - {{ form.paciente.errors }}</p>
+    <p>motivo - {{ form.motivo.errors }}</p>
+    <p>divisa - {{ form.dolares.errors }}</p>
+    <p>tipo de pago - {{ form.tipo_pago.errors }}</p>
+    <p>dentista - {{ form.dentista.errors }}</p>
+    <p>precio - {{ form.precio.errors }}</p>
+    <p>dolares - {{ form.dolares.errors }}</p>                
+    <p>fecha de visita - {{ form.fecha_visita.errors }}</p>
+</section> -->
+
+<script>
+    function set_initial_date(){
+        var fecha = document.getElementById('datepicker');
+        if (fecha.value.length == 0){
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        if(dd<10) {
+            dd = '0'+dd 
+        } 
+        if(mm<10) {
+            mm = '0'+mm
+        } 
+
+        today = yyyy + '-' + mm + '-' + dd;
+        fecha.value = today;
+        }
+    }
+    function set_date(){
+        var fecha = document.getElementById('datepicker');
+        var hora = document.getElementById('hora');
+
+        if (fecha.value.length > 10){  
+            if (hora.value != "00:00"){
+                fecha.value = fecha.value.substring(0,10);
+                fecha.value = fecha.value + " " + hora.value;
+            }else {
+            fecha.value = fecha.value.substring(0,10);    
+            }
+           
+        }else{
+            fecha.value = fecha.value + " " + hora.value;
+        }
+    }
+</script>
+
+</body>
 {% endblock %}

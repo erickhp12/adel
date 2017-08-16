@@ -15,10 +15,11 @@ class Gasto(models.Model):
     precio = models.DecimalField(max_digits=10,decimal_places=2,null=True,unique=False,verbose_name=u'Precio')
     dolares = models.CharField(max_length=50,choices=TIPOS_DIVISAS,verbose_name=u'Divisa')
     tipo_pago = models.CharField(max_length=50,choices=TIPOS_PAGO,null=True,unique=False,verbose_name=u'tipo de pago')
-    fecha_gasto = models.DateTimeField(auto_now_add=True, verbose_name=u'fecha de gasto')
+    fecha_gasto = models.DateTimeField(verbose_name=u'fecha de gasto')
     
     def __str__(self):
         return self.proveedor
+
 
     @permalink
     def url_editar_gasto(self):

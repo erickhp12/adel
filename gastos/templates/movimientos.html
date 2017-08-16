@@ -23,12 +23,12 @@
 			id="datepicker" class="search_busqueda" name="fecha1">	
 		</div>
 		<div>
-			<label for="Fecha de final">Fecha final</label>
+			<label class="generic-label">Fecha final</label>
 			<input type="text" value="{{ fechaf }}" placeholder="{{ fechaf }}" 
 			id="datepickerf" class="fecha_final" name="fecha2">
 		</div>
 		<div>
-			<input type="submit" value="Buscar" class="btn_agregar_elemento">
+			<input type="submit" value="Buscar" class="btn btn-default btn_busqueda">
 		</div>
 		</form>
 	</section>
@@ -38,7 +38,7 @@
 	{% endif %}
 	<section class="seccion_movimientos_general" id="seccion_movimientos_general">
 		<section class="seccion_ingresos">
-			<table class="tbl_ingresos">
+			<table class="generic-table tbl_ingresos">
 				<h3 style="text-align: center;">Mis ingresos</h3><br>
 				<thead>
 					<th class="th_ingresos">&nbsp;&nbsp;Fecha de visita</th>
@@ -58,7 +58,7 @@
 		</section>
 		<hr>
 		<section class="seccion_egresos">
-			<table class="tbl_egresos" valign="top" >
+			<table class="generic-table tbl_egresos" valign="top" >
 				<h3 style="text-align: center;">Mis gastos</h3><br>
 				<thead>
 					<th class="th_egresos">&nbsp; &nbsp;Fecha de gasto</th>

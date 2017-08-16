@@ -53,6 +53,7 @@ class CreatePatientView(CreateView):
     template_name = "creacion_pacientes.html"
     success_url = reverse_lazy('list_pacientes')
 
+
 class UpdatePatientView(UpdateView):
     model = Paciente
     form_class = RegistrarPaciente
@@ -69,6 +70,8 @@ class DetailPatientView(DetailView):
         visitas = Visitas.objects.all().filter(paciente_id=pk)
         historial = ""
         message = ""
+        alergias_comentarios_value = ""
+        medicamentos_comentarios_value = ""
         alergias_value = "unchecked"
         corazon_value = "unchecked"
         presion_arterial_value = "unchecked"
@@ -80,10 +83,12 @@ class DetailPatientView(DetailView):
         precio_pesos = 0
         precio_dolares = 0
         precio_total = 0
-        
+
         try:
             historial = Historial.objects.get(paciente=pk)
 
+            alergias_comentarios_value = historial.alergias_comentarios
+            medicamentos_comentarios_value = historial.medicamentos_comentarios
             if historial.alergias == True:
                 alergias_value = "checked"
             if historial.corazon == True:
@@ -117,6 +122,7 @@ class DetailPatientView(DetailView):
                     'paciente':paciente,
                     'historial':historial,
                     'alergias_value':alergias_value,
+                    'alergias_comentarios_value':alergias_comentarios_value,
                     'corazon_value':corazon_value,
                     'presion_arterial_value':presion_arterial_value,
                     'diabetes_value':diabetes_value,
@@ -124,6 +130,7 @@ class DetailPatientView(DetailView):
                     'vih_value':vih_value,
                     'embarazada_value':embarazada_value,
                     'medicamentos_value':medicamentos_value,
+                    'medicamentos_comentarios_value':medicamentos_comentarios_value,
                     'precio_total':precio_total,
                     'message':message,
                     }

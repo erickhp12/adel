@@ -8,8 +8,8 @@ class RegistrarProveedor(ModelForm):
     class Meta:
         model = Proveedor
         exclude = []
-        widget = {
+        widgets = {
             'nombre': TextInput(
-                attrs={'autofocus': '','class': 'form-control'}
+                attrs={'autofocus': '','placeholder': ''}
             )
         }

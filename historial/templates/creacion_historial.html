@@ -38,11 +38,11 @@
         <!--************************ alergias ************************-->
         <div class="alergias_checkbox">
             <div class="material-switch div_historial">
-                <span class="span_historial">Es alergico a alguna droga,anestesia,antibiotico?</span>
+                <span class="span_historial" style="margin-bottom:10px;" >Es alergico a alguna droga,anestesia,antibiotico?</span>
                 <input type="checkbox" id="alergias" name="alergias" class="input_historial" 
                     onclick="alergias_show()" />
                 <label for="alergias" class="label-info"></label>
-                <input type="text" style="display:none;" 
+                <input type="text" style="margin-bottom:10px;" name="alergias_comentarios"
                 id="alergias_comentarios" placeholder="Describa" class="text_medicamentos">
             </div>
         </div>
@@ -65,6 +65,7 @@
     </div>
 
     <div class="seccion_2 seccion_2_historial">
+    <br>
         <!--************************ diabetes ************************-->
         <div class="material-switch div_historial">
             <span class="span_historial span_diabetes" >Diabetes</span>
@@ -92,12 +93,12 @@
         <!--************************ medicamentos ************************-->
         <div class="medicamentos_checkbox">
             <div class="material-switch div_historial">
-                <span class="span_historial" >Actualmente toma algun medicamento?</span>
+                <span class="span_historial" style="margin-bottom:10px;">Actualmente toma algun medicamento?</span>
                 <input id="medicamentos" name="medicamentos" type="checkbox"
                     onclick="medicamentos_show()" />
                 <label for="medicamentos" class="label-info"></label>
             </div><br>
-            <input type="text" style="display:none;" 
+            <input type="text" name="medicamentos_comentarios" style="margin-bottom:10px;" 
             id="medicamentos_comentarios" placeholder="Describa el medicamento"><br><br>
         </div>
     </div>
@@ -115,9 +116,9 @@
     var checkbox = document.getElementById('alergias');
     var comentarios = document.getElementById('alergias_comentarios');
     if (checkbox.checked == true) {
-        comentarios.style.display='block';
+        comentarios.style.visibility='visible';
     }else if (checkbox.checked == false){
-        comentarios.style.display='none';
+        comentarios.style.visibility='hidden';
     }  
 }
     function medicamentos_show() { 
@@ -125,9 +126,9 @@
     var checkbox = document.getElementById('medicamentos');
     var comentarios = document.getElementById('medicamentos_comentarios');
     if (checkbox.checked == true) {
-        comentarios.style.display='block';
+        comentarios.style.visibility='visible';
     }else if (checkbox.checked == false){
-        comentarios.style.display='none';
+        comentarios.style.visibility='hidden';
     }  
 }
 </script>

@@ -8,8 +8,13 @@ class RegistrarPaciente(ModelForm):
     class Meta:
         model = Paciente
         exclude = []
-        widget = {
+        widgets = {
             'aseguranza': TextInput(
-                attrs={'value': 'no aplica','placeholder': 'no aplica'}
+                attrs={'placeholder': 'asdfasdfasd'}
+            ),
+            'edad': TextInput(
+            	attrs={'placeholder':'hola','class':'txtInput'}
             )
         }
+
+    

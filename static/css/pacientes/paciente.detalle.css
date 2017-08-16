@@ -13,12 +13,12 @@
 
 .paciente_detalles_general{
 	display: inline-block;
-	width: 35.1%;
+	width: 40.1%;
 }
 .paciente_detalles_historial{
 	display: inline-block;
 	margin-left: 4%;
-	width: 60.5%;
+	width: 54.5%;
 }
 .paciente_detalles_visitas{
 	margin-top: -1em;
@@ -37,7 +37,7 @@
 	font-weight: bold;
 }
 .paciente_detalles_checkbox{
-	width: 40%;
+	width: 30%;
 }
 .paciente_detalles_botones{
 	margin-top: -2em;
@@ -56,4 +56,8 @@
 	color: white;
 	border-radius: 5px;
 }
-
+.historial_label{
+	font-weight: 500;
+	color: #555555;
+	text-align: left;
+}

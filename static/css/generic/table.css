@@ -1,0 +1,10 @@
+.generic-tr:hover{
+	background-color: white;
+}
+.td-left{
+	padding: 15px;
+	width: 50%;
+}
+.td-right{
+	width: 49%;
+}

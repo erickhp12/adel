@@ -8,8 +8,8 @@ class RegistrarGasto(ModelForm):
     class Meta:
         model = Gasto
         exclude = []
-        widget = {
-            'proveedor': TextInput(
-                attrs={'autofocus': '','class': 'form-control'}
+        widgets = {
+            'fecha_gasto': TextInput(
+                attrs={'id': 'datepicker'}
             )
         }

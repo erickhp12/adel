@@ -31,6 +31,7 @@ class RequestHistorial(APIView):
 class CreateHistoryView(CreateView):
     template_name = "creacion_historial.html"
     template_main = "pacientes.html"
+    
     @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, pk, **kwargs):
         paciente = Paciente.objects.get(id=pk)
@@ -41,7 +42,11 @@ class CreateHistoryView(CreateView):
         return render(request,self.template_name, context)
 
     def post(self, request, *args, **kwargs):
+        total = Paciente.objects.all()
+        total_pacientes = total.count
+        mensaje = ""
         paciente = request.POST.get('paciente')
+        paciente_id = Paciente.objects.get(nombre=paciente)
         estado_civil = request.POST.get('estado_civil')
         ocupacion = request.POST.get('ocupacion')
         alergias = request.POST.get('alergias', False)
@@ -82,14 +87,42 @@ class CreateHistoryView(CreateView):
         print "medicamentos comentarios"
         print medicamentos_comentarios
 
-        RP.objects.create(paciente=paciente,
-                              monto=obj.get('amount'),
-                              carrier=obj.get('carrier_name'),
-                              carrier_code=obj.get('carrier_code'),
-                              fecha_registro=dia)
+        if alergias is None:
+            alergias = 0
+        if corazon is None:
+            corazon = 0
+        if presion_arterial is None:
+            presion_arterial = 0
+        if diabetes is None:
+            diabetes = 0
+        if hepatitis is None:
+            hepatitis = 0
+        if vih is None:
+            vih = 0
+        if embarazada is None:
+            embarazada = 0
+        if medicamentos is None:
+            medicamentos = 0
+
+        Historial.objects.create(paciente=paciente_id,
+                        estado_civil=estado_civil,
+                        ocupacion=ocupacion,
+                        alergias=alergias,
+                        alergias_comentarios=alergias_comentarios,
+                        corazon=corazon,
+                        presion_arterial=presion_arterial,
+                        diabetes=diabetes,
+                        hepatitis=hepatitis,
+                        vih=vih,
+                        embarazada=embarazada,
+                        medicamentos=medicamentos,
+                        medicamentos_comentarios=medicamentos_comentarios)
 
 
-        context = {'paciente':paciente}
+        context = { 'Paciente':total,
+                    'total':total_pacientes,
+                    'mensaje':mensaje
+                    }
         
         return render(self.request, self.template_main, context)
 

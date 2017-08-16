@@ -32,7 +32,9 @@
     position: relative; 
     margin-right: 10%;
 }
-
+.div_detalles{
+    height: 2.25em;
+}
 .material-switch > label::before {
     background: rgb(0, 0, 0);
     box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
@@ -65,4 +67,10 @@
 .material-switch > input[type="checkbox"]:checked + label::after {
     background: inherit;
     left: 20px;
+}
+#alergias_comentarios{
+    visibility:hidden;
+}
+#medicamentos_comentarios{
+    visibility:hidden;
 }

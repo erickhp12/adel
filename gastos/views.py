@@ -94,7 +94,7 @@ class MovementsView(ListView):
         total_ingresos_dolares = ingresos_dolares.aggregate(Sum('precio')).get('precio__sum')
         total_egresos_dolares = egresos_dolares.aggregate(Sum('precio')).get('precio__sum')
 
-        if len(ingresos) == 0 or len(egresos) == 0:
+        if ingresos == "":
             mensaje = "No tienes movimientos el dia de hoy"
         #Validaciones aritmeticas
         if total_ingresos_pesos is None:
@@ -142,7 +142,7 @@ class MovementsView(ListView):
         total_ingresos_dolares = ingresos_dolares.aggregate(Sum('precio')).get('precio__sum')
         total_egresos_dolares = egresos_dolares.aggregate(Sum('precio')).get('precio__sum')
 
-        if len(ingresos) == 0 or len(egresos) == 0:
+        if len(ingresos) == 0 and len(egresos) == 0:
             mensaje = "No tienes movimientos el dia de hoy"
 
         #Validaciones aritmeticas

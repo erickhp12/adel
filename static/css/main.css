@@ -23,9 +23,9 @@ body{
 	margin-right: 2em;
 }
 .header_text>label{
-	background-color: #838383;
+	background-color: rgba(131, 131, 131, 0.67);
 	color: white;
-	border-radius: 5px;
+	border-radius: 15px;
 	padding-left: 8px;
 	font-family: roboto;
 	padding-right: 8px;
@@ -34,7 +34,7 @@ a{
 	font-family: roboto;
 	color: #333333;
 }
-p,span{
+p,span,label{
 	font-family:roboto;
 }
 a:hover{
@@ -49,8 +49,14 @@ img{
 	max-height: 50%;
 }
 select{
-		height: 20px;
-		width: 100%;
+	height: 30px;
+    width: 100%;
+    background-color: rgba(238, 238, 238, 0.02);
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.36);
+    -webkit-appearance: none;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
 	}
 span{
 		margin-left: 2em;
@@ -63,42 +69,44 @@ span{
 }
 .seccion_busqueda{
 	display: inline;
-	font-size: 20px;
+	font-size: 18px;
 }
 .search_busqueda{
 	width: 20%;
 	border-radius: 5px;
+	font-size: 18px;
 }
 .search_busqueda_fecha_inicial{
 	width: 15%;
 	border-radius: 5px;
+	font-size: 18px;
 	margin-left: 3%;
 }
 .search_busqueda_fecha_final{
 	width: 15%;
-	border-radius: 5px;
+	border-radius: 3px;
+	font-size: 18px;
 	margin-left: 1%;
 }
 
 .btn_busqueda{
-	background-color: #626A70;
+	background-color: rgba(13, 5, 9, 0.14);
 	border: 0.1px solid #777777;
-	color: white;
 	width: 15%;
-	border-radius: 6px;
-	font-size: 20px;
+	border-radius: 3px;
+	font-size: 18px;
 	padding: 2px 1px;
-	margin-left: 3%;
+	margin-left: 2%;
 }
 
 .btn_agregar_elemento{
-	background-color: 	#3085d6;
 	border: 0.1px solid #777777;
 	color: white;
 	width: 15%;
-	font-size: 20px;
-	padding: 3px 1px;
-	border-radius: 6px;
+	font-size: 18px;
+	padding: 2px 1px;
+	border-radius: 3px;
+	margin-left: 2%;
 }
 
 .seccion_agregar_nuevo>a{
@@ -118,11 +126,11 @@ span{
 .seccion_busqueda_2{
 	display: inline;
 	margin-left: 5%;
-	font-size: 20px;
+	font-size: 18px;
 }
 .search_busqueda_2{
 	width: 40%;
-	font-size: 20px;
+	font-size: 18px;
 	border-radius: 5px;
 }
 .btn_busqueda_2{
@@ -131,26 +139,25 @@ span{
 	color: white;
 	width: 15%;
 	border-radius: 6px;
-	font-size: 20px;
+	font-size: 18px;
 	padding: 2px 1px;
 	margin-left: 3%;
 }
 .btn_agregar_elemento_2{
-	background-color: 	#3085d6;
 	border: 0.1px solid #777777;
 	color: white;
 	width: 20%;
-	font-size: 20px;
-	padding: 3px 1px;
+	font-size: 18px;
+	padding: 5px 1px;
 	margin-left: 5%;
-	border-radius: 6px;
+	border-radius: 3px;
 }
 
 /*----------------------------------- Tabla de usuarios ----------------------------------------------*/
 .titulo{
 		text-align: center;
 }
-table{
+.generic-table{
 	width: 97%; 
 	margin-left: 2em;
 }
@@ -172,7 +179,7 @@ th{
 	font-family: roboto;
 }
 tr:hover{
-	background-color: #DDDDDD;
+	background-color: #EEEEEE;
 }
 
 .seccion_fondo{
@@ -206,6 +213,14 @@ tr:hover{
 	margin-left: 17%;
 	height: 26px;
 }
+/*----------------------------------------  textos -------------------------------------------------- */
+.label-formularios{
+	font-size: 18px;
+	font-weight: 700;
+}
+.errorlist{
+	color: red;
+}
 /*----------------------------------------  botones -------------------------------------------------- */
 
 .btn_agregar{
@@ -217,12 +232,11 @@ tr:hover{
 	padding: 2px 1px;
 }
 .btn_confirmar{
-	background-color: #0f861d;
+	background-color: #DDDDDD;
+	color: #0f861d;
 	border: 0.1px solid #777777;
-	color: white;
 	width: 25%;
 	font-size: 20px;
-	padding: 3px 1px;
 	border-radius: 3px;
 }
 
@@ -233,8 +247,7 @@ tr:hover{
 	width: 25%;
 	border-radius: 6px;
 	font-size: 20px;
-	padding: 2px 1px;
-	margin-left: 3%;
+	text-align: center;
 }
 
 .btn_volver_detalle{
@@ -251,6 +264,7 @@ tr:hover{
 	font-weight: 400;
 	font-family: roboto;
 	margin: 1em;
+	margin-left: 30px;
 }
 
 

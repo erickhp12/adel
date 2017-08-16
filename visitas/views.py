@@ -73,6 +73,13 @@ class DeleteVisitView(ListView):
         return render(request,self.template_name, context)
 
     def post(self, request, pk, *args, **kwargs):
+        visitas = Visitas.objects.all().order_by('fecha_visita')
+        total_visitas = visitas.count
+        mensaje = ""
         Visitas.objects.all().filter(id=pk).delete()
-        return render(self.request,'visitas.html')
+        context = {'visitas':visitas,
+                    'total_visitas':total_visitas,
+                    'mensaje': mensaje    
+                    }
+        return render(self.request,'visitas.html',context)
 

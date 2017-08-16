@@ -8,8 +8,8 @@ class RegistrarVisita(ModelForm):
     class Meta:
         model = Visitas
         exclude = []
-        widget = {
-            'nombres': TextInput(
-                attrs={'autofocus': '','class': 'form-control'}
+        widgets = {
+            'fecha_visita': TextInput(
+            	attrs={'placeholder':'','id':'datepicker'}
             )
         }

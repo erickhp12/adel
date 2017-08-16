@@ -2,8 +2,8 @@ from django.db import models
 from django.db.models import permalink
 
 class Proveedor(models.Model):
-    nombre = models.CharField(max_length=150, null=False, unique=True, verbose_name=u'nombre(s)')
-    contacto = models.CharField(max_length=150, null=False, unique=False, verbose_name=u'contacto(s)')
+    nombre = models.CharField(max_length=150, null=False, unique=False, verbose_name=u'nombre(s)')
+    contacto = models.CharField(max_length=150, null=True, unique=False, verbose_name=u'contacto(s)')
     telefono = models.CharField(max_length=15,null=True, unique=False, verbose_name=u'telefono')
     correo = models.EmailField(max_length=100,null=True, unique=False, verbose_name=u'correo')
     direccion = models.CharField(max_length=150, null=True, unique=False, verbose_name=u'direccion')

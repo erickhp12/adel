@@ -5,10 +5,12 @@
 	background-color: white;
 	margin-bottom: 2%;
 	margin-left: 2%;
+	height: 28em;
 }
 .seccion_1{
 	width:46%;
-	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	border: 0.5px solid #CCCCCC;
+	border-radius: 5px;
 	margin-left: 2em;	
 	display: inline-block;
 	padding: 2em;
@@ -17,15 +19,26 @@
 
 .seccion_2{
 	width:46%;
-	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	border: 0.5px solid #CCCCCC;
+	border-radius: 5px;
 	margin-bottom: 2em;	
 	margin-left: 2em;	
 	display: inline-block;
 	padding: 2em;
 }
-.seccion_botones>a{
-	margin-left: 32%;
-	text-align: center;
+.boton_1{
+	float: left;
+	width: 25%;
+	font-size: 18px;
+	font-family: roboto;
+}
+.boton_2{
+	margin-right: 20%;
+	float: right;
+	width: 25%;
+	font-size: 18px;
+	font-family: roboto;
+	background-color: rgba(13, 5, 9, 0.14);
 }
 
 
