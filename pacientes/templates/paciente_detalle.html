@@ -131,8 +131,8 @@
 					<div class="material-switch div_historial">
 			            <input type="checkbox" {{ alergias_value }} readonly="true"/>
 			            <label for="hepatitis" class="label-info"></label>
+		            <span class="historial_label">{{ alergias_comentarios_value }}</span>
 		            </div>
-		            <label class="historial_label">{{ alergias_comentarios_value }}</label>
 		        </td>
         </div>
 			</tr>
@@ -196,7 +196,8 @@
 					<div class="material-switch div_historial">
 			            <input type="checkbox" {{ medicamentos_value }} readonly="true" />
 			            <label for="" class="label-info"></label>
-		            </div><label class="historial_label">{{ medicamentos_comentarios_value}}</label>
+			            <span class="historial_span">{{ medicamentos_comentarios_value}}</span>
+		            </div>
 		        </td>
 			</tr>
 		</table>
