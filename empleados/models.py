@@ -1,7 +1,9 @@
 from django.db import models
-from django.db.models import permalink 
+from django.db.models import permalink
+from django.contrib.auth.models import User
 
 class Empleado(models.Model):
+    user = models.ForeignKey(User, null=True, blank=True)
     nombre = models.CharField(max_length=200, null=False, unique=False,verbose_name=u'nombre(s)')
     puesto = models.CharField(max_length=100, null=False, unique=False, verbose_name=u'puesto')
     edad = models.IntegerField(null=True, unique=False, verbose_name='Edad')

@@ -13,7 +13,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '5wn2r-7r5%gn%us%(^16pe#5lcae-o3v32ive_lrev$$5l()n)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['www.adeljrz.com', 'adeljrz.com']
 
@@ -80,25 +80,25 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ADEL.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'docker',
-        'USER': 'docker',
-        'PASSWORD': 'docker',
-        'HOST': 'db',
-        'PORT': 3306
-    }
-}
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'adel',
-#         'USER': 'root',
-#         'PASSWORD': '',
+#         'NAME': 'docker',
+#         'USER': 'docker',
+#         'PASSWORD': 'docker',
+#         'HOST': 'db',
+#         'PORT': 3306
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'adel_db',
+        'USER': 'root',
+        'PASSWORD': 'root',
+    }
+}
 
 
 # Cache
@@ -139,8 +139,14 @@ USE_TZ = False
 DIVISA = 18
 
 # Static files (CSS, JavaScript, Images)
+# STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = os.path.join(BASE_DIR, "/static/")
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
 
 
 

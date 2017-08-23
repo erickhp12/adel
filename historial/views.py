@@ -123,8 +123,5 @@ class CreateHistoryView(CreateView):
                     'total':total_pacientes,
                     'mensaje':mensaje
                     }
-        
+
         return render(self.request, self.template_main, context)
-
-
-
