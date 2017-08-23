@@ -80,6 +80,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ADEL.wsgi.application'
 
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
@@ -90,6 +91,7 @@ WSGI_APPLICATION = 'ADEL.wsgi.application'
 #         'PORT': 3306
 #     }
 # }
+
 
 DATABASES = {
     'default': {
@@ -127,7 +129,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
@@ -135,12 +136,10 @@ LANGUAGE_CODE = 'es-mx'
 TIME_ZONE = 'America/Chihuahua'
 USE_I18N = True
 USE_L10N = True
-USE_TZ = False
+USE_TZ = True
 DIVISA = 18
 
 # Static files (CSS, JavaScript, Images)
-# STATIC_URL = '/static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_ROOT = os.path.join(BASE_DIR, "/static/")
 STATIC_URL = '/static/'
 
@@ -149,6 +148,4 @@ STATICFILES_DIRS = [
 ]
 
 
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR),'adel/static/images/')
+MEDIA_URL = '/static/media/'

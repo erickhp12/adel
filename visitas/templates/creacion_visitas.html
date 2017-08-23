@@ -14,6 +14,15 @@
   <img src="{% static 'img/iconos/visitas40.png' %}" alt="ups">
 </div>
 
+<section class="seccion_errores" id="seccion_errores">   
+    <h4 class="errores_h4">Corrige los siguientes errores</h4> 
+    <p class="errores_p" id="error_paciente">Paciente - <label>{{ form.paciente.errors.as_text }}</label></p>
+    <p class="errores_p" id="error_divisa">Divisa - <label>{{ form.dolares.errors.as_text }}</label></p>
+    <p class="errores_p" id="error_tipo_pago">Tipo de pago - <label>{{ form.tipo_pago.errors.as_text }}</label></p>
+    <p class="errores_p" id="error_dentista">Dentista - <label>{{ form.dentista.errors.as_text }}</label></p>
+    <p class="errores_p" id="error_dolares">Dolares - <label>{{ form.dolares.errors.as_text }}</label></p> 
+</section>
+
 <section class="seccion_formulario">
     <form method=post>
     {% csrf_token %}
@@ -87,23 +96,12 @@
     </div>
     <div class="seccion_botones">           
         <input class="btn btn-success boton_1" id="save_contact" 
-        type="submit" value="Registrar"/>
+        type="submit" onclick="set_empty_values()" value="Registrar"/>
         <a href="/lista.visitas" class="btn btn-default boton_2">Volver</a>
     </div>
     </form>
 </section>
 
-<!-- <section class="seccion_errores">   
-    <p class="errores_p">Corrige los siguientes errores</p> 
-    <p>paciente - {{ form.paciente.errors }}</p>
-    <p>motivo - {{ form.motivo.errors }}</p>
-    <p>divisa - {{ form.dolares.errors }}</p>
-    <p>tipo de pago - {{ form.tipo_pago.errors }}</p>
-    <p>dentista - {{ form.dentista.errors }}</p>
-    <p>precio - {{ form.precio.errors }}</p>
-    <p>dolares - {{ form.dolares.errors }}</p>                
-    <p>fecha de visita - {{ form.fecha_visita.errors }}</p>
-</section> -->
 
 <script>
     function set_initial_date(){
@@ -141,6 +139,35 @@
             fecha.value = fecha.value + " " + hora.value;
         }
     }
+    function set_empty_values(){
+    motivo = document.getElementById('id_motivo');
+    precio = document.getElementById('id_precio');
+
+    if (motivo.value == ""){
+        motivo.value = "No especificado";
+        }
+    if (precio.value == ""){
+        precio.value = 0;
+        }
+    console.log('entre show errors');
+    seccion_errores = document.getElementById('seccion_errores');
+    paciente = document.getElementById('error_paciente');
+    paciente_label = paciente.children("label:first").value;
+    
+    paciente.children('input').each(function () {
+    alert(this.value); // "this" is the current element in the loop
+    });
+    console.log(paciente);
+    console.log(paciente_label);
+    // if (paciente_label.length>=1 ){
+    //     seccion_errores.style.display = "block";
+    //     paciente.style.display="block";
+    //     }
+    //     else{
+    //     seccion_errores.style.display = "block";
+    //     paciente.style.display = "block";
+    //     }
+  }
 </script>
 
 </body>
