@@ -1,7 +1,9 @@
 from django.db import models
 from django.db.models import permalink
+from django.contrib.auth.models import User 
 
 class Proveedor(models.Model):
+    user = models.ForeignKey(User, null=True, blank=True)
     nombre = models.CharField(max_length=150, null=False, unique=False, verbose_name=u'nombre(s)')
     contacto = models.CharField(max_length=150, null=True, unique=False, verbose_name=u'contacto(s)')
     telefono = models.CharField(max_length=15,null=True, unique=False, verbose_name=u'telefono')
@@ -11,7 +13,7 @@ class Proveedor(models.Model):
     fecha_inicio = models.DateTimeField(auto_now_add=True, verbose_name=u'fecha_inicio')
 
     def __str__(self):
-        return self.nombre + ' ' + self.contacto
+        return self.nombre
 
     @permalink
     def url_editar_proveedor(self):

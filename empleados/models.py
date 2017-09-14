@@ -1,6 +1,6 @@
 from django.db import models
 from django.db.models import permalink
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User 
 
 class Empleado(models.Model):
     user = models.ForeignKey(User, null=True, blank=True)

@@ -1,5 +1,6 @@
+from django.http import HttpResponse
 from django.shortcuts import render
-from django.views.generic.edit import CreateView, UpdateView
+from django.http import HttpResponseRedirect
 from django.views.generic import ListView, DetailView
 from django.core.urlresolvers import reverse_lazy
 from .models import Empleado
@@ -18,48 +19,51 @@ class EmployeeListView(ListView):
         empleados = Empleado.objects.filter(user=request.user)
         total_empleados = empleados.count
         mensaje = ""
-        context = {'empleados':empleados,
-                    'total_empleados':total_empleados,
-                    'mensaje':mensaje      
-                    }
+        context = {'empleados': empleados,
+                   'total_empleados': total_empleados,
+                   'mensaje': mensaje
+                   }
 
-        return render(request,self.template_name, context)
+        return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
         empleado_input = request.POST.get('empleado')
         empleados = Empleado.objects.all().filter(nombre__icontains=empleado_input
-            ) | Empleado.objects.all().filter(puesto__icontains=empleado_input)
+                                                  ) | Empleado.objects.all().filter(puesto__icontains=empleado_input)
         total_empleados = empleados.count()
         mensaje = ""
 
         if total_empleados == 0:
             mensaje = "La busqueda no mostro ningun resultado"
 
-        context = {'empleados':empleados,
-                    'total_empleados':total_empleados,
-                    'mensaje': mensaje,
-                    }
-        
+        context = {'empleados': empleados,
+                   'total_empleados': total_empleados,
+                   'mensaje': mensaje,
+                   }
+
         return render(self.request, self.template_name, context)
 
 
-class CreateEmployeeView(CreateView):
+class CreateEmployeeView(ListView):
     template_name = "creacion_empleados.html"
+    template_main = "empleados.html"
 
     def get(self, request, *args, **kwargs):
         user_logged = request.user
         empleados = Empleado.objects.filter(user=request.user)
         total_empleados = empleados.count
         mensaje = ""
-        context = {'empleados':empleados,
-                    'total_empleados':total_empleados,
-                    'mensaje':mensaje      
-                    }
+        context = {'empleados': empleados,
+                   'total_empleados': total_empleados,
+                   'mensaje': mensaje
+                   }
 
-        return render(request,self.template_name, context)
+        return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
-        # mensaje = ""
+        mensaje = ""
+        empleados = Empleado.objects.filter(user=request.user)
+        total_empleados = empleados.count
         user = request.user
         nombre = request.POST.get('nombre')
         puesto = request.POST.get('puesto')
@@ -68,39 +72,77 @@ class CreateEmployeeView(CreateView):
         correo = request.POST.get('correo')
         direccion = request.POST.get('direccion')
 
-        print "usuario"
-        print user
-        print "nombre"
-        print nombre
-        print "estado_civil "
-        print puesto
-        print "edad "
-        print edad
-        print "telefono "
-        print telefono
-        print "correo"
-        print correo
-        print "direccion "
-        print direccion
+        try:
+            if nombre == "":
+                return render(self.request, self.template_name)
+            else:
+                Empleado.objects.create(
+                    user=user,
+                    nombre=nombre,
+                    puesto=puesto,
+                    edad=edad,
+                    telefono=telefono,
+                    correo=correo,
+                    direccion=direccion
+                )
+        except Exception as e:
+            mensaje = "Error al crear empleado " + str(e)
 
-        Empleado.objects.create(
-            user=user,
-            nombre=nombre,
-            puesto=puesto,
-            edad=edad,
-            telefono=telefono,
-            correo=correo,
-            direccion=direccion
-        )
+        context = {'empleados': empleados,
+                   'total_empleados': total_empleados,
+                   'mensaje': mensaje
+                   }
 
-        return render(self.request, self.template_name)
+        return HttpResponseRedirect('/lista.empleados')
 
 
-class UpdateEmployeeView(UpdateView):
-    model = Empleado
-    form_class = RegistrarEmpleado
-    template_name = "creacion_empleados.html"
-    success_url = reverse_lazy('list_empleados')
+class UpdateEmployeeView(ListView):
+    template_name = "edicion_empleados.html"
+    template_main = "empleados.html"
+
+    def get(self, request, pk, *args, **kwargs):
+        user_logged = request.user
+        empleado = Empleado.objects.get(user=request.user,id=pk)
+        mensaje = ""
+        context = {'empleado': empleado,
+                   'mensaje': mensaje
+                   }
+
+        return render(request, self.template_name, context)
+
+    def post(self, request,pk, *args, **kwargs):
+        mensaje = ""
+        empleados = Empleado.objects.filter(user=request.user)
+        total_empleados = empleados.count
+        user = request.user
+        nombre = request.POST.get('nombre')
+        puesto = request.POST.get('puesto')
+        edad = request.POST.get('edad')
+        telefono = request.POST.get('telefono')
+        correo = request.POST.get('correo')
+        direccion = request.POST.get('direccion')
+
+        try:
+            if nombre == "":
+                return render(self.request, self.template_name)
+            else:
+                empleado = Empleado.objects.get(user=request.user,id=pk)
+                empleado.nombre = nombre
+                empleado.puesto = puesto
+                empleado.edad = edad
+                empleado.telefono = telefono
+                empleado.correo = correo
+                empleado.direccion = direccion
+                empleado.save()
+        except Exception as e:
+            mensaje = "Error al editar empleado " + str(e)
+
+        context = {'empleados': empleados,
+                   'total_empleados': total_empleados,
+                   'mensaje': mensaje
+                   }
+
+        return HttpResponseRedirect('/lista.empleados')
 
 
 class DetailEmployeeView(DetailView):
@@ -112,12 +154,19 @@ class DeleteEmployeeView(ListView):
     template_name = "eliminar_empleado.html"
 
     def get(self, request, pk, **kwargs):
-        empleado = Empleado.objects.all().filter(id=pk)
+        empleado = Empleado.objects.get(id=pk)
+        context = {'empleado': empleado}
 
-        context = {'empleado':empleado}
-
-        return render(request,self.template_name, context)
+        return render(request, self.template_name, context)
 
     def post(self, request, pk, *args, **kwargs):
-        Empleado.objects.all().filter(id=pk).delete()
-        return render(self.request,'empleados.html')
+        mensaje = ""
+        Empleado.objects.get(id=pk).delete()
+        empleados = Empleado.objects.filter(user=request.user)
+        total_empleados = empleados.count
+        context = {'empleados': empleados,
+                   'total_empleados': total_empleados,
+                   'mensaje': mensaje
+                   }
+
+        return render(self.request, 'empleados.html', context)

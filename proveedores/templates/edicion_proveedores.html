@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}ADEL | edicion de proveedor {% endblock %}
+{% block body %}
+
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/proveedores/creacion.proveedores.css' %}"/>
+<div class = "header">
+  <span class="header_text">Edicion de {{ proveedor.nombre }}</span>
+  <img src="{% static 'img/iconos/proveedores40.png' %}" alt="ups">
+</div>
+
+<section class="seccion_formulario">
+    <form method="post">
+    {% csrf_token %}
+    <div class="seccion_1">
+        <div>
+            <label class="label-formularios">Nombre *</label>
+            <input type="text" name="nombre" id="nombre" value="{{ proveedor.nombre }}"> <br><br>
+        </div>
+        <div>
+            <label class="label-formularios">Contacto</label>
+            <input type="text" name="contacto" id="contacto" value="{{ proveedor.contacto }}"> <br><br>
+        </div>
+        <div>
+            <label class="label-formularios">Telefono</label>
+            <input type="text" name="telefono" id="telefono" value="{{ proveedor.telefono }}">
+            <br><br>
+        </div>
+    </div>
+
+    <div class="seccion_2">
+        <div>
+            <label class="label-formularios">Correo</label>
+            <input type="email" name="correo" id="correo" value="{{ proveedor.correo }}"> <br><br>
+        </div>
+        <div>
+            <label class="label-formularios">Direccion</label>
+            <input type="text" name="direccion" id="direccion" value="{{ proveedor.direccion }}"> <br><br>
+        </div>
+        <div>
+            <label class="label-formularios">Producto</label>
+            <input type="text" name="producto" id="producto" value="{{ proveedor.producto }}"> <br><br>
+        </div>
+    </div>
+    <div class="seccion_botones">           
+        <input class="btn btn-success boton_1" id="save_contact" 
+        type="submit" value="Registrar"/>
+        <a href="/lista.proveedores" class="btn btn-default boton_2">Volver</a>
+    </div>
+    </form>
+</section>
+</div>
+
+
+{% endblock %}

@@ -96,9 +96,9 @@ WSGI_APPLICATION = 'ADEL.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'adel_db',
+        'NAME': 'adel',
         'USER': 'root',
-        'PASSWORD': 'root',
+        'PASSWORD': '',
     }
 }
 

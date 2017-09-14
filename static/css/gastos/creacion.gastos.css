@@ -15,7 +15,7 @@
 	margin-left: 2em;	
 	float: left;
 	padding: 2em;
-	height: 25em;
+	height: 29em;
 }
 
 .seccion_2{
@@ -27,9 +27,9 @@
 	margin-right: 3em;
 	float: right;
 	padding: 2em;
-	height: 25em;
+	height: 29em;
 }
-#id_motivo{
+#motivo{
 	height: 10em;
 }
 #datepicker, #id_fecha_gasto{
@@ -70,4 +70,7 @@
 	font-weight: 700;
 	text-align: center;
 	color: red;
+}
+.radio{
+	margin-right: 24px;
 }

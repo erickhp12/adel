@@ -1,15 +1,14 @@
 from django.forms import ModelForm
 from django import forms
 from .models import Gasto
-from django.forms import TextInput
+from . import models
 
 
 class RegistrarGasto(ModelForm):
     class Meta:
-        model = Gasto
+        model = models.Gasto
         exclude = []
+
         widgets = {
-            'fecha_gasto': TextInput(
-                attrs={'id': 'datepicker'}
-            )
-        }
+            'tipo_pago': forms.Select(attrs={'class': 'form-control'}),
+            'dolares': forms.Select(attrs={'class': 'form-control'})}

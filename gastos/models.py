@@ -2,6 +2,7 @@ from django.db import models
 from proveedores.models import Proveedor
 from empleados.models import Empleado
 from django.db.models import permalink
+from django.contrib.auth.models import User 
 
 TIPOS_DIVISAS = (("Pesos", "Pesos"),("Dolares", "Dolares"))
 TIPOS_PAGO = (("Efectivo", "Efectivo"),("Tarjeta", "Tarjeta"),
@@ -9,6 +10,7 @@ TIPOS_PAGO = (("Efectivo", "Efectivo"),("Tarjeta", "Tarjeta"),
             ,("Pendiente", "Pendiente"))
 
 class Gasto(models.Model):
+    user = models.ForeignKey(User, null=True, blank=True)
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
     motivo = models.CharField(max_length=300, default='',null=True, unique=False, verbose_name=u'motivo')
     empleado = models.ForeignKey(Empleado, on_delete=models.CASCADE)

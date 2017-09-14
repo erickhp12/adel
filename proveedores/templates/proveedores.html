@@ -35,6 +35,7 @@
      <thead class="columna">
           <th>Nombre</th>
           <th>Contacto</th>
+          <th>Producto / Servicio</th>
           <th>Informacion</th>
           <th>Edicion</th>
           <th>Accion</th>
@@ -42,7 +43,8 @@
      {% for proveedor in proveedores %}
      <tbody class="contenido">
           <td style="width: 15%;">{{ proveedor.nombre }} </td>
-          <td style="width: 35%;" >{{ proveedor.contacto }}</td>
+          <td style="width: 15%;" >{{ proveedor.contacto }}</td>
+          <td style="width: 25%;" >{{ proveedor.producto }}</td>
           <td style="width: 7%;">
            <a type="button" class="glyphicon glyphicon-search" 
              onclick="open_modal('{{ proveedor.nombre }}','{{ proveedor.contacto }}','{{ proveedor.telefono }}',

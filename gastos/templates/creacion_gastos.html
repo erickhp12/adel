@@ -1,56 +1,85 @@
 {% extends 'base.html' %}
-{% block title %}ADEL | agregar gasto{% endblock %}
-
+{% block title %}ADEL | agregar gasto {% endblock %}
 {% block body %}
-<body onload="set_initial_date()">    
+<body onload="set_initial_date()">  
 {% load staticfiles %}
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <script src="{% static '/static/js/generic/calendarios.js'%}"></script>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/gastos/creacion.gastos.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/generic/table.css' %}"/>
-
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="{% static '/static/js/generic/calendarios.js'%}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'css/gastos/creacion.gastos.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'css/generic/table.css' %}"/>
 <div class = "header">
-  <span class="header_text">Registrar un gasto</span>
+  <span class="header_text">Agregar gasto</span>
   <img src="{% static 'img/iconos/gastos40.png' %}" alt="ups">
 </div>
 
 <section class="seccion_formulario">
-    <form method=post>
+    <form method="post">
     {% csrf_token %}
     <div class="seccion_1">
-        <div class="select">
-            <label class="label-formularios">{{ form.proveedor.label}}</label>
-            {{ form.proveedor }}       
-        </div><br>
-        <div class="motivo">
-            <label class="label-formularios">{{ form.motivo.label}}</label>
-            {{ form.motivo }}
+        <div>
+            <label class="label-formularios">Proveedor *</label>
+            <select id="proveedor" name="proveedor">
+                <option value="%">---------</option>
+                {% for proveedor in proveedores %}
+                 <option name="proveedor" id="proveedor" value="{{ proveedor.nombre }}" >{{ proveedor.nombre }}</option>
+                {% endfor %}
+            </select><br><br>
         </div>
-
+        <div class="motivo">
+            <label class="label-formularios">Motivo</label>
+            <input type="text" name="motivo" id="motivo" class="motivo"> <br><br>
+        </div>
     </div>
 
     <div class="seccion_2">
-        <table style="width: 99%;">
+         <table style="width: 99%;">
             <tbody>      
             <tr class="generic-tr">
-                <td class="td-left"><label class="label-formularios">{{ form.empleado.label }}</label></td>
-                <td class="td-right">{{ form.empleado }}  </td>
+                <td class="td-left">
+                    <label class="label-formularios">Empleado</label>
+                </td>
+                <td class="td-right">
+                    <select id="empleado" name="empleado">
+                        <option value="%">---------</option>
+                        {% for empleado in empleados %}
+                        <option name="empleado" id="empleado" value="{{ empleado.nombre }}">{{ empleado.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
             </tr>
             <tr class="generic-tr">
-                <td class="td-left"><label class="label-formularios">{{ form.tipo_pago.label }}</label></td>
-                <td class="td-right">{{ form.tipo_pago }}  </td>
+                <td class="td-left">
+                    <label class="label-formularios">Monto</label></td>
+                <td class="td-right">
+                    <input type="text" name="precio" id="precio" name="precio"> <br><br>
+                </td>
             </tr>
             <tr class="generic-tr">
-                <td class="td-left"><label class="label-formularios">{{ form.precio.label }}</label></td>
-                <td class="td-right">{{ form.precio }}</td>
+                <td class="td-left">
+                    <label class="label-formularios">Tipo de pago</label></td>
+                <td class="td-right">
+                    <select id="tipo_pago" name="tipo_pago">
+                        {% for choice in form.tipo_pago.field.choices %}
+                            <option id="tipo_pago" name="tipo_pago" value={{choice.0}} >{{ choice.1}}</option>
+                        {% endfor %}
+                    </select><br><br>
+                </td>
             </tr>
             <tr class="generic-tr">
-                <td class="td-left"><label class="label-formularios">{{ form.dolares.label}}</label></td>
-                <td class="td-right">{{ form.dolares }}  </td>
+                <td class="td-left">
+                    <label class="label-formularios">Tipo de cambio</label></td>
+                <td class="radio">
+                    {% for choice in form.dolares.field.choices %}
+                        <input type="radio" id="dolares" name="dolares" value="{{choice.0}}"/>
+                        <span>{{choice.0}}</span>
+                    {% endfor %}
+                </td>
             </tr>
             <tr class="generic-tr">
-                <td class="td-left"><label class="label-formularios">{{ form.fecha_gasto.label}}</label></td>
-                <td class="td-right">{{ form.fecha_gasto }}
+                <td class="td-left">
+                    <label class="label-formularios">Hora</label>
+                </td>
+                <td class="td-right"><input type="text" name="hora" id="datepicker">
                     <select name = "hora" id="hora" onchange="set_date()">
                         <option value="00:00">Hora</option>
                         <option name = "hora" id="hora" value="08:00">08:00</option>
@@ -86,42 +115,37 @@
         </table>
     </div>
     <div class="seccion_botones">           
-        <input class="btn btn-success boton_1" id="save_contact" 
+        <input class="btn btn-success boton_1" id="save_contact" onclick="set_empty_values()" 
         type="submit" value="Registrar"/>
         <a href="/lista.gastos" class="btn btn-default boton_2">Volver</a>
     </div>
     </form>
 </section>
-
-<!-- <section class="seccion_errores">   
-    <p class="errores_p">Corrige los siguientes errores</p> 
-    <p>proveedor - {{ form.proveedor.errors }}</p>
-    <p>motivo - {{ form.motivo.errors }}</p>
-    <p>divisa - {{ form.dolares.errors }}</p>
-    <p>dentista - {{ form.empleado.errors }}</p>
-    <p>precio - {{ form.precio.errors }}</p>              
-    <p>fecha de gasto - {{ form.fecha_gasto.errors }}</p>
-</section> -->
-
+</div>
 <script>
-    function set_initial_date(){
+function set_initial_date(){
         var fecha = document.getElementById('datepicker');
         if (fecha.value.length == 0){
         var today = new Date();
         var dd = today.getDate();
         var mm = today.getMonth()+1; //January is 0!
         var yyyy = today.getFullYear();
-
         if(dd<10) {
             dd = '0'+dd 
         } 
         if(mm<10) {
             mm = '0'+mm
         } 
-
         today = yyyy + '-' + mm + '-' + dd;
         fecha.value = today;
         }
+        var dolares = document.getElementById('dolares');
+        console.log("dolares");
+        console.log(dolares)
+        if (dolares.value == ""){
+            dolares.style.display = "none";
+        }
+
     }
     function set_date(){
         var fecha = document.getElementById('datepicker');
@@ -138,8 +162,33 @@
         }else{
             fecha.value = fecha.value + " " + hora.value;
         }
+
+    }
+    function set_empty_values(){
+        console.log("entre al metodo");
+        proveedor = document.getElementById('proveedor');
+        motivo = document.getElementById('motivo');
+        empleado = document.getElementById('empleado');
+        precio = document.getElementById('precio');
+        dolares = document.getElementById('dolares');
+
+        if (proveedor.value == ""){
+            alert('el campo proveedor es requerido');
+            proveedor.value = "";
+        }
+        if (motivo.value == ""){
+            motivo.value = "--";
+        }
+        if (empleado.value == ""){
+            empleado.value = "No registrado";
+        }
+        if (precio.value == ""){
+            precio.value = "--";
+        }
+        if (dolares.value == ""){
+            dolares.value = "--";
+        }
     }
 </script>
-
 </body>
 {% endblock %}

@@ -1,14 +1,19 @@
 from django.shortcuts import render
+from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import ListView, DetailView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from django.db.models import Sum
 from .models import Gasto
+from proveedores.models import Proveedor
+from empleados.models import Empleado
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from visitas.models import Visitas
 from .forms import RegistrarGasto
-import time 
+from . import forms
+import time
 
 
 class SpendingListView(ListView):
@@ -16,22 +21,23 @@ class SpendingListView(ListView):
 
     @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
-        gastos = Gasto.objects.all().order_by('fecha_gasto')
+        gastos = Gasto.objects.filter(user=request.user).order_by('fecha_gasto')
         total_gastos = gastos.count
         mensaje = ""
-        context = {'gastos':gastos,
-                    'total_gastos':total_gastos, 
-                    'mensaje': mensaje       
-                    }
-        return render(request,self.template_name, context)
+        context = {'gastos': gastos,
+                   'total_gastos': total_gastos,
+                   'mensaje': mensaje
+                   }
+        return render(request, self.template_name, context)
 
-    def post(self, request, *args, **kwargs): 
+    def post(self, request, *args, **kwargs):
         gastos = request.POST.get('gasto')
         fecha_inicial = request.POST.get('fecha_inicial')
         fecha_final = request.POST.get('fecha_final')
         mensaje = ""
         if fecha_final and fecha_final != "":
-             gastos = Gasto.objects.all().filter(fecha_gasto__range=[fecha_inicial, fecha_final + " 23:59:59"])
+            gastos = Gasto.objects.all().filter(
+                fecha_gasto__range=[fecha_inicial, fecha_final + " 23:59:59"])
         else:
             gastos = Gasto.objects.all().filter(proveedor__nombre__icontains=gastos
                 ) | Gasto.objects.all().filter(proveedor__contacto__icontains=gastos
@@ -40,23 +46,137 @@ class SpendingListView(ListView):
 
         if total_gastos == 0:
             mensaje = "La busqueda no mostro ningun resultado"
-        context = {'gastos':gastos,
-                    'total_gastos':total_gastos,
-                    'mensaje': mensaje
-                    }
-        
+        context = {'gastos': gastos,
+                   'total_gastos': total_gastos,
+                   'mensaje': mensaje
+                   }
+
         return render(self.request, self.template_name, context)
 
-class CreateSpendingView(CreateView):
-    form_class = RegistrarGasto
+class CreateSpendingView(ListView):
     template_name = "creacion_gastos.html"
-    success_url = reverse_lazy('list_gastos')
+    template_main = "gastos.html"
 
-class UpdateSpendingView(UpdateView):
-    model = Gasto
-    form_class = RegistrarGasto
-    template_name = "creacion_gastos.html"
-    success_url = reverse_lazy('list_gastos')	
+    def get(self, request, *args, **kwargs):
+        user_logged = request.user
+        proveedores = Proveedor.objects.filter(user=request.user)
+        empleados = Empleado.objects.filter(user=request.user)
+        form = RegistrarGasto()
+        mensaje = ""
+        context = {'proveedores': proveedores,
+                    'empleados':empleados,
+                    'form':form,
+                   'mensaje': mensaje
+                   }
+
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        mensaje = ""
+        gastos = Gasto.objects.filter(user=request.user)
+        total_gastos = gastos.count
+        user = request.user
+        proveedor = request.POST.get('proveedor')
+        motivo = request.POST.get('motivo')
+        empleado = request.POST.get('empleado')
+        precio = request.POST.get('precio')
+        dolares = request.POST.get('dolares')
+        tipo_pago = request.POST.get('tipo_pago')
+        fecha_gasto = request.POST.get('fecha_gasto')
+
+        print "user"
+        print user
+        print "proveedor"
+        print proveedor
+        print "Motivo"
+        print motivo
+        print "empleado"
+        print empleado
+        print "precio"
+        print precio
+        print "Tipo de cambio"
+        print dolares
+        print "tipo de pago"
+        print dolares
+        print "fecha gasto"
+        print fecha_gasto
+
+        try:
+            print "entre try"
+            if proveedor == "":
+                print "entre if"
+                return render(self.request, self.template_name)
+            else:
+                print "entre else"
+                Gasto.objects.create(
+                    user=user,
+                    proveedor=proveedor,
+                    motivo=motivo,
+                    empleado=empleado,
+                    precio=precio,
+                    dolares=dolares,
+                    tipo_pago=tipo_pago,
+                    fecha_gasto=fecha_gasto
+                )
+                print "termino else"
+        except Exception as e:
+            mensaje = "Error al crear empleado " + str(e)
+
+        context = {'gastos': gastos,
+                   'total_gastos': total_gastos,
+                   'mensaje': mensaje
+                   }
+
+        return HttpResponseRedirect('/lista.gastos')
+
+
+class UpdateSpendingView(ListView):
+    template_name = "edicion_gastos.html"
+    template_main = "gastos.html"
+
+    def get(self, request, pk, *args, **kwargs):
+        user_logged = request.user
+        gasto = Gasto.objects.get(user=request.user,id=pk)
+        mensaje = ""
+        context = {'gasto': gasto,
+                   'mensaje': mensaje
+                   }
+
+        return render(request, self.template_name, context)
+
+    def post(self, request,pk, *args, **kwargs):
+        mensaje = ""
+        gastos = Gasto.objects.filter(user=request.user)
+        total_gastos = gastos.count
+        user = request.user
+        proveedor = request.POST.get('proveedor')
+        empleado = request.POST.get('empleado')
+        precio = request.POST.get('precio')
+        dolares = request.POST.get('dolares')
+        tipo_pago = request.POST.get('tipo_pago')
+        fecha_gasto = request.POST.get('fecha_gasto')
+
+        try:
+            if nombre == "":
+                return render(self.request, self.template_name)
+            else:
+                gasto = Gasto.objects.get(user=request.user,id=pk)
+                gasto.proveedor = proveedor
+                gasto.empleado = empleado
+                gasto.precio = precio
+                gasto.dolares = dolares
+                gasto.tipo_pago = tipo_pago
+                gasto.fecha_gasto = fecha_gasto
+                gasto.save()
+        except Exception as e:
+            mensaje = "Error al editar gasto " + str(e)
+
+        context = {'gastos': gastos,
+                   'total_gastos': total_gastos,
+                   'mensaje': mensaje
+                   }
+
+        return HttpResponseRedirect('/lista.gastos')
 
 class DeleteSpendingView(ListView):
     template_name = "eliminar_gastos.html"
@@ -64,14 +184,14 @@ class DeleteSpendingView(ListView):
     def get(self, request, pk, **kwargs):
         gastos = Gasto.objects.all().filter(id=pk)
 
-        context = {'gastos':gastos,      
-                    }
-        return render(request,self.template_name, context)
+        context = {'gastos': gastos,
+                   }
+        return render(request, self.template_name, context)
 
     def post(self, request, pk, *args, **kwargs):
         Gasto.objects.all().filter(id=pk).delete()
-        return render(self.request,'gastos.html')
- 
+        return render(self.request, 'gastos.html')
+
 
 class MovementsView(ListView):
     template_name = "movimientos.html"
@@ -81,22 +201,34 @@ class MovementsView(ListView):
         total_diferencia = 0
         dia = time.strftime("%Y-%m-%d")
         mensaje = ""
-        ingresos = Visitas.objects.filter(fecha_visita__range=[dia, dia + " 23:59:59"])
-        egresos = Gasto.objects.filter(fecha_gasto__range=[dia, dia + " 23:59:59"])
-        ingresos_pesos = Visitas.objects.all().filter(dolares='Pesos',fecha_visita__range=[dia, dia + " 23:59:59"])
-        egresos_pesos = Gasto.objects.all().filter(dolares='Pesos',fecha_gasto__range=[dia, dia + " 23:59:59"])
-        ingresos_dolares = Visitas.objects.all().filter(dolares='Dolares',fecha_visita__range=[dia, dia + " 23:59:59"])
-        egresos_dolares = Gasto.objects.all().filter(dolares='Dolares',fecha_gasto__range=[dia, dia + " 23:59:59"])
-        
-        #Calcula total de entrada de efectivo
-        total_ingresos_pesos = ingresos_pesos.aggregate(Sum('precio')).get('precio__sum') 
-        total_egresos_pesos = egresos_pesos.aggregate(Sum('precio')).get('precio__sum')
-        total_ingresos_dolares = ingresos_dolares.aggregate(Sum('precio')).get('precio__sum')
-        total_egresos_dolares = egresos_dolares.aggregate(Sum('precio')).get('precio__sum')
+        ingresos = Visitas.objects.filter(
+            fecha_visita__range=[dia, dia + " 23:59:59"])
+        egresos = Gasto.objects.filter(
+            fecha_gasto__range=[dia, dia + " 23:59:59"])
+        ingresos_pesos = Visitas.objects.all().filter(
+            dolares='Pesos', fecha_visita__range=[dia, dia + " 23:59:59"])
+        egresos_pesos = Gasto.objects.all().filter(
+            dolares='Pesos', fecha_gasto__range=[dia, dia + " 23:59:59"])
+        ingresos_dolares = Visitas.objects.all().filter(
+            dolares='Dolares', fecha_visita__range=[dia, dia + " 23:59:59"])
+        egresos_dolares = Gasto.objects.all().filter(
+            dolares='Dolares', fecha_gasto__range=[dia, dia + " 23:59:59"])
 
-        if ingresos != "":
+        # Calcula total de entrada de efectivo
+        total_ingresos_pesos = ingresos_pesos.aggregate(
+            Sum('precio')).get('precio__sum')
+        total_egresos_pesos = egresos_pesos.aggregate(
+            Sum('precio')).get('precio__sum')
+        total_ingresos_dolares = ingresos_dolares.aggregate(
+            Sum('precio')).get('precio__sum')
+        total_egresos_dolares = egresos_dolares.aggregate(
+            Sum('precio')).get('precio__sum')
+
+        print "ingresos"
+        print len(ingresos)
+        if len(ingresos) == 0 and len(egresos) == 0:
             mensaje = "No tienes movimientos en el rango de fechas seleccionado"
-        #Validaciones aritmeticas
+        # Validaciones aritmeticas
         if total_ingresos_pesos is None:
             total_ingresos_pesos = 0
         if total_ingresos_dolares is None:
@@ -106,46 +238,57 @@ class MovementsView(ListView):
         if total_egresos_dolares is None:
             total_egresos_dolares = 0
 
-        total_diferencia_pesos = (total_ingresos_pesos - total_egresos_pesos) 
-        total_diferencia_dolares = (total_ingresos_dolares - total_egresos_dolares)
+        total_diferencia_pesos = (total_ingresos_pesos - total_egresos_pesos)
+        total_diferencia_dolares = (
+            total_ingresos_dolares - total_egresos_dolares)
 
-        context = {'ingresos':ingresos,
-                    'egresos':egresos,
-                    'total_ingresos_pesos':total_ingresos_pesos,
-                    'total_ingresos_dolares':total_ingresos_dolares,
-                    'total_egresos_pesos':total_egresos_pesos,
-                    'total_egresos_dolares':total_egresos_dolares,
-                    'total_diferencia_pesos': total_diferencia_pesos,
-                    'total_diferencia_dolares': total_diferencia_dolares,
-                    'fechai':dia,
-                    'fechaf':dia,
-                    'mensaje':mensaje,
-                    }
-        return render(request,self.template_name, context)
+        context = {'ingresos': ingresos,
+                   'egresos': egresos,
+                   'total_ingresos_pesos': total_ingresos_pesos,
+                   'total_ingresos_dolares': total_ingresos_dolares,
+                   'total_egresos_pesos': total_egresos_pesos,
+                   'total_egresos_dolares': total_egresos_dolares,
+                   'total_diferencia_pesos': total_diferencia_pesos,
+                   'total_diferencia_dolares': total_diferencia_dolares,
+                   'fechai': dia,
+                   'fechaf': dia,
+                   'mensaje': mensaje,
+                   }
+        return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
         total_diferencia = 0
         fecha_inicio = request.POST.get('fecha1')
         fecha_final = request.POST.get('fecha2') + " 23:59:59"
         mensaje = ""
-        ingresos = Visitas.objects.filter(fecha_visita__range=[fecha_inicio, fecha_final])
-        egresos = Gasto.objects.filter(fecha_gasto__range=[fecha_inicio, fecha_final])        
-        ingresos_pesos = Visitas.objects.all().filter(dolares='Pesos',fecha_visita__range=[fecha_inicio, fecha_final])
-        egresos_pesos = Gasto.objects.all().filter(dolares='Pesos',fecha_gasto__range=[fecha_inicio, fecha_final])
-        ingresos_dolares = Visitas.objects.all().filter(dolares='Dolares',fecha_visita__range=[fecha_inicio, fecha_final])
-        egresos_dolares = Gasto.objects.all().filter(dolares='Dolares',fecha_gasto__range=[fecha_inicio, fecha_final])
-        
+        ingresos = Visitas.objects.filter(
+            fecha_visita__range=[fecha_inicio, fecha_final])
+        egresos = Gasto.objects.filter(
+            fecha_gasto__range=[fecha_inicio, fecha_final])
+        ingresos_pesos = Visitas.objects.all().filter(
+            dolares='Pesos', fecha_visita__range=[fecha_inicio, fecha_final])
+        egresos_pesos = Gasto.objects.all().filter(
+            dolares='Pesos', fecha_gasto__range=[fecha_inicio, fecha_final])
+        ingresos_dolares = Visitas.objects.all().filter(
+            dolares='Dolares', fecha_visita__range=[fecha_inicio, fecha_final])
+        egresos_dolares = Gasto.objects.all().filter(
+            dolares='Dolares', fecha_gasto__range=[fecha_inicio, fecha_final])
+
         fecha_final = request.POST.get('fecha2')
-        
-        total_ingresos_pesos = ingresos_pesos.aggregate(Sum('precio')).get('precio__sum') 
-        total_egresos_pesos = egresos_pesos.aggregate(Sum('precio')).get('precio__sum')
-        total_ingresos_dolares = ingresos_dolares.aggregate(Sum('precio')).get('precio__sum')
-        total_egresos_dolares = egresos_dolares.aggregate(Sum('precio')).get('precio__sum')
+
+        total_ingresos_pesos = ingresos_pesos.aggregate(
+            Sum('precio')).get('precio__sum')
+        total_egresos_pesos = egresos_pesos.aggregate(
+            Sum('precio')).get('precio__sum')
+        total_ingresos_dolares = ingresos_dolares.aggregate(
+            Sum('precio')).get('precio__sum')
+        total_egresos_dolares = egresos_dolares.aggregate(
+            Sum('precio')).get('precio__sum')
 
         if len(ingresos) == 0 and len(egresos) == 0:
-            mensaje = "No tienes movimientos el dia de hoy"
+            mensaje = "No tienes movimientos en el rango de fechas seleccionado"
 
-        #Validaciones aritmeticas
+        # Validaciones aritmeticas
         if total_ingresos_pesos is None:
             total_ingresos_pesos = 0
         if total_ingresos_dolares is None:
@@ -155,19 +298,20 @@ class MovementsView(ListView):
         if total_egresos_dolares is None:
             total_egresos_dolares = 0
 
-        total_diferencia_pesos = (total_ingresos_pesos - total_egresos_pesos) 
-        total_diferencia_dolares = (total_ingresos_dolares - total_egresos_dolares)
+        total_diferencia_pesos = (total_ingresos_pesos - total_egresos_pesos)
+        total_diferencia_dolares = (
+            total_ingresos_dolares - total_egresos_dolares)
 
-        context = {'ingresos':ingresos,
-                    'egresos':egresos,
-                    'total_ingresos_pesos':total_ingresos_pesos,
-                    'total_ingresos_dolares':total_ingresos_dolares,
-                    'total_egresos_pesos':total_egresos_pesos,
-                    'total_egresos_dolares':total_egresos_dolares,
-                    'total_diferencia_pesos': total_diferencia_pesos,
-                    'total_diferencia_dolares': total_diferencia_dolares,
-                    'fechai':fecha_inicio,
-                    'fechaf':fecha_final,
-                    'mensaje':mensaje,
-                    }
-        return render(request,self.template_name, context)
+        context = {'ingresos': ingresos,
+                   'egresos': egresos,
+                   'total_ingresos_pesos': total_ingresos_pesos,
+                   'total_ingresos_dolares': total_ingresos_dolares,
+                   'total_egresos_pesos': total_egresos_pesos,
+                   'total_egresos_dolares': total_egresos_dolares,
+                   'total_diferencia_pesos': total_diferencia_pesos,
+                   'total_diferencia_dolares': total_diferencia_dolares,
+                   'fechai': fecha_inicio,
+                   'fechaf': fecha_final,
+                   'mensaje': mensaje,
+                   }
+        return render(request, self.template_name, context)

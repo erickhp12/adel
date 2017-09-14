@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}ADEL | agregar empleado {% endblock %}
+{% block body %}
+
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/empleados/creacion.empleados.css' %}"/>
+<div class = "header">
+  <span class="header_text">Edicion de {{ empleado.nombre }}</span>
+  <img src="{% static 'img/iconos/empleados40.png' %}" alt="ups">
+</div>
+
+<section class="seccion_formulario">
+    <form method="post">
+    {% csrf_token %}
+    <div class="seccion_1">
+        <div>
+            <label class="label-formularios">Nombre *</label>
+            <input type="text" name="nombre" id="nombre" value="{{ empleado.nombre }}"> <br><br>
+        </div>
+        <div>
+            <label class="label-formularios">Puesto</label>
+            <input type="text" name="puesto" id="puesto" value="{{ empleado.puesto }}"> <br><br>
+        </div>
+        <div>
+            <label class="label-formularios">Telefono</label>
+            <input type="text" name="telefono" id="telefono" value="{{ empleado.telefono }}">
+            <br><br>
+        </div>
+    </div>
+
+    <div class="seccion_2">
+        <div>
+            <label class="label-formularios">Correo</label>
+            <input type="email" name="correo" id="correo" value="{{ empleado.correo }}"> <br><br>
+        </div>
+        <div>
+            <label class="label-formularios">Direccion</label>
+            <input type="text" name="direccion" id="direccion" value="{{ empleado.direccion }}"> <br><br>
+        </div>
+        <div>
+            <label class="label-formularios">Edad</label>
+            <input type="text" name="edad" id="edad" value="{{ empleado.edad }}"> <br><br>
+        </div>
+    </div>
+    <div class="seccion_botones">           
+        <input class="btn btn-success boton_1" id="save_contact" 
+        type="submit" value="Registrar"/>
+        <a href="/lista.empleados" class="btn btn-default boton_2">Volver</a>
+    </div>
+    </form>
+</section>
+</div>
+
+
+{% endblock %}

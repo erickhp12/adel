@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, View
 from django.core.urlresolvers import reverse_lazy
 from .models import Proveedor
 from .forms import RegistrarProveedor
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
@@ -14,8 +15,8 @@ class ProviderListView(ListView):
 
     @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
-        proveedores = Proveedor.objects.all()
-        total_proveedores = Proveedor.objects.all().count
+        proveedores = Proveedor.objects.filter(user=request.user)
+        total_proveedores = proveedores.count
         mensaje = ""
         context = {'proveedores':proveedores,
                     'total_proveedores':total_proveedores,
@@ -42,16 +43,105 @@ class ProviderListView(ListView):
         return render(self.request, self.template_name, context)
 
 class CreateProviderView(CreateView):
-    form_class = RegistrarProveedor
     template_name = "creacion_proveedores.html"
-    success_url = reverse_lazy('list_proveedores')
+    template_main = "proveedores.html"
+
+    def get(self, request, *args, **kwargs):
+        user_logged = request.user
+        proveedores = Proveedor.objects.filter(user=request.user)
+        total_proveedores = proveedores.count
+        mensaje = ""
+        context = {'proveedores': proveedores,
+                   'total_proveedores': total_proveedores,
+                   'mensaje': mensaje
+                   }
+
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        mensaje = ""
+        proveedores = Proveedor.objects.filter(user=request.user)
+        total_proveedores = proveedores.count
+        user = request.user
+        nombre = request.POST.get('nombre')
+        contacto = request.POST.get('contacto')
+        producto = request.POST.get('producto')
+        telefono = request.POST.get('telefono')
+        correo = request.POST.get('correo')
+        direccion = request.POST.get('direccion')
+
+        try:
+            if nombre == "":
+                return render(self.request, self.template_name)
+            else:
+                Proveedor.objects.create(
+                    user=user,
+                    nombre=nombre,
+                    contacto=contacto,
+                    producto=producto,
+                    telefono=telefono,
+                    correo=correo,
+                    direccion=direccion
+                )
+        except Exception as e:
+            mensaje = "Error al crear proveedor " + str(e)
+
+        context = {'proveedores': proveedores,
+                   'total_proveedores': total_proveedores,
+                   'mensaje': mensaje
+                   }
+
+        return HttpResponseRedirect('/lista.proveedores')
 
 
-class UpdateProviderView(UpdateView):
-    model = Proveedor
-    form_class = RegistrarProveedor
-    template_name = "creacion_proveedores.html"
-    success_url = reverse_lazy('list_proveedores')    
+class UpdateProviderView(View):
+    template_name = "edicion_proveedores.html"
+    template_main = "proveedores.html"
+
+    def get(self, request, pk, *args, **kwargs):
+        user_logged = request.user
+        proveedor = Proveedor.objects.get(user=request.user,id=pk)
+        mensaje = ""
+        context = {'proveedor': proveedor,
+                   'mensaje': mensaje
+                   }
+
+        return render(request, self.template_name, context)
+
+    def post(self, request,pk, *args, **kwargs):
+        mensaje = ""
+        proveedores = Proveedor.objects.filter(user=request.user)
+        total_proveedores = proveedores.count
+        user = request.user
+        nombre = request.POST.get('nombre')
+        contacto = request.POST.get('contacto')
+        producto = request.POST.get('producto')
+        telefono = request.POST.get('telefono')
+        correo = request.POST.get('correo')
+        direccion = request.POST.get('direccion')
+
+        try:
+            if nombre == "":
+                return render(self.request, self.template_name)
+            else:
+                proveedor = Proveedor.objects.get(user=request.user,id=pk)
+                proveedor.nombre = nombre
+                proveedor.contacto = contacto
+                proveedor.producto = producto
+                proveedor.telefono = telefono
+                proveedor.correo = correo
+                proveedor.direccion = direccion
+                proveedor.save()
+        except Exception as e:
+            mensaje = "Error al editar empleado " + str(e)
+
+        context = {'proveedores': proveedores,
+                   'total_proveedores': total_proveedores,
+                   'mensaje': mensaje
+                   }
+
+        return HttpResponseRedirect('/lista.proveedores')
+
 
 
 class DeleteProviderView(ListView):

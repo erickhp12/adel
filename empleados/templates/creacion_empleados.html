@@ -14,40 +14,72 @@
     {% csrf_token %}
     <div class="seccion_1">
         <div>
-            <label>Nombre</label>
-            <input type="text" name="nombre" required> <br><br>
+            <label class="label-formularios">Nombre *</label>
+            <input type="text" name="nombre" id="nombre"> <br><br>
         </div>
         <div>
-            <label>Puesto</label>
-            <input type="text" name="puesto" required> <br><br>
+            <label class="label-formularios">Puesto</label>
+            <input type="text" name="puesto" id="puesto"> <br><br>
         </div>
         <div>
-            <label>Telefono</label>
-            <input type="number" name="telefono" max-length="10" required> <br><br>
+            <label class="label-formularios">Telefono</label>
+            <input type="text" name="telefono" id="telefono" placeholder="(656) 000-00-00">
+            <br><br>
         </div>
     </div>
 
     <div class="seccion_2">
         <div>
-            <label>Correo</label>
-            <input type="email" name="correo" required> <br><br>
+            <label class="label-formularios">Correo</label>
+            <input type="email" name="correo" id="correo"> <br><br>
         </div>
         <div>
-            <label>Direccion</label>
-            <input type="text" name="direccion" required> <br><br>
+            <label class="label-formularios">Direccion</label>
+            <input type="text" name="direccion" id="direccion"> <br><br>
         </div>
         <div>
-            <label>Edad</label>
-            <input type="text" name="edad" required> <br><br>
+            <label class="label-formularios">Edad</label>
+            <input type="text" name="edad" id="edad"> <br><br>
         </div>
     </div>
     <div class="seccion_botones">           
-        <input class="btn btn-success boton_1" id="save_contact" 
+        <input class="btn btn-success boton_1" id="save_contact" onclick="set_empty_values()" 
         type="submit" value="Registrar"/>
         <a href="/lista.empleados" class="btn btn-default boton_2">Volver</a>
     </div>
     </form>
 </section>
 </div>
+<script>
+    function set_empty_values(){
+        console.log("entre al metodo");
+        nombre = document.getElementById('nombre');
+        puesto = document.getElementById('puesto');
+        telefono = document.getElementById('telefono');
+        correo = document.getElementById('correo');
+        direccion = document.getElementById('direccion');
+        edad = document.getElementById('edad');
+        
+        if (nombre.value == ""){
+            alert('el campo nombre es requerido');
+            nombre.value = "";
+        }
+        if (puesto.value == ""){
+            puesto.value = "--";
+        }
+        if (telefono.value == ""){
+            telefono.value = "No registrado";
+        }
+        if (correo.value == ""){
+            correo.value = "--";
+        }
+        if (direccion.value == ""){
+            direccion.value = "--";
+        }
+        if (edad.value == ""){
+            edad.value = 0;
+        }
+    }
+</script>
 
 {% endblock %}
