@@ -10,7 +10,7 @@ from visitas.models import Visitas
 from .forms import RegistrarAgenda
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-import time
+import time 
 
 
 class AgendaListView(ListView):
@@ -72,8 +72,9 @@ class CreateAgendaView(View):
     
     def get(self, request, *args, **kwargs):
         pacientes = Paciente.objects.all()
-        
-        ctx = {'pacientes': pacientes}
+        fecha_inicial = time.strftime("%Y-%m-%d")
+        ctx = {'fechai':fecha_inicial,
+                'pacientes': pacientes}
 
         return render(request,self.template_name,ctx)
 
@@ -82,6 +83,7 @@ class CreateAgendaView(View):
         fecha_final = time.strftime("%Y-%m-%d")
         total = Agenda.objects.all().filter(fecha_agenda__range=[fecha_inicial, fecha_final + " 23:59:59"]).order_by('fecha_agenda')
         total_agenda = total.count()
+        mensaje = ""
         fecha_agenda = request.POST.get('fecha')
         hora_agenda = request.POST.get('hora')
         paciente_id = request.POST.get('paciente')
@@ -91,6 +93,7 @@ class CreateAgendaView(View):
         Agenda.objects.create(paciente=paciente,motivo=motivo, fecha_agenda=fecha_agenda)
 
         context = {'Agenda':total,
+                    'mensaje':mensaje,
                     'total_agenda':total_agenda,
                     'ingresos':fecha_agenda}
 
@@ -99,9 +102,8 @@ class CreateAgendaView(View):
 class UpdateAgendaView(UpdateView):
     template_name = "edicion_agenda.html"
     
-    def get(self, request, *args, **kwargs):
-        id =kwargs.get('pk')
-        pacientes = Agenda.objects.get(pk=id) 
+    def get(self, request, pk, *args, **kwargs):
+        pacientes = Agenda.objects.get(id=pk) 
 
         ctx = {'paciente': pacientes}
 

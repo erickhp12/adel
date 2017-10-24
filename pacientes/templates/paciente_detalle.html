@@ -1,5 +1,5 @@
 {% extends "base.html" %} 
-{% block title %}ADEL | detalles {% endblock %}
+{% block title %}ADEL | Informacion de {{paciente.nombre }} {% endblock %}
 
 {% block body %}
 {% load staticfiles %}
@@ -7,17 +7,14 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/historial/creacion.historial.css'%}"/>
 
 <div class = "header">
-		{% for paciente in paciente %}
-        <span class="header_text">Informacion de {{ paciente.nombre }}</span>
-          <img src="{% static 'img/iconos/pacientes40.png' %}" alt="ups">
-		{% endfor %}
+	<span class="header_text">Informacion de {{ paciente.nombre }}</span>
+	<img src="{% static 'img/iconos/pacientes40.png' %}" alt="ups">
 </div>
 
 <section class="paciente_detalles_card paciente_detalles_info">
 	<!-- seccion de datos generales -->
 	<section class="paciente_detalles_general">
 		<p class="paciente_detalles_header">Datos generales</p>
-		{% for paciente in paciente %}
 	  	<table class="generic-table">
 			<tr>
 				<td><b>Nombre</b></td>	
@@ -98,7 +95,6 @@
 			{% endif %}
 
 		</table>
-		{% endfor %}
 		<br>
 	</section>
 	<section class="paciente_detalles_historial">
@@ -107,10 +103,8 @@
 		<div>
 		<p class="paciente_detalles_historial_p_vacio">Este paciente no tiene Historia clinica registrada
 			<br><br>
-			{% for paciente in paciente %}
-			<a href="/historial/editar/{{paciente.pk}}" class="btn_confirmar" 
+			<a href="/historial/registro/{{paciente.pk}}" class="btn_agregar" 
 			style="padding-left:1em;padding-right: 1em;">{{ message }}</a>
-			{% endfor %}
 		</p>
 		</div>
 	<!-- *************************** Si el historial contiene datos ************************************* -->
@@ -204,7 +198,6 @@
 		<br>
 	{% endif %}
 	</section>
-
 </section>
 <section class="paciente_detalles_card paciente_detalles_visitas">
 	<p class="paciente_detalles_header">Visitas registradas</p>
@@ -233,9 +226,11 @@
 	<a href="/lista.pacientes" class="btn_volver_detalle">
 		<input type="button" value="volver" class="btn_volver btn_volver_detalle">
 	</a>
-	<a href="/historial/editar/1" class="btn_volver_detalle">
-		<input type="button" value="Editar historial" class="btn_volver btn_volver_detalle">
+	{% if  message != 'Registrar historial' %}
+	<a href="/historial/editar/{{paciente.pk}}">
+		<input type="button" value="Editar historial" class="btn_confirmar btn_agregar">
 	</a>
+	{% endif %}
 </section>
 
 {% endblock %}

@@ -9,12 +9,13 @@ class RegistrarPaciente(ModelForm):
         model = Paciente
         exclude = []
         widgets = {
-            'aseguranza': TextInput(
-                attrs={'placeholder': ''}
+            'tipo_paciente': forms.Select(
+                attrs={'class': 'form-control'}
             ),
             'edad': TextInput(
             	attrs={'placeholder':'edad','class':'txtInput'}
+            ),
+            'sexo': forms.Select(
+                attrs={'class': 'form-control'}
             )
         }
-
-    

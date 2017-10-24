@@ -7,7 +7,6 @@
 <section class="seccion_eliminar">
 	<form method=post>
 		{% csrf_token %}
-		{% for gasto in gastos %}
 		<span class="p_confirmacion" style="margin-left:25%">¿Estás seguro de eliminar este gasto?</span>
 		<br><br>
 		<p><b>Proveedor</b></p>
@@ -16,7 +15,6 @@
 		<p>{{ gasto.fecha_gasto }}</p>
 		<p><b>Motivo</b></p>
 		<p>{{ gasto.motivo }}</p><br>
-		{% endfor %}
 		<input type="submit" value="confirmar" class="btn btn-danger btn_confirmar">
 	<a href="/lista.gastos">
 		<input type="button" value="volver" class="btn_volver btn_volver_eliminar"><br><br>

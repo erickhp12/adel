@@ -71,6 +71,12 @@
                         <span class="base_span glyphicon glyphicon-th-list  icono_menu_principal"> Movimientos</span>
                     </a>
                 </div>
+                <div class="base_menus base_agenda usuario">
+                    <a href="/movimientos">
+                        <span class="base_span glyphicon glyphicon-home icono_menu_principal">
+                         {{request.user.username}}</span>
+                    </a>
+                </div>
                 <div class="base_menus base_agenda salir">
                     <a href="{% url 'logout.view.url' %}">
                         <span class="icono_menu_principal"> Salir</span>

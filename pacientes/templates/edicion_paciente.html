@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-    {% block title %}ADEL | agregar paciente {% endblock %}
+    {% block title %}ADEL | editar paciente {% endblock %}
 {% block body %}
 
 
@@ -8,7 +8,7 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/gastos/creacion.gastos.css' %}"/>
 <link rel="stylesheet" type="text/css" href="{% static 'css/generic/table.css' %}"/>
 <div class = "header">
-  <span class="header_text">Agregar paciente</span>
+  <span class="header_text">Edicion de {{ paciente.nombre }}</span>
   <img src="{% static 'img/iconos/pacientes40.png' %}" alt="ups">
 </div>
 
@@ -18,7 +18,7 @@
     <div class="seccion_1">
         <div style="width: 99%;">
             <label class="label-formularios">Nombre*</label>
-            <input type="text" name="nombre"><br>
+            <input type="text" name="nombre" value="{{ paciente.nombre }}"><br>
         </div><br>
         <table style="width: 99%;">
             <tbody>      
@@ -26,7 +26,7 @@
                 <td class="td-left">
                     <label class="label-formularios">Edad</label></td>
                 <td class="td-right">
-                    <input type="text" name="edad" id="edad" value="0"> <br><br>
+                    <input type="text" name="edad" id="edad" value="{{ paciente.edad }}"> <br><br>
                 </td>
             </tr>
             <tr class="generic-tr">
@@ -35,8 +35,9 @@
                 </td>
                 <td class="td-right">
                     <select id="sexo" name="sexo">
+                        <option id="sexo" name="sexo" value="{{ paciente.sexo }}" >{{ paciente.sexo}}</option>
                         {% for choice in form.sexo.field.choices %}
-                            <option id="sexo" name="sexo" value={{choice.1}} >{{ choice.1}}</option>
+                            <option id="sexo" name="sexo"  value={{choice.1}} >{{ choice.1 }}</option>
                         {% endfor %}
                     </select><br><br>
                 </td>
@@ -47,8 +48,10 @@
                 </td>
                 <td class="td-right">
                     <select id="tipo_paciente" name="tipo_paciente"  onchange="reassign_values()">
+                        <option id="sexo" name="sexo" value="{{ paciente.tipo_paciente }}" >{{ paciente.tipo_paciente }}</option>
                         {% for choice in form.tipo_paciente.field.choices %}
-                            <option id="tipo_paciente" name="tipo_paciente" value={{choice.1}} >{{ choice.1}}</option>
+                            <option id="tipo_paciente" name="tipo_paciente" value={{choice.1}} >
+                            {{ choice.1 }}</option>
                         {% endfor %}
                     </select><br><br>
                 </td>
@@ -57,7 +60,8 @@
                 <td class="td-left">
                     <label class="label-formularios">Aseguranza</label></td>
                 <td class="td-right">
-                    <input type="text" name="aseguranza" id="aseguranza" value="--"><br><br>
+                    <input type="text" name="aseguranza" id="aseguranza" value="{{ paciente.aseguranza }}">
+                    <br><br>
                 </td>
             </tr>
             </tbody>
@@ -70,28 +74,32 @@
                 <td class="td-left">
                     <label class="label-formularios">Telefono</label></td>
                 <td class="td-right">
-                    <input type="text" name="telefono" id="telefono"> <br><br>
+                    <input type="text" name="telefono" id="telefono" value="{{ paciente.telefono }}">
+                    <br><br>
                 </td>
             </tr>
             <tr class="generic-tr">
                 <td class="td-left">
                     <label class="label-formularios">Correo</label></td>
                 <td class="td-right">
-                    <input type="text" name="correo" id="correo"> <br><br>
+                    <input type="text" name="correo" id="correo" value="{{ paciente.correo }}">
+                    <br><br>
                 </td>
             </tr>
             <tr class="generic-tr">
                 <td class="td-left">
                     <label class="label-formularios">Direccion</label></td>
                 <td class="td-right">
-                    <input type="text" name="direccion" id="direccion"> <br><br>
+                    <input type="text" name="direccion" id="direccion" value="{{ paciente.direccion }}">
+                    <br><br>
                 </td>
             </tr>
             <tr class="generic-tr">
                 <td class="td-left">
                     <label class="label-formularios">Comentarios</label></td>
                 <td class="td-right">
-                    <input type="text" name="comentarios" id="comentarios" class="motivo"> <br><br>
+                    <input type="text" name="comentarios" id="comentarios" class="motivo" 
+                    value="{{ paciente.comentarios }}"><br><br>
                 </td>
             </tr>
             </tbody>

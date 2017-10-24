@@ -52,6 +52,19 @@ class LoginView(TemplateView):
             ctx = {'mensaje': mensaje}
             return render(request, self.template_name, ctx)
 
+class AccountView(TemplateView):
+    template_name = 'cuenta.html'
+
+    @method_decorator(login_required(login_url='login.view.url'))
+    def get(self, request, *args, **kwargs):
+
+        mensaje = ""
+        
+        context = {
+                    'mensaje': mensaje    
+                    }
+        return render(request,self.template_name, context)
+
 
 class LogoutView(TemplateView):
     def get(self, request, *args, **kwargs):

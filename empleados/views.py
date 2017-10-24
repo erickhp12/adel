@@ -10,7 +10,6 @@ from django.utils.decorators import method_decorator
 
 
 class EmployeeListView(ListView):
-    queryset = Empleado.objects.all().order_by('nombres')
     template_name = "empleados.html"
 
     @method_decorator(login_required(login_url='login.view.url'))
@@ -28,8 +27,8 @@ class EmployeeListView(ListView):
 
     def post(self, request, *args, **kwargs):
         empleado_input = request.POST.get('empleado')
-        empleados = Empleado.objects.all().filter(nombre__icontains=empleado_input
-                                                  ) | Empleado.objects.all().filter(puesto__icontains=empleado_input)
+        empleados = Empleado.objects.filter(nombre__icontains=empleado_input,user=request.user
+                                                  ) | Empleado.objects.filter(puesto__icontains=empleado_input,user=request.user)
         total_empleados = empleados.count()
         mensaje = ""
 

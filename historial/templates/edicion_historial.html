@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% block title %}ADEL | historial {% endblock %}
+
+{% block body %} 
+{% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/historial/creacion.historial.css'%}"/>
+<body onload="alergias_show() , medicamentos_show()"> 
+<div class = "header">
+    <span class="header_text">Historial de {{ paciente.nombre}}</span>
+    <img src="{% static 'img/iconos/visitas40.png' %}" alt="ups">
+</div>
+
+<section class="seccion_formulario">
+    <form method=post>
+    {% csrf_token %}
+    <div class="seccion_1">
+        <!--************************ paciente ************************-->
+        <div>
+            <label>Paciente</label>
+            <input type="text" value="{{ paciente }}" name="paciente" readonly="readonly"> <br><br>
+        </div>
+
+        <!--************************ estado civil ************************-->
+        <div>
+            <label>Estado civil</label><br>
+            <select class="select" name = "estado_civil" id="paciente">
+                <option value="{{ historial_paciente.estado_civil }}" name="estado_civil">{{ historial_paciente.estado_civil }}</option>
+                <option value="Soltero" name="estado_civil">Soltero</option>
+                <option value="Casado" name="estado_civil">Casado</option>
+                <option value="Otros" name="estado_civil">Otros</option>
+            </select><br><br>
+        </div>
+        <!--************************ ocupacion ************************-->
+        <div>
+            <label>Ocupacion</label>
+            <input type="text" name="ocupacion" value="{{ historial_paciente.ocupacion }}"><br><br>
+        </div>
+        <!--************************ alergias ************************-->
+        <div class="alergias_checkbox">
+            <div class="material-switch div_historial">
+                <span class="span_historial" style="margin-bottom:10px;" >Alergias antibiotico?</span>
+                <input type="checkbox" id="alergias" name="alergias" class="input_historial" {{ alergias_value }}
+                    onclick="alergias_show()" />
+                <label for="alergias" class="label-info"></label>
+                <input type="text" style="margin-bottom:10px;" name="alergias_comentarios"
+                id="alergias_comentarios" placeholder="Describa" class="text_medicamentos" value="{{ historial_paciente.alergias_comentarios }}">
+            </div>
+        </div>
+        <!--************************ corazon ************************-->
+        <div>
+            <div class="material-switch div_historial">
+                <span class="span_historial">Enfermedades del corazon</span>
+                <input id="corazon" name="corazon" type="checkbox" {{ corazon_value }}/>
+                <label for="corazon" class="label-info"></label> 
+            </div>
+        </div>
+        <!--************************ presion arterial ************************-->
+        <div>
+            <div class="material-switch div_historial">
+                <span class="span_historial" >Presion arterial</span>
+                <input id="presion_arterial" name="presion_arterial" 
+                type="checkbox" {{ presion_arterial_value }}/>
+                <label for="presion_arterial" class="label-info"></label> 
+                </div>
+        </div>
+    </div>
+
+    <div class="seccion_2 seccion_2_historial">
+    <br>
+        <!--************************ diabetes ************************-->
+        <div class="material-switch div_historial">
+            <span class="span_historial span_diabetes" >Diabetes</span>
+            <input id="diabetes" name="diabetes" type="checkbox" {{ diabetes_value }}/>
+            <label for="diabetes" class="label-info"></label> 
+        </div>
+        <!--************************ hepatitis ************************-->
+        <div class="material-switch div_historial">
+            <span class="span_historial" >Hepatitis</span>
+            <input id="hepatitis" name="hepatitis" type="checkbox" {{ hepatitis_value }}/>
+            <label for="hepatitis" class="label-info"></label> 
+        </div>
+        <!--************************ vih ************************-->
+        <div class="material-switch div_historial">
+            <span class="span_historial" >Es usted portador de VIH?</span>
+            <input id="vih" name="vih" type="checkbox" {{ vih_value }}/>
+            <label for="vih" class="label-info"></label> 
+        </div>
+        <!--************************ embarazada ************************-->
+        <div class="material-switch div_historial">
+            <span class="span_historial" >Si es mujer, Esta usted embarazada?</span>
+            <input id="embarazada" class="checkbox_historial" name="embarazada" 
+            type="checkbox" {{ embarazada_value }}/>
+            <label for="embarazada" class="label-info"></label> 
+        </div> 
+        <!--************************ medicamentos ************************-->
+        <div class="medicamentos_checkbox">
+            <div class="material-switch div_historial">
+                <span class="span_historial" style="margin-bottom:10px;">
+                Actualmente toma algun medicamento?</span>
+                <input id="medicamentos" name="medicamentos" type="checkbox" {{ medicamentos_value}} 
+                    onclick="medicamentos_show()" />
+                <label for="medicamentos" class="label-info"></label>
+            </div><br>
+            <input type="text" name="medicamentos_comentarios" style="margin-bottom:10px;" 
+            id="medicamentos_comentarios" placeholder="Describa el medicamento" 
+            value="{{ historial_paciente.medicamentos_comentarios }}">
+            <br><br>
+        </div>
+    </div>
+    <div class="seccion_botones">           
+        <input class="btn btn-success boton_1" id="save_contact" type="submit" value="Registrar"/>
+        <a href="/lista.pacientes" class="btn btn-default boton_2">Volver</a>
+    </div>
+    </form>
+</section>
+
+<script>
+    function alergias_show() { 
+    var checkbox = document.getElementById('alergias');
+    var comentarios = document.getElementById('alergias_comentarios');
+    if (checkbox.checked == true) {
+        comentarios.style.visibility='visible';
+    }else if (checkbox.checked == false){
+        comentarios.style.visibility='hidden';
+    }  
+}
+    function medicamentos_show() { 
+    var checkbox = document.getElementById('medicamentos');
+    var comentarios = document.getElementById('medicamentos_comentarios');
+    if (checkbox.checked == true) {
+        comentarios.style.visibility='visible';
+    }else if (checkbox.checked == false){
+        comentarios.style.visibility='hidden';
+    }  
+}
+    // function muestra_comentarios(){
+    //     var alergias = document.getElementById('alergias');
+
+    // }
+</script>
+</body>
+{% endblock %}

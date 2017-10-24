@@ -19,9 +19,6 @@ class Gasto(models.Model):
     tipo_pago = models.CharField(max_length=50,choices=TIPOS_PAGO,null=True,unique=False,verbose_name=u'tipo de pago')
     fecha_gasto = models.DateTimeField(verbose_name=u'fecha de gasto')
     
-    def __str__(self):
-        return self.proveedor
-
 
     @permalink
     def url_editar_gasto(self):

@@ -35,17 +35,20 @@ class SpendingListView(ListView):
         fecha_inicial = request.POST.get('fecha_inicial')
         fecha_final = request.POST.get('fecha_final')
         mensaje = ""
+        
         if fecha_final and fecha_final != "":
             gastos = Gasto.objects.all().filter(
-                fecha_gasto__range=[fecha_inicial, fecha_final + " 23:59:59"])
+                fecha_gasto__range=[fecha_inicial, fecha_final + " 23:59:59"],user=request.user)
         else:
-            gastos = Gasto.objects.all().filter(proveedor__nombre__icontains=gastos
-                ) | Gasto.objects.all().filter(proveedor__contacto__icontains=gastos
-                ) | Gasto.objects.all().filter(motivo__icontains=gastos)
+            gastos = Gasto.objects.filter(proveedor__nombre__icontains=gastos,user=request.user
+                ) | Gasto.objects.filter(proveedor__contacto__icontains=gastos,user=request.user
+                ) | Gasto.objects.filter(motivo__icontains=gastos,user=request.user)
+        
         total_gastos = gastos.count()
 
         if total_gastos == 0:
             mensaje = "La busqueda no mostro ningun resultado"
+        
         context = {'gastos': gastos,
                    'total_gastos': total_gastos,
                    'mensaje': mensaje
@@ -76,38 +79,20 @@ class CreateSpendingView(ListView):
         gastos = Gasto.objects.filter(user=request.user)
         total_gastos = gastos.count
         user = request.user
-        proveedor = request.POST.get('proveedor')
+        proveedorSeleccionado = request.POST.get('proveedor')
+        proveedor = Proveedor.objects.filter(nombre=proveedorSeleccionado).first()
         motivo = request.POST.get('motivo')
-        empleado = request.POST.get('empleado')
+        empleadoSeleccionado = request.POST.get('empleado')
+        empleado = Empleado.objects.filter(nombre=empleadoSeleccionado).first()
         precio = request.POST.get('precio')
         dolares = request.POST.get('dolares')
         tipo_pago = request.POST.get('tipo_pago')
-        fecha_gasto = request.POST.get('fecha_gasto')
-
-        print "user"
-        print user
-        print "proveedor"
-        print proveedor
-        print "Motivo"
-        print motivo
-        print "empleado"
-        print empleado
-        print "precio"
-        print precio
-        print "Tipo de cambio"
-        print dolares
-        print "tipo de pago"
-        print dolares
-        print "fecha gasto"
-        print fecha_gasto
+        fecha_gasto = request.POST.get('fecha') 
 
         try:
-            print "entre try"
             if proveedor == "":
-                print "entre if"
                 return render(self.request, self.template_name)
             else:
-                print "entre else"
                 Gasto.objects.create(
                     user=user,
                     proveedor=proveedor,
@@ -118,7 +103,6 @@ class CreateSpendingView(ListView):
                     tipo_pago=tipo_pago,
                     fecha_gasto=fecha_gasto
                 )
-                print "termino else"
         except Exception as e:
             mensaje = "Error al crear empleado " + str(e)
 
@@ -137,9 +121,16 @@ class UpdateSpendingView(ListView):
     def get(self, request, pk, *args, **kwargs):
         user_logged = request.user
         gasto = Gasto.objects.get(user=request.user,id=pk)
+        proveedores = Proveedor.objects.filter(user=request.user)
+        empleados = Empleado.objects.filter(user=request.user)
+        form = RegistrarGasto()
+
         mensaje = ""
         context = {'gasto': gasto,
-                   'mensaje': mensaje
+                   'mensaje': mensaje,
+                   'proveedores':proveedores,
+                   'form':form,
+                   'empleados':empleados
                    }
 
         return render(request, self.template_name, context)
@@ -149,19 +140,40 @@ class UpdateSpendingView(ListView):
         gastos = Gasto.objects.filter(user=request.user)
         total_gastos = gastos.count
         user = request.user
-        proveedor = request.POST.get('proveedor')
-        empleado = request.POST.get('empleado')
+        proveedorSeleccionado = request.POST.get('proveedor')
+        proveedor = Proveedor.objects.filter(nombre=proveedorSeleccionado).first()
+        motivo = request.POST.get('motivo')
+        empleadoSeleccionado = request.POST.get('empleado')
+        empleado = Empleado.objects.filter(nombre=empleadoSeleccionado).first()
         precio = request.POST.get('precio')
         dolares = request.POST.get('dolares')
         tipo_pago = request.POST.get('tipo_pago')
-        fecha_gasto = request.POST.get('fecha_gasto')
+        fecha_gasto = request.POST.get('fecha')
+
+        print "---------------------Edicion de gasto ---------------------"
+        print "user"
+        print user
+        print "proveedor"
+        print proveedor
+        print "empleado"
+        print empleado
+        print "precio"
+        print precio
+        print "dolares"
+        print dolares
+        print "tipo_pago"
+        print tipo_pago
+        print "fecha_gasto"
+        print fecha_gasto
+
 
         try:
-            if nombre == "":
+            if proveedor == "":
                 return render(self.request, self.template_name)
             else:
                 gasto = Gasto.objects.get(user=request.user,id=pk)
                 gasto.proveedor = proveedor
+                gasto.motivo = motivo
                 gasto.empleado = empleado
                 gasto.precio = precio
                 gasto.dolares = dolares
@@ -169,6 +181,7 @@ class UpdateSpendingView(ListView):
                 gasto.fecha_gasto = fecha_gasto
                 gasto.save()
         except Exception as e:
+            print "ALGO SALIO MAL " + str(e)
             mensaje = "Error al editar gasto " + str(e)
 
         context = {'gastos': gastos,
@@ -182,15 +195,29 @@ class DeleteSpendingView(ListView):
     template_name = "eliminar_gastos.html"
 
     def get(self, request, pk, **kwargs):
-        gastos = Gasto.objects.all().filter(id=pk)
+        gasto = Gasto.objects.get(user=request.user,id=pk)
 
-        context = {'gastos': gastos,
+        print "BORRAR GASTO"
+        print gasto.motivo
+        context = {'gasto': gasto,
                    }
         return render(request, self.template_name, context)
 
     def post(self, request, pk, *args, **kwargs):
-        Gasto.objects.all().filter(id=pk).delete()
-        return render(self.request, 'gastos.html')
+        gasto = Gasto.objects.get(user=request.user,id=pk)
+        gastos = Gasto.objects.filter(user=request.user).order_by('fecha_gasto')
+        total_gastos = gastos.count
+        mensaje = ""
+
+        Gasto.objects.get(id=pk).delete()
+
+        context = {'gasto': gasto,
+                    'gastos':gastos,
+                   'total_gastos': total_gastos,
+                   'mensaje': mensaje
+                   }
+
+        return render(self.request, 'gastos.html', context)
 
 
 class MovementsView(ListView):

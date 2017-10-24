@@ -42,6 +42,7 @@ class ProviderListView(ListView):
         
         return render(self.request, self.template_name, context)
 
+
 class CreateProviderView(CreateView):
     template_name = "creacion_proveedores.html"
     template_main = "proveedores.html"
@@ -143,7 +144,6 @@ class UpdateProviderView(View):
         return HttpResponseRedirect('/lista.proveedores')
 
 
-
 class DeleteProviderView(ListView):
     template_name = "eliminar_proveedor.html"
 
@@ -155,8 +155,17 @@ class DeleteProviderView(ListView):
         return render(request,self.template_name, context)
 
     def post(self, request, pk, *args, **kwargs):
+        mensaje = ""
+        proveedores = Proveedor.objects.filter(user=request.user)
+        total_proveedores = proveedores.count
         Proveedor.objects.all().filter(id=pk).delete()
-        return render(self.request,'proveedores.html')
+
+        context = {'proveedores': proveedores,
+                   'total_proveedores': total_proveedores,
+                   'mensaje': mensaje
+                   }
+
+        return render(self.request,'proveedores.html', context)
 
 
  

@@ -68,18 +68,20 @@
             <tr class="generic-tr">
                 <td class="td-left">
                     <label class="label-formularios">Tipo de cambio</label></td>
-                <td class="radio">
-                    {% for choice in form.dolares.field.choices %}
-                        <input type="radio" id="dolares" name="dolares" value="{{choice.0}}"/>
-                        <span>{{choice.0}}</span>
-                    {% endfor %}
+                <td class="td-right">
+                    <select id="dolares" name="dolares">
+                        {% for choice in form.dolares.field.choices %}
+                            <option id="dolares" name="dolares" value={{choice.0}} >{{ choice.1}}</option>
+                        {% endfor %}
+                    </select>
+                    <br><br>
                 </td>
             </tr>
             <tr class="generic-tr">
                 <td class="td-left">
                     <label class="label-formularios">Hora</label>
                 </td>
-                <td class="td-right"><input type="text" name="hora" id="datepicker">
+                <td class="td-right"><input type="text" name="fecha" id="datepicker">
                     <select name = "hora" id="hora" onchange="set_date()">
                         <option value="00:00">Hora</option>
                         <option name = "hora" id="hora" value="08:00">08:00</option>
@@ -139,28 +141,29 @@ function set_initial_date(){
         today = yyyy + '-' + mm + '-' + dd;
         fecha.value = today;
         }
-        var dolares = document.getElementById('dolares');
-        console.log("dolares");
-        console.log(dolares)
-        if (dolares.value == ""){
-            dolares.style.display = "none";
-        }
-
     }
     function set_date(){
         var fecha = document.getElementById('datepicker');
         var hora = document.getElementById('hora');
+        console.log("fecha")
+        console.log(fecha.value)
+        console.log("hora")
+        console.log(hora.value)
 
         if (fecha.value.length > 10){  
+            console.log("MAYOR QUE 10")
             if (hora.value != "00:00"){
                 fecha.value = fecha.value.substring(0,10);
                 fecha.value = fecha.value + " " + hora.value;
             }else {
+            console.log("MENOR QUE 10")
             fecha.value = fecha.value.substring(0,10);    
             }
            
         }else{
             fecha.value = fecha.value + " " + hora.value;
+            console.log("FECHA FINAL")
+            console.log(fecha.value)
         }
 
     }

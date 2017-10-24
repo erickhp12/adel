@@ -1,36 +1,34 @@
 {% extends 'base.html' %}
-{% block title %}ADEL | agregar visita {% endblock %}
-{% block body %}
+{% block title %}ADEL | Editar gasto {% endblock %}
 
+{% block body %}
 <body onload="set_initial_date()">  
 {% load staticfiles %}
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <script src="{% static '/static/js/generic/calendarios.js'%}"></script>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/visitas/creacion.visitas.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/gastos/creacion.gastos.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/generic/table.css' %}"/>
-
-<div class = "header">
-  <span class="header_text">Agregar visita</span>
-  <img src="{% static 'img/iconos/visitas40.png' %}" alt="ups">
-</div>
+    <div class = "header">
+      <span class="header_text">Editar gasto</span>
+      <img src="{% static 'img/iconos/gastos40.png' %}" alt="ups">
+    </div>
 
 <section class="seccion_formulario">
     <form method="post">
     {% csrf_token %}
     <div class="seccion_1">
         <div>
-            <label class="label-formularios">Paciente *</label>
-            <select id="paciente" name="paciente">
-                <option value="%">---------</option>
-                {% for paciente in pacientes %}
-                 <option name="paciente" id="paciente" value="{{ paciente.nombre }}" >{{ paciente.nombre }}</option>
+            <label class="label-formularios">Proveedor *</label>
+            <select id="proveedor" name="proveedor">
+                <option name="proveedor" id="proveedor" value="{{ gasto.proveedor}}" >{{ gasto.proveedor }}</option>
+                {% for proveedor in proveedores %}
+                 <option name="proveedor" id="proveedor" value="{{ proveedor.nombre }}" >{{ proveedor.nombre }}</option>
                 {% endfor %}
-            </select>
-            <br><br>
+            </select><br><br>
         </div>
         <div class="motivo">
             <label class="label-formularios">Motivo</label>
-            <input type="text" name="motivo" id="motivo" class="motivo"> <br><br>
+            <input type="text" name="motivo" id="motivo" class="motivo" value="{{ gasto.motivo }}"> <br><br>
         </div>
     </div>
 
@@ -39,11 +37,13 @@
             <tbody>      
             <tr class="generic-tr">
                 <td class="td-left">
-                    <label class="label-formularios">Dentista que atendio</label>
+                    <label class="label-formularios">Empleado</label>
                 </td>
                 <td class="td-right">
                     <select id="empleado" name="empleado">
-                        <option value="%">---------</option>
+                        <option name="empleado" id="empleado" value="{{ gasto.empleado }}">
+                            {{ gasto.empleado }}
+                        </option>
                         {% for empleado in empleados %}
                         <option name="empleado" id="empleado" value="{{ empleado.nombre }}">{{ empleado.nombre }}</option>
                         {% endfor %}
@@ -52,35 +52,37 @@
             </tr>
             <tr class="generic-tr">
                 <td class="td-left">
-                    <label class="label-formularios">Precio</label></td>
+                    <label class="label-formularios">Monto</label></td>
                 <td class="td-right">
-                    <input type="text" name="precio" id="precio" name="precio"> <br><br>
+                    <input type="text" name="precio" id="precio" name="precio" value="{{ gasto.precio }}"> <br><br>
                 </td>
             </tr>
             <tr class="generic-tr">
                 <td class="td-left">
-                    <label class="label-formularios">Tipo de pago</label>
-                </td>
+                    <label class="label-formularios">Tipo de pago</label></td>
                 <td class="td-right">
                     <select id="tipo_pago" name="tipo_pago">
+                        <option id="tipo_pago" name="tipo_pago" value={{ gasto.tipo_pago }} >
+                            {{ gasto.tipo_pago }}
+                        </option>
                         {% for choice in form.tipo_pago.field.choices %}
                             <option id="tipo_pago" name="tipo_pago" value={{choice.0}} >{{ choice.1}}</option>
                         {% endfor %}
-                    </select>
-                    <br><br>
+                    </select><br><br>
                 </td>
             </tr>
             <tr class="generic-tr">
                 <td class="td-left">
-                    <label class="label-formularios">Tipo de cambio</label>
-                </td>
+                    <label class="label-formularios">Tipo de cambio</label></td>
                 <td class="td-right">
                     <select id="dolares" name="dolares">
+                        <option id="dolares" name="dolares" value={{ gasto.dolares }} >
+                            {{ gasto.dolares }}
+                        </option>
                         {% for choice in form.dolares.field.choices %}
                             <option id="dolares" name="dolares" value={{choice.0}} >{{ choice.1}}</option>
                         {% endfor %}
-                    </select>
-                    <br><br>
+                    </select><br><br>
                 </td>
             </tr>
             <tr class="generic-tr">
@@ -88,8 +90,8 @@
                     <label class="label-formularios">Hora</label>
                 </td>
                 <td class="td-right"><input type="text" name="fecha" id="datepicker">
-                    <select name = "hora" id="hora" onchange="set_date()">
-                        <option value="00:00">Hora</option>
+                    <select name = "hora" id="hora" value="{{ gasto.fecha_gasto }}" onchange="set_date()">
+                        <option value="{{ gasto.fecha_gasto }}">{{ gasto.fecha_gasto }}</option>
                         <option name = "hora" id="hora" value="08:00">08:00</option>
                         <option name = "hora" id="hora" value="08:30">08:30</option>
                         <option name = "hora" id="hora" value="09:00">09:00</option>
@@ -125,7 +127,7 @@
     <div class="seccion_botones">           
         <input class="btn btn-success boton_1" id="save_contact" onclick="set_empty_values()" 
         type="submit" value="Registrar"/>
-        <a href="/lista.visitas" class="btn btn-default boton_2">Volver</a>
+        <a href="/lista.gastos" class="btn btn-default boton_2">Volver</a>
     </div>
     </form>
 </section>
@@ -150,7 +152,9 @@ function set_initial_date(){
         var dolares = document.getElementById('dolares');
         console.log("dolares");
         console.log(dolares)
-
+        if (dolares.value == ""){
+            dolares.style.display = "none";
+        }
 
     }
     function set_date(){
@@ -180,15 +184,15 @@ function set_initial_date(){
     }
     function set_empty_values(){
         console.log("entre al metodo");
-        paciente = document.getElementById('paciente');
+        proveedor = document.getElementById('proveedor');
         motivo = document.getElementById('motivo');
         empleado = document.getElementById('empleado');
         precio = document.getElementById('precio');
         dolares = document.getElementById('dolares');
 
-        if (paciente.value == ""){
-            alert('el campo paciente es requerido');
-            paciente.value = "";
+        if (proveedor.value == ""){
+            alert('el campo proveedor es requerido');
+            proveedor.value = "";
         }
         if (motivo.value == ""){
             motivo.value = "--";

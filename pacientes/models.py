@@ -1,10 +1,12 @@
 from django.db import models
 from django.db.models import permalink
+from django.contrib.auth.models import User 
 
 TIPO_SEXO = (("Femenino", "Femenino"),("Masculino", "Masculino"))
 TIPOS_PACIENTES = (("Particular", "Particular"),("Aseguranza", "Aseguranza"))
 
 class Paciente(models.Model):
+    user = models.ForeignKey(User, null=True, blank=True)
     nombre = models.CharField(max_length=200, null=False, unique=False, verbose_name=u'nombre(s)')
     sexo = models.CharField(max_length=10, null=True,choices=TIPO_SEXO, verbose_name=u'sexo')
     edad = models.IntegerField(null=True, unique=False, verbose_name='Edad')

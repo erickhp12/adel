@@ -8,8 +8,7 @@ class RegistrarVisita(ModelForm):
     class Meta:
         model = Visitas
         exclude = []
+        
         widgets = {
-            'fecha_visita': TextInput(
-            	attrs={'placeholder':'','id':'datepicker'}
-            )
-        }
+            'tipo_pago': forms.Select(attrs={'class': 'form-control'}),
+            'dolares': forms.Select(attrs={'class': 'form-control'})}

@@ -9,7 +9,7 @@
     <script src="{% static '/static/js/generic/calendarios.js'%}"></script>
 
 <div class = "header">
-  <span class="header_text">Citas</span>
+
   <img src="{% static 'img/iconos/visitas40.png' %}" alt="ups">
 </div>
 
@@ -63,7 +63,7 @@
         <div class="seccion_2">
             <div class="motivo_agenda">
                 <label for="motivo">Motivo</label>
-                <input type="text" name="motivo" style="height: 70px;">
+                <input type="text" name="motivo" style="height: 70px;" value="{{ paciente.motivo }}">
                 <span>{{ form.fecha_agenda.errors }}</span>
             </div>
         </div>
