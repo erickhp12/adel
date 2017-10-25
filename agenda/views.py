@@ -103,9 +103,9 @@ class UpdateAgendaView(UpdateView):
     template_name = "edicion_agenda.html"
     
     def get(self, request, pk, *args, **kwargs):
-        pacientes = Agenda.objects.get(id=pk) 
+        paciente = Agenda.objects.get(id=pk) 
 
-        ctx = {'paciente': pacientes}
+        ctx = {'paciente': paciente}
 
         return render(request,self.template_name,ctx)
 

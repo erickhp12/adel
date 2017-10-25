@@ -23,8 +23,12 @@ class PatientListView(ListView):
     @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
         total = Paciente.objects.filter(user=request.user)
-        total_pacientes = total.count
+        total_pacientes = total.count()
         mensaje = ""
+
+        if total_pacientes == 0:
+            mensaje = "No tienes pacientes registrados"
+
         context = {'Paciente':total,
                     'total':total_pacientes,
                     'mensaje':mensaje     

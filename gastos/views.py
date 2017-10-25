@@ -229,17 +229,17 @@ class MovementsView(ListView):
         dia = time.strftime("%Y-%m-%d")
         mensaje = ""
         ingresos = Visitas.objects.filter(
-            fecha_visita__range=[dia, dia + " 23:59:59"])
+            fecha_visita__range=[dia, dia + " 23:59:59"],user=request.user)
         egresos = Gasto.objects.filter(
-            fecha_gasto__range=[dia, dia + " 23:59:59"])
+            fecha_gasto__range=[dia, dia + " 23:59:59"],user=request.user)
         ingresos_pesos = Visitas.objects.all().filter(
-            dolares='Pesos', fecha_visita__range=[dia, dia + " 23:59:59"])
+            dolares='Pesos', fecha_visita__range=[dia, dia + " 23:59:59"],user=request.user)
         egresos_pesos = Gasto.objects.all().filter(
-            dolares='Pesos', fecha_gasto__range=[dia, dia + " 23:59:59"])
+            dolares='Pesos', fecha_gasto__range=[dia, dia + " 23:59:59"],user=request.user)
         ingresos_dolares = Visitas.objects.all().filter(
-            dolares='Dolares', fecha_visita__range=[dia, dia + " 23:59:59"])
+            dolares='Dolares', fecha_visita__range=[dia, dia + " 23:59:59"],user=request.user)
         egresos_dolares = Gasto.objects.all().filter(
-            dolares='Dolares', fecha_gasto__range=[dia, dia + " 23:59:59"])
+            dolares='Dolares', fecha_gasto__range=[dia, dia + " 23:59:59"],user=request.user)
 
         # Calcula total de entrada de efectivo
         total_ingresos_pesos = ingresos_pesos.aggregate(

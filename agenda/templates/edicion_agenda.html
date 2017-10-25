@@ -3,14 +3,15 @@
 {% block albums_active %} active {% endblock %}
 
 {% block body %}
+<body onload="set_initial_date()"> 
 {% load staticfiles %}
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="stylesheet" type="text/css" href="{% static 'css/agenda/creacion.agenda.css' %}"/>
     <script src="{% static '/static/js/generic/calendarios.js'%}"></script>
 
 <div class = "header">
-
-  <img src="{% static 'img/iconos/visitas40.png' %}" alt="ups">
+    <span class="header_text">Cita de {{ paciente.nombre}}</span>
+    <img src="{% static 'img/iconos/visitas40.png' %}" alt="ups">
 </div>
 
 <section class="seccion_formulario">
@@ -18,13 +19,9 @@
     {% csrf_token %}
     <div class="seccion_1 seccion_1_agenda">
         <label for="Paciente">Paciente</label>
-        <select class="select" name="paciente" id="paciente">
-            <option value="0">-------</option>
-            {% for paciente in pacientes %}
-            <option value="{{ paciente.pk }}">{{ paciente.nombre }}</option>
-            {% endfor %}
-        </select>
-        <div><br>
+            <input type="text" value="{{ paciente.paciente }}" name="paciente" readonly="readonly"> <br><br>
+        <div>
+        <br>
             <label for="Fecha">Fecha</label><br>
             <input type="text" id="datepicker" value="{{ fechai }}" 
             placeholder="{{ fechai  }}" name="fecha" style="width: 63%" />
@@ -73,5 +70,54 @@
         </div>
     </form>
 </section>
- 
+<script>
+    function set_initial_date(){
+        var fecha = document.getElementById('datepicker');
+        if (fecha.value.length == 0){
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+        if(dd<10) {
+            dd = '0'+dd 
+        } 
+        if(mm<10) {
+            mm = '0'+mm
+        } 
+        today = yyyy + '-' + mm + '-' + dd;
+        fecha.value = today;
+        }
+        var dolares = document.getElementById('dolares');
+        console.log("dolares");
+        console.log(dolares)
+        if (dolares.value == ""){
+            dolares.style.display = "none";
+        }
+
+    }
+    function set_date(){
+        var fecha = document.getElementById('datepicker');
+        var hora = document.getElementById('hora');
+        console.log("fecha")
+        console.log(fecha.value)
+        console.log("hora")
+        console.log(hora.value)
+
+        if (fecha.value.length > 10){  
+            console.log("MAYOR QUE 10")
+            if (hora.value != "00:00"){
+                fecha.value = fecha.value.substring(0,10);
+                fecha.value = fecha.value + " " + hora.value;
+            }else {
+            console.log("MENOR QUE 10")
+            fecha.value = fecha.value.substring(0,10);    
+            }
+           
+        }else{
+            fecha.value = fecha.value + " " + hora.value;
+            console.log("FECHA FINAL")
+            console.log(fecha.value)
+        }
+</script>
+ </body>
 {% endblock %}
