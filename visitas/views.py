@@ -21,8 +21,12 @@ class VisitListView(ListView):
     @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
         visitas = Visitas.objects.filter(user=request.user).order_by('fecha_visita')
-        total_visitas = visitas.count
+        total_visitas = visitas.count()
         mensaje = ""
+
+        if total_visitas == 0:
+            mensaje = "No tienes visitas registradas"
+
         context = {'visitas':visitas,
                     'total_visitas':total_visitas,
                     'mensaje': mensaje    

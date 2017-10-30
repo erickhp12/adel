@@ -1,1 +1,17 @@
-<h1>Configuraciones</h1>
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block body %}
+<section class="seccion_visitas">
+<div class="visitas_icono">
+<a href="/lista.visitas">
+	<div class="card_menu_cards">
+		<h4 class="texto_menu_cards">Visitas</h4>
+		<img src="{% static 'img/iconos/visitas.png' %}" class="img_menu_cards" alt="Visitas">
+	</div>
+</a>
+</div>
+<div></div>
+</section>
+
+{% endblock %}

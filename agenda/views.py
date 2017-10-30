@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.db.models import Sum
 from .models import Agenda
 from pacientes.models import Paciente
+from empleados.models import Empleado
 from visitas.models import Visitas
 from .forms import RegistrarAgenda
 from django.contrib.auth.decorators import login_required
@@ -22,7 +23,8 @@ class AgendaListView(ListView):
         fecha_final = time.strftime("%Y-%m-%d")
         estado = 0
         mensaje = ""
-        total = Agenda.objects.all().filter(fecha_agenda__range=[fecha_inicial, fecha_final + " 23:59:59"]).order_by('fecha_agenda')
+        # total = Agenda.objects.all().filter(fecha_agenda__range=[fecha_inicial, fecha_final + " 23:59:59"],user=request.user).order_by('fecha_agenda')
+        total = Agenda.objects.all().filter(fecha_agenda__range=[fecha_inicial, fecha_final + " 23:59:59"],user=request.user)
         total_agenda = total.count()
 
         if total_agenda == 0:
@@ -71,10 +73,14 @@ class CreateAgendaView(View):
     template_name = "creacion_agenda.html"
     
     def get(self, request, *args, **kwargs):
-        pacientes = Paciente.objects.all()
+        pacientes = Paciente.objects.filter(user=request.user)
+        empleados = Empleado.objects.filter(user=request.user)
         fecha_inicial = time.strftime("%Y-%m-%d")
+        
         ctx = {'fechai':fecha_inicial,
-                'pacientes': pacientes}
+                'pacientes': pacientes,
+                'empleados':empleados
+                }
 
         return render(request,self.template_name,ctx)
 

@@ -8,7 +8,7 @@
     <script src="{% static '/static/js/generic/calendarios.js'%}"></script>
 
 <div class = "header">
-  <span class="header_text">Agenda para  <label>{{ total_agenda }}</label></span>
+  <span class="header_text">Agenda <label>{{ total_agenda }}</label></span>
   <img src="{% static 'img/iconos/visitas40.png' %}" alt="ups">
 </div>
 
@@ -64,7 +64,7 @@
           <a type="button" class="glyphicon glyphicon-search" 
              onclick="open_modal('{{ agenda.paciente }}','{{ agenda.motivo }}',
              '{{ agenda.fecha_agenda }}','{{ agenda.pk }}')"> Ver
-             </a>
+           </a>
        </td>
         <td><a href="{{ agenda.url_editar_agenda }}" class="glyphicon glyphicon-pencil"> Editar</a></td>
         <td><a href="{{ agenda.url_borrar_agenda }}" class="glyphicon glyphicon-trash"> Eliminar</a></td>

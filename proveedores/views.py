@@ -16,8 +16,12 @@ class ProviderListView(ListView):
     @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
         proveedores = Proveedor.objects.filter(user=request.user)
-        total_proveedores = proveedores.count
+        total_proveedores = proveedores.count()
         mensaje = ""
+        print "TOTAL PROVEEDORES ", total_proveedores 
+        if total_proveedores == 0:
+            mensaje = "No tienes proveedores registrados"
+
         context = {'proveedores':proveedores,
                     'total_proveedores':total_proveedores,
                     'mensaje': mensaje        
@@ -28,8 +32,8 @@ class ProviderListView(ListView):
     def post(self, request, *args, **kwargs):
         proveedor_input = request.POST.get('proveedor')
         mensaje = ""
-        proveedores = Proveedor.objects.all().filter(nombre__icontains=proveedor_input
-            ) | Proveedor.objects.all().filter(contacto__icontains=proveedor_input)
+        proveedores = Proveedor.objects.all().filter(nombre__icontains=proveedor_input,user=request.user
+            ) | Proveedor.objects.all().filter(contacto__icontains=proveedor_input,user=request.user)
         total_proveedores = proveedores.count()
 
         if total_proveedores == 0:

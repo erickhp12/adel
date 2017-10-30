@@ -16,8 +16,12 @@ class EmployeeListView(ListView):
     def get(self, request, *args, **kwargs):
         user_logged = request.user
         empleados = Empleado.objects.filter(user=request.user)
-        total_empleados = empleados.count
+        total_empleados = empleados.count()
         mensaje = ""
+
+        if total_empleados == 0:
+            mensaje = "No tienes empleados registrados"
+
         context = {'empleados': empleados,
                    'total_empleados': total_empleados,
                    'mensaje': mensaje

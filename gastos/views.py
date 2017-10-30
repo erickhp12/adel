@@ -22,12 +22,17 @@ class SpendingListView(ListView):
     @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
         gastos = Gasto.objects.filter(user=request.user).order_by('fecha_gasto')
-        total_gastos = gastos.count
+        total_gastos = gastos.count()
         mensaje = ""
+        
+        if total_gastos == 0:
+            mensaje = "No tienes gastos registrados"
+
         context = {'gastos': gastos,
                    'total_gastos': total_gastos,
                    'mensaje': mensaje
                    }
+
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
