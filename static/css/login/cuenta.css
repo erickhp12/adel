@@ -1,0 +1,22 @@
+.floating-box{
+	display: inline-block;
+	box-shadow: 0 2px 2px 0 rgba(0,4,0,0.2);
+    height: 250px;
+    width: 250px;
+    margin: 2em 0em 0em 6em;
+    /*border: 0.1px solid black;  */
+	border-radius: 2px;
+	background-color: white;
+	border-radius: 180px;
+}
+.floating-box>h4{
+	text-align: center;
+}
+.floating-box>a{
+	margin-left: 35%;
+}
+.floating-box>p{
+	text-align: center;	
+}
+
+

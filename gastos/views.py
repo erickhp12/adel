@@ -294,17 +294,17 @@ class MovementsView(ListView):
         fecha_final = request.POST.get('fecha2') + " 23:59:59"
         mensaje = ""
         ingresos = Visitas.objects.filter(
-            fecha_visita__range=[fecha_inicio, fecha_final])
+            fecha_visita__range=[fecha_inicio, fecha_final],user=request.user)
         egresos = Gasto.objects.filter(
-            fecha_gasto__range=[fecha_inicio, fecha_final])
+            fecha_gasto__range=[fecha_inicio, fecha_final],user=request.user)
         ingresos_pesos = Visitas.objects.all().filter(
-            dolares='Pesos', fecha_visita__range=[fecha_inicio, fecha_final])
+            dolares='Pesos', fecha_visita__range=[fecha_inicio, fecha_final],user=request.user)
         egresos_pesos = Gasto.objects.all().filter(
-            dolares='Pesos', fecha_gasto__range=[fecha_inicio, fecha_final])
+            dolares='Pesos', fecha_gasto__range=[fecha_inicio, fecha_final],user=request.user)
         ingresos_dolares = Visitas.objects.all().filter(
-            dolares='Dolares', fecha_visita__range=[fecha_inicio, fecha_final])
+            dolares='Dolares', fecha_visita__range=[fecha_inicio, fecha_final],user=request.user)
         egresos_dolares = Gasto.objects.all().filter(
-            dolares='Dolares', fecha_gasto__range=[fecha_inicio, fecha_final])
+            dolares='Dolares', fecha_gasto__range=[fecha_inicio, fecha_final],user=request.user)
 
         fecha_final = request.POST.get('fecha2')
 

@@ -7,6 +7,7 @@ from django.db.models import Sum
 from .models import Agenda
 from pacientes.models import Paciente
 from empleados.models import Empleado
+from django.http import HttpResponseRedirect
 from visitas.models import Visitas
 from .forms import RegistrarAgenda
 from django.contrib.auth.decorators import login_required
@@ -23,12 +24,12 @@ class AgendaListView(ListView):
         fecha_final = time.strftime("%Y-%m-%d")
         estado = 0
         mensaje = ""
-        # total = Agenda.objects.all().filter(fecha_agenda__range=[fecha_inicial, fecha_final + " 23:59:59"],user=request.user).order_by('fecha_agenda')
-        total = Agenda.objects.all().filter(fecha_agenda__range=[fecha_inicial, fecha_final + " 23:59:59"],user=request.user)
+        total = Agenda.objects.all().filter(fecha_agenda__range=[fecha_inicial, fecha_final + " 23:59:59"],user=request.user).order_by('fecha_agenda')
         total_agenda = total.count()
 
         if total_agenda == 0:
-            mensaje = "No tienes citas para hoy, checa en otro horario"
+            mensaje = "No tienes citas para el rango de fechas seleccionado, checa en otro horario"
+
         context = {'Agenda':total,
                     'total_agenda':total_agenda,
                     'estado':estado,
@@ -51,7 +52,7 @@ class AgendaListView(ListView):
             total = total_agenda.count()
         elif paciente == "":
             fecha_final = fecha_final
-            total_agenda = Agenda.objects.all().filter(fecha_agenda__range=[fecha_inicial, fecha_final + " 23:59:59"])
+            total_agenda = Agenda.objects.all().filter(fecha_agenda__range=[fecha_inicial, fecha_final + " 23:59:59"]).order_by('fecha_agenda')
             total = total_agenda.count()
         else:
             total_agenda = Agenda.objects.all().filter(paciente__nombre__icontains=paciente)
@@ -85,35 +86,105 @@ class CreateAgendaView(View):
         return render(request,self.template_name,ctx)
 
     def post(self, request, *args, **kwargs):
+        mensaje = ""
         fecha_inicial = time.strftime("%Y-%m-%d")
         fecha_final = time.strftime("%Y-%m-%d")
-        total = Agenda.objects.all().filter(fecha_agenda__range=[fecha_inicial, fecha_final + " 23:59:59"]).order_by('fecha_agenda')
-        total_agenda = total.count()
-        mensaje = ""
-        fecha_agenda = request.POST.get('fecha')
-        hora_agenda = request.POST.get('hora')
-        paciente_id = request.POST.get('paciente')
-        paciente = Paciente.objects.get(pk=paciente_id)
+        visitas = Agenda.objects.all().filter(fecha_agenda__range=[fecha_inicial, fecha_final + " 23:59:59"]).order_by('fecha_agenda')
+        total_visitas = visitas.count()
+        user = request.user
+        pacienteSeleccionado = request.POST.get('paciente')
+        paciente = Paciente.objects.filter(nombre=pacienteSeleccionado).first()
         motivo = request.POST.get('motivo')
+        empleadoSeleccionado = request.POST.get('empleado')
+        empleado = Empleado.objects.filter(nombre=empleadoSeleccionado).first()
+        fecha_agenda = request.POST.get('fecha') 
 
-        Agenda.objects.create(paciente=paciente,motivo=motivo, fecha_agenda=fecha_agenda)
+        try:
+            if paciente == "":
+                return render(self.request, self.template_name)
+            else:
+                Agenda.objects.create(
+                    user=user,
+                    empleado=empleado,
+                    paciente=paciente,
+                    motivo=motivo,
+                    fecha_agenda=fecha_agenda
+                )
+        except Exception as e:
+            mensaje = "Error al crear visita " + str(e)
 
-        context = {'Agenda':total,
-                    'mensaje':mensaje,
-                    'total_agenda':total_agenda,
-                    'ingresos':fecha_agenda}
+        context = {'visitas': visitas,
+                   'total_visitas': total_visitas,
+                   'mensaje': mensaje
+                   }
 
-        return render(self.request, "agenda.html", context)
+        return HttpResponseRedirect('/lista.agenda')
+
 
 class UpdateAgendaView(UpdateView):
     template_name = "edicion_agenda.html"
     
     def get(self, request, pk, *args, **kwargs):
         paciente = Agenda.objects.get(id=pk) 
+        pacientes = Paciente.objects.filter(user=request.user)
+        empleados = Empleado.objects.filter(user=request.user)
+        fecha_inicial = time.strftime("%Y-%m-%d")
 
-        ctx = {'paciente': paciente}
+        ctx = {'paciente': paciente,
+                'pacientes':pacientes,
+                'fecha_inicial':fecha_inicial,
+                'empleados':empleados
+                }
 
         return render(request,self.template_name,ctx)
+
+    def post(self, request,pk, *args, **kwargs):
+        mensaje = ""
+        fecha_inicial = time.strftime("%Y-%m-%d")
+        fecha_final = time.strftime("%Y-%m-%d")
+        visitas = Agenda.objects.all().filter(fecha_agenda__range=[fecha_inicial, fecha_final + " 23:59:59"]).order_by('fecha_agenda')
+        total_visitas = visitas.count()
+        user = request.user
+        pacienteSeleccionado = request.POST.get('paciente')
+        paciente = Paciente.objects.filter(nombre=pacienteSeleccionado).first()
+        motivo = request.POST.get('motivo')
+        empleadoSeleccionado = request.POST.get('empleado')
+        empleado = Empleado.objects.filter(nombre=empleadoSeleccionado).first()
+        fecha_agenda = request.POST.get('fecha') 
+
+        # print "---------------------Edicion de cita ---------------------"
+        # print "user"
+        # print user
+        # print "paciente"
+        # print paciente
+        # print "empleado"
+        # print empleado
+        # print "motivo"
+        # print motivo
+        # print "fecha_agenda"
+        # print fecha_agenda
+
+
+        try:
+            if paciente == "":
+                return render(self.request, self.template_name)
+            else:
+                agenda = Agenda.objects.get(user=request.user,id=pk)
+                agenda.paciente = paciente
+                agenda.motivo = motivo
+                agenda.empleado = empleado
+                agenda.motivo = motivo
+                agenda.fecha_agenda = fecha_agenda
+                agenda.save()
+        except Exception as e:
+            mensaje = "Error al editar cita " + str(e)
+
+        context = {'visitas': visitas,
+                    'total_visitas': total_visitas,
+                    'mensaje': mensaje
+                   }
+
+        return HttpResponseRedirect('/lista.agenda')   
 
 
 class DetailAgendaView(DetailView):

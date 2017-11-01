@@ -22,15 +22,15 @@
         <select class="select" name="paciente" id="paciente">
             <option value="0">-------</option>
             {% for paciente in pacientes %}
-            <option value="{{ paciente.pk }}">{{ paciente.nombre }}</option>
+            <option value="{{ paciente.nombre }}">{{ paciente.nombre }}</option>
             {% endfor %}
         </select>
         <br>
         <label class="label-formularios">Dentista</label>
-        <select class="select" name="paciente" id="paciente">
+        <select class="select" name="empleado" id="empleado">
             <option value="0">-------</option>
             {% for empleado in empleados %}
-            <option value="{{ empleado.pk }}">{{ empleado.nombre }}</option>
+            <option value="{{ empleado.nombre }}">{{ empleado.nombre }}</option>
             {% endfor %}
         </select>
     </div>

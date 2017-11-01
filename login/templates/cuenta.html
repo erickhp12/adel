@@ -2,16 +2,69 @@
 {% load staticfiles %}
 
 {% block body %}
-<section class="seccion_visitas">
-<div class="visitas_icono">
-<a href="/lista.visitas">
-	<div class="card_menu_cards">
-		<h4 class="texto_menu_cards">Visitas</h4>
-		<img src="{% static 'img/iconos/visitas.png' %}" class="img_menu_cards" alt="Visitas">
-	</div>
-</a>
+{% load staticfiles %}
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/login/cuenta.css' %}"/>
+
+
+<div class="floating-box">
+	<h4>Pacientes</h4>
+	<a href="/lista.pacientes">
+		<img src="{% static 'img/iconos/visitas.png' %}"  alt="Visitas">
+	</a>
+	<p>Cita para hoy a las 12pm Erika Duran dentista Javier Lopez</p>
+	<p>Texto 2</p>
+	<p>Texto 3</p>
 </div>
-<div></div>
-</section>
+
+<div class="floating-box">
+	<h4>Visitas</h4>
+	<a href="/lista.visitas">
+		<img src="{% static 'img/iconos/visitas.png' %}"  alt="Visitas">
+	</a>
+	<p>Texto 1</p>
+	<p>Texto 2</p>
+	<p>Texto 3</p>
+</div>
+
+<div class="floating-box">
+	<h4>Agenda</h4>
+	<a href="/lista.agenda">
+		<img src="{% static 'img/iconos/visitas.png' %}"  alt="Visitas">
+	</a>
+	<p>Texto 1</p>
+	<p>Texto 2</p>
+	<p>Texto 3</p>
+</div>
+
+<div class="floating-box">
+	<h4>Proveedores</h4>
+	<a href="/lista.proveedores">
+		<img src="{% static 'img/iconos/visitas.png' %}"  alt="Visitas">
+	</a>
+	<p>Texto 1</p>
+	<p>Texto 2</p>
+	<p>Texto 3</p>
+</div>
+
+<div class="floating-box">
+	<h4>Movimientos</h4>
+	<a href="/lista.movimientos">
+		<img src="{% static 'img/iconos/visitas.png' %}"  alt="Visitas">
+	</a>
+	<p>Texto 1</p>
+	<p>Texto 2</p>
+	<p>Texto 3</p>
+</div>
+
+<div class="floating-box">
+	<h4>Empleados</h4>
+	<a href="/lista.empleados">
+		<img src="{% static 'img/iconos/visitas.png' %}"  alt="Visitas">
+	</a>
+	<p>Texto 1</p>
+	<p>Texto 2</p>
+	<p>Texto 3</p>
+</div>
 
 {% endblock %}

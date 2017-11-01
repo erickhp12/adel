@@ -79,23 +79,23 @@ class CreateVisitView(ListView):
         total_visitas = visitas.count
         user = request.user
         pacienteSeleccionado = request.POST.get('paciente')
-        paciente = Paciente.objects.get(nombre=pacienteSeleccionado)
+        paciente = Paciente.objects.filter(nombre=pacienteSeleccionado).first()
         motivo = request.POST.get('motivo')
         empleadoSeleccionado = request.POST.get('empleado')
-        empleado = Empleado.objects.get(nombre=empleadoSeleccionado)
+        empleado = Empleado.objects.filter(nombre=empleadoSeleccionado).first()
         precio = request.POST.get('precio')
         dolares = request.POST.get('dolares')
         tipo_pago = request.POST.get('tipo_pago')
         fecha_visita = request.POST.get('fecha') 
 
-        print "user ", user
-        print "paciente ", paciente
-        print "motivo ", motivo
-        print "empleado ", empleado
-        print "precio ", precio
-        print "dolares ", dolares
-        print "tipo_pago ", tipo_pago
-        print "fecha_visita ", fecha_visita
+        # print "user ", user
+        # print "paciente ", paciente
+        # print "motivo ", motivo
+        # print "empleado ", empleado
+        # print "precio ", precio
+        # print "dolares ", dolares
+        # print "tipo_pago ", tipo_pago
+        # print "fecha_visita ", fecha_visita
 
 
         try:
@@ -150,39 +150,36 @@ class UpdateVisitView(ListView):
         total_visitas = visitas.count
         user = request.user
         pacienteSeleccionado = request.POST.get('paciente')
-        paciente = Paciente.objects.get(nombre=pacienteSeleccionado)
+        paciente = Paciente.objects.filter(nombre=pacienteSeleccionado).first()
         motivo = request.POST.get('motivo')
         empleadoSeleccionado = request.POST.get('empleado')
-        empleado = Empleado.objects.get(nombre=empleadoSeleccionado)
+        empleado = Empleado.objects.filter(nombre=empleadoSeleccionado).first()
         precio = request.POST.get('precio')
         dolares = request.POST.get('dolares')
         tipo_pago = request.POST.get('tipo_pago')
         fecha_visita = request.POST.get('fecha')
 
-        print "---------------------Edicion de visita ---------------------"
-        print "user"
-        print user
-        print "paciente"
-        print paciente
-        print "empleado"
-        print empleado
-        print "precio"
-        print precio
-        print "dolares"
-        print dolares
-        print "tipo_pago"
-        print tipo_pago
-        print "fecha_visita"
-        print fecha_visita
+        # print "---------------------Edicion de visita ---------------------"
+        # print "user"
+        # print user
+        # print "paciente"
+        # print paciente
+        # print "empleado"
+        # print empleado
+        # print "precio"
+        # print precio
+        # print "dolares"
+        # print dolares
+        # print "tipo_pago"
+        # print tipo_pago
+        # print "fecha_visita"
+        # print fecha_visita
 
 
         try:
-            print "entre try"
             if paciente == "":
-                print "entre if"
                 return render(self.request, self.template_name)
             else:
-                print "entre else"
                 visita = Visitas.objects.get(user=request.user,id=pk)
                 visita.paciente = paciente
                 visita.motivo = motivo
@@ -192,9 +189,7 @@ class UpdateVisitView(ListView):
                 visita.tipo_pago = tipo_pago
                 visita.fecha_visita = fecha_visita
                 visita.save()
-                print "termine"
         except Exception as e:
-            print "ALGO SALIO MAL " + str(e)
             mensaje = "Error al editar visita " + str(e)
 
         context = {'visitas': visitas,

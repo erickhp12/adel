@@ -1,123 +1,103 @@
 {% extends 'base.html' %}
-{% block title %}ADEL | Editar cita {% endblock %}
+{% block title %}ADEL | Cita de {{ paciente.paciente }} {% endblock %}
 {% block albums_active %} active {% endblock %}
 
 {% block body %}
-<body onload="set_initial_date()"> 
 {% load staticfiles %}
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="stylesheet" type="text/css" href="{% static 'css/agenda/creacion.agenda.css' %}"/>
     <script src="{% static '/static/js/generic/calendarios.js'%}"></script>
 
 <div class = "header">
-    <span class="header_text">Cita de {{ paciente.nombre}}</span>
-    <img src="{% static 'img/iconos/visitas40.png' %}" alt="ups">
+  <span class="header_text">Cita de {{ paciente.paciente }}</span>
+  <img src="{% static 'img/iconos/visitas40.png' %}" alt="ups">
 </div>
 
 <section class="seccion_formulario">
     <form method=post>
     {% csrf_token %}
     <div class="seccion_1 seccion_1_agenda">
-        <label for="Paciente">Paciente</label>
-            <input type="text" value="{{ paciente.paciente }}" name="paciente" readonly="readonly"> <br><br>
-        <div>
+
+        <label class="label-formularios">Paciente</label>
+        <select class="select" name="paciente" id="paciente">
+            <option value="{{ paciente.paciente }}">{{ paciente.paciente }}</option>
+            {% for paciente in pacientes %}
+            <option value="{{ paciente.nombre }}">{{ paciente.nombre }}</option>
+            {% endfor %}
+        </select>
         <br>
-            <label for="Fecha">Fecha</label><br>
-            <input type="text" id="datepicker" value="{{ fechai }}" 
-            placeholder="{{ fechai  }}" name="fecha" style="width: 63%" />
+        <label class="label-formularios">Dentista</label>
+        <select class="select" name="empleado" id="empleado">
+            <option value="{{ paciente.empleado }}">{{ paciente.empleado }}</option>
+            {% for empleado in empleados %}
+            <option value="{{ empleado.nombre }}">{{ empleado.nombre }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="seccion_2">
+        <label class="label-formularios">Fecha</label><br>
+        <input type="text" id="datepicker" name="fecha" value = "{{ fecha_inicial }}" style="width: 63%" />
+        <select class="select" name = "hora" id="hora" style="width: 30%" onchange="set_date()">
+            <option value="0">Hora</option>
+                <option name = "hora" value="08:00">08:00</option>
+                <option name = "hora" value="08:30">08:30</option>
+                <option name = "hora" value="09:00">09:00</option>
+                <option name = "hora" value="09:30">09:30</option>
+                <option name = "hora" value="10:00">10:00</option>
+                <option name = "hora" value="10:30">10:30</option>
+                <option name = "hora" value="11:00">11:00</option>
+                <option name = "hora" value="11:30">11:30</option>
+                <option name = "hora" value="12:00">12:00</option>
+                <option name = "hora" value="12:30">12:30</option>
+                <option name = "hora" value="13:00">13:00</option>
+                <option name = "hora" value="13:30">13:30</option>
+                <option name = "hora" value="14:00">14:00</option>
+                <option name = "hora" value="14:30">14:30</option>
+                <option name = "hora" value="15:00">15:00</option>
+                <option name = "hora" value="15:30">15:30</option>
+                <option name = "hora" value="16:00">16:00</option>
+                <option name = "hora" value="16:30">16:30</option>
+                <option name = "hora" value="17:00">17:00</option>
+                <option name = "hora" value="17:30">17:30</option>
+                <option name = "hora" value="18:00">18:00</option>
+                <option name = "hora" value="18:30">18:30</option>
+                <option name = "hora" value="19:00">19:00</option>
+                <option name = "hora" value="19:30">19:30</option>
+                <option name = "hora" value="20:00">20:00</option>
+                <option name = "hora" value="20:30">20:30</option>
+        </select>
+        <div class="motivo_agenda">
+            <label class="label-formularios">Motivo</label>
+            <input type="text" name="motivo" value="{{ paciente.motivo }}"style="height: 70px;">
             <span>{{ form.fecha_agenda.errors }}</span>
-            <select class="select" name = "hora" id="paciente" style="width: 30%">
-                <option value="0">Hora</option>
-                    <option name = "hora" value="08:00">08:00</option>
-                    <option name = "hora" value="08:30">08:30</option>
-                    <option name = "hora" value="09:00">09:00</option>
-                    <option name = "hora" value="09:30">09:30</option>
-                    <option name = "hora" value="10:00">10:00</option>
-                    <option name = "hora" value="10:30">10:30</option>
-                    <option name = "hora" value="11:00">11:00</option>
-                    <option name = "hora" value="11:30">11:30</option>
-                    <option name = "hora" value="12:00">12:00</option>
-                    <option name = "hora" value="12:30">12:30</option>
-                    <option name = "hora" value="13:00">13:00</option>
-                    <option name = "hora" value="13:30">13:30</option>
-                    <option name = "hora" value="14:00">14:00</option>
-                    <option name = "hora" value="14:30">14:30</option>
-                    <option name = "hora" value="15:00">15:00</option>
-                    <option name = "hora" value="15:30">15:30</option>
-                    <option name = "hora" value="16:00">16:00</option>
-                    <option name = "hora" value="16:30">16:30</option>
-                    <option name = "hora" value="17:00">17:00</option>
-                    <option name = "hora" value="17:30">17:30</option>
-                    <option name = "hora" value="18:00">18:00</option>
-                    <option name = "hora" value="18:30">18:30</option>
-                    <option name = "hora" value="19:00">19:00</option>
-                    <option name = "hora" value="19:30">19:30</option>
-                    <option name = "hora" value="20:00">20:00</option>
-                    <option name = "hora" value="20:30">20:30</option>
-            </select>
         </div>
-        </div>
-        <div class="seccion_2">
-            <div class="motivo_agenda">
-                <label for="motivo">Motivo</label>
-                <input type="text" name="motivo" style="height: 70px;" value="{{ paciente.motivo }}">
-                <span>{{ form.fecha_agenda.errors }}</span>
-            </div>
-        </div>
+
+    </div>
         <div class="seccion_botones">           
-            <input class="btn_confirmar" id="save_contact" type="submit" value="Registrar"/>
-            <a href="/lista.agenda" class="btn_volver">Volver</a>
+            <input class="btn btn-success btn_agregar_elemento" style="margin-left: 5%;"
+             id="save_contact" type="submit" value="Actualizar cita"/>
+            <a href="/lista.agenda" class="btn btn-default btn_busqueda" style="margin-left: 40%;">Volver</a>
         </div>
     </form>
 </section>
-<script>
-    function set_initial_date(){
-        var fecha = document.getElementById('datepicker');
-        if (fecha.value.length == 0){
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth()+1; //January is 0!
-        var yyyy = today.getFullYear();
-        if(dd<10) {
-            dd = '0'+dd 
-        } 
-        if(mm<10) {
-            mm = '0'+mm
-        } 
-        today = yyyy + '-' + mm + '-' + dd;
-        fecha.value = today;
-        }
-        var dolares = document.getElementById('dolares');
-        console.log("dolares");
-        console.log(dolares)
-        if (dolares.value == ""){
-            dolares.style.display = "none";
-        }
 
-    }
+<script>
     function set_date(){
         var fecha = document.getElementById('datepicker');
         var hora = document.getElementById('hora');
-        console.log("fecha")
-        console.log(fecha.value)
-        console.log("hora")
-        console.log(hora.value)
 
         if (fecha.value.length > 10){  
-            console.log("MAYOR QUE 10")
             if (hora.value != "00:00"){
                 fecha.value = fecha.value.substring(0,10);
                 fecha.value = fecha.value + " " + hora.value;
             }else {
-            console.log("MENOR QUE 10")
             fecha.value = fecha.value.substring(0,10);    
             }
            
         }else{
             fecha.value = fecha.value + " " + hora.value;
-            console.log("FECHA FINAL")
-            console.log(fecha.value)
         }
+    }
 </script>
- </body>
+ 
 {% endblock %}

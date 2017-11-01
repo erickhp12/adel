@@ -99,7 +99,7 @@
 	</section>
 	<section class="paciente_detalles_historial">
     <!-- ***************************** Si el historial esta vacio ************************************* -->
-	{% if  message == 'Registrar historial' %}
+	{% if  message == 'Registrar historia clinica' %}
 		<div>
 		<p class="paciente_detalles_historial_p_vacio">Este paciente no tiene Historia clinica registrada
 			<br><br>
@@ -109,7 +109,7 @@
 		</div>
 	<!-- *************************** Si el historial contiene datos ************************************* -->
 	{% else%}	
-		<p class="paciente_detalles_header">Historial</p>
+		<p class="paciente_detalles_header">Historia clinica</p>
 		  	<table class="generic-table">
 			<tr class="div_detalles">
 				<td class="paciente_detalles_checkbox"><b>Estado civil</b></td>
@@ -228,7 +228,7 @@
 	</a>
 	{% if  message != 'Registrar historial' %}
 	<a href="/historial/editar/{{paciente.pk}}">
-		<input type="button" value="Editar historial" class="btn_confirmar btn_agregar">
+		<input type="button" value="Editar historia clinica" class="btn_confirmar btn_agregar">
 	</a>
 	{% endif %}
 </section>

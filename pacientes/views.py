@@ -87,26 +87,26 @@ class CreatePatientView(CreateView):
         direccion = request.POST.get('direccion')
         comentarios = request.POST.get('comentarios')
 
-        print "USER"
-        print user
-        print "Nombre"
-        print nombre
-        print "sexo"
-        print sexo
-        print "Edad"
-        print edad
-        print "tipo_paciente"
-        print tipo_paciente
-        print "aseguranza"
-        print aseguranza
-        print "telefono"
-        print telefono
-        print "correo"
-        print correo
-        print "direccion"
-        print direccion
-        print "comentarios"
-        print comentarios
+        # print "USER"
+        # print user
+        # print "Nombre"
+        # print nombre
+        # print "sexo"
+        # print sexo
+        # print "Edad"
+        # print edad
+        # print "tipo_paciente"
+        # print tipo_paciente
+        # print "aseguranza"
+        # print aseguranza
+        # print "telefono"
+        # print telefono
+        # print "correo"
+        # print correo
+        # print "direccion"
+        # print direccion
+        # print "comentarios"
+        # print comentarios
         
 
         try:
