@@ -54,18 +54,7 @@
                     <input type="text" name="precio" id="precio" name="precio"> <br><br>
                 </td>
             </tr>
-            <tr class="generic-tr">
-                <td class="td-left">
-                    <label class="label-formularios">Tipo de pago</label></td>
-                <td class="td-right">
-                    <select id="tipo_pago" name="tipo_pago">
-                        {% for choice in form.tipo_pago.field.choices %}
-                            <option id="tipo_pago" name="tipo_pago" value={{choice.0}} >{{ choice.1}}</option>
-                        {% endfor %}
-                    </select><br><br>
-                </td>
-            </tr>
-            <tr class="generic-tr">
+             <tr class="generic-tr">
                 <td class="td-left">
                     <label class="label-formularios">Tipo de cambio</label></td>
                 <td class="td-right">
@@ -77,6 +66,18 @@
                     <br><br>
                 </td>
             </tr>
+            <tr class="generic-tr">
+                <td class="td-left">
+                    <label class="label-formularios">Tipo de pago</label></td>
+                <td class="td-right">
+                    <select id="tipo_pago" name="tipo_pago">
+                        {% for choice in form.tipo_pago.field.choices %}
+                            <option id="tipo_pago" name="tipo_pago" value={{choice.0}} >{{ choice.1}}</option>
+                        {% endfor %}
+                    </select><br><br>
+                </td>
+            </tr>
+           
             <tr class="generic-tr">
                 <td class="td-left">
                     <label class="label-formularios">Hora</label>

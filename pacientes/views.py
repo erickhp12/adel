@@ -238,7 +238,7 @@ class DetailPatientView(DetailView):
             if historial.medicamentos == True:
                 medicamentos_value = "checked"
         except:
-            message = "Registrar historial"
+            message = "Registrar historia clinica"
 
         for visita in visitas:
             if visita.dolares == "Dolares":

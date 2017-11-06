@@ -53,7 +53,7 @@
 				<td><b>Fecha de inicio</b></td>
 				<td>{{ paciente.fecha_inicio }}</td>
 			</tr>
-			{% if  message == 'Registrar historial' %}
+			{% if  message == 'Registrar historia clinica' %}
 			<tr>
 				<td>&nbsp;</td>
 				<td>&nbsp;</td>
@@ -226,7 +226,7 @@
 	<a href="/lista.pacientes" class="btn_volver_detalle">
 		<input type="button" value="volver" class="btn_volver btn_volver_detalle">
 	</a>
-	{% if  message != 'Registrar historial' %}
+	{% if  message != 'Registrar historia clinica' %}
 	<a href="/historial/editar/{{paciente.pk}}">
 		<input type="button" value="Editar historia clinica" class="btn_confirmar btn_agregar">
 	</a>

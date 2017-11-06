@@ -3,7 +3,7 @@
   font-family: 'Open Sans Condensed', sans-serif;
   color: #464646;
   -webkit-transition: all 1.5s linear;
-  transition: all 1.5s linear;
+  transition: all 1.2s linear;
   overflow: hidden !important;
   box-sizing: border-box;
 }
@@ -73,11 +73,12 @@
   position: absolute;
   background: #fff;
   height: 330px;
-  width: 300px;
-  bottom: -520px;
-  left: 50%;
+  width: 500px;
+  top: 120px;
+  left: 42%;
+  border-radius: 5px;
   margin-left: -150px;
-  box-shadow: 0 0 20px 2px #464646;
+  box-shadow: 0 0 10px 2px #777777;
   z-index: 2;
 }
 .main .register {
@@ -164,7 +165,7 @@
   bottom: calc(25% - 50px);
 }
 .container.loaded .footer {
-  top: 75%;
+  top: 93%;
 }
 
 .register {

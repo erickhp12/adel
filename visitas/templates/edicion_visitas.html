@@ -59,20 +59,6 @@
             </tr>
             <tr class="generic-tr">
                 <td class="td-left">
-                    <label class="label-formularios">Tipo de pago</label></td>
-                <td class="td-right">
-                    <select id="tipo_pago" name="tipo_pago">
-                        <option id="tipo_pago" name="tipo_pago" value={{ visita.tipo_pago }} >
-                            {{ visita.tipo_pago }}
-                        </option>
-                        {% for choice in form.tipo_pago.field.choices %}
-                            <option id="tipo_pago" name="tipo_pago" value={{choice.0}} >{{ choice.1}}</option>
-                        {% endfor %}
-                    </select><br><br>
-                </td>
-            </tr>
-            <tr class="generic-tr">
-                <td class="td-left">
                     <label class="label-formularios">Tipo de cambio</label></td>
                 <td class="td-right">
                     <select id="dolares" name="dolares">
@@ -81,6 +67,20 @@
                         </option>
                         {% for choice in form.dolares.field.choices %}
                             <option id="dolares" name="dolares" value={{choice.0}} >{{ choice.1}}</option>
+                        {% endfor %}
+                    </select><br><br>
+                </td>
+            </tr>
+            <tr class="generic-tr">
+                <td class="td-left">
+                    <label class="label-formularios">Tipo de pago</label></td>
+                <td class="td-right">
+                    <select id="tipo_pago" name="tipo_pago">
+                        <option id="tipo_pago" name="tipo_pago" value={{ visita.tipo_pago }} >
+                            {{ visita.tipo_pago }}
+                        </option>
+                        {% for choice in form.tipo_pago.field.choices %}
+                            <option id="tipo_pago" name="tipo_pago" value={{choice.0}} >{{ choice.1}}</option>
                         {% endfor %}
                     </select><br><br>
                 </td>
