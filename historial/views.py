@@ -187,7 +187,7 @@ class EditHistoryView(CreateView):
         total_pacientes = total.count
         mensaje = ""
         paciente = request.POST.get('paciente')
-        paciente_id = Paciente.objects.get(nombre=paciente)
+        paciente_id = Paciente.objects.get(nombre=paciente).first()
         estado_civil = request.POST.get('estado_civil')
         ocupacion = request.POST.get('ocupacion')
         alergias = request.POST.get('alergias', False)
