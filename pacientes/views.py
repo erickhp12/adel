@@ -294,7 +294,6 @@ class DeletePatientView(ListView):
 
 
 class RequestPaciente(APIView):
-    @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, format=None):
         snippets = Paciente.objects.all()
         serializer = PacienteSerializer(snippets, many=True)
