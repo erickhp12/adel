@@ -304,7 +304,7 @@ class RequestPaciente(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(
-                {"Response": "Agregado correctamente"},
+                {"Response": "Paciente agregado correctamente"},
                 status=status.HTTP_201_CREATED
             )
         return Response(serializer.errors, status=status.HTTP_302_FOUND)
