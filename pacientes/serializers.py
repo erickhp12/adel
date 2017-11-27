@@ -7,7 +7,7 @@ class PacienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Paciente
         fields = (
-            'User',
+            'user',
             'nombre',
             'sexo',
             'edad',
