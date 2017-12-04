@@ -16,7 +16,6 @@ from rest_framework import status
 from rest_framework.views import APIView
 from .serializers import PacienteSerializer
 
-
 class PatientListView(ListView):
     template_name = "pacientes.html"
 
@@ -86,29 +85,7 @@ class CreatePatientView(CreateView):
         correo = request.POST.get('correo')
         direccion = request.POST.get('direccion')
         comentarios = request.POST.get('comentarios')
-
-        # print "USER"
-        # print user
-        # print "Nombre"
-        # print nombre
-        # print "sexo"
-        # print sexo
-        # print "Edad"
-        # print edad
-        # print "tipo_paciente"
-        # print tipo_paciente
-        # print "aseguranza"
-        # print aseguranza
-        # print "telefono"
-        # print telefono
-        # print "correo"
-        # print correo
-        # print "direccion"
-        # print direccion
-        # print "comentarios"
-        # print comentarios
         
-
         try:
             if nombre == "":
                 return render(self.request, self.template_name)
@@ -292,8 +269,15 @@ class DeletePatientView(ListView):
 
         return render(self.request,'pacientes.html', context)
 
+class requestSinglePatient(APIView):
+    def get(self, request, pk, format=None):
+        snippets = Paciente.objects.get(id=pk)
+        serializer = PacienteSerializer(snippets, many=False)
+        return Response(serializer.data)
 
-class RequestPaciente(APIView):
+
+
+class RequestPatients(APIView):
     def get(self, request, format=None):
         snippets = Paciente.objects.all()
         serializer = PacienteSerializer(snippets, many=True)
