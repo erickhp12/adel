@@ -3,19 +3,3 @@
     overflow-y: scroll;
     border-radius: 5px;
 }
-.boton_1{
-	width: 15%;
-	height: 31px;
-	margin-bottom: 5px;
-	font-size: 18px;
-	vertical-align: center;
-	margin-left: 3%;
-}
-.boton_2{
-	width: 15%;
-	height: 31px;
-	margin-bottom: 5px;
-	font-size: 18px;
-	background-color: rgba(13, 5, 9, 0.14);
-	margin-left: 3%;
-}

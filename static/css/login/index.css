@@ -1,0 +1,83 @@
+
+
+/*---------------------------- login ------------------------*/
+.fondo_menu_principal{
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,0.2);
+    width:98%;
+	height: 70%;
+	margin-top: 1%;
+	margin-bottom: 5%;
+	margin-left: 1%;
+	background-color: white;
+}
+
+.card_menu_cards{
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+	width: 17.5%;
+	display: inline-block;
+    padding: 1%;
+	border: 0.1px solid #888888;
+	margin: 1em;
+	margin-bottom: 1em;
+	border-radius: 150px;
+}
+
+.img_menu_card_main{
+	padding: 1em;
+	width: 99.5%;
+    height: 400px;
+}
+.img_menu_cards{
+	margin-left: 18%;
+	width: auto;
+    height: auto;
+    margin-bottom: 1em;
+}
+.texto_menu_cards{
+	text-align:center;
+}
+.card_menu_cards:hover {
+	background-color: rgb(245, 245, 245);
+}
+ 
+.p_menu_cards{
+	overflow: auto;
+	text-align:center;
+}
+
+@media screen and (max-width: 1000px) {
+
+	.fondo_menu_principal{
+		width: 75%;
+		margin: auto;
+	}
+
+	.img_menu_card_main{
+		max-width: 800px;
+		max-height: 300px;
+	}
+
+	.card_menu_cards{
+		display: block;
+		width: 80%;
+		border: 0.1px solid #888888;
+		margin: 1em;
+		margin-left: 9%;
+		border-radius: 5px;
+	}
+
+	.texto_menu_cards{
+		display: inline;
+		font-size: 48px;
+		font-weight: 900;
+		text-align: center;
+		/* float: left; */
+	}
+	
+	.img_menu_cards{
+		display: inline;
+		max-height: 200px;
+		max-width: 200px;
+		/* float: right; */
+	}
+}

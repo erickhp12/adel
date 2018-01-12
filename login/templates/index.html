@@ -1,8 +1,10 @@
 {% extends "base.html" %}
-{% load staticfiles %}
 
 {% block body %}
- 
+
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/login/index.css' %}" />
+
 <section class="fondo_menu_principal">
 	<section class="seccion_menu_principal">
 		<img src="{% static 'img/iconos/login.jpg' %}" class="img_menu_card_main" alt="Pacientes">
@@ -11,7 +13,7 @@
 		<a href="/lista.pacientes">
 			<div class="card_menu_cards">
 				<h4 class="texto_menu_cards">Pacientes</h4>
-				<img src="{% static 'img/iconos/pacientes.png' %}" class="img_menu_cards main_logo" alt="Pacientes">
+				<img src="{% static 'img/iconos/pacientes.png' %}" class="img_menu_cards" alt="Pacientes">
 			</div>
 		</a>
 		<a href="/lista.visitas">
@@ -19,7 +21,7 @@
 				<h4 class="texto_menu_cards">Visitas</h4>
 				<img src="{% static 'img/iconos/visitas.png' %}" class="img_menu_cards" alt="Visitas">
 			</div>
-		</a>
+		</a> 
 		<a href="/lista.empleados">
 			<div class="card_menu_cards">
 			  <h4 class="texto_menu_cards">Agenda</h4> 

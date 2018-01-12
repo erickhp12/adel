@@ -4,126 +4,159 @@
 {% block body %}
 
 {% load staticfiles %}
-  <meta charset="utf-8">
-  <script src="{% static '/static/js/generic/calendarios.js'%}"></script>
-  <link rel="stylesheet" type="text/css" href="{% static 'css/visitas/visitas.css' %}"/>
+<meta charset="utf-8">
+<script src="{% static '/static/js/generic/calendarios.js'%}"></script>
 
-<div class = "header">
-  <span class="header_text">Visitas actuales <label>{{ total_visitas }}</label> </span>
-  <img src="{% static 'img/iconos/visitas40.png' %}" alt="ups">
+
+<!-- ************************************  HELPER ************************************ -->
+<div class="container thumbnail helper">
+    <div class="col-md-2">
+        <a href="../" class="glyphicon glyphicon-chevron-left bs-header-back">&nbsp;Volver</a>
+    </div>
+    <div class="col-md-9 bs-header-text helper-text">
+            <label>Visitas actuales <label class="total">{{ total_visitas }}</label>
+    </div>
+    <div class="helper-img col-md-1">
+        <img src="{% static 'img/iconos/visitas40.png' %}"  class="helper-img" alt="ups">
+    </div>
 </div>
 
-<section class="seccion_fondo">
-  <!-- *********************************** barra de busqueda *********************************** -->
-  <section class="herramientas_menu">      
-    <form method=post>
-    {% csrf_token %}
-      <div class="seccion_busqueda">   
-        <span><b>Buscar</b></span>
-        
-        <input type="text" id="myInput" name="visita" 
-        placeholder="nombre o motivo" class="search_busqueda"/>
-        
-        <input type="text" id="datepicker" name="fecha_inicial" onclick="clear_text()" 
-        placeholder="fecha inicial" class="search_busqueda_fecha_inicial"/>
 
-        <input type="text" id="datepickerf" name="fecha_final" onclick="clear_textf()" 
-        placeholder="fecha final" class="search_busqueda_fecha_final"/>
-
-
-      <!-- Seccion botones -->
-        <a class="">
-          <input type="submit" name="link_add_gasto" 
-          class="btn btn-default btn_busqueda" value="Buscar"/>
-        </a>
-        <a href="/registro.visita">
-          <input type="button" name="link_add_gasto" 
-          class="btn btn-success btn_agregar_elemento" value=" Agregar una visita"/>
+<section class="container thumbnail grid">
+<!-- ************************************  FORM ************************************ -->
+  <section>
+    <form method=post class="container-fluid grid-elements">
+      {% csrf_token %}
+      <div class="col-md-5">
+        <input type="text" id="myInput" name="visita" placeholder="nombre o motivo" class="input-personalized"/>
+      </div>
+      <div class="col-md-2">
+        <input type="text" id="datepicker" name="fecha_inicial" onclick="clear_text()" class="input-personalized" placeholder="fecha inicial" />
+      </div>
+      <div class="col-md-2">
+        <input type="text" id="datepickerf" name="fecha_final" onclick="clear_textf()" class="input-personalized" placeholder="fecha final" />
+      </div>
+      <div class="col-md-1">
+        <a>
+          <input type="submit" name="link_add_gasto" class="btn btn-default" value="Buscar"/>
         </a>
       </div>
-
-    </form>
+      <div class="col-md-2">
+        <a href="/registro.visita">
+          <input type="button" name="link_add_gasto" class="btn btn-success" value="Agregar visita"/>
+        </a>
+      </div>
+    </form> 
   </section>
 <hr>
+  <!-- *********************************** grid *********************************** -->
+  <div class="grid-table table-responsive">  
+      <table class="table tbl_visitas">
+        <thead>
+          <tr>
+            <th scope="col">Paciente</th>
+            <th scope="col">Motivo</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Informacion</th>
+            <th scope="col">Edicion</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        {% for visita in visitas %}
+        <tbody>
+          <tr>
+            <th scope="row">{{ visita.paciente }}</th>
+            <td>{{ visita.motivo }}</td>
+            <td>{{ visita.fecha_visita }}</td>
+            <td>
+              <a type="button" class="glyphicon glyphicon-search" data-toggle="modal" data-target="#modal-ver" 
+              onclick="open_modal('{{visita.paciente}}','{{visita.fecha_visita}}','{{visita.motivo}}',
+              '{{visita.dentista}}','{{visita.precio}}','{{ visita.dolares }}','{{ visita.pk }}')"> Ver
+              </a>
+            </td>
+            <td>
+              <a href="{{ visita.url_editar_visitas }}" class="glyphicon glyphicon-pencil"> Editar</a>
+            </td>
+            <td>
+              <a class="glyphicon glyphicon-trash" data-toggle="modal" data-target="#modal-borrar" onclick="open_modal_borrar('{{visita.paciente }}')"> Borrar</a>
+            </td>
+          </tr>
+        </tbody>
+        {% endfor %}
+      </table>
+    </div>
 
-<!-- *********************************** tabla de datos *********************************** -->  
-
-  <section class="tbl_visitas">
-   <table>
-     <thead class="columna">
-          <th style="width: 15%;">Paciente</th>
-          <th style="width: 25%;">Motivo</th>
-          <th style="width: 20%;">Fecha</th>
-          <th style="width: 5%;">Informacion</th>
-          <th style="width: 6%;">Edicion</th>
-          <th style="width: 7%;">Acciones</th>
-     </thead>
-      {% for visita in visitas %}
-     <tbody class="contenido">
-          <td style="width: 15%;">{{ visita.paciente }}</td>
-          <td style="width: 25%;">{{ visita.motivo }}</td>
-          <td style="width: 20%;">{{ visita.fecha_visita }}</td>
-          <td>
-             <a type="button" class="glyphicon glyphicon-search" 
-             onclick="open_modal('{{visita.paciente}}','{{visita.fecha_visita}}','{{visita.motivo}}',
-             '{{visita.dentista}}','{{visita.precio}}','{{ visita.dolares }}','{{ visita.pk }}')"> Ver
-             </a>
-          </td>
-          <td style="width: 7%;">
-            <a href="{{ visita.url_editar_visitas }}" class="glyphicon glyphicon-pencil"> Editar</a>
-          </td>
-          <td style="width: 7%;">
-            <a href="{{ visita.url_borrar_visitas }}" class="glyphicon glyphicon-trash"> Borrar</a>
-          </td>
-     </tbody>
-     {% endfor %}
-    </table>
     {% if mensaje != "" %}
-     <div class="empty_query_result">{{ mensaje }}</div>
+    <div class="empty_query_result">{{ mensaje }}</div>
     {% endif %}
-    <br><br>
   </section>
 </section>
 
 
-<!-- *********************************** modal ver *********************************** -->  
-<div id="myModal" class="modal">
-  <!-- Modal content -->
-  <div class="modal-content">
-    <div class="modal-header">
-      <p id="textoPaciente" class="modal-header-p"></p>
-    </div>
-    <div class="modal-body">
-      <table>
-        <tr>
-          <td class="modal-td"><b>Fecha</b></td>
-          <td id="textoFecha"></td>
-        </tr>
-        <tr>
-          <td class="modal-td"><b>Motivo</b></td>
-          <td id="textoMotivo"></td>
-        </tr>
-        <tr>
-          <td class="modal-td"><b>Dentista</b></td>
-          <td id="textoDentista"></td>
-        </tr>
-        <tr>
-          <td class="modal-td"><b>Precio</b></td>
-          <td id="textoPrecio"></td>
-        </tr>
-      </table>
-    </div>
-    <div class="modal-footer">
-      <a href=" " id="id_editar">
-        <button  class="btn btn-modal-edit">Editar</button>
-      </a>
-      <button class="btn btn-modal-close"> Cerrar </button>
-    </div>
+<!-- *********************************** modal ver *********************************** -->
+
+<div class="modal fade" id="modal-ver" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <form class="modal-content" method=post>
+      <div class="modal-header" style="background-color: #dbdbdb; border-bottom: 1px solid rgb(151, 151, 151);" >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">
+          <img src="{% static 'img/iconos/visitas40.png' %}" alt="x">
+          <label id="textoPaciente" style="text-align: center;"></label> 
+        </h4>
+      </div>
+      <div class="modal-body" style="height:150px;">
+        <div class="col-md-12">
+            <label class="col-md-2">Fecha</label>
+            <label class="col-md-10" id="textoFecha"></label>
+        </div>
+        <div class="col-md-12">
+            <label class="col-md-2">Motivo</label>
+            <label class="col-md-10" id="textoMotivo"></label>
+        </div>
+        <div class="col-md-12">
+            <label class="col-md-2">Dentista</label>
+            <label class="col-md-10" id="textoDentista"></label>
+        </div>
+        <div class="col-md-12">
+            <label class="col-md-2">Precio</label>
+            <label class="col-md-10" id="textoPrecio"></label>
+        </div>
+      </div>
   </div>
 </div>
 
 
+<!-- *********************************** modal borrar *********************************** -->
 
+<div class="modal fade" id="modal-borrar" tabindex="1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <form class="modal-content" method=post>
+      <div class="modal-header" style="background-color: #dbdbdb; border-bottom: 1px solid rgb(151, 151, 151);" >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">
+          <img src="{% static 'img/iconos/visitas40.png' %}" alt="x">
+          <label style="text-align: center;">Confirmación</label> 
+        </h4>
+      </div>
+      <div class="modal-body" style="height:150px; background-color: white;">
+        <h3 style="text-align: center;">¿Estas seguro de eliminar la visita de<br>
+          <b id="textoBorrar"></b>?
+        </h3>
+      </div>
+      <div class="modal-footer" style="background-color: white;">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+      </div>
+  </div>
+</div>
+
+
+<!-- *********************************** script modal *********************************** -->
 <script>
   var modal = document.getElementById('myModal');
   var content_paciente = document.getElementById('textoPaciente');
@@ -131,31 +164,19 @@
   var content_motivo = document.getElementById('textoMotivo');
   var content_dentista = document.getElementById('textoDentista');
   var content_precio = document.getElementById('textoPrecio');
-  var content_editar = document.getElementById('id_editar');
+  var content_borrar = document.getElementById('textoBorrar');
   var close = document.getElementsByClassName("btn-modal-close")[0];
 
-  function open_modal(paciente, fecha, motivo, dentista, precio, divisa, pk) { 
-    modal.style.display = "block";
-    content_paciente.innerHTML = "Visita de "+paciente;
+  function open_modal(paciente, fecha, motivo, dentista, precio, divisa, pk) {
+    content_paciente.innerHTML = "Visita de " + paciente;
     content_fecha.innerHTML = fecha;
     content_motivo.innerHTML = motivo;
     content_dentista.innerHTML = dentista;
     content_precio.innerHTML = precio + " " + divisa;
-    content_editar.href = "/visitas/editar/"+ pk;
   }
 
-  close.onclick = function() {
-      modal.style.display = "none";
+  function open_modal_borrar(paciente) {
+    content_borrar.innerHTML = paciente;
   }
 
-  window.onclick = function(event) {
-      if (event.target == modal) {
-          modal.style.display = "none";
-      }
-  }
-</script>
-
-
-{% endblock %}
-
-
+</script> {% endblock %}

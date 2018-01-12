@@ -54,9 +54,10 @@ class VisitListView(ListView):
         
         return render(self.request, self.template_name, context)
 
+
         
 class CreateVisitView(ListView):
-    template_name = "creacion_visitas.html"
+    template_name = "visitas-formulario.html"
     template_main = "visitas.html"
 
     def get(self, request, *args, **kwargs):
@@ -88,14 +89,14 @@ class CreateVisitView(ListView):
         tipo_pago = request.POST.get('tipo_pago')
         fecha_visita = request.POST.get('fecha') 
 
-        # print "user ", user
-        # print "paciente ", paciente
-        # print "motivo ", motivo
-        # print "empleado ", empleado
-        # print "precio ", precio
-        # print "dolares ", dolares
-        # print "tipo_pago ", tipo_pago
-        # print "fecha_visita ", fecha_visita
+        print "user ", user
+        print "paciente ", paciente
+        print "motivo ", motivo
+        print "empleado ", empleado
+        print "precio ", precio
+        print "dolares ", dolares
+        print "tipo_pago ", tipo_pago
+        print "fecha_visita ", fecha_visita
 
 
         try:
@@ -124,16 +125,22 @@ class CreateVisitView(ListView):
 
 
 class UpdateVisitView(ListView):
-    template_name = "edicion_visitas.html"
+    template_name = "visitas-formulario.html"
     template_main = "visitas.html"
 
     def get(self, request, pk, *args, **kwargs):
+        
+        print "VAS A EDITAR A ESTE CABRON"
         user_logged = request.user
         visita = Visitas.objects.get(user=request.user,id=pk)
         pacientes = Paciente.objects.filter(user=request.user)
         empleados = Empleado.objects.filter(user=request.user)
         form = RegistrarVisita()
         mensaje = ""
+
+        print "vas a editar a este cabron"
+        print visita.paciente
+
 
         context = {'visita': visita,
                    'mensaje': mensaje,
@@ -159,21 +166,21 @@ class UpdateVisitView(ListView):
         tipo_pago = request.POST.get('tipo_pago')
         fecha_visita = request.POST.get('fecha')
 
-        # print "---------------------Edicion de visita ---------------------"
-        # print "user"
-        # print user
-        # print "paciente"
-        # print paciente
-        # print "empleado"
-        # print empleado
-        # print "precio"
-        # print precio
-        # print "dolares"
-        # print dolares
-        # print "tipo_pago"
-        # print tipo_pago
-        # print "fecha_visita"
-        # print fecha_visita
+        print "---------------------Edicion de visita ---------------------"
+        print "user"
+        print user
+        print "paciente"
+        print paciente
+        print "empleado"
+        print empleado
+        print "precio"
+        print precio
+        print "dolares"
+        print dolares
+        print "tipo_pago"
+        print tipo_pago
+        print "fecha_visita"
+        print fecha_visita
 
 
         try:

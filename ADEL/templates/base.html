@@ -1,92 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>{% block title %}ADEL{% endblock %}</title>
-    {% load staticfiles %}
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    
-    <!-- css genericos -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/login/login.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/generic/modal.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/generic/borrar.css' %}"/>
-    
-    <!-- scripts bootstrap -->
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    
-    <!-- script google fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    
-    <!-- script jquery -->
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
+  <meta charset="UTF-8">
+  <title> {% block title %} ADEL {% endblock %} </title>
+  {% load staticfiles %}
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- css google fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+  <!-- script jquery -->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <!-- css bootstrap -->
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <!-- scripts bootstrap -->
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <!-- css adel -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/generic/base.css' %}" />
+
 </head>
 
 <body>
-    <nav class="container_menu">
-        <div class="menu_logo">
-            <div class="div_logo">
-                <a href="../">
-                    <img src="{% static 'img/iconos/logo.png' %}" alt="Empleados">
-                </a>
-            </div>
+
+  <div class="topnav" id="myTopnav">
+      <div class="div-dropdown">
+          <a href="../" class="dropbtn"> ADEL</a>
         </div>
-        <div class="menu_content">
-                <div class="base_menus base_visitas">
-                    <a href="/lista.visitas">
-                        <span class="base_span glyphicon glyphicon-home  icono_menu_principal"> Visitas</span>
-                    </a>
-                </div>
-                <div class="base_menus base_visitas">
-                    <a href="/lista.empleados">
-                        <span class="base_span glyphicon glyphicon-user  icono_menu_principal"> Empleados</span>
-                    </a>
-                </div>
-                <div class="base_menus base_pacientes">
-                    <a href="/lista.pacientes">
-                        <span class="base_span glyphicon glyphicon-user  icono_menu_principal"> Pacientes</span>
-                    </a>
-                </div>
-                <div class="base_menus base_proveedores">
-                    <a href="/lista.proveedores">
-                        <span class="base_span glyphicon glyphicon-object-align-bottom icono_menu_principal"> Proveedores</span>
-                    </a>
-                </div>
-                <div class="base_menus base_gastos">
-                    <a href="/lista.gastos">
-                        <span class="base_span glyphicon glyphicon-usd  icono_menu_principal"> Gastos</span>
-                    </a>
-                </div>
-                <div class="base_menus base_agenda">
-                    <a href="/lista.agenda">
-                        <span class="base_span glyphicon glyphicon-list-alt  icono_menu_principal"> Agenda</span>
-                    </a>
-                </div>
-                <div class="base_menus base_agenda">
-                    <a href="/movimientos">
-                        <span class="base_span glyphicon glyphicon-th-list  icono_menu_principal"> Movimientos</span>
-                    </a>
-                </div>
-                <div class="base_menus base_agenda usuario">
-                    <a href="/movimientos">
-                        <span class="base_span glyphicon glyphicon-home icono_menu_principal">
-                         {{request.user.username}}</span>
-                    </a>
-                </div>
-                <div class="base_menus base_agenda salir">
-                    <a href="{% url 'logout.view.url' %}">
-                        <span class="icono_menu_principal"> Salir</span>
-                    </a>
-                </div>
-        </div>
-    </nav>
     
-{% block body %}
+    <div class="div-dropdown">
+        <button class="dropbtn">
+          Pacientes
+        </button>
+        <div class="dropdown-children">
+          <a href="/registro.paciente"><label class="glyphicon glyphicon-plus"></label> Agregar paciente</a>
+          <a href="/lista.pacientes"><label class="glyphicon glyphicon-list"></label> Ver lista de pacientes</a>
+        </div>
+      </div>
+  
+      <div class="div-dropdown">
+        <button class="dropbtn">
+          Visitas
+        </button>
+        <div class="dropdown-children">
+          <a href="/registro.visita"><label class="glyphicon glyphicon-plus"></label> Agregar visita</a>
+          <a href="/lista.visitas"><label class="glyphicon glyphicon-list"></label> Ver lista de visitas</a>
+        </div>
+      </div>
+  
+      <div class="div-dropdown">
+        <button class="dropbtn">
+          Empleados
+        </button>
+        <div class="dropdown-children">
+          <a href="/registro.empleado"><label class="glyphicon glyphicon-plus"></label> Agregar Empleado</a>
+          <a href="/lista.empleados"><label class="glyphicon glyphicon-list"></label> Ver lista de empleados</a>
+        </div>
+      </div>
+  
+      <div class="div-dropdown">
+        <button class="dropbtn">
+          Proveedores
+        </button>
+        <div class="dropdown-children">
+          <a href="/registro.proveedor"><label class="glyphicon glyphicon-plus"></label> Agregar proveedor</a>
+          <a href="/lista.proveedores"><label class="glyphicon glyphicon-list"></label> Ver lista de proveedores</a>
+        </div>
+      </div>
+  
+      <div class="div-dropdown">
+        <button class="dropbtn">
+          Gastos
+        </button>
+        <div class="dropdown-children">
+          <a href="/registro.gasto"><label class="glyphicon glyphicon-plus"></label> Agregar un gasto</a>
+          <a href="/lista.gastos"><label class="glyphicon glyphicon-list"></label> Ver lista de gastos</a>
+        </div>
+      </div>
+  
+      <div class="div-dropdown">
+        <button class="dropbtn">
+          Agenda
+        </button>
+        <div class="dropdown-children">
+          <a href="/registro.agenda"><label class="glyphicon glyphicon-plus"></label> Agregar cita</a>
+          <a href="/lista.agenda"><label class="glyphicon glyphicon-list"></label> Ver citas</a>
+        </div>
+      </div>
+  
+      <div class="div-dropdown">
+        <button class="dropbtn">
+          Movimientos
+        </button>
+        <div class="dropdown-children">
+          <a href="/movimientos"><label class="glyphicon glyphicon-list"></label> Ver Movimientos</a>
+        </div>
+      </div>
+    <a href="javascript:void(0);" style="font-size:35px; margin-top: 4px;" class="icon" onclick="myFunction()">&#9776;</a>
+  </div>
+
+
+
+  <!-- ok ******************************************************* -->
+
+  {% block body %}
 {% endblock %}
 
 </body>
+
+<script>
+ function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+      x.className += " responsive";
+  } else {
+      x.className = "topnav";
+  }
+}
+
+</script>
+
 </html>
