@@ -2,128 +2,164 @@
 {% block title %}ADEL | gastos {% endblock %}
 
 {% block body %}
-{%load staticfiles %}
-  <script src="{% static '/static/js/generic/calendarios.js'%}"></script>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+{% load staticfiles %}
+<meta charset="utf-8">
+<script src="{% static '/static/js/generic/calendarios.js'%}"></script>
 
-<div class = "header">
-  <span class="header_text">Gastos actuales <label>{{ total_gastos }}<label> </span>
-  <img src="{% static 'img/iconos/gastos40.png' %}" alt="ups">
+
+<!-- ************************************  HELPER ************************************ -->
+<div class="container thumbnail helper">
+    <div class="col-md-2">
+        <a href="../" class="glyphicon glyphicon-chevron-left bs-header-back">&nbsp;Volver</a>
+    </div>
+    <div class="col-md-9 bs-header-text helper-text">
+            <label>gastos actuales <label class="total">{{ total }}</label>
+    </div>
+    <div class="helper-img col-md-1">
+        <img src="{% static 'img/iconos/gastos40.png' %}"  class="helper-img" alt="ups">
+    </div>
 </div>
 
-<section class="seccion_fondo">
-  <!-- *********************************** barra de busqueda *********************************** -->
-  <section class="herramientas_menu">     
-    <form method=post>
-    {% csrf_token %}
-      <div class="seccion_busqueda">   
-        <span><b>Buscar</b></span>
-        
-        <input type="text" id="myInput" name="gasto" 
-        placeholder="nombre o motivo" class="search_busqueda"/>
-        
-        <input type="text" id="datepicker" name="fecha_inicial" onclick="clear_text()" 
-        placeholder="fecha inicial" class="search_busqueda_fecha_inicial"/>
+<section class="container thumbnail grid">
+  <!-- ************************************  FORM ************************************ -->
+    <section>
+      <form method=post class="container-fluid grid-elements">
+        {% csrf_token %}
+        <div class="col-md-5">
+          <input type="text" id="myInput" name="gasto" placeholder="proveedor o motivo" class="input-personalized"/>
+        </div> 
+  
+        <div class="col-md-2">
+          <input type="text" id="datepicker" name="fecha_inicial" onclick="clear_text()" class="input-personalized" placeholder="fecha inicial" />
+        </div>
+        <div class="col-md-2">
+          <input type="text" id="datepickerf" name="fecha_final" onclick="clear_textf()" class="input-personalized" placeholder="fecha final" />
+        </div>
+        <div class="col-md-1">
+          <a>
+            <input type="submit" name="link_add_gasto" class="btn btn-default" value="Buscar"/>
+          </a>
+        </div>
+        <div class="col-md-2">
+          <a href="/registro.gasto">
+            <input type="button" name="link_add_gasto" class="btn btn-success" value="+ Agregar gasto"/>
+          </a>
+        </div>
+      </form> 
+    </section>
+  <hr>
 
-        <input type="text" id="datepickerf" name="fecha_final" onclick="clear_textf()" 
-        placeholder="fecha final" class="search_busqueda_fecha_final"/>
+  <!-- *********************************** grid *********************************** -->
 
+{% if mensaje != "" %}
+  <div class="empty_query_result">{{ mensaje }}</div>
+{% endif %}
 
-      <!-- Seccion botones -->
-        <a class="">
-          <input type="submit" name="link_add_gasto" 
-          class="btn btn-default btn_busqueda" value="Buscar"/>
-        </a>
-        <a href="/registro.gasto">
-          <input type="button" name="link_add_gasto" 
-          class="btn btn-success btn_agregar_elemento" value=" Agregar un gasto"/>
-        </a>
-      </div>
-
-    </form>
-  </section>
-<hr>
-
-<!-- *********************************** tabla de datos *********************************** -->  
-  <section>
-    <table>
-       <thead class="columna">
-            <th>Proveedor</th>
-            <th>Motivo</th>
-            <th>Fecha</th>
-            <th>Monto</th>
-            <th>Informacion</th>
-            <th>Edicion</th>
-            <th>Acciones</th>
-       </thead>
-       {% for gasto in gastos %}
-       <tbody class="contenido" id="contenido">
-            <td style="width:10%">{{ gasto.proveedor }}</td>
-            <td style="width:20%">{{ gasto.motivo }}</td>
-            <td style="width:15%">{{ gasto.fecha_gasto }}</td>
-            <td style="width:7%">{{ gasto.precio }} {{ gasto.dolares }}</td>
-            <td style="width:7%">
-             <a type="button" class="glyphicon glyphicon-search" 
-             onclick="open_modal('{{ gasto.proveedor }}','{{ gasto.motivo }}','{{ gasto.empleado }}',
+  <div class="table-responsive grid-table">  
+    <table class="table tbl_main">
+      <thead>
+        <tr>
+          <th scope="col">Proveedor</th>
+          <th scope="col">Motivo</th>
+          <th scope="col">Fecha</th>
+          <th scope="col">Informacion</th>
+          <th scope="col">Edicion</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      {% for gasto in gastos %}
+      <tbody>
+        <tr>
+          <td scope="row">{{ gasto.proveedor }}</td>
+          <td>{{ gasto.motivo }}</td>
+          <td>{{ gasto.fecha_gasto }}</td>
+          <td>
+            <a type="button" class="glyphicon glyphicon-search" data-toggle="modal" data-target="#modal-ver" 
+            onclick="open_modal('{{ gasto.proveedor }}','{{ gasto.motivo }}','{{ gasto.empleado }}',
              '{{ gasto.precio }}','{{gasto.dolares }}','{{ gasto.tipo_pago }}',
              '{{ gasto.fecha_gasto }}','{{ gasto.pk }}')"> Ver
-             </a>
-            </td>
-            <td style="width:7%">
-              <a href="{{ gasto.url_editar_gasto }}" class="glyphicon glyphicon-pencil"> Editar</a>
-            </td>
-            <td style="width:7%">
-              <a href="" class="glyphicon glyphicon-trash"> Borrar</a>
-            </td>
-       </tbody>
-       {% endfor %}
-      </table>
-  {% if mensaje != "" %}
-     <div class="empty_query_result">{{ mensaje }}</div>
-  {% endif %}
-  <br><br>
+            </a>
+          </td>
+          <td>
+            <a href="{{ gasto.url_editar_gasto }}" class="glyphicon glyphicon-pencil"> Editar</a>
+          </td>
+          <td>
+            <a class="glyphicon glyphicon-trash" data-toggle="modal" data-target="#modal-borrar" onclick="open_modal_borrar('{{ gasto.proveedor }}')"> Borrar</a>
+          </td>
+        </tr>
+      </tbody>
+      {% endfor %}
+    </table>
+  </div>
+</section>
 </section>
 
 <!-- *********************************** modal ver *********************************** -->  
-<div id="myModal" class="modal">
-  <!-- Modal content -->
-  <div class="modal-content">
-    <div class="modal-header">
-      <p id="textoProveedor" class="modal-header-p"></p>
-    </div>
-    <div class="modal-body">
-      <table>
-        <tr>
-          <td class="modal-td"><b>Motivo</b></td>
-          <td id="textoMotivo"></td>
-        </tr>
-        <tr>
-          <td class="modal-td"><b>Empleado</b></td>
-          <td id="textoEmpleado"></td>
-        </tr>
-        <tr>
-          <td class="modal-td"><b>Costo</b></td>
-          <td id="textoPrecio"></td>
-        </tr>
-        <tr>
-          <td class="modal-td"><b>Tipo de pago</b></td>
-          <td id="textoTipoPago"></td>
-        </tr>
-        <tr>
-          <td class="modal-td"><b>Fecha</b></td>
-          <td id="textoFechaGasto"></td>
-        </tr>
-      </table>
-    </div>
-    <div class="modal-footer">
-      <a href="" id="id_editar">
-        <button  class="btn btn-modal-edit">Editar</button>
-      </a>
-      <button class="btn btn-modal-close"> Cerrar </button>
-    </div>
+<div class="modal fade" id="modal-ver" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <form class="modal-content" method=post>
+      <div class="modal-header" style="background-color: #dbdbdb; border-bottom: 1px solid rgb(151, 151, 151);" >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">
+          <img src="{% static 'img/iconos/visitas40.png' %}" alt="x">
+          <label id="textoProveedor" style="text-align: center;"></label> 
+        </h4>
+      </div>
+      <div class="modal-body" style="height:150px;">
+        <div class="col-md-12">
+          <label class="col-md-4">Motivo</label>
+          <label class="col-md-8" id="textoMotivo"></label>
+        </div>
+        <div class="col-md-12">
+          <label class="col-md-4">Empleado</label>
+          <label class="col-md-8" id="textoEmpleado"></label>
+        </div>
+        <div class="col-md-12">
+          <label class="col-md-4">Costo</label>
+          <label class="col-md-8" id="textoPrecio"></label>
+        </div>
+        <div class="col-md-12">
+            <label class="col-md-4">Tipo de pago</label>
+            <label class="col-md-8" id="textoTipoPago"></label>
+        </div>
+        <div class="col-md-12">
+            <label class="col-md-4">Fecha</label>
+            <label class="col-md-8" id="textoFechaGasto"></label>
+        </div>
+      </div>
   </div>
 </div>
 
+<!-- *********************************** modal borrar *********************************** -->
+
+<div class="modal fade" id="modal-borrar" tabindex="1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <form class="modal-content" method=post>
+        <div class="modal-header" style="background-color: #dbdbdb; border-bottom: 1px solid rgb(151, 151, 151);" >
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">
+            <img src="{% static 'img/iconos/visitas40.png' %}" alt="x">
+            <label style="text-align: center;">Confirmación</label> 
+          </h4>
+        </div>
+        <div class="modal-body" style="height:150px; background-color: white;">
+          <h3 style="text-align: center;">¿Estas seguro de eliminar este gasto<br>
+            <b id="textoBorrar"></b>?
+          </h3>
+        </div>
+        <div class="modal-footer" style="background-color: white;">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-danger">Eliminar</button>
+        </div>
+    </div>
+  </div>
+  
+  
+  <!-- *********************************** script modal *********************************** -->
 <script>
   var modal = document.getElementById('myModal');
   var content_proveedor = document.getElementById('textoProveedor');
@@ -133,29 +169,24 @@
   var content_tipo = document.getElementById('textoTipoPago');
   var content_fecha = document.getElementById('textoFechaGasto');
   var content_editar = document.getElementById('id_editar');
+  var content_borrar = document.getElementById('textoBorrar');
 
   var close = document.getElementsByClassName("btn-modal-close")[0];
 
   function open_modal(proveedor, motivo, empleado, precio, dolares, tipo_pago,fecha,pk) { 
-    modal.style.display = "block";
     content_proveedor.innerHTML = "Gasto de "+proveedor;
     content_motivo.innerHTML = motivo;
     content_empleado.innerHTML = empleado;
-    content_precio.innerHTML = precio + " " + dolares;
+    content_precio.innerHTML = "$ " + precio + " " + dolares;
     content_tipo.innerHTML = tipo_pago;
     content_fecha.innerHTML = fecha;
     content_editar.href = "/gastos/editar/"+ pk;
   }
 
-  close.onclick = function() {
-      modal.style.display = "none";
+  function open_modal_borrar(paciente) {
+    content_borrar.innerHTML = paciente;
   }
 
-  window.onclick = function(event) {
-      if (event.target == modal) {
-          modal.style.display = "none";
-      }
-  }
 </script>
 
 

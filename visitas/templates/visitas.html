@@ -29,7 +29,8 @@
       {% csrf_token %}
       <div class="col-md-5">
         <input type="text" id="myInput" name="visita" placeholder="nombre o motivo" class="input-personalized"/>
-      </div>
+      </div> 
+
       <div class="col-md-2">
         <input type="text" id="datepicker" name="fecha_inicial" onclick="clear_text()" class="input-personalized" placeholder="fecha inicial" />
       </div>
@@ -49,46 +50,48 @@
     </form> 
   </section>
 <hr>
-  <!-- *********************************** grid *********************************** -->
-  <div class="grid-table table-responsive">  
-      <table class="table tbl_visitas">
-        <thead>
-          <tr>
-            <th scope="col">Paciente</th>
-            <th scope="col">Motivo</th>
-            <th scope="col">Fecha</th>
-            <th scope="col">Informacion</th>
-            <th scope="col">Edicion</th>
-            <th scope="col">Acciones</th>
-          </tr>
-        </thead>
-        {% for visita in visitas %}
-        <tbody>
-          <tr>
-            <th scope="row">{{ visita.paciente }}</th>
-            <td>{{ visita.motivo }}</td>
-            <td>{{ visita.fecha_visita }}</td>
-            <td>
-              <a type="button" class="glyphicon glyphicon-search" data-toggle="modal" data-target="#modal-ver" 
-              onclick="open_modal('{{visita.paciente}}','{{visita.fecha_visita}}','{{visita.motivo}}',
-              '{{visita.dentista}}','{{visita.precio}}','{{ visita.dolares }}','{{ visita.pk }}')"> Ver
-              </a>
-            </td>
-            <td>
-              <a href="{{ visita.url_editar_visitas }}" class="glyphicon glyphicon-pencil"> Editar</a>
-            </td>
-            <td>
-              <a class="glyphicon glyphicon-trash" data-toggle="modal" data-target="#modal-borrar" onclick="open_modal_borrar('{{visita.paciente }}')"> Borrar</a>
-            </td>
-          </tr>
-        </tbody>
-        {% endfor %}
-      </table>
-    </div>
 
-    {% if mensaje != "" %}
-    <div class="empty_query_result">{{ mensaje }}</div>
-    {% endif %}
+  <!-- *********************************** grid *********************************** -->
+
+  {% if mensaje != "" %}
+  <div class="empty_query_result">{{ mensaje }}</div>
+{% endif %}  
+  
+<div class="table-responsive grid-table">  
+  <table class="table tbl_main">
+    <thead>
+      <tr>
+        <th scope="col">Paciente</th>
+        <th scope="col">Motivo</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Informacion</th>
+        <th scope="col">Edicion</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    {% for visita in visitas %}
+    <tbody>
+      <tr>
+        <td scope="row">{{ visita.paciente }}</td>
+        <td>{{ visita.motivo }}</td>
+        <td>{{ visita.fecha_visita }}</td>
+        <td>
+          <a type="button" class="glyphicon glyphicon-search" data-toggle="modal" data-target="#modal-ver" 
+          onclick="open_modal('{{visita.paciente}}','{{visita.fecha_visita}}','{{visita.motivo}}',
+          '{{visita.dentista}}','{{visita.precio}}','{{ visita.dolares }}','{{ visita.pk }}')"> Ver
+          </a>
+        </td>
+        <td>
+          <a href="{{ visita.url_editar_visitas }}" class="glyphicon glyphicon-pencil"> Editar</a>
+        </td>
+        <td>
+          <a class="glyphicon glyphicon-trash" data-toggle="modal" data-target="#modal-borrar" onclick="open_modal_borrar('{{visita.paciente }}')"> Borrar</a>
+        </td>
+      </tr>
+    </tbody>
+    {% endfor %}
+    </table>
+  </div>
   </section>
 </section>
 
@@ -175,8 +178,9 @@
     content_precio.innerHTML = precio + " " + divisa;
   }
 
-  function open_modal_borrar(paciente) {
-    content_borrar.innerHTML = paciente;
+  function open_modal_borrar(texto) {
+    content_borrar.innerHTML = texto;
   }
-
+  $('#sandbox-container .input-daterange').datepicker({
+  });
 </script> {% endblock %}

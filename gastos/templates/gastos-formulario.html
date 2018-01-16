@@ -1,0 +1,233 @@
+ {% extends 'base.html' %}
+{% block title %}ADEL | gastos {% endblock %}
+{% block body %}
+
+<body onload="set_initial_date()">
+    {% load staticfiles %}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="{% static '/static/js/generic/calendarios.js'%}"></script>
+
+<!-- ************************************  HELPER ************************************ -->
+ <div class="container col-md-8 thumbnail col-md-offset-2 bs-header">
+    <div class="col-md-2">
+        <a href="/lista.gastos" class="glyphicon glyphicon-chevron-left bs-header-back">&nbsp;Volver</a>
+    </div>
+    <div class="col-md-9 bs-header-text helper-text">
+        {% if gasto.proveedor %}
+            <label> gasto de {{ gasto.proveedor }}</label>
+        {% else %}
+            <label>Agregar gasto</label>
+        {% endif %}
+    </div>
+    <div class="helper-img col-md-1">
+        <img src="{% static 'img/iconos/gastos40.png' %}"  class="helper-img" alt="ups">
+    </div>
+</div>
+
+    <!-- ************************************ FORM ************************************ -->
+<div class="container col-md-8 thumbnail col-md-offset-2">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <br>
+            <form method="post">
+                {% csrf_token %}
+                <fieldset class="fieldset">
+                    <legend>
+                        <b>Informacion requerida</b>
+                    </legend>
+
+                    <div class="form-group col-md-6">
+                        <label>Proveedor</label>
+                        {% if gasto.proveedor %}
+                            <input type="text" value="{{ gasto.proveedor}}" name="proveedor" readonly="readonly"> 
+                        {% else %}
+                            <select id="proveedor" name="proveedor">
+                            <option value="%">------</option>
+                            {% for proveedor in proveedores %}
+                                <option name="proveedor" id="proveedor" value="{{ proveedor.nombre }}">{{ proveedor.nombre }}</option>
+                            {% endfor %}
+                        {% endif %}
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label>Empleado</label>
+                        <select id="empleado" name="empleado">
+                            {% if gasto.empleado %}
+                                <option name="empleado" id="empleado" value="{{ gasto.empleado }}">{{ gasto.empleado }}</option>
+                            {% else %}
+                                <option value="%">------</option>
+                            {% endif %}
+                            {% for empleado in empleados %}
+                                <option name="empleado" id="empleado" value="{{ empleado.nombre }}">{{ empleado.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </fieldset>
+
+                <fieldset class="fieldset">
+                    <div class="form-group col-md-6">
+                        <label>Precio</label>
+                        <input type="text" name="precio" id="precio" value="{{ gasto.precio}}" placeholder="$0.00" class="form-control input-personalized"/>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label>Tipo de cambio</label>
+                        <select id="dolares" name="dolares">
+                            {% if gasto.proveedor %}
+                                <option value="{{ gasto.dolares }}">{{ gasto.dolares }}</option>
+                            {% else %}
+                                <option value="">------</option>
+                            {% endif %}
+                            {% for choice in form.dolares.field.choices %}
+                            <option id="dolares" name="dolares" value={{choice.0}}>{{ choice.1}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </fieldset>
+
+                <fieldset class="fieldset">
+                    <div class="form-group col-md-6">
+                        <label>Tipo de pago</label>
+                        <select id="tipo_pago" name="tipo_pago">
+                            {% if gasto.proveedor %}
+                                <option value="{{ gasto.tipo_pago }}">{{ gasto.tipo_pago }}</option>
+                            {% else %}
+                                <option value="">------</option>
+                            {% endif %}
+                            {% for choice in form.tipo_pago.field.choices %}
+                                <option id="tipo_pago" name="tipo_pago" value={{choice.0}}>{{ choice.1}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label style="margin-bottom: 5px;">Fecha</label>
+                        <input type="text" name="fecha" id="datepicker"  class="input-personalized">
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label>Hora</label>
+                        <select name="hora" id="hora" onchange="set_date()">
+                            <option value="00:00">------</option>
+                            <option name="hora" id="hora" value="08:00">08:00</option>
+                            <option name="hora" id="hora" value="08:30">08:30</option>
+                            <option name="hora" id="hora" value="09:00">09:00</option>
+                            <option name="hora" id="hora" value="09:30">09:30</option>
+                            <option name="hora" id="hora" value="10:00">10:00</option>
+                            <option name="hora" id="hora" value="10:30">10:30</option>
+                            <option name="hora" id="hora" value="11:00">11:00</option>
+                            <option name="hora" id="hora" value="11:30">11:30</option>
+                            <option name="hora" id="hora" value="12:00">12:00</option>
+                            <option name="hora" id="hora" value="12:30">12:30</option>
+                            <option name="hora" id="hora" value="13:00">13:00</option>
+                            <option name="hora" id="hora" value="13:30">13:30</option>
+                            <option name="hora" id="hora" value="14:00">14:00</option>
+                            <option name="hora" id="hora" value="14:30">14:30</option>
+                            <option name="hora" id="hora" value="15:00">15:00</option>
+                            <option name="hora" id="hora" value="15:30">15:30</option>
+                            <option name="hora" id="hora" value="16:00">16:00</option>
+                            <option name="hora" id="hora" value="16:30">16:30</option>
+                            <option name="hora" id="hora" value="17:00">17:00</option>
+                            <option name="hora" id="hora" value="17:30">17:30</option>
+                            <option name="hora" id="hora" value="18:00">18:00</option>
+                            <option name="hora" id="hora" value="18:30">18:30</option>
+                            <option name="hora" id="hora" value="19:00">19:00</option>
+                            <option name="hora" id="hora" value="19:30">19:30</option>
+                            <option name="hora" id="hora" value="20:00">20:00</option>
+                            <option name="hora" id="hora" value="20:30">20:30</option>
+                        </select>
+                    </div>
+                </fieldset>
+                <fieldset class="fieldset">
+                    <div class="form-group col-md-12">
+                        <label>Motivo del gasto</label>
+                        {% if gasto.motivo %}
+                            <textarea class="form-control" id="motivo" name="motivo" rows="5" id="comment">{{ gasto.motivo }}</textarea>
+                        {% else %}
+                            <textarea class="form-control" id="motivo" name="motivo" rows="5" id="comment"></textarea>
+                        {% endif %}
+                    </div>
+                </fieldset>
+                <div class="form-group">
+                    <div class="col-md-12">
+                            {% if gasto.proveedor %}
+                                <button type="submit" onclick="set_empty_values()" class="btn btn-success col-md-4">Actualizar informacion</button>
+                            {% else %}
+                                <button type="submit" onclick="set_empty_values()" class="btn btn-success col-md-4">Agregar gasto</button>
+                            {% endif %}
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+    <!-- ************************************ JS ************************************** -->
+    <script>
+        function set_initial_date() {
+            var fecha = document.getElementById('datepicker');
+            if (fecha.value.length == 0) {
+                var today = new Date();
+                var dd = today.getDate();
+                var mm = today.getMonth() + 1; //January is 0!
+                var yyyy = today.getFullYear();
+                if (dd < 10) {
+                    dd = '0' + dd
+                }
+                if (mm < 10) {
+                    mm = '0' + mm
+                }
+                today = yyyy + '-' + mm + '-' + dd;
+                fecha.value = today;
+            }
+
+        }
+        
+        function set_date() {
+            var fecha = document.getElementById('datepicker');
+            var hora = document.getElementById('hora');
+
+            if (fecha.value.length > 10) {
+                if (hora.value != "00:00") {
+                    fecha.value = fecha.value.substring(0, 10);
+                    fecha.value = fecha.value + " " + hora.value;
+                } else {
+                    fecha.value = fecha.value.substring(0, 10);
+                }
+
+            } else {
+                fecha.value = fecha.value + " " + hora.value;
+            }
+
+        }
+
+        function set_empty_values() {
+            console.log("entre al metodo");
+            paciente = document.getElementById('paciente');
+            motivo = document.getElementById('motivo');
+            empleado = document.getElementById('empleado');
+            precio = document.getElementById('precio');
+            dolares = document.getElementById('dolares');
+
+            if (paciente.value == "") {
+                alert('el campo paciente es requerido');
+                paciente.value = "";
+            }
+            if (motivo.value == "") {
+                motivo.value = "--";
+            }
+            if (empleado.value == "") {
+                empleado.value = "No registrado";
+            }
+            if (precio.value == "") {
+                precio.value = "--";
+            }
+            if (dolares.value == "") {
+                dolares.value = "--";
+            }
+        }
+    </script> 
+
+{% endblock %} 

@@ -72,19 +72,35 @@ span {
 
 .grid-table{
 	height: 30em;
-	min-height: 20em;
-	max-height: 40em;
+}
+.tbl_main{
+	width: 100%;
 }
 
-.tbl_visitas > thead{
+.ui-datepicker{
+	width: 420px;
+	border-radius: 5px;
+}
+.ui-datepicker-header{
+	background-color: #008cba;
+	color: white;
+}
+.tbl_main > thead{
 	background-color:  #008cba;
 	color: white;
 }
 
 
 @media screen and (max-width: 1000px) {
+
 	.grid-elements > div{
 		padding: 1em;
+	}
+	.tool{
+		display: none;
+	}
+	.grid-table{
+		height: 0%;
 	}
 }
 

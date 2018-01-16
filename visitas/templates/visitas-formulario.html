@@ -41,7 +41,7 @@
                         <div class="form-group col-md-6">
                             <label>Paciente</label>
                             {% if visita.paciente %}
-                                <input type="text" value="{{ visita.paciente}}" class="input-personalized" name="paciente" > 
+                                <input type="text" value="{{ visita.paciente}}" name="paciente" readonly="readonly"> 
                             {% else %}
                                 <select id="paciente" name="paciente">
                                 <option value="%">------</option>

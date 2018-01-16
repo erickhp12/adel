@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}ADEL | gastos {% endblock %}
+
+{% block body %}
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/generic/page-404.css' %}" />
+
+<div class="card-404">
+    <div class="card-header">
+        Ocurrió un error
+    </div>
+    <div class="card-body">
+        <label>Tal parece que has introducido mal alguna dirección</label>
+        <div>
+            <img src="{% static 'img/iconos/page-404.png' %}" class="img-404" alt="ups">
+        </div>
+    </div>
+    <div class="card-footer">
+        <a href="http://adeljrz.com">
+            <button class="">
+                Volver al inicio
+            </button>
+        </a>
+    </div>
+</div>
+{% endblock %}

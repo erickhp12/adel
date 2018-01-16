@@ -1,16 +1,16 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, render_to_response
+from django.template import RequestContext
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import ListView, DetailView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from django.db.models import Sum
-from .models import Gasto
-from proveedores.models import Proveedor
-from empleados.models import Empleado
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from proveedores.models import Proveedor
+from empleados.models import Empleado
 from visitas.models import Visitas
+from .models import Gasto
 from .forms import RegistrarGasto
 from . import forms
 import time
@@ -21,15 +21,15 @@ class SpendingListView(ListView):
 
     @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
-        gastos = Gasto.objects.filter(user=request.user).order_by('fecha_gasto')
-        total_gastos = gastos.count()
+        gastos = Gasto.objects.filter(user=request.user).order_by('-fecha_gasto')
+        total = gastos.count()
         mensaje = ""
         
-        if total_gastos == 0:
+        if total == 0:
             mensaje = "No tienes gastos registrados"
 
         context = {'gastos': gastos,
-                   'total_gastos': total_gastos,
+                   'total': total,
                    'mensaje': mensaje
                    }
 
@@ -62,7 +62,7 @@ class SpendingListView(ListView):
         return render(self.request, self.template_name, context)
 
 class CreateSpendingView(ListView):
-    template_name = "creacion_gastos.html"
+    template_name = "gastos-formulario.html"
     template_main = "gastos.html"
 
     def get(self, request, *args, **kwargs):
@@ -71,6 +71,7 @@ class CreateSpendingView(ListView):
         empleados = Empleado.objects.filter(user=request.user)
         form = RegistrarGasto()
         mensaje = ""
+        
         context = {'proveedores': proveedores,
                     'empleados':empleados,
                     'form':form,
@@ -120,7 +121,7 @@ class CreateSpendingView(ListView):
 
 
 class UpdateSpendingView(ListView):
-    template_name = "edicion_gastos.html"
+    template_name = "gastos-formulario.html"
     template_main = "gastos.html"
 
     def get(self, request, pk, *args, **kwargs):

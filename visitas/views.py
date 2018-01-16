@@ -20,7 +20,7 @@ class VisitListView(ListView):
 
     @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
-        visitas = Visitas.objects.filter(user=request.user).order_by('fecha_visita')
+        visitas = Visitas.objects.filter(user=request.user).order_by('-fecha_visita')
         total_visitas = visitas.count()
         mensaje = ""
 
@@ -129,18 +129,12 @@ class UpdateVisitView(ListView):
     template_main = "visitas.html"
 
     def get(self, request, pk, *args, **kwargs):
-        
-        print "VAS A EDITAR A ESTE CABRON"
         user_logged = request.user
         visita = Visitas.objects.get(user=request.user,id=pk)
         pacientes = Paciente.objects.filter(user=request.user)
         empleados = Empleado.objects.filter(user=request.user)
         form = RegistrarVisita()
         mensaje = ""
-
-        print "vas a editar a este cabron"
-        print visita.paciente
-
 
         context = {'visita': visita,
                    'mensaje': mensaje,
