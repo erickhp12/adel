@@ -1,73 +1,126 @@
 {% extends "base.html" %}
 {% block title %}ADEL | Pacientes {% endblock %}
-{% load staticfiles %}
 
 {% block body %}
- 
-<div class = "header">
-  <span class="header_text">Pacientes registrados <label>{{ total }}</label></span>
-  <img src="{% static 'img/iconos/pacientes40.png' %}" alt="ups">
+{% load staticfiles %}
+<meta charset="utf-8">
+<script src="{% static '/static/js/generic/calendarios.js'%}"></script>
+
+<!-- ************************************  HELPER ************************************ -->
+<div class="container thumbnail helper">
+    <div class="col-md-2">
+        <a href="../" class="glyphicon glyphicon-chevron-left bs-header-back">&nbsp;Volver</a>
+    </div>
+    <div class="col-md-9 bs-header-text helper-text">
+            <label>pacientes actuales <label class="total">{{ total }}</label>
+    </div>
+    <div class="helper-img col-md-1">
+        <img src="{% static 'img/iconos/pacientes40.png' %}"  class="helper-img" alt="ups">
+    </div>
 </div>
 
+<section class="container thumbnail grid">
+  <!-- ************************************  FORM ************************************ -->
+    <section>
+      <form method=post class="container-fluid grid-elements">
+        {% csrf_token %}
+        <div class="col-md-8">
+          <input type="text" id="myInput" name="paciente" placeholder="nombre tipo de paciente o aseguranza" class="input-personalized"/>
+        </div> 
+        <div class="col-md-2">
+          <a>
+            <input type="submit" class="btn btn-default" value="Buscar"/>
+          </a>
+        </div>
+        <div class="col-md-2">
+          <a href="/registro.paciente">
+            <input type="button" class="btn btn-success" value="+ Agregar paciente"/>
+          </a>
+        </div>
+      </form> 
+    </section>
+  <hr>
 
-<!-- herramientas de menu -->
-<section class="seccion_fondo">
-  <section class="herramientas_menu">      
-    <form method=post>
-    {% csrf_token %}
-      <!-- barra de busqueda -->
-      <div class="seccion_busqueda_2">   
-        <span><b>Buscar</b> </span>
-        <input type="text" id="myInput" onkeyup="myFunction()" name="paciente" 
-        placeholder="nombre, tipo de paciente, o aseguranza" class="search_busqueda_2">
-      </div>
-      
-      <a>
-        <input type="submit" name="link_add_gasto" 
-        class="btn btn-default btn_busqueda" value="Buscar"/>
-        </a>
-      <a href="/registro.paciente">
-        <input type="button" name="link_add_gasto" 
-        class="btn btn-success btn_agregar_elemento" value="Agregar un paciente"/>
-      </a>
-      </div>
-    </form>
-  </section>
-<hr>
-<!-- tabla de datos -->
-<section>
-    <table class="generic-table">
-     <thead class="columna">
-          <th>Nombre</th>
-          <th>Tipo de paciente</th>
-          <th>Aseguranza</th>
-          <th>Telefono</th>
-          <th>Informacion</th>
-          <th>Edicion</th>
-          <th>Accion</th>
-     </thead>
-     {% for paciente in Paciente %}
-     <tbody class="contenido">
-          <td>{{ paciente.nombre }}</td>
+  <!-- *********************************** grid *********************************** -->
+
+{% if mensaje != "" %}
+  <div class="empty_query_result">{{ mensaje }}</div>
+{% endif %}
+
+  <div class="table-responsive grid-table">  
+    <table class="table tbl_main">
+      <thead>
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Tipo</th>
+          <th scope="col">Aseguranza</th>
+          <th scope="col">Teléfono</th>
+          <th scope="col">Información</th>
+          <th scope="col">Edición</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      {% for paciente in pacientes %}
+      <tbody>
+        <tr>
+          <td scope="row">{{ paciente.nombre }}</td>
           <td>{{ paciente.tipo_paciente }}</td>
           <td>{{ paciente.aseguranza }}</td>
           <td>{{ paciente.telefono }}</td>
           <td>
-              <a href="{{ paciente.url_ver_paciente }}" class="glyphicon glyphicon-search"> Ver</a>
+            <a href="{{ paciente.url_ver_paciente }}" class="glyphicon glyphicon-search"> Ver</a>
           </td>
           <td>
-               <a href="{{ paciente.url_editar_paciente }}" class="glyphicon glyphicon-pencil"> Editar</a>
+            <a href="{{ paciente.url_editar_paciente }}" class="glyphicon glyphicon-pencil"> Editar</a>
           </td>
           <td>
-               <a href="{{ paciente.url_borrar_paciente }}" class="glyphicon glyphicon-trash"> Borrar</a>
+            <a class="glyphicon glyphicon-trash" data-toggle="modal" data-target="#modal-borrar" onclick="open_modal_borrar('{{ paciente.nombre }}')"> Borrar</a>
           </td>
-     </tbody>
-     {% endfor %}
-  </table>
-  {% if mensaje != "" %}
-     <div class="empty_query_result">{{ mensaje }}</div>
-  {% endif %}
-  <br><br>
+        </tr>
+      </tbody>
+      {% endfor %}
+    </table>
+  </div>
+</section>
 </section>
 
+<!-- *********************************** modal borrar *********************************** -->
+
+<div class="modal fade" id="modal-borrar" tabindex="1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <form class="modal-content" method=post>
+        <div class="modal-header" style="background-color: #dbdbdb; border-bottom: 1px solid rgb(151, 151, 151);" >
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">
+            <img src="{% static 'img/iconos/pacientes40.png' %}" alt="x">
+            <label style="text-align: center;">Confirmación</label> 
+          </h4>
+        </div>
+        <div class="modal-body" style="height:150px; background-color: white;">
+          <h3 style="text-align: center;">¿Estas seguro de eliminar este paciente<br>
+            <b id="textoBorrar"></b>?
+          </h3>
+        </div>
+        <div class="modal-footer" style="background-color: white;">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-danger">Eliminar</button>
+        </div>
+    </div>
+  </div>
+
+  <!-- *********************************** script modal *********************************** -->
+<script>
+  var content_borrar = document.getElementById('textoBorrar');
+
+  function open_modal_borrar(paciente) {
+    content_borrar.innerHTML = paciente;
+  }
+
+</script>
+
 {% endblock %}
+
+
+

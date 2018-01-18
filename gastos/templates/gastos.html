@@ -6,7 +6,6 @@
 <meta charset="utf-8">
 <script src="{% static '/static/js/generic/calendarios.js'%}"></script>
 
-
 <!-- ************************************  HELPER ************************************ -->
 <div class="container thumbnail helper">
     <div class="col-md-2">
@@ -95,6 +94,7 @@
 </section>
 
 <!-- *********************************** modal ver *********************************** -->  
+
 <div class="modal fade" id="modal-ver" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <form class="modal-content" method=post>
@@ -103,7 +103,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
         <h4 class="modal-title">
-          <img src="{% static 'img/iconos/visitas40.png' %}" alt="x">
+          <img src="{% static 'img/iconos/gastos40.png' %}" alt="x">
           <label id="textoProveedor" style="text-align: center;"></label> 
         </h4>
       </div>
@@ -142,12 +142,12 @@
             <span aria-hidden="true">&times;</span>
           </button>
           <h4 class="modal-title">
-            <img src="{% static 'img/iconos/visitas40.png' %}" alt="x">
+            <img src="{% static 'img/iconos/gastos40.png' %}" alt="x">
             <label style="text-align: center;">Confirmación</label> 
           </h4>
         </div>
         <div class="modal-body" style="height:150px; background-color: white;">
-          <h3 style="text-align: center;">¿Estas seguro de eliminar este gasto<br>
+          <h3 style="text-align: center;">¿Estas seguro de eliminar este proveedor<br>
             <b id="textoBorrar"></b>?
           </h3>
         </div>
@@ -157,8 +157,7 @@
         </div>
     </div>
   </div>
-  
-  
+
   <!-- *********************************** script modal *********************************** -->
 <script>
   var modal = document.getElementById('myModal');
@@ -189,8 +188,7 @@
 
 </script>
 
-
-
 {% endblock %}
+
 
 

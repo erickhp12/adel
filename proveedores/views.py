@@ -16,14 +16,14 @@ class ProviderListView(ListView):
     @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
         proveedores = Proveedor.objects.filter(user=request.user)
-        total_proveedores = proveedores.count()
+        total = proveedores.count()
         mensaje = ""
-        print "TOTAL PROVEEDORES ", total_proveedores 
-        if total_proveedores == 0:
+        
+        if total == 0:
             mensaje = "No tienes proveedores registrados"
 
         context = {'proveedores':proveedores,
-                    'total_proveedores':total_proveedores,
+                    'total':total,
                     'mensaje': mensaje        
                     }
 
@@ -48,16 +48,17 @@ class ProviderListView(ListView):
 
 
 class CreateProviderView(CreateView):
-    template_name = "creacion_proveedores.html"
+    template_name = "proveedores-formulario.html"
     template_main = "proveedores.html"
 
     def get(self, request, *args, **kwargs):
         user_logged = request.user
-        proveedores = Proveedor.objects.filter(user=request.user)
-        total_proveedores = proveedores.count
+        proveedores = Proveedor.objects.filter(user=request.user).order_by('-fecha_inicio')
+        total = proveedores.count
         mensaje = ""
+        
         context = {'proveedores': proveedores,
-                   'total_proveedores': total_proveedores,
+                   'total': total,
                    'mensaje': mensaje
                    }
 
@@ -70,11 +71,18 @@ class CreateProviderView(CreateView):
         user = request.user
         nombre = request.POST.get('nombre')
         contacto = request.POST.get('contacto')
-        producto = request.POST.get('producto')
         telefono = request.POST.get('telefono')
         correo = request.POST.get('correo')
         direccion = request.POST.get('direccion')
+        producto = request.POST.get('producto')
 
+        # print "nombre  " + str(nombre)
+        # print "contacto  " + str(contacto)
+        # print "producto  " + str(producto)
+        # print "telefono  " + str(telefono)
+        # print "correo  " + str(correo)
+        # print "direccion  " + str(direccion)
+        
         try:
             if nombre == "":
                 return render(self.request, self.template_name)
@@ -100,7 +108,7 @@ class CreateProviderView(CreateView):
 
 
 class UpdateProviderView(View):
-    template_name = "edicion_proveedores.html"
+    template_name = "proveedores-formulario.html"
     template_main = "proveedores.html"
 
     def get(self, request, pk, *args, **kwargs):
@@ -138,7 +146,7 @@ class UpdateProviderView(View):
                 proveedor.direccion = direccion
                 proveedor.save()
         except Exception as e:
-            mensaje = "Error al editar empleado " + str(e)
+            mensaje = "Error al editar proveedor " + str(e)
 
         context = {'proveedores': proveedores,
                    'total_proveedores': total_proveedores,

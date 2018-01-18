@@ -7,13 +7,13 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.core.urlresolvers import reverse_lazy
-from .models import Paciente
-from visitas.models import Visitas
-from historial.models import Historial
-from .forms import RegistrarPaciente
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
+from visitas.models import Visitas
+from historial.models import Historial
+from .models import Paciente
+from .forms import RegistrarPaciente
 from .serializers import PacienteSerializer
 
 class PatientListView(ListView):
@@ -21,15 +21,15 @@ class PatientListView(ListView):
 
     @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
-        total = Paciente.objects.filter(user=request.user)
-        total_pacientes = total.count()
+        pacientes = Paciente.objects.filter(user=request.user).order_by('-fecha_inicio')
+        total = pacientes.count()
         mensaje = ""
 
-        if total_pacientes == 0:
+        if total == 0:
             mensaje = "No tienes pacientes registrados"
 
-        context = {'Paciente':total,
-                    'total':total_pacientes,
+        context = {'pacientes':pacientes,
+                    'total':total,
                     'mensaje':mensaje     
                     }
 
@@ -38,33 +38,37 @@ class PatientListView(ListView):
     def post(self, request, *args, **kwargs):
         paciente_input = request.POST.get('paciente')
         mensaje = ""
-        paciente = Paciente.objects.all().filter(nombre__icontains=paciente_input,user=request.user
+
+        pacientes = Paciente.objects.all().filter(nombre__icontains=paciente_input,user=request.user
                 ) | Paciente.objects.all().filter(tipo_paciente__icontains=paciente_input,user=request.user
                 ) | Paciente.objects.all().filter(aseguranza__icontains=paciente_input,user=request.user)
-        total_paciente = paciente.count()
+        total = pacientes.count()
 
-        if total_paciente == 0:
-            mensaje = "La busqueda no mostro ningun resultado"
+        if total == 0:
+            mensaje = "No tienes pacientes registrados"
 
-        context = {'Paciente':paciente,
-                    'total':total_paciente,
-                    'mensaje': mensaje,
+        context = {'pacientes':pacientes,
+                    'total':total,
+                    'mensaje':mensaje     
                     }
         
         return render(self.request, self.template_name, context)
 
+
 class CreatePatientView(CreateView):
-    template_name = "creacion_pacientes.html"
+    template_name = "paciente-formulario.html"
     template_main = "pacientes.html"
 
     def get(self, request, *args, **kwargs):
         user_logged = request.user
         pacientes = Paciente.objects.filter(user=request.user)
-        total_pacientes = pacientes.count
+        total = pacientes.count
         form = RegistrarPaciente()
+        
         mensaje = ""
+        
         context = {'pacientes': pacientes,
-                   'total_pacientes': total_pacientes,
+                   'total': total,
                    'form':form,
                    'mensaje': mensaje
                    }
@@ -78,7 +82,7 @@ class CreatePatientView(CreateView):
         user = request.user
         nombre = request.POST.get('nombre')
         sexo = request.POST.get('sexo')
-        edad = request.POST.get('edad')
+        fecha_nacimiento = request.POST.get('fecha_nacimiento')
         tipo_paciente = request.POST.get('tipo_paciente')
         aseguranza = request.POST.get('aseguranza')
         telefono = request.POST.get('telefono')
@@ -86,6 +90,18 @@ class CreatePatientView(CreateView):
         direccion = request.POST.get('direccion')
         comentarios = request.POST.get('comentarios')
         
+        print "Nombre " + str(nombre)
+        print "sexo " + str(sexo)
+        print "fecha " + str(fecha_nacimiento)
+        print "tipo paciente " + str(tipo_paciente)
+        print "aseguranza " + str(aseguranza)
+        print "telefono " + str(telefono)
+        print "correo " + str(correo)
+        print "direccion " + str(direccion)
+        print "comentarios " + str(comentarios)
+
+
+
         try:
             if nombre == "":
                 return render(self.request, self.template_name)
@@ -94,7 +110,7 @@ class CreatePatientView(CreateView):
                     user=user,
                     nombre=nombre,
                     sexo=sexo,
-                    edad=edad,
+                    fecha_nacimiento=fecha_nacimiento,
                     tipo_paciente=tipo_paciente,
                     aseguranza=aseguranza,
                     telefono=telefono,
@@ -114,7 +130,7 @@ class CreatePatientView(CreateView):
 
 
 class UpdatePatientView(UpdateView):
-    template_name = "edicion_paciente.html"
+    template_name = "paciente-formulario.html"
 
     def get(self, request, pk, *args, **kwargs):
         user_logged = request.user
@@ -134,7 +150,7 @@ class UpdatePatientView(UpdateView):
         total_pacientes = pacientes.count
         user = request.user
         nombre = request.POST.get('nombre')
-        edad = request.POST.get('edad')
+        fecha_nacimiento = request.POST.get('fecha_nacimiento')
         sexo = request.POST.get('sexo')
         tipo_paciente = request.POST.get('tipo_paciente')
         aseguranza = request.POST.get('aseguranza')
@@ -150,7 +166,7 @@ class UpdatePatientView(UpdateView):
             else:
                 paciente = Paciente.objects.get(user=request.user,id=pk)
                 paciente.nombre = nombre
-                paciente.edad = edad
+                paciente.fecha_nacimiento = fecha_nacimiento
                 paciente.sexo = sexo
                 paciente.tipo_paciente = tipo_paciente
                 paciente.aseguranza = aseguranza

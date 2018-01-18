@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% block title %}ADEL | proveedores {% endblock %}
+{% block body %}
+
+<body onload="set_initial_date()">
+    {% load staticfiles %}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="{% static '/static/js/generic/calendarios.js'%}"></script>
+
+<!-- ************************************  HELPER ************************************ -->
+ <div class="container col-md-8 thumbnail col-md-offset-2 bs-header">
+    <div class="col-md-2">
+        <a href="/lista.proveedores" class="glyphicon glyphicon-chevron-left bs-header-back">&nbsp;Volver</a>
+    </div>
+    <div class="col-md-9 bs-header-text helper-text">
+        {% if proveedor.nombre %}
+            <label> proveedor de {{ proveedor.nombre }}</label>
+        {% else %}
+            <label>Agregar proveedor</label>
+        {% endif %}
+    </div>
+    <div class="helper-img col-md-1">
+        <img src="{% static 'img/iconos/proveedores40.png' %}"  class="helper-img" alt="ups">
+    </div>
+</div>
+
+    <!-- ************************************ FORM ************************************ -->
+<div class="container col-md-8 thumbnail col-md-offset-2">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <br>
+            <form method="post">
+                {% csrf_token %}
+                <fieldset class="fieldset">
+                    <legend>
+                        <b>Información requerida</b>
+                    </legend>
+
+                    <div class="form-group col-md-6">
+                        <label>Proveedor</label>
+                        {% if proveedor.nombre %}
+                            <input type="text" value="{{ proveedor.nombre}}" name="nombre" id="nombre" readonly="readonly"> 
+                        {% else %}
+                            <input type="text" name="nombre" id="nombre" class="input-personalized"> 
+                        {% endif %}
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Contacto</label>
+                            <input type="text" value="{{ proveedor.contacto }}" name="contacto" id="contacto" class="input-personalized">
+                        </select>
+                    </div>
+                </fieldset>
+
+                <fieldset class="fieldset">
+                    <div class="form-group col-md-6">
+                        <label>Teléfono</label>
+                            <input type="text" value="{{ proveedor.telefono }}" name="telefono" id="telefono" class="input-personalized">
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Correo</label>
+                            <input type="text" value="{{ proveedor.correo }}" name="correo" id="correo" class="input-personalized">
+                        </select>
+                    </div>
+                </fieldset>
+
+                <fieldset class="fieldset">
+                    <div class="form-group col-md-6">
+                        <label>Dirección</label>
+                            <input type="text" value="{{ proveedor.direccion }}" name="direccion" id="direccion" class="input-personalized">
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Producto</label>
+                            <input type="text" value="{{ proveedor.producto }}" name="producto" id="producto" class="input-personalized">
+                        </select>
+                    </div>
+                </fieldset>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                            {% if proveedor.nombre %}
+                                <button type="submit" onclick="set_empty_values()" class="btn btn-success col-md-4">Actualizar informacion</button>
+                            {% else %}
+                                <button type="submit" onclick="set_empty_values()" class="btn btn-success col-md-4">Agregar proveedor</button>
+                            {% endif %}
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+    <!-- ************************************ JS ************************************** -->
+    <script>
+        function set_empty_values() {
+            console.log("entre al metodo");
+            nombre = document.getElementById('nombre');
+            contacto = document.getElementById('contacto');
+            telefono = document.getElementById('telefono');
+            correo = document.getElementById('correo');
+            direccion = document.getElementById('direccion');
+            producto = document.getElementById('producto');
+
+            if (nombre.value == "") {
+                alert('el campo nombre es requerido');
+                nombre.value = "";
+            }
+            if (contacto.value == "") {
+                contacto.value = "---";
+            }
+            if (telefono.value == "") {
+                telefono.value = "No registrado";
+            }
+            if (correo.value == "") {
+                correo.value = "---";
+            }
+            if (direccion.value == "") {
+                direccion.value = "---";
+            }
+            if (producto.value == "") {
+                producto.value = "---";
+            }
+        }
+    </script> 
+
+{% endblock %} 

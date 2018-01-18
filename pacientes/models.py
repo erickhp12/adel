@@ -9,7 +9,7 @@ class Paciente(models.Model):
     user = models.ForeignKey(User, null=True, blank=True)
     nombre = models.CharField(max_length=200, null=False, unique=False, verbose_name=u'nombre(s)')
     sexo = models.CharField(max_length=10, null=True,choices=TIPO_SEXO, verbose_name=u'sexo')
-    edad = models.IntegerField(null=True, unique=False, verbose_name='Edad')
+    fecha_nacimiento = models.DateTimeField(null=True, unique=False, verbose_name='Fecha de nacimiento')
     tipo_paciente = models.CharField(max_length=100, choices=TIPOS_PACIENTES,null=False, unique=False, verbose_name=u'tipo paciente')
     aseguranza = models.CharField(max_length=100, default='',null=True, unique=False, verbose_name=u'aseguranza')
     telefono = models.CharField(max_length=100, null=True, unique=False, verbose_name=u'telefono')

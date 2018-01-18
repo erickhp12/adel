@@ -12,9 +12,6 @@ class RegistrarPaciente(ModelForm):
             'tipo_paciente': forms.Select(
                 attrs={'class': 'form-control'}
             ),
-            'edad': TextInput(
-            	attrs={'placeholder':'edad','class':'txtInput'}
-            ),
             'sexo': forms.Select(
                 attrs={'class': 'form-control'}
             )

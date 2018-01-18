@@ -18,7 +18,6 @@ DEBUG = True
 ALLOWED_HOSTS = ['www.adeljrz.com', 'adeljrz.com']
 
 
-
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
