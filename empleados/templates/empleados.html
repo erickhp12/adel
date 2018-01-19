@@ -1,160 +1,192 @@
 {% extends "base.html" %}
-{% block title %}ADEL | empleados {% endblock %}
-{% load staticfiles %} 
+{% block title %}ADEL | Empleados {% endblock %}
 
 {% block body %}
+{% load staticfiles %}
+<meta charset="utf-8">
 
-<div class = "header">
-  <span class="header_text">Empleados actuales <label>{{ total_empleados }}</label></span>
-  <img src="{% static 'img/iconos/empleados40.png' %}" alt="ups">
+<!-- ************************************  HELPER ************************************ -->
+<div class="container thumbnail helper">
+    <div class="col-md-2">
+        <a href="../" class="glyphicon glyphicon-chevron-left bs-header-back">&nbsp;Volver</a>
+    </div>
+    <div class="col-md-9 bs-header-text helper-text">
+            <label>empleados actuales <label class="total">{{ total }}</label>
+    </div>
+    <div class="helper-img col-md-1">
+        <img src="{% static 'img/iconos/empleados40.png' %}"  class="helper-img" alt="ups">
+    </div>
 </div>
 
-<!-- herramientas de menu -->
-<section class="seccion_fondo">
-  <section class="herramientas_menu">      
-    <form method=post>
-    {% csrf_token %}
-      <!-- barra de busqueda -->
-      <div class="seccion_busqueda_2">   
-        <span><b>Buscar</b></span>
-        <input type="text" id="myInput" onkeyup="myFunction()" name="empleado" 
-        placeholder="nombre o puesto" class="search_busqueda_2">
-      
-        <a class="btn_busquea_2">
-          <input type="submit" name="link_add_gasto" 
-          class="btn btn-default btn_busqueda" value="Buscar"/>
-        </a>
-        <a href="/registro.empleado">
-          <input type="button" name="link_add_gasto" 
-          class="btn btn-success btn_agregar_elemento" value="Agregar un empleado"/>
-        </a>
-      </div>
-    </form>
-  </section>
-<hr>
-<!-- tabla de datos -->
+<section class="container thumbnail grid">
+  <!-- ************************************  FORM ************************************ -->
+    <section>
+      <form method=post class="container-fluid grid-elements">
+        {% csrf_token %}
+        <div class="col-md-8">
+          <input type="text" id="myInput" name="empleado" placeholder="Búsqueda por nombre" class="input-personalized"/>
+        </div> 
+        <div class="col-md-2">
+          <a>
+            <input type="submit" class="btn btn-default" value="Buscar"/>
+          </a>
+        </div>
+        <div class="col-md-2">
+          <a href="/registro.empleado">
+            <input type="button" class="btn btn-success" value="+ Agregar empleado"/>
+          </a>
+        </div>
+      </form> 
+    </section>
+  <hr>
 
-  <table class="generic-table">
-     <thead class="columna">
-          <th>Nombre</th>
-          <th>puesto</th>
-          <th>Telefono</th>
-          <th>Detalles</th>
-          <th>Edicion</th>
-          <th>Accion</th>
-     </thead>
-     {% for empleado in empleados %}
-     <tbody class="contenido" id="contenido">
-          <td>{{ empleado.nombre }}</td>
-          <td>{{ empleado.puesto }}</td>
+  <!-- *********************************** grid *********************************** -->
+
+{% if mensaje != "" %}
+  <div class="empty_query_result">{{ mensaje }}</div>
+{% endif %}
+
+  <div class="table-responsive grid-table">  
+    <table class="table tbl_main">
+      <thead>
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Teléfono</th>
+          <th scope="col">Correo electrónico</th>
+          <th scope="col">Información</th>
+          <th scope="col">Edición</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      {% for empleado in empleados %}
+      <tbody>
+        <tr>
+          <td scope="row">{{ empleado.nombre }}</td>
           <td>{{ empleado.telefono }}</td>
+          <td>{{ empleado.correo }}</td>
           <td>
-              <a type="button" class="glyphicon glyphicon-search" 
-             onclick="open_modal('{{ empleado.nombre }}','{{ empleado.puesto }}',
-              '{{ empleado.edad }}','{{ empleado.telefono }}','{{ empleado.correo }}',
-              '{{ empleado.direccion }}','{{ empleado.fecha_inicio }}','{{ empleado.pk }}')"> Ver
-             </a>
-         </td>
-          <td>
-               <a href="{{ empleado.url_editar_empleado }}" class="glyphicon glyphicon-pencil"> Editar</a>
+            <a type="button" class="glyphicon glyphicon-search" data-toggle="modal" data-target="#modal-ver" 
+            onclick="open_modal('{{ empleado.nombre }}','{{ empleado.puesto }}','{{ empleado.telefono }}',
+              '{{ empleado.correo }}','{{empleado.direccion }}','{{ empleado.fecha_nacimiento }}',
+              '{{ empleado.fecha_inicio }}')"> Ver
+            </a>
           </td>
           <td>
-               <a href="" class="glyphicon glyphicon-trash"> Borrar</a>
+            <a href="{{ empleado.url_editar_empleado }}" class="glyphicon glyphicon-pencil"> Editar</a>
           </td>
-     </tbody>
-     {% endfor %}
-     </table>
-     {% if mensaje != "" %}
-     <div class="empty_query_result">{{ mensaje }}</div>
-     {% endif %}
-     <br><br>
+          <td>
+            <a class="glyphicon glyphicon-trash" data-toggle="modal" data-target="#modal-borrar" onclick="open_modal_borrar('{{ empleado.nombre }}')"> Borrar</a>
+          </td>
+        </tr>
+      </tbody>
+      {% endfor %}
+    </table>
+  </div>
+</section>
 </section>
 
 <!-- *********************************** modal ver *********************************** -->  
-<div id="myModal" class="modal">
-  <!-- Modal content -->
-  <div class="modal-content">
-    <div class="modal-header">
-      <p id="textoEmpleado" class="modal-header-p"> </p>
-    </div>
-    <div class="modal-body">
-      <table>
-        <tr>
-          <td class="modal-td"><b>Puesto</b></td>
-          <td id="textoPuesto"></td>
-        </tr>
-        <tr>
-          <td class="modal-td"><b>Edad</b></td>
-          <td id="textoEdad"></td>
-        </tr>
-        <tr>
-          <td class="modal-td"><b>Telefono</b></td>
-          <td id="textoTelefono"></td>
-        </tr>
-        <tr>
-          <td class="modal-td"><b>Correo</b></td>
-          <td id="textoCorreo"></td>
-        </tr>
-        <tr>
-          <td class="modal-td"><b>Direccion</b></td>
-          <td id="textoDireccion"></td>
-        </tr>
-        <tr>
-          <td class="modal-td"><b>Fecha de inicio</b></td>
-          <td id="textoFecha"></td>
-        </tr>
-      </table>
-    </div>
-    <div class="modal-footer">
-      <a href="" id="id_editar">
-        <button  class="btn btn-modal-edit">Editar</button>
-      </a>
-      <button class="btn btn-modal-close"> Cerrar </button>
+
+<div class="modal fade" id="modal-ver" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <form class="modal-content" method=post>
+        <div class="modal-header" style="background-color: #dbdbdb; border-bottom: 1px solid rgb(151, 151, 151);" >
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">
+            <img src="{% static 'img/iconos/empleados40.png' %}" alt="x">
+            <label id="textoNombre" style="text-align: center;"></label> 
+          </h4>
+        </div>
+        <div class="modal-body" style="height:220px;">
+          <div class="col-md-12">
+            <label class="col-md-4">Puesto</label>
+            <label class="col-md-8" id="textoPuesto"></label>
+          </div>
+          <div class="col-md-12">
+            <label class="col-md-4">Teléfono</label>
+            <label class="col-md-8" id="textoTelefono"></label>
+          </div>
+          <div class="col-md-12">
+            <label class="col-md-4">Correo</label>
+            <label class="col-md-8" id="textoCorreo"></label>
+          </div>
+          <div class="col-md-12">
+            <label class="col-md-4">Dirección</label>
+            <label class="col-md-8" id="textoDireccion"></label>
+          </div>
+          <div class="col-md-12">
+              <label class="col-md-4">Fecha de nacimiento</label>
+              <label class="col-md-8" id="textoFecha_nacimiento"></label>
+          </div>
+          <div class="col-md-12">
+              <label class="col-md-4">Fecha de inicio</label>
+              <label class="col-md-8" id="textoFecha"></label>
+          </div>
+        </div>
     </div>
   </div>
-</div>
+  
 
 
+<!-- *********************************** modal borrar *********************************** -->
 
+<div class="modal fade" id="modal-borrar" tabindex="1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <form class="modal-content" method=post>
+        <div class="modal-header" style="background-color: #dbdbdb; border-bottom: 1px solid rgb(151, 151, 151);" >
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">
+            <img src="{% static 'img/iconos/empleados40.png' %}" alt="x">
+            <label style="text-align: center;">Confirmación</label> 
+          </h4>
+        </div>
+        <div class="modal-body" style="height:150px; background-color: white;">
+          <h3 style="text-align: center;">¿Estas seguro de eliminar este empleado<br>
+            <b id="textoBorrar"></b>?
+          </h3>
+        </div>
+        <div class="modal-footer" style="background-color: white;">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-danger">Eliminar</button>
+        </div>
+    </div>
+  </div>
+
+  <!-- *********************************** script modal *********************************** -->
 <script>
   var modal = document.getElementById('myModal');
-  var content_empleado = document.getElementById('textoEmpleado');
+  var content_nombre = document.getElementById('textoNombre');
   var content_puesto = document.getElementById('textoPuesto');
-  var content_edad = document.getElementById('textoEdad');
   var content_telefono = document.getElementById('textoTelefono');
   var content_correo = document.getElementById('textoCorreo');
   var content_direccion = document.getElementById('textoDireccion');
+  var content_fecha_nacimiento = document.getElementById('textoFecha_nacimiento');
   var content_fecha = document.getElementById('textoFecha');
-  var content_editar = document.getElementById('id_editar');
+  var content_borrar = document.getElementById('textoBorrar');
+
   var close = document.getElementsByClassName("btn-modal-close")[0];
 
-  function open_modal(nombre, puesto, edad, telefono, correo, direccion, fecha, pk) { 
-    modal.style.display = "block";
-    content_empleado.innerHTML = nombre;
+  function open_modal(nombre, puesto, telefono, correo, direccion, fecha_nacimiento, fecha) { 
+    content_nombre.innerHTML = nombre;
     content_puesto.innerHTML = puesto;
-    content_edad.innerHTML = edad + " años";
     content_telefono.innerHTML = telefono;
     content_correo.innerHTML = correo;
-    content_direccion.innerHTML = direccion;
+    content_direccion.innerHTML =  direccion;
+    content_fecha_nacimiento.innerHTML = fecha_nacimiento;
     content_fecha.innerHTML = fecha;
-    content_editar.href = "/empleados/editar/"+ pk;
   }
 
-  close.onclick = function() {
-      modal.style.display = "none";
+  function open_modal_borrar(empleado) {
+    content_borrar.innerHTML = empleado;
   }
 
-  window.onclick = function(event) {
-      if (event.target == modal) {
-          modal.style.display = "none";
-      }
-  }
 </script>
 
-
 {% endblock %}
-
-
 
 
 

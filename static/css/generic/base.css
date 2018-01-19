@@ -103,9 +103,11 @@ body {
 .div-dropdown:hover .dropdown-children {
     display: block;
 }
+
 .div-logout{
   float: right;
 }
+
 .div-logout > button > a{
   color: white;
 }

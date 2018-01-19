@@ -1,110 +1,130 @@
 {% extends "base.html" %}
 {% block title %}ADEL | Movimientos {% endblock %}
 
-{% block body %} 
-
+{% block body %}
 {% load staticfiles %}
-	<script src="{% static '/static/js/generic/calendarios.js'%}"></script>
-	<link rel="stylesheet" type="text/css" href="{% static 'css/gastos/movimientos.css' %}"/>
-	<body onload="hide_show_section()"> </div>
+<meta charset="utf-8">
+<script src="{% static '/static/js/generic/calendarios.js'%}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'css/gastos/movimientos.css' %}" />
 
-<div class = "header">
-    <span class="header_text">Mis movimientos</span>
-    <img src="{% static 'img/iconos/gastos40.png' %}" alt="ups">
+<!-- ************************************  HELPER ************************************ -->
+<div class="container thumbnail helper">
+    <div class="col-md-2">
+        <a href="../" class="glyphicon glyphicon-chevron-left bs-header-back">&nbsp;Volver</a>
+    </div>
+    <div class="col-md-9 bs-header-text helper-text">
+            <label>Movimientos actuales <label class="total">{{ total }}</label>
+    </div>
+    <div class="helper-img col-md-1">
+        <img src="{% static 'img/iconos/gastos40.png' %}"  class="helper-img" alt="ups">
+    </div>
 </div>
 
-<section class="seccion_fondo">
-	<section class="seccion_fondo_fechas">
-		<form action="" method="post">
-		{% csrf_token %}
-		<div>
-			<label for="Fecha de inicio">Fecha de inicio</label>
-			<input type="text" value="{{ fechai }}" placeholder="{{ fechai }}"
-			id="datepicker" class="search_busqueda" name="fecha1">	
-		</div>
-		<div>
-			<label class="generic-label">Fecha final</label>
-			<input type="text" value="{{ fechaf }}" placeholder="{{ fechaf }}" 
-			id="datepickerf" class="search_busqueda" name="fecha2">
-		</div>
-		<div>
-			<input type="submit" value="Buscar" class="btn btn-success btn_agregar_elemento">
-		</div>
-		</form>
-	</section>
-	<hr>
-	{% if mensaje != "" %}
-	<div class="empty_query_result">{{ mensaje }}</div>
-	{% endif %}
-	<section class="seccion_movimientos_general" id="seccion_movimientos_general">
-		<section class="seccion_ingresos">
-			<table class="generic-table tbl_ingresos">
-				<h3 style="text-align: center;">Mis ingresos</h3><br>
-				<thead>
-					<th class="th_ingresos">&nbsp;&nbsp;Fecha de visita</th>
-					<th class="th_ingresos">Paciente&nbsp; &nbsp;</th>
-					<th class="th_ingresos">Concepto</th>
-					<th class="th_ingresos">Total</th>
-				</thead>
-				{% for ingreso in ingresos %}
-				<tbody>
-					<td class="th_ingresos">{{ ingreso.fecha_visita }}</td>
-					<td class="th_ingresos">{{ ingreso.paciente}}</td>
-					<td class="th_ingresos">{{ ingreso.motivo }}</td>
-					<td class="th_ingresos">{{ ingreso.precio }} {{ ingreso.dolares }}</td>
-				</tbody>
-				{% endfor %}
-			</table>
-		</section>
-		<hr>
-		<section class="seccion_egresos">
-			<table class="generic-table tbl_egresos" valign="top" >
-				<h3 style="text-align: center;">Mis gastos</h3><br>
-				<thead>
-					<th class="th_egresos">&nbsp; &nbsp;Fecha de gasto</th>
-					<th class="th_egresos">Proveedor</th>
-					<th class="th_egresos">Concepto</th>
-					<th class="th_egresos">Total</th>
-				</thead>
-				{% for egreso in egresos %}
-				<tbody>
-					<td>{{ egreso.fecha_gasto }}</td>
-					<td>{{ egreso.proveedor }}</td>
-					<td>{{ egreso.motivo }}</td>
-					<td>{{ egreso.precio }} {{ egreso.dolares }}</td>
-				</tbody>
-				{% endfor %}
-			</table>
-		</section>
-	</section>
-</section>
+<section class="container thumbnail grid">
+  <!-- ************************************  FORM ************************************ -->
+    <section>
+      <form method=post class="container-fluid grid-elements">
+        {% csrf_token %} 
+  
+        <div class="col-md-2">
+			<input type="text" value="{{ fechai }}" placeholder="{{ fechai }}" id="datepicker" class="input-personalized" name="fecha1">	
+        </div>
+        <div class="col-md-2">
+			<input type="text" value="{{ fechaf }}" placeholder="{{ fechaf }}" id="datepickerf" class="input-personalized" name="fecha2">
+        </div>
+        <div class="col-md-1">
+          <a>
+            <input type="submit" name="link_add_gasto" class="btn btn-info" value="Buscar"/>
+          </a>
+        </div>
+      </form> 
+    </section>
+<hr>
+  <!-- *********************************** grid *********************************** -->
 
-<section class="seccion_movimientos_resumen" id="seccion_movimientos_resumen" onload="hide_show_section()">
-	<p class="resumen_p">Mi resumen del <b>{{ fechai }}</b> a <b>{{ fechaf }}</b></p>
-	<div class="seccion_movimientos_resumen_pesos">
-		<p class="main_p">Pesos</p>
-		<p class="span_ingresos">+ $
-			<span id="span_ingresos_pesos" class="span_totales">{{ total_ingresos_pesos}}</span></p>
-		<p class="span_egresos">- $
-			<span id="span_egresos_pesos" class="span_totales">{{ total_egresos_pesos }}</span>
-		</p>
-		<hr>
-		<p class="span_diferencia">Total $
-			{{ total_diferencia_pesos }}
-		</p>
+	{% if mensaje != "" %}
+		<div class="empty_query_result">{{ mensaje }}</div>
+	{% endif %}
+
+	<div class="col-md-6">
+	<h3 style="text-align: center;">Mis ingresos <label class="total">{{ total_ingresos }}</label> </h3>
+	<div class="table-responsive grid-table">  
+		<table class="table tbl_main" style="width:1000px;">
+		  <thead style="width:1000px;">
+			<tr style="width:1000px;">
+				<th>Fecha de visita</th>
+				<th>Paciente</th>
+				<th>Concepto</th>
+				<th>Total</th>
+			</tr>
+		  </thead>
+		  {% for ingreso in ingresos %}
+		  <tbody>
+			<tr>
+				<td>{{ ingreso.fecha_visita }}</td>
+				<td>{{ ingreso.paciente}}</td>
+				<td>{{ ingreso.motivo }}</td>
+				<td>{{ ingreso.precio }} {{ ingreso.dolares }}</td>
+			</tr>
+		  </tbody>
+		  {% endfor %}
+		</table>
+	  </div>
 	</div>
-	<div class="seccion_movimientos_resumen_dolares">
-		<p class="main_p">Dolares</p>
-		<p class="span_ingresos">+ &nbsp;$ 
-			<span id="span_ingresos_dolares" class="span_totales">{{ total_ingresos_dolares }}</span>
-		</p>
-		<p class="span_egresos">- &nbsp;$
-			<span id="span_egresos_dolares"  class="span_totales">{{ total_egresos_dolares }}</p>
-		<hr>
-		<p class="span_diferencia">Total ${{ total_diferencia_dolares }}</p>
+	<div class="col-md-6">
+
+	<h3 style="text-align: center;">Mis gastos <label class="total">{{ total_egresos }}</label> </h3>
+	<div class="table-responsive grid-table">  
+		<table class="table tbl_main" style="width:1000px;">
+		  <thead style="width:1000px;">
+			<tr style="width:1000px;">
+				<th>&nbsp; &nbsp;Fecha de gasto</th>
+				<th>Proveedor</th>
+				<th>Concepto</th>
+				<th>Total</th>
+			</tr>
+		  </thead>
+		  {% for egreso in egresos %}
+		  <tbody>
+			<tr>
+				<td>{{ egreso.fecha_gasto }}</td>
+				<td>{{ egreso.proveedor }}</td>
+				<td>{{ egreso.motivo }}</td>
+				<td>{{ egreso.precio }} {{ egreso.dolares }}</td>
+			</tr>
+		  </tbody>
+		  {% endfor %}
+		</table>
+	  </div>
 	</div>
-	
 </section>
+	<!-- ============================================================================================================================ -->
+
+	<section class="container thumbnail  movimientos-card">
+		<div class="card">
+			<div class="card-header">
+				<h4 class="card-title resumen-header">Mi resumen del <b>{{ fechai }}</b> a <b>{{ fechaf }}</h4>
+			</div>
+			<div class="card-block">
+				<div class="col-md-6 movimientos-div">
+					<div class="col-md-12 resumen-p">Pesos</div>
+					<br> 
+					<div class="col-md-6 ingresos-div">Ingresos: ${{ total_ingresos_pesos}}</div>
+					<div class="col-md-6 egresos-div">Gastos: ${{ total_egresos_pesos}}</div>
+					<div class="col-md-12 diferencia-div">Total: ${{ total_diferencia_pesos }} </div>
+				</div>
+				<div class="col-md-6 movimientos-div">
+					<div class="col-md-12 resumen-p">Dolares</div> 
+					<br>
+					<div class="col-md-6 ingresos-div">Ingresos: ${{ total_ingresos_dolares}}</div>
+					<div class="col-md-6 egresos-div">Gastos: ${{ total_egresos_dolares}}</div>
+					<div class="col-md-12 diferencia-div">Total: ${{ total_diferencia_dolares }} </div>
+				</div>
+			</div>
+			<br><br>
+		</div>
+	</section>
+
 
 <script>
 function hide_show_section() { 

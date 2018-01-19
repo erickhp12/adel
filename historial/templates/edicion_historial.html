@@ -5,9 +5,18 @@
 {% load staticfiles %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/historial/creacion.historial.css'%}"/>
 <body onload="alergias_show() , medicamentos_show()"> 
-<div class = "header">
-    <span class="header_text">Historia clinica de {{ paciente.nombre}}</span>
-    <img src="{% static 'img/iconos/historial40.png' %}" alt="ups">
+
+    
+<div class="container thumbnail helper">
+    <div class="col-md-2">
+        <a href="../" class="glyphicon glyphicon-chevron-left bs-header-back">&nbsp;Volver</a>
+    </div>
+    <div class="col-md-9 bs-header-text helper-text">
+            <label>Editar historial clinico </label>
+    </div>
+    <div class="helper-img col-md-1">
+        <img src="{% static 'img/iconos/historial40.png' %}"  class="helper-img" alt="ups">
+    </div>
 </div>
 
 <section class="seccion_formulario">

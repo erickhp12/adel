@@ -72,23 +72,8 @@
                             <label>Precio</label>
                             <input type="text" name="precio" id="precio" value="{{ visita.precio}}" placeholder="$0.00" class="form-control input-personalized"/>
                         </div>
+                        
 
-                        <div class="form-group col-md-6">
-                            <label>Tipo de pago</label>
-                            <select id="tipo_pago" name="tipo_pago">
-                                {% if visita.paciente %}
-                                    <option value="{{ visita.tipo_pago }}">{{ visita.tipo_pago }}</option>
-                                {% else %}
-                                    <option value="">------</option>
-                                {% endif %}
-                                {% for choice in form.tipo_pago.field.choices %}
-                                    <option id="tipo_pago" name="tipo_pago" value={{choice.0}}>{{ choice.1}}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </fieldset>
-
-                    <fieldset class="fieldset">
                         <div class="form-group col-md-6">
                             <label>Tipo de cambio</label>
                             <select id="dolares" name="dolares">
@@ -102,6 +87,22 @@
                                 {% endfor %}
                             </select>
                         </div>
+                    </fieldset>
+
+                    <fieldset class="fieldset">
+                        <div class="form-group col-md-6">
+                            <label>Tipo de pago</label>
+                            <select id="tipo_pago" name="tipo_pago">
+                                {% if visita.paciente %}
+                                    <option value="{{ visita.tipo_pago }}">{{ visita.tipo_pago }}</option>
+                                {% else %}
+                                    <option value="">------</option>
+                                {% endif %}
+                                {% for choice in form.tipo_pago.field.choices %}
+                                    <option id="tipo_pago" name="tipo_pago" value={{choice.0}}>{{ choice.1}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>                        
 
                         <div class="form-group col-md-3">
                             <label style="margin-bottom: 5px;">Fecha</label>

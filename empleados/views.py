@@ -15,15 +15,15 @@ class EmployeeListView(ListView):
     @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
         user_logged = request.user
-        empleados = Empleado.objects.filter(user=request.user)
-        total_empleados = empleados.count()
+        empleados = Empleado.objects.filter(user=request.user).order_by('-fecha_inicio')
+        total = empleados.count()
         mensaje = ""
 
-        if total_empleados == 0:
+        if total == 0:
             mensaje = "No tienes empleados registrados"
 
         context = {'empleados': empleados,
-                   'total_empleados': total_empleados,
+                   'total': total,
                    'mensaje': mensaje
                    }
 
@@ -32,15 +32,15 @@ class EmployeeListView(ListView):
     def post(self, request, *args, **kwargs):
         empleado_input = request.POST.get('empleado')
         empleados = Empleado.objects.filter(nombre__icontains=empleado_input,user=request.user
-                                                  ) | Empleado.objects.filter(puesto__icontains=empleado_input,user=request.user)
-        total_empleados = empleados.count()
+                    ) | Empleado.objects.filter(puesto__icontains=empleado_input,user=request.user).order_by('-fecha_inicio')
+        total = empleados.count()
         mensaje = ""
 
-        if total_empleados == 0:
+        if total == 0:
             mensaje = "La busqueda no mostro ningun resultado"
 
         context = {'empleados': empleados,
-                   'total_empleados': total_empleados,
+                   'total': total,
                    'mensaje': mensaje,
                    }
 
@@ -48,16 +48,16 @@ class EmployeeListView(ListView):
 
 
 class CreateEmployeeView(ListView):
-    template_name = "creacion_empleados.html"
+    template_name = "empleados-formulario.html"
     template_main = "empleados.html"
 
     def get(self, request, *args, **kwargs):
         user_logged = request.user
         empleados = Empleado.objects.filter(user=request.user)
-        total_empleados = empleados.count
+        total = empleados.count
         mensaje = ""
         context = {'empleados': empleados,
-                   'total_empleados': total_empleados,
+                   'total': total,
                    'mensaje': mensaje
                    }
 
@@ -66,11 +66,11 @@ class CreateEmployeeView(ListView):
     def post(self, request, *args, **kwargs):
         mensaje = ""
         empleados = Empleado.objects.filter(user=request.user)
-        total_empleados = empleados.count
+        total = empleados.count
         user = request.user
         nombre = request.POST.get('nombre')
         puesto = request.POST.get('puesto')
-        edad = request.POST.get('edad')
+        fecha_nacimiento = request.POST.get('fecha_nacimiento')
         telefono = request.POST.get('telefono')
         correo = request.POST.get('correo')
         direccion = request.POST.get('direccion')
@@ -83,7 +83,7 @@ class CreateEmployeeView(ListView):
                     user=user,
                     nombre=nombre,
                     puesto=puesto,
-                    edad=edad,
+                    fecha_nacimiento=fecha_nacimiento,
                     telefono=telefono,
                     correo=correo,
                     direccion=direccion
@@ -92,7 +92,7 @@ class CreateEmployeeView(ListView):
             mensaje = "Error al crear empleado " + str(e)
 
         context = {'empleados': empleados,
-                   'total_empleados': total_empleados,
+                   'total': total,
                    'mensaje': mensaje
                    }
 
@@ -100,7 +100,7 @@ class CreateEmployeeView(ListView):
 
 
 class UpdateEmployeeView(ListView):
-    template_name = "edicion_empleados.html"
+    template_name = "empleados-formulario.html"
     template_main = "empleados.html"
 
     def get(self, request, pk, *args, **kwargs):
@@ -116,11 +116,11 @@ class UpdateEmployeeView(ListView):
     def post(self, request,pk, *args, **kwargs):
         mensaje = ""
         empleados = Empleado.objects.filter(user=request.user)
-        total_empleados = empleados.count
+        total = empleados.count
         user = request.user
         nombre = request.POST.get('nombre')
         puesto = request.POST.get('puesto')
-        edad = request.POST.get('edad')
+        fecha_nacimiento = request.POST.get('fecha_nacimiento')
         telefono = request.POST.get('telefono')
         correo = request.POST.get('correo')
         direccion = request.POST.get('direccion')
@@ -132,7 +132,7 @@ class UpdateEmployeeView(ListView):
                 empleado = Empleado.objects.get(user=request.user,id=pk)
                 empleado.nombre = nombre
                 empleado.puesto = puesto
-                empleado.edad = edad
+                empleado.fecha_nacimiento = fecha_nacimiento
                 empleado.telefono = telefono
                 empleado.correo = correo
                 empleado.direccion = direccion
@@ -141,7 +141,7 @@ class UpdateEmployeeView(ListView):
             mensaje = "Error al editar empleado " + str(e)
 
         context = {'empleados': empleados,
-                   'total_empleados': total_empleados,
+                   'total': total,
                    'mensaje': mensaje
                    }
 
@@ -166,9 +166,9 @@ class DeleteEmployeeView(ListView):
         mensaje = ""
         Empleado.objects.get(id=pk).delete()
         empleados = Empleado.objects.filter(user=request.user)
-        total_empleados = empleados.count
+        total = empleados.count
         context = {'empleados': empleados,
-                   'total_empleados': total_empleados,
+                   'total': total,
                    'mensaje': mensaje
                    }
 

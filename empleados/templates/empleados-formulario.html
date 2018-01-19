@@ -1,8 +1,7 @@
 {% extends 'base.html' %}
-{% block title %}ADEL | proveedores {% endblock %}
+{% block title %}ADEL | empleados {% endblock %}
 {% block body %}
 
-<body onload="set_initial_date()">
     {% load staticfiles %}
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <script src="{% static '/static/js/generic/calendarios.js'%}"></script>
@@ -10,17 +9,17 @@
 <!-- ************************************  HELPER ************************************ -->
  <div class="container col-md-8 thumbnail col-md-offset-2 bs-header">
     <div class="col-md-2">
-        <a href="/lista.proveedores" class="glyphicon glyphicon-chevron-left bs-header-back">&nbsp;Volver</a>
+        <a href="/lista.empleados" class="glyphicon glyphicon-chevron-left bs-header-back">&nbsp;Volver</a>
     </div>
     <div class="col-md-9 bs-header-text helper-text">
-        {% if proveedor.nombre %}
-            <label>{{ proveedor.nombre }}</label>
+        {% if empleado.nombre %}
+            <label>{{ empleado.nombre }}</label>
         {% else %}
-            <label>Agregar proveedor</label>
+            <label>Agregar empleado</label>
         {% endif %}
     </div>
     <div class="helper-img col-md-1">
-        <img src="{% static 'img/iconos/proveedores40.png' %}"  class="helper-img" alt="ups">
+        <img src="{% static 'img/iconos/empleados40.png' %}"  class="helper-img" alt="ups">
     </div>
 </div>
 
@@ -37,53 +36,50 @@
                     </legend>
 
                     <div class="form-group col-md-6">
-                        <label>Proveedor</label>
-                        {% if proveedor.nombre %}
-                            <input type="text" value="{{ proveedor.nombre}}" name="nombre" id="nombre" readonly="readonly"> 
+                        <label>Nombre</label>
+                        {% if empleado.nombre %}
+                            <input type="text" value="{{ empleado.nombre}}" name="nombre" id="nombre" readonly="readonly"> 
                         {% else %}
                             <input type="text" name="nombre" id="nombre" class="input-personalized"> 
                         {% endif %}
-                        </select>
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Contacto</label>
-                            <input type="text" value="{{ proveedor.contacto }}" name="contacto" id="contacto" class="input-personalized">
+                        <label>Fecha de nacimiento</label>
+                            <input type="text" id="datepickerf" name="fecha_nacimiento" value="2018-01-18" class="input-personalized">
                         </select>
                     </div>
                 </fieldset>
 
                 <fieldset class="fieldset">
+                    <div class="form-group col-md-6">
+                        <label>Puesto</label>
+                        <input type="text" value="{{ empleado.puesto }}"
+                        name="puesto" id="puesto" class="input-personalized">
+                    </div>
                     <div class="form-group col-md-6">
                         <label>Teléfono</label>
-                            <input type="text" value="{{ proveedor.telefono }}" name="telefono" id="telefono" class="input-personalized">
-                        </select>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Correo</label>
-                            <input type="text" value="{{ proveedor.correo }}" name="correo" id="correo" class="input-personalized">
-                        </select>
+                        <input type="text" value="{{ empleado.telefono }}" placeholder="(656) 336-46-63"
+                        name="telefono" id="telefono" class="input-personalized">
                     </div>
                 </fieldset>
-
+                
                 <fieldset class="fieldset">
                     <div class="form-group col-md-6">
-                        <label>Dirección</label>
-                            <input type="text" value="{{ proveedor.direccion }}" name="direccion" id="direccion" class="input-personalized">
-                        </select>
+                        <label>Correo electrónico</label>
+                        <input type="text" name="correo" id="correo" value="{{ empleado.correo }}" class="input-personalized">
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Producto</label>
-                            <input type="text" value="{{ proveedor.producto }}" name="producto" id="producto" class="input-personalized">
-                        </select>
+                        <label>Dirección</label>
+                        <input type="text" value="{{ empleado.direccion }}" name="direccion" id="direccion" class="input-personalized">
                     </div>
                 </fieldset>
 
                 <div class="form-group">
                     <div class="col-md-12">
-                            {% if proveedor.nombre %}
-                                <button type="submit" onclick="set_empty_values()" class="btn btn-success col-md-4">Actualizar informacion</button>
+                            {% if empleado.nombre %}
+                                <button type="submit" onclick="set_empty_values()" class="btn btn-success col-md-4">Actualizar información</button>
                             {% else %}
-                                <button type="submit" onclick="set_empty_values()" class="btn btn-success col-md-4">Agregar proveedor</button>
+                                <button type="submit" onclick="set_empty_values()" class="btn btn-success col-md-4">Agregar empleado</button>
                             {% endif %}
                         <br>
                         <br>
@@ -96,20 +92,31 @@
     <!-- ************************************ JS ************************************** -->
     <script>
         function set_empty_values() {
-            console.log("entre al metodo");
             nombre = document.getElementById('nombre');
-            contacto = document.getElementById('contacto');
+            fecha_nacimiento = document.getElementById('datepickerf');
+            puesto = document.getElementById('puesto');
             telefono = document.getElementById('telefono');
             correo = document.getElementById('correo');
             direccion = document.getElementById('direccion');
-            producto = document.getElementById('producto');
+
+            console.log('nombre ' + nombre.value);
+            console.log('fecha_nacimiento ' + fecha_nacimiento.value);
+            console.log('puesto' + puesto.value);
+            console.log('telefono ' + telefono.value);
+            console.log('correo ' + correo.value);
+            console.log('direccion' + direccion.value);
+
 
             if (nombre.value == "") {
                 alert('el campo nombre es requerido');
                 nombre.value = "";
             }
-            if (contacto.value == "") {
-                contacto.value = "---";
+            if (fecha_nacimiento == undefined) {
+                alert('el campo fecha de nacimiento es requerido');
+                fecha_nacimiento.value = "2018-01-18";
+            }
+            if (puesto.value == "") {
+                puesto.value = "---";
             }
             if (telefono.value == "") {
                 telefono.value = "No registrado";
@@ -119,9 +126,6 @@
             }
             if (direccion.value == "") {
                 direccion.value = "---";
-            }
-            if (producto.value == "") {
-                producto.value = "---";
             }
         }
     </script> 

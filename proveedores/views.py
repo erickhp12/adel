@@ -34,13 +34,13 @@ class ProviderListView(ListView):
         mensaje = ""
         proveedores = Proveedor.objects.all().filter(nombre__icontains=proveedor_input,user=request.user
             ) | Proveedor.objects.all().filter(contacto__icontains=proveedor_input,user=request.user)
-        total_proveedores = proveedores.count()
+        total = proveedores.count()
 
-        if total_proveedores == 0:
+        if total == 0:
             mensaje = "La busqueda no mostro ningun resultado"
 
         context = {'proveedores':proveedores,
-                    'total_proveedores':total_proveedores,
+                    'total':total,
                     'mensaje': mensaje
                     }
         
@@ -67,7 +67,7 @@ class CreateProviderView(CreateView):
     def post(self, request, *args, **kwargs):
         mensaje = ""
         proveedores = Proveedor.objects.filter(user=request.user)
-        total_proveedores = proveedores.count
+        total = proveedores.count
         user = request.user
         nombre = request.POST.get('nombre')
         contacto = request.POST.get('contacto')
@@ -100,7 +100,7 @@ class CreateProviderView(CreateView):
             mensaje = "Error al crear proveedor " + str(e)
 
         context = {'proveedores': proveedores,
-                   'total_proveedores': total_proveedores,
+                   'total': total,
                    'mensaje': mensaje
                    }
 
@@ -124,7 +124,7 @@ class UpdateProviderView(View):
     def post(self, request,pk, *args, **kwargs):
         mensaje = ""
         proveedores = Proveedor.objects.filter(user=request.user)
-        total_proveedores = proveedores.count
+        total = proveedores.count
         user = request.user
         nombre = request.POST.get('nombre')
         contacto = request.POST.get('contacto')
@@ -149,7 +149,7 @@ class UpdateProviderView(View):
             mensaje = "Error al editar proveedor " + str(e)
 
         context = {'proveedores': proveedores,
-                   'total_proveedores': total_proveedores,
+                   'total': total,
                    'mensaje': mensaje
                    }
 
@@ -169,11 +169,11 @@ class DeleteProviderView(ListView):
     def post(self, request, pk, *args, **kwargs):
         mensaje = ""
         proveedores = Proveedor.objects.filter(user=request.user)
-        total_proveedores = proveedores.count
+        total = proveedores.count
         Proveedor.objects.all().filter(id=pk).delete()
 
         context = {'proveedores': proveedores,
-                   'total_proveedores': total_proveedores,
+                   'total': total,
                    'mensaje': mensaje
                    }
 

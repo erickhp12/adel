@@ -24,14 +24,14 @@ class AgendaListView(ListView):
         fecha_final = time.strftime("%Y-%m-%d")
         estado = 0
         mensaje = ""
-        total = Agenda.objects.all().filter(fecha_agenda__range=[fecha_inicial, fecha_final + " 23:59:59"],user=request.user).order_by('fecha_agenda')
-        total_agenda = total.count()
+        agenda = Agenda.objects.filter(fecha_agenda__range=[fecha_inicial, fecha_final + " 23:59:59"],user=request.user).order_by('fecha_agenda')
+        total = agenda.count()
 
-        if total_agenda == 0:
+        if total == 0:
             mensaje = "No tienes citas para el rango de fechas seleccionado, checa en otro horario"
 
-        context = {'Agenda':total,
-                    'total_agenda':total_agenda,
+        context = {'agenda':agenda,
+                    'total':total,
                     'estado':estado,
                     'fecha_inicial':fecha_inicial,
                     'fecha_final':fecha_final,
@@ -43,27 +43,29 @@ class AgendaListView(ListView):
     def post(self, request, *args, **kwargs): 
         dia = time.strftime("%Y-%m-%d")
         fecha_inicial = time.strftime("%Y-%m-%d")
-        paciente = request.POST.get('paciente')
+        busqueda = request.POST.get('busqueda')
         fecha_inicial = request.POST.get('fecha_inicial')
         fecha_final = request.POST.get('fecha_final') 
         mensaje = ""
 
-        if paciente == "" and fecha_inicial == "" and fecha_final == "":
-            total_agenda = Agenda.objects.all().filter(fecha_agenda__range=[dia, dia + " 23:59:59"],user=request.user).order_by('fecha_agenda')
-            total = total_agenda.count()
-        elif paciente == "":
-            fecha_final = fecha_final
-            total_agenda = Agenda.objects.all().filter(fecha_agenda__range=[fecha_inicial, fecha_final + " 23:59:59"],user=request.user).order_by('fecha_agenda')
-            total = total_agenda.count()
+        print "busqueda " + str(busqueda)
+        print "Fecha inicial " + str(fecha_inicial)
+        print "Fecha final " + str(fecha_final)
+
+        if fecha_final and fecha_final != "":
+            agenda = Agenda.objects.filter(
+                fecha_agenda__range=[fecha_inicial, fecha_final + " 23:59:59"],user=request.user)
         else:
-            total_agenda = Agenda.objects.all().filter(paciente__nombre__icontains=paciente,user=request.user)
-            total = total_agenda.count()
+            agenda = Agenda.objects.filter(empleado__nombre__icontains=busqueda,user=request.user
+                ) | Agenda.objects.filter(paciente__nombre__icontains=busqueda,user=request.user
+                ) | Agenda.objects.filter(motivo__icontains=busqueda,user=request.user).order_by('-fecha_agenda')
+        total = agenda.count()
 
         if total == 0:
             mensaje = "La busqueda no mostro ningun resultado"
 
-        context = {'Agenda':total_agenda,
-                    'total_agenda':total,
+        context = {'agenda':agenda,
+                    'total':total,
                     'fecha_inicial':fecha_inicial,
                     'fecha_final':fecha_final,
                     'mensaje': mensaje
@@ -72,7 +74,7 @@ class AgendaListView(ListView):
         return render(self.request, self.template_name, context)
 
 class CreateAgendaView(View):
-    template_name = "creacion_agenda.html"
+    template_name = "agenda-formulario.html"
     
     def get(self, request, *args, **kwargs):
         pacientes = Paciente.objects.filter(user=request.user)
@@ -123,15 +125,15 @@ class CreateAgendaView(View):
 
 
 class UpdateAgendaView(UpdateView):
-    template_name = "edicion_agenda.html"
+    template_name = "agenda-formulario.html"
     
     def get(self, request, pk, *args, **kwargs):
-        paciente = Agenda.objects.get(id=pk) 
+        agenda = Agenda.objects.get(id=pk) 
         pacientes = Paciente.objects.filter(user=request.user)
         empleados = Empleado.objects.filter(user=request.user)
         fecha_inicial = time.strftime("%Y-%m-%d")
 
-        ctx = {'paciente': paciente,
+        ctx = {'agenda': agenda,
                 'pacientes':pacientes,
                 'fecha_inicial':fecha_inicial,
                 'empleados':empleados

@@ -21,17 +21,18 @@ class VisitListView(ListView):
     @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
         visitas = Visitas.objects.filter(user=request.user).order_by('-fecha_visita')
-        total_visitas = visitas.count()
+        total = visitas.count()
         mensaje = ""
 
-        if total_visitas == 0:
+        if total == 0:
             mensaje = "No tienes visitas registradas"
 
         context = {'visitas':visitas,
-                    'total_visitas':total_visitas,
+                    'total':total,
                     'mensaje': mensaje    
                     }
-        return render(request,self.template_name, context)
+
+        return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
         paciente = request.POST.get('visita')
@@ -39,18 +40,24 @@ class VisitListView(ListView):
         fecha_final = request.POST.get('fecha_final')
         mensaje = ""
 
+        print "2018 visita"
+        print paciente
+
         
         if fecha_final and fecha_final != "":
-            total_visitas = Visitas.objects.all().filter(fecha_visita__range=[fecha_inicial, fecha_final + " 23:59:59"],user=request.user)
+            visitas = Visitas.objects.all().filter(fecha_visita__range=[fecha_inicial, fecha_final + " 23:59:59"],user=request.user).order_by('-fecha_visita')
         else:
-            total_visitas = Visitas.objects.all().filter(paciente__nombre__icontains=paciente,user=request.user
-                ) | Visitas.objects.all().filter(motivo__icontains=paciente,user=request.user)
-        total = total_visitas.count()
+            visitas = Visitas.objects.all().filter(paciente__nombre__icontains=paciente,user=request.user
+                ) | Visitas.objects.all().filter(motivo__icontains=paciente,user=request.user).order_by('-fecha_visita')
+        total = visitas.count()
 
-        if total == 0:
+        if visitas == 0:
             mensaje = "No tienes visitas en estas fechas"
 
-        context = {'visitas':total_visitas,'total_visitas':total,'mensaje':mensaje}
+        context = {'visitas':visitas,
+                    'total':total,
+                    'mensaje': mensaje    
+                    }
         
         return render(self.request, self.template_name, context)
 
@@ -77,7 +84,7 @@ class CreateVisitView(ListView):
     def post(self, request, *args, **kwargs):
         mensaje = ""
         visitas = Visitas.objects.filter(user=request.user)
-        total_visitas = visitas.count
+        total = visitas.count
         user = request.user
         pacienteSeleccionado = request.POST.get('paciente')
         paciente = Paciente.objects.filter(nombre=pacienteSeleccionado).first()
@@ -89,15 +96,14 @@ class CreateVisitView(ListView):
         tipo_pago = request.POST.get('tipo_pago')
         fecha_visita = request.POST.get('fecha') 
 
-        print "user ", user
-        print "paciente ", paciente
-        print "motivo ", motivo
-        print "empleado ", empleado
-        print "precio ", precio
-        print "dolares ", dolares
-        print "tipo_pago ", tipo_pago
-        print "fecha_visita ", fecha_visita
-
+        # print "user ", user
+        # print "paciente ", paciente
+        # print "motivo ", motivo
+        # print "empleado ", empleado
+        # print "precio ", precio
+        # print "dolares ", dolares
+        # print "tipo_pago ", tipo_pago
+        # print "fecha_visita ", fecha_visita
 
         try:
             if paciente == "":
@@ -117,7 +123,7 @@ class CreateVisitView(ListView):
             mensaje = "Error al crear visita " + str(e)
 
         context = {'visitas': visitas,
-                   'total_visitas': total_visitas,
+                   'total': total,
                    'mensaje': mensaje
                    }
 
@@ -148,7 +154,7 @@ class UpdateVisitView(ListView):
     def post(self, request,pk, *args, **kwargs):
         mensaje = ""
         visitas = Visitas.objects.filter(user=request.user)
-        total_visitas = visitas.count
+        total = visitas.count
         user = request.user
         pacienteSeleccionado = request.POST.get('paciente')
         paciente = Paciente.objects.filter(nombre=pacienteSeleccionado).first()
@@ -160,22 +166,20 @@ class UpdateVisitView(ListView):
         tipo_pago = request.POST.get('tipo_pago')
         fecha_visita = request.POST.get('fecha')
 
-        print "---------------------Edicion de visita ---------------------"
-        print "user"
-        print user
-        print "paciente"
-        print paciente
-        print "empleado"
-        print empleado
-        print "precio"
-        print precio
-        print "dolares"
-        print dolares
-        print "tipo_pago"
-        print tipo_pago
-        print "fecha_visita"
-        print fecha_visita
-
+        # print "user"
+        # print user
+        # print "paciente"
+        # print paciente
+        # print "empleado"
+        # print empleado
+        # print "precio"
+        # print precio
+        # print "dolares"
+        # print dolares
+        # print "tipo_pago"
+        # print tipo_pago
+        # print "fecha_visita"
+        # print fecha_visita
 
         try:
             if paciente == "":
@@ -194,7 +198,7 @@ class UpdateVisitView(ListView):
             mensaje = "Error al editar visita " + str(e)
 
         context = {'visitas': visitas,
-                   'total_visitas': total_visitas,
+                   'total': total,
                    'mensaje': mensaje
                    }
 
@@ -213,11 +217,11 @@ class DeleteVisitView(ListView):
 
     def post(self, request, pk, *args, **kwargs):
         visitas = Visitas.objects.all().order_by('fecha_visita')
-        total_visitas = visitas.count
+        total = visitas.count
         mensaje = ""
         Visitas.objects.all().filter(id=pk).delete()
         context = {'visitas':visitas,
-                    'total_visitas':total_visitas,
+                    'total':total,
                     'mensaje': mensaje    
                     }
         return render(self.request,'visitas.html',context)

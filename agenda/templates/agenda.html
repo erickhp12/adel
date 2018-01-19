@@ -1,139 +1,177 @@
 {% extends "base.html" %}
-{% block title %}ADEL | Agenda {% endblock %}
+{% block title %}ADEL | agenda {% endblock %}
 
 {% block body %}
 {% load staticfiles %}
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/agenda/creacion.agenda.css' %}"/>
-    <script src="{% static '/static/js/generic/calendarios.js'%}"></script>
+<meta charset="utf-8">
+<script src="{% static '/static/js/generic/calendarios.js'%}"></script>
 
-<div class = "header">
-  <span class="header_text">mis citas de {{fecha_inicial}} a {{ fecha_final}} <label>{{ total_agenda }}</label></span>
-  <img src="{% static 'img/iconos/visitas40.png' %}" alt="ups">
+<!-- ************************************  HELPER ************************************ -->
+<div class="container thumbnail helper">
+    <div class="col-md-2">
+        <a href="../" class="glyphicon glyphicon-chevron-left bs-header-back">&nbsp;Volver</a>
+    </div>
+    <div class="col-md-9 bs-header-text helper-text">
+            <label>Citas actuales <label class="total">{{ total }}</label>
+    </div>
+    <div class="helper-img col-md-1">
+        <img src="{% static 'img/iconos/agenda40.png' %}"  class="helper-img" alt="ups">
+    </div>
 </div>
 
-<section class="seccion_fondo">
-  <!-- *********************************** barra de busqueda *********************************** -->
-  <section class="herramientas_menu">      
-    <form method=post>
-    {% csrf_token %}
-      <div class="seccion_busqueda">   
-        <span><b>Buscar</b></span>
-        
-        <input type="text" id="myInput" name="paciente" 
-        placeholder="nombre o motivo" class="search_busqueda"/>
-        
-        <input type="text" id="datepicker" name="fecha_inicial" onclick="clear_text()" 
-        placeholder="fecha inicial" class="search_busqueda_fecha_inicial"/>
+<section class="container thumbnail grid">
+  <!-- ************************************  FORM ************************************ -->
+    <section>
+      <form method=post class="container-fluid grid-elements">
+        {% csrf_token %}
+        <div class="col-md-5">
+          <input type="text" id="myInput" name="busqueda" placeholder="paciente o tipo" class="input-personalized"/>
+        </div>
+        <div class="col-md-2">
+          <input type="text" id="datepicker" name="fecha_inicial" onclick="clear_text()" class="input-personalized" placeholder="fecha inicial" />
+        </div>
+        <div class="col-md-2">
+          <input type="text" id="datepickerf" name="fecha_final" onclick="clear_textf()" class="input-personalized" placeholder="fecha final" />
+        </div>
+        <div class="col-md-1">
+          <a>
+            <input type="submit" class="btn btn-default" value="Buscar"/>
+          </a>
+        </div>
+        <div class="col-md-2">
+          <a href="/registro.agenda">
+            <input type="button"  class="btn btn-success" value="+ Agregar cita"/>
+          </a>
+        </div>
+      </form> 
+    </section>
+  <hr>
 
-        <input type="text" id="datepickerf" name="fecha_final" onclick="clear_textf()" 
-        placeholder="fecha final" class="search_busqueda_fecha_final"/>
+  <!-- *********************************** grid *********************************** -->
 
+{% if mensaje != "" %}
+  <div class="empty_query_result">{{ mensaje }}</div>
+{% endif %}
 
-      <!-- Seccion botones -->
-        <a class="">
-          <input type="submit" name="link_add_gasto" 
-          class="btn_busqueda" value="Buscar"/>
-        </a>
-        <a href="/registro.agenda">
-          <input type="button" name="link_add_gasto" 
-          class="btn btn-success btn_agregar_elemento" value=" Agregar una cita"/>
-        </a>
-      </div>
-
-    </form>
-  </section>
-<hr>
-<!-- tabla de datos -->
-  <section>
-      <table class="generic-table">
-      <thead class="columna">
-        <th>Paciente</th>
-        <th>Motivo</th>
-        <th>Fecha</th>
-        <th>Informacion</th>
-        <th>Edicion</th>
-        <th>Accion</th>
+  <div class="table-responsive grid-table">  
+    <table class="table tbl_main">
+      <thead>
+        <tr>
+          <th scope="col">Paciente</th>
+          <th scope="col">Empleado</th>
+          <th scope="col">Motivo</th>
+          <th scope="col">Fecha</th>
+          <th scope="col">Información</th>
+          <th scope="col">Edición</th>
+          <th scope="col">Acciones</th>
+        </tr>
       </thead>
-      {% for agenda in Agenda %}
-      <tbody class="contenido" id="contenido">
-        <td>{{ agenda.paciente   }}</td>
-        <td>{{ agenda.motivo }}</td>
-        <td>{{ agenda.fecha_agenda }}</td> 
-        <td>
-          <a type="button" class="glyphicon glyphicon-search" 
-             onclick="open_modal('{{ agenda.paciente }}','{{ agenda.motivo }}',
-             '{{ agenda.fecha_agenda }}','{{ agenda.pk }}')"> Ver
-           </a>
-       </td>
-        <td><a href="{{ agenda.url_editar_agenda }}" class="glyphicon glyphicon-pencil"> Editar</a></td>
-        <td><a href="{{ agenda.url_borrar_agenda }}" class="glyphicon glyphicon-trash"> Eliminar</a></td>
-     </tbody>
-     {% endfor %}
+      {% for cita in agenda %}
+      <tbody>
+        <tr>
+          <td scope="row">{{ cita.paciente }}</td>
+          <td>{{ cita.empleado}}</td>
+          <td>{{ cita.motivo }}</td>
+          <td>{{ cita.fecha_agenda }}</td>
+          <td>
+            <a type="button" class="glyphicon glyphicon-search" data-toggle="modal" data-target="#modal-ver" 
+            onclick="open_modal('{{ cita.paciente }}','{{ cita.empleado }}','{{ cita.motivo }}','{{ cita.fecha_agenda }}')"> Ver
+            </a>
+          </td>
+          <td>
+            <a href="{{ cita.url_editar_agenda }}" class="glyphicon glyphicon-pencil"> Editar</a>
+          </td>
+          <td>
+            <a class="glyphicon glyphicon-trash" data-toggle="modal" data-target="#modal-borrar" onclick="open_modal_borrar('{{ cita.paciente }}')"> Borrar</a>
+          </td>
+        </tr>
+      </tbody>
+      {% endfor %}
     </table>
-    {% if mensaje != "" %}
-     <div class="empty_query_result">{{ mensaje }}</div>
-    {% endif %}
-    <br><br>
-  </section>
+  </div>
+</section>
 </section>
 
 <!-- *********************************** modal ver *********************************** -->  
-<div id="myModal" class="modal">
-  <!-- Modal content -->
-  <div class="modal-content">
-    <div class="modal-header">
-      <p id="textoPaciente" class="modal-header-p"></p>
-    </div>
-    <div class="modal-body">
-      <table>
-        <tr>
-          <td class="modal-td"><b>Motivo</b></td>
-          <td id="textoMotivo"></td>
-        </tr>
-        <tr>
-          <td class="modal-td"><b>Fecha</b></td>
-          <td id="textoFechaAgenda"></td>
-        </tr>
-      </table>
-    </div>
-    <div class="modal-footer">
-      <a href="" id="id_editar">
-        <button  class="btn btn-modal-edit">Editar</button>
-      </a>
-      <button class="btn btn-modal-close"> Cerrar </button>
-    </div>
+
+<div class="modal fade" id="modal-ver" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <form class="modal-content" method=post>
+      <div class="modal-header" style="background-color: #dbdbdb; border-bottom: 1px solid rgb(151, 151, 151);" >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">
+          <img src="{% static 'img/iconos/agenda40.png' %}" alt="x">
+          <label id="textoPaciente" style="text-align: center;"></label> 
+        </h4>
+      </div>
+      <div class="modal-body" style="height:150px;">
+        <div class="col-md-12">
+          <label class="col-md-4">Dentista</label>
+          <label class="col-md-8" id="textoEmpleado"></label>
+        </div>
+        <div class="col-md-12">
+          <label class="col-md-4">Motivo</label>
+          <label class="col-md-8" id="textoMotivo"></label>
+        </div>
+        <div class="col-md-12">
+            <label class="col-md-4">Fecha</label>
+            <label class="col-md-8" id="textoFecha"></label>
+        </div>
+      </div>
   </div>
 </div>
 
+<!-- *********************************** modal borrar *********************************** -->
+
+<div class="modal fade" id="modal-borrar" tabindex="1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <form class="modal-content" method=post>
+        <div class="modal-header" style="background-color: #dbdbdb; border-bottom: 1px solid rgb(151, 151, 151);" >
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">
+            <img src="{% static 'img/iconos/gastos40.png' %}" alt="x">
+            <label style="text-align: center;">Confirmación</label> 
+          </h4>
+        </div>
+        <div class="modal-body" style="height:130px; background-color: white;">
+          <h3 style="text-align: center;">¿Estas seguro de eliminar este proveedor<br>
+            <b id="textoBorrar"></b>?
+          </h3>
+        </div>
+        <div class="modal-footer" style="background-color: white;">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-danger">Eliminar</button>
+        </div>
+    </div>
+  </div>
+
+  <!-- *********************************** script modal *********************************** -->
 <script>
   var modal = document.getElementById('myModal');
   var content_paciente = document.getElementById('textoPaciente');
+  var content_empleado = document.getElementById('textoEmpleado');
   var content_motivo = document.getElementById('textoMotivo');
-  var content_fecha = document.getElementById('textoFechaAgenda');
-  var content_editar = document.getElementById('id_editar');
+  var content_fecha = document.getElementById('textoFecha');
+  var content_borrar = document.getElementById('textoBorrar');
 
-  var close = document.getElementsByClassName("btn-modal-close")[0];
-
-  function open_modal(paciente, motivo, fecha,pk) { 
-    modal.style.display = "block";
-    content_paciente.innerHTML = "Cita de "+ paciente;
+  function open_modal(paciente, empleado, motivo, fecha) { 
+    content_paciente.innerHTML = "Cita de " + paciente;
+    content_empleado.innerHTML = empleado;
     content_motivo.innerHTML = motivo;
     content_fecha.innerHTML = fecha;
-    content_editar.href = "/agenda/editar/"+ pk;
   }
 
-  close.onclick = function() {
-      modal.style.display = "none";
+  function open_modal_borrar(paciente) {
+    content_borrar.innerHTML = paciente;
   }
 
-  window.onclick = function(event) {
-      if (event.target == modal) {
-          modal.style.display = "none";
-      }
-  }
 </script>
 
 {% endblock %}
+
 
 

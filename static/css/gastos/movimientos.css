@@ -1,90 +1,51 @@
-
-.seccion_movimientos_general{
-	margin: 1em;
-	display: inline-block;
+.movimientos-card {
+	width: 70%;
+	margin: auto;
+	margin-bottom: 3em;
 }
-.seccion_ingresos{
-	width: 99.5%;
-	/*margin-left: -2em;*/
-}
-.th_ingresos{
-	text-align: left;
-}
-.seccion_egresos{
-	width: 99.5%;
-	/*margin-left: -2em;*/
+.movimientos-card > div {
+	padding: 1em;
 }
 
-.th_egresos{
-	text-align: left;
-}
-
-.total_movimientos{
-	width: 95%;
-	margin: 2em;
-	box-shadow: 0 4px 4px 0 rgba(0,8,0,0.2);
-	border: 1px solid black;
-}
-.span_ingresos{
-	font-size: 18px;
-	font-weight: bold;
-	color: #009302;
-	text-align: center;
-}
-.span_egresos{
-	font-size: 18px;
-	font-weight: bold;
-	color: #F50000;	
-	text-align: center;
-}
-.td_ingresos{
-	border: 1px solid black;
-}
-.span_diferencia{ 
-	font-size: 18px;
-	font-weight: bold;
-	margin-left: 2em;
-}
-.seccion_fondo_fechas{
-	width: 95%;
-	margin: 2em;
-}
-.seccion_fondo_fechas>form>div{
-	width: 25%;
-	display: inline-block;
-}
-.seccion_fondo_fechas>form>div>input{
-	width: 150px;
-}
-/*----------------------------------------- resumen ----------------------------------------------------------*/
-.seccion_movimientos_resumen{
-	margin-left: 2%;
-	display: inline-block;
-	width: 40%;
-	border: 1px solid #334fa5;
-	box-shadow: 0 4px 4px 0 rgba(0,8,0,0.2);
-	margin-bottom: 2%;
-}
-.resumen_p{
-	background-color: #334fa5;
-	font-size: 16px;
+.resumen-header {
+	background-color: #008cba;
+	font-size: 24px;
 	text-align: center;
 	color: white;
-}
-.seccion_movimientos_resumen_pesos{
-	width: 45%;
-	display: inline-block;
-}
-.seccion_movimientos_resumen_dolares{
-	width: 45%;
-	display: inline-block;	
-}
-.span_totales{
-	margin-left: -2px;
-}
-.main_p{
-	text-align:center;
-	font-weight: 700;
-	font-size: 18px;
+	padding: 10px;
 }
 
+
+.resumen-p {
+	background-color: #9c9c9c;
+	font-size: 20px;
+	text-align: center;
+	color: white;
+	width: 100%;
+}
+
+
+.ingresos-div {
+	color: rgb(27, 134, 0);
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.egresos-div {
+	color: rgb(194, 0, 0);
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.diferencia-div{
+	text-align: center;
+	margin: 10px;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+@media screen and (max-width: 1000px) {
+	.movimientos-card {
+		width: 90%;
+	}
+}

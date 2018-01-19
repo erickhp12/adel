@@ -41,7 +41,7 @@ class PatientListView(ListView):
 
         pacientes = Paciente.objects.all().filter(nombre__icontains=paciente_input,user=request.user
                 ) | Paciente.objects.all().filter(tipo_paciente__icontains=paciente_input,user=request.user
-                ) | Paciente.objects.all().filter(aseguranza__icontains=paciente_input,user=request.user)
+                ) | Paciente.objects.all().filter(aseguranza__icontains=paciente_input,user=request.user).order_by('-fecha_inicio')
         total = pacientes.count()
 
         if total == 0:
@@ -78,7 +78,7 @@ class CreatePatientView(CreateView):
     def post(self, request, *args, **kwargs):
         mensaje = ""
         pacientes = Paciente.objects.filter(user=request.user)
-        total_pacientes = pacientes.count
+        total = pacientes.count
         user = request.user
         nombre = request.POST.get('nombre')
         sexo = request.POST.get('sexo')
@@ -90,17 +90,15 @@ class CreatePatientView(CreateView):
         direccion = request.POST.get('direccion')
         comentarios = request.POST.get('comentarios')
         
-        print "Nombre " + str(nombre)
-        print "sexo " + str(sexo)
-        print "fecha " + str(fecha_nacimiento)
-        print "tipo paciente " + str(tipo_paciente)
-        print "aseguranza " + str(aseguranza)
-        print "telefono " + str(telefono)
-        print "correo " + str(correo)
-        print "direccion " + str(direccion)
-        print "comentarios " + str(comentarios)
-
-
+        # print "Nombre " + str(nombre)
+        # print "sexo " + str(sexo)
+        # print "fecha " + str(fecha_nacimiento)
+        # print "tipo paciente " + str(tipo_paciente)
+        # print "aseguranza " + str(aseguranza)
+        # print "telefono " + str(telefono)
+        # print "correo " + str(correo)
+        # print "direccion " + str(direccion)
+        # print "comentarios " + str(comentarios)
 
         try:
             if nombre == "":
@@ -122,7 +120,7 @@ class CreatePatientView(CreateView):
             mensaje = "Error al crear paciente " + str(e)
 
         context = {'pacientes': pacientes,
-                   'total_pacientes': total_pacientes,
+                   'total': total,
                    'mensaje': mensaje
                    }
 
@@ -147,7 +145,7 @@ class UpdatePatientView(UpdateView):
     def post(self, request,pk, *args, **kwargs):
         mensaje = ""
         pacientes = Paciente.objects.filter(user=request.user)
-        total_pacientes = pacientes.count
+        total = pacientes.count
         user = request.user
         nombre = request.POST.get('nombre')
         fecha_nacimiento = request.POST.get('fecha_nacimiento')
@@ -179,7 +177,7 @@ class UpdatePatientView(UpdateView):
             mensaje = "Error al editar paciente " + str(e)
 
         context = {'Paciente': pacientes,
-                   'total_pacientes': total_pacientes,
+                   'total': total,
                    'mensaje': mensaje
                    }
 
@@ -275,11 +273,11 @@ class DeletePatientView(ListView):
     def post(self, request, pk, *args, **kwargs):
         mensaje = ""
         total = Paciente.objects.filter(user=request.user)
-        total_pacientes = total.count
+        total = total.count
         Paciente.objects.all().filter(id=pk).delete()
 
         context = {'Paciente':total,
-                    'total':total_pacientes,
+                    'total':total,
                     'mensaje':mensaje     
                     }
 
