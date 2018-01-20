@@ -9,7 +9,7 @@
 <!-- ************************************  HELPER ************************************ -->
 <div class="container thumbnail helper">
 		<div class="col-md-2">
-			<a href="../" class="glyphicon glyphicon-chevron-left bs-header-back">&nbsp;Volver</a>
+			<a href="/lista.pacientes" class="glyphicon glyphicon-chevron-left bs-header-back">&nbsp;Volver</a>
 		</div>
 		<div class="col-md-9 bs-header-text helper-text">
 				<label>Innformacion de {{ paciente.nombre }}</label>
@@ -108,7 +108,7 @@
 	</section>
 	<section class="paciente_detalles_historial">
     <!-- ***************************** Si el historial esta vacio ************************************* -->
-	{% if  message == 'Registrar historia clinica' %}
+	{% if message == 'Registrar historia clinica' %}
 		<div>
 		<p class="paciente_detalles_historial_p_vacio">Este paciente no tiene Historia clinica registrada
 			<br><br>
@@ -232,13 +232,12 @@
 	<p class="paciente_detalles_total">Total {{ precio_total }}</p>
 </section>
 <section class="paciente_detalles_botones">
-	<a href="/lista.pacientes" class="btn_volver_detalle">
-		<input type="button" value="volver" class="btn_volver btn_volver_detalle">
-	</a>
 	{% if  message != 'Registrar historia clinica' %}
-	<a href="/historial/editar/{{paciente.pk}}">
-		<input type="button" value="Editar historia clinica" class="btn_confirmar btn_agregar">
+	<br>
+	<a href="/historial/editar/{{paciente.pk}}" style="margin-left:25px;">
+		<input type="button" value="Editar historia clinica" class="btn_confirmar btn btn-success">
 	</a>
+	<br><br>
 	{% endif %}
 </section>
 

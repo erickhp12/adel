@@ -190,9 +190,9 @@ class DetailPatientView(DetailView):
 
     def get(self, request, pk, **kwargs):
         paciente = Paciente.objects.get(id=pk)
-        visitas = Visitas.objects.all().filter(paciente_id=pk)
-        historial = ""
-        message = ""
+        visitas = Visitas.objects.filter(paciente_id=pk)
+        message = "Registrar historia clinica"
+        historial = Historial.objects.all()
         alergias_comentarios_value = ""
         medicamentos_comentarios_value = ""
         alergias_value = "unchecked"
@@ -207,34 +207,45 @@ class DetailPatientView(DetailView):
         precio_dolares = 0
         precio_total = 0
 
-        try:
-            historial = Historial.objects.get(paciente=pk)
 
-            alergias_comentarios_value = historial.alergias_comentarios
-            medicamentos_comentarios_value = historial.medicamentos_comentarios
-            if historial.alergias == True:
-                alergias_value = "checked"
-            if historial.corazon == True:
-                corazon_value = "checked"
-            if historial.presion_arterial == True:
-                presion_arterial_value = "checked"
-            if historial.diabetes == True:
-                diabetes_value = "checked"
-            if historial.hepatitis == True:
-                hepatitis_value = "checked"
-            if historial.vih == True:
-                vih_value = "checked"
-            if historial.embarazada == True:
-                embarazada_value = "checked"
-            if historial.medicamentos == True:
-                medicamentos_value = "checked"
-        except:
-            message = "Registrar historia clinica"
+
+        try:
+
+            print "Historial 1"
+            ObjectHistorial = Historial.objects.filter(paciente_id=paciente.pk)
+            print "Historial 2"
+                
+            print message
+
+            for historial in ObjectHistorial:
+                print "dentro de for"
+                print historial.alergias_comentarios
+                message = "si tiene historia clinica"
+
+                alergias_comentarios_value = historial.alergias_comentarios
+                medicamentos_comentarios_value = historial.medicamentos_comentarios
+                if historial.alergias == True:
+                    alergias_value = "checked"
+                if historial.corazon == True:
+                    corazon_value = "checked"
+                if historial.presion_arterial == True:
+                    presion_arterial_value = "checked"
+                if historial.diabetes == True:
+                    diabetes_value = "checked"
+                if historial.hepatitis == True:
+                    hepatitis_value = "checked"
+                if historial.vih == True:
+                    vih_value = "checked"
+                if historial.embarazada == True:
+                    embarazada_value = "checked"
+                if historial.medicamentos == True:
+                    medicamentos_value = "checked"
+        except Exception as e:
+            print "SI ENTRE ERROR"
 
         for visita in visitas:
             if visita.dolares == "Dolares":
                 precio_dolares += visita.precio * settings.DIVISA
-                print precio_dolares
             else:
                 precio_pesos += visita.precio
 
