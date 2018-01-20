@@ -1,3 +1,10 @@
+
+/* Bootstrap css */
+@import "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css";
+
+/* Propeller button */
+@import "http://propeller.in/components/button/css/button.css";
+
 /* ----------------------------------- html elementos ---------------------------------------- */
 
 body {
@@ -62,7 +69,15 @@ span {
 		display: none;
 	}
 }
-	
+
+.bold {
+	font-weight: bold;
+}
+.margin-top-10 {
+	margin-top: 10px;
+}
+
+
 /* ----------------------------------- grid ---------------------------------------- */  
 .grid {
 	width:95%;
@@ -134,63 +149,19 @@ span {
 }
 
 
-/*----------------------------------- Tabla de usuarios ----------------------------------------------*/
-.titulo {
-		text-align: center;
-}
 
-.generic-table {
-	width: 97%; 
-	margin-left: 2em;
-}
-
-.search_input {
-	margin-left: 2em;
-	margin-bottom: 2em;
-}
-
-.seccion_fondo {
-	background-color: white;
-	border: 1px solid #AAAAAA;
-	box-shadow: 0 4px 4px 0 rgba(0,8,0,0.2);
-	padding: 1em;
-	width: 95%;
-	margin-left: 2em;
-	margin-bottom: 2%;
-	border-radius: 5px;
-}
-
-/*----------------------------------- boton registar volver ----------------------------------------------*/
-.seccion_botones {
-	margin-bottom: 2%;
-	margin-left: 12%; 
-}
-
-.seccion_botones > input {
-	display: inline-block;
-}
-.seccion_botones > a {
-	display: inline-block;
-}
-
-.btn_formulario {
-	width: 35%;
-}
-
-.btn_volver_formulario {
-	width: 35%;
-	margin-left: 17%;
-	height: 26px;
-}
 
 /*----------------------------------------  textos -------------------------------------------------- */
 .label-formularios {
 	font-size: 18px;
 	font-weight: 700;
 }
-
-.errorlist {
-	color: red;
+.border-bottom {
+	border-bottom: 1px solid #8b8b8b;
+	text-align: center;
+	font-size: 18px;
+	font-weight: 800;
+	margin-bottom: 5px;
 }
 
 /*----------------------------------------  botones -------------------------------------------------- */
@@ -200,48 +171,10 @@ span {
 	background-color: rgba(238, 238, 238, 0.02);
 	border: none;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.36);
-	webkit-appearance: none;
+	-webkit-appearance: none;
 	-moz-border-radius: 2px;
 	box-shadow:none;
 	border-radius: 2px;
-}
-
-/*----------------------------------------  botones -------------------------------------------------- */
-.btn_agregar {
-	background-color: #0f861d;
-	border: 0.1px solid #777777;
-	color: white;
-	border-radius: 6px;
-	font-size: 20px;
-	padding: 2px 1px;
-}
-
-.btn_confirmar {
-	border: 0.1px solid #777777;
-	width: 25%;
-	font-size: 19px;
-	border-radius: 3px;
-}
-
-.btn_volver {
-	background-color: #626A70;
-	border: 0.1px solid #777777;
-	color: white;
-	width: 25%;
-	border-radius: 6px;
-	font-size: 20px;
-	text-align: center;
-}
-
-.btn_volver_detalle {
-	width: 25%;
-	margin: 1em;
-}
-
-.btn_volver_eliminar {
-	height: 38px;
-	margin-top: 3px;
-	border-radius: 3px;
 }
 
 .empty_query_result {

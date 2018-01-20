@@ -1,244 +1,179 @@
-{% extends "base.html" %} 
-{% block title %}ADEL | Informacion de {{paciente.nombre }} {% endblock %}
+{% extends "base.html" %}
+{% block title %}ADEL | pacientes {% endblock %}
 
 {% block body %}
 {% load staticfiles %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/pacientes/paciente.detalle.css' %}"/>
+<meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="{% static 'css/historial/creacion.historial.css'%}"/>
+<!-- jquery js -->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- Propeller ripple effect js -->
+<script type="text/javascript" src="http://propeller.in/components/button/js/ripple-effect.js"></script>
+
 
 <!-- ************************************  HELPER ************************************ -->
 <div class="container thumbnail helper">
-		<div class="col-md-2">
-			<a href="/lista.pacientes" class="glyphicon glyphicon-chevron-left bs-header-back">&nbsp;Volver</a>
+    <div class="col-md-2">
+        <a href="/lista.pacientes" class="glyphicon glyphicon-chevron-left bs-header-back">&nbsp;Volver</a>
+    </div>
+    <div class="col-md-9 bs-header-text helper-text">
+            <label>Informacion de {{ paciente.nombre }}</label>
+    </div>
+    <div class="helper-img col-md-1">
+        <img src="{% static 'img/iconos/pacientes40.png' %}"  class="helper-img" alt="ups">
+    </div>
+</div>
+
+<section class="container thumbnail grid">
+  <!-- ************************************  FORM ************************************ -->
+
+	<div class="col-md-6">
+		<div class="col-md-12 border-bottom">Datos generales</div>
+		<div class="col-md-4 bold margin-top-10">Nombre</div>
+		<div class="col-md-8 margin-top-10">{{ paciente.nombre}}</div>
+		<div class="col-md-4 bold margin-top-10">Sexo</div>
+		<div class="col-md-8 margin-top-10">{{ paciente.sexo }}</div>
+		<div class="col-md-4 bold margin-top-10">Tipo de paciente</div>
+		<div class="col-md-8 margin-top-10">{{ paciente.tipo_paciente }}</div>
+		<div class="col-md-4 bold margin-top-10">Fecha de nacimiento</div>
+		<div class="col-md-8 margin-top-10">{{ paciente.fecha_nacimiento }}</div>
+		<div class="col-md-4 bold margin-top-10">Teléfono</div>
+		<div class="col-md-8 margin-top-10">{{ paciente.telefono }}</div>
+		<div class="col-md-4 bold margin-top-10">Correo</div>
+		<div class="col-md-8 margin-top-10">{{ paciente.correo }}</div>
+		<div class="col-md-4 bold margin-top-10">Dirección</div>
+		<div class="col-md-8 margin-top-10">{{ paciente.direccion }}</div>
+		<div class="col-md-4 bold margin-top-10">Observaciones</div>
+		<div class="col-md-8 margin-top-10">{{ paciente.comentarios }}</div>
+		<div class="col-md-4 bold margin-top-10">Fecha de inicio</div>
+		<div class="col-md-8 margin-top-10">{{ paciente.fecha_inicio }}</div>
+  	</div>
+
+	<div class="col-md-6">
+		<div class="col-md-12 border-bottom">Historial Clínico </div>
+		<div class="col-md-5 bold margin-top-10">Estado civil</div>
+		<div class="col-md-7 margin-top-10">{{ paciente.nombre}}</div>
+		<div class="col-md-5 bold margin-top-10">Ocupación</div>
+		<div class="col-md-7 margin-top-10">{{ paciente.sexo }}</div>
+		<div class="col-md-5 bold margin-top-10">Alergias</div>
+		<div class="col-md-7 margin-top-10 material-switch div_historial ">
+			<input type="checkbox" {{ alergias_value }} readonly="true"/>
+			<label class="label-info"></label>
 		</div>
-		<div class="col-md-9 bs-header-text helper-text">
-				<label>Innformacion de {{ paciente.nombre }}</label>
+		<div class="col-md-5 bold margin-top-10">Enfermades del corazón</div>
+		<div class="col-md-7 margin-top-10 material-switch div_historia">
+			<input type="checkbox" {{ corazon_value }} readonly="true"/>
+			<label class="label-info"></label>
 		</div>
-		<div class="helper-img col-md-1">
-			<img src="{% static 'img/iconos/pacientes40.png' %}"  class="helper-img" alt="ups">
+		<div class="col-md-5 bold margin-top-10">Presión arterial</div>
+		<div class="col-md-7 margin-top-10 material-switch div_historial">
+			<input type="checkbox" {{ presion_arterial_value }} readonly="true"/>
+			<label class="label-info"></label>
 		</div>
+		<div class="col-md-5 bold margin-top-10">Diabetes</div>
+		<div class="col-md-7 margin-top-10 material-switch div_historial">
+			<input type="checkbox" {{ diabetes_value }} readonly="true"/>
+			<label class="label-info"></label>
+		</div>
+		<div class="col-md-5 bold margin-top-10">Hepatitis</div>
+		<div class="col-md-7 margin-top-10 material-switch div_historial">
+			<input type="checkbox" {{ hepatitis_value }} readonly="true"/>
+			<label class="label-info"></label>
+		</div>
+		<div class="col-md-5 bold margin-top-10">Portador de VIH</div>
+		<div class="col-md-7 margin-top-10 material-switch div_historial">
+			<input type="checkbox" {{ vih_value }} readonly="true"/>
+			<label class="label-info"></label>
+		</div>	
+		<div class="col-md-5 bold margin-top-10">Embarazo</div>
+		<div class="col-md-7 margin-top-10 material-switch div_historial">
+			<input type="checkbox" {{ corazon_value }} readonly="true"/>
+			<label class="label-info"></label>
+		</div>	
+		<div class="col-md-5 bold margin-top-10">Medicamentos</div>
+		<div class="col-md-7 margin-top-10 material-switch div_historial">
+			<input type="checkbox" {{ medicamentos_value }} readonly="true"/>
+			<label class="label-info"></label>
+		</div>
+
+		<!-- Primary raised circle button with ripple effect -->
+		<!-- <a href="/historial/editar/{{paciente.pk}}">
+			<button class="btn pmd-btn-fab pmd-btn-raised editar-historial pmd-ripple-effect btn-primary" type="button">
+				<i class="material-icons pmd-sm">Editar</i>
+			</button>
+		</a> -->
+
 	</div>
 
+</section>
 
-<section class="paciente_detalles_card paciente_detalles_info">
-	<!-- seccion de datos generales -->
-	<section class="paciente_detalles_general">
-		<p class="paciente_detalles_header">Datos generales</p>
-	  	<table class="generic-table">
-			<tr>
-				<td><b>Nombre</b></td>	
-				<td>{{ paciente.nombre }}</td>
-			</tr>
-			<tr>
-				<td><b>Sexo</b></td>	
-				<td>{{ paciente.sexo }}</td>
-			</tr>
-			<tr>
-				<td><b>Tipo de paciente</b></td>
-				<td>{{ paciente.tipo_paciente }}</td>
-			</tr>
-			<tr>
-				<td><b>Edad</b></td>
-				<td>{{ paciente.edad }} años</td>
-			</tr>
-			<tr>
-				<td><b>Correo</b></td>
-				<td>{{ paciente.correo }}</td>
-			</tr>
-			<tr>
-			<tr>
-				<td><b>Telefono</b></td>
-				<td>{{ paciente.telefono }}</td>
-			</tr>
-			<tr>
-				<td><b>Direccion</b></td>
-				<td>{{ paciente.direccion }}</td>
-			</tr>
-			<tr>
-				<td><b>Observaciones</b></td>
-				<td>{{ paciente.comentarios }}</td>
-			</tr>
-			<tr>
-				<td><b>Fecha de inicio</b></td>
-				<td>{{ paciente.fecha_inicio }}</td>
-			</tr>
-			{% if  message == 'Registrar historia clinica' %}
-			<tr>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr>
-			<tr>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr>
-			{% else %}
-			<tr>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr>
-			<tr>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr>
-			<tr>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr>
-			<tr>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr>
-			<tr>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr>
-			<tr>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr>
-			
-			<tr>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr>
-			{% endif %}
-
+<section class="container thumbnail grid">
+	<div class="col-md-12">
+		<div class="col-md-12 border-bottom">Visitas Registradas</div>
+		<table class="table tbl_main">
+			<thead>
+				<th class="bold">Fecha</th>
+				<th class="bold">Dentista</th>
+				<th class="bold">Motivo</th>
+				<th class="bold">Precio</th>
+				<th class="bold">Tipo de pago</th>
+			</thead>
+			{% for visita in visitas%}
+			<tbody>
+				<tr>
+					<td>{{ visita.fecha_visita }}</td>
+					<td>{{ visita.dentista }}</td>
+					<td>{{ visita.motivo }}</td>
+					<td>{{ visita.precio }}</td>
+					<td>{{ visita.tipo_pago }}</td>
+				</tr>
+			</tbody>
+			{% endfor%}
 		</table>
-		<br>
-	</section>
-	<section class="paciente_detalles_historial">
-    <!-- ***************************** Si el historial esta vacio ************************************* -->
-	{% if message == 'Registrar historia clinica' %}
-		<div>
-		<p class="paciente_detalles_historial_p_vacio">Este paciente no tiene Historia clinica registrada
-			<br><br>
-			<a href="/historial/registro/{{paciente.pk}}" class="btn_agregar" 
-			style="padding-left:1em;padding-right: 1em;">{{ message }}</a>
-		</p>
-		</div>
-	<!-- *************************** Si el historial contiene datos ************************************* -->
-	{% else%}	
-		<p class="paciente_detalles_header">Historia clinica</p>
-		  	<table class="generic-table">
-			<tr class="div_detalles">
-				<td class="paciente_detalles_checkbox"><b>Estado civil</b></td>
-				<td><label class="historial_label">{{ historial.estado_civil }}</label></td>
-			</tr>
-			<tr class="div_detalles">
-				<td class="paciente_detalles_checkbox"><b>Ocupacion</b></td>
-				<td><label class="historial_label">{{ historial.ocupacion }}</label></td>
-			</tr>
-			<tr class="div_detalles">
-				<td class="paciente_detalles_checkbox"><b>Alergias</b></td>
-				<td>
-					<div class="material-switch div_historial">
-			            <input type="checkbox" {{ alergias_value }} readonly="true"/>
-			            <label for="hepatitis" class="label-info"></label>
-		            <span class="historial_label">{{ alergias_comentarios_value }}</span>
-		            </div>
-		        </td>
+		<h1 style="font-size: 18px; text-align:center;" 
+		 class="bold">Total ${{ precio_total}}</h1>		
+		<hr>
+	</div>
+</section>
+
+
+<!-- *********************************** modal borrar *********************************** -->
+
+<div class="modal fade" id="modal-borrar" tabindex="1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <form class="modal-content" method=post>
+        <div class="modal-header" style="background-color: #dbdbdb; border-bottom: 1px solid rgb(151, 151, 151);" >
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">
+            <img src="{% static 'img/iconos/pacientes40.png' %}" alt="x">
+            <label style="text-align: center;">Confirmación</label> 
+          </h4>
         </div>
-			</tr>
-			<tr class="div_detalles">
-				<td class="paciente_detalles_checkbox"><b>Enfermedades del corazon</b></td>
-				<td>
-					<div class="material-switch div_historial">
-			            <input type="checkbox" {{ corazon_value }} readonly="true"/>
-			            <label for="" class="label-info"></label>
-		            </div> 
-		        </td>
-			</tr>
-			<tr class="div_detalles">
-				<td class="paciente_detalles_checkbox"><b>Problemas de presion Arterial</b></td>
-				<td>
-					<div class="material-switch div_historial">
-			            <input type="checkbox" {{ presion_arterial_value }} readonly="true"/>
-			            <label for="" class="label-info"></label>
-		            </div>
-		        </td>
-			</tr>
-			<tr class="div_detalles">
-				<td class="paciente_detalles_checkbox"><b>Diabetes</b></td>
-				<td>
-					<div class="material-switch div_historial">
-			            <input type="checkbox" {{ diabetes_value }} readonly="true"/>
-			            <label for="" class="label-info"></label>
-		            </div>
-		        </td>
-			</tr>
-			<tr class="div_detalles">
-				<td class="paciente_detalles_checkbox"><b>Hepatitis</b></td>
-				<td>
-					<div class="material-switch div_historial">
-			            <input type="checkbox" {{ hepatitis_value }} readonly="true"/>
-			            <label for="" class="label-info"></label>
-		            </div>
-		        </td>
-			</tr>
-			<tr class="div_detalles">
-				<td class="paciente_detalles_checkbox"><b>Portador de VIH</b></td>
-				<td>
-					<div class="material-switch div_historial">
-			            <input type="checkbox" {{ vih_value }} readonly="true"/>
-			            <label for="" class="label-info"></label>
-		            </div>
-		        </td>
-			</tr>
-			<tr class="div_detalles">
-				<td class="paciente_detalles_checkbox"><b>Embarazada</b></td>
-				<td class="div_detalles">
-					<div class="material-switch div_historial">
-			            <input type="checkbox" {{ embarazada_value }} readonly="true"/>
-			            <label for="" class="label-info"></label>
-		            </div>
-		        </td>
-			</tr>
-			<tr class="div_detalles">
-				<td class="paciente_detalles_checkbox"><b>Medicamentos</b></td>
-				<td>
-					<div class="material-switch div_historial">
-			            <input type="checkbox" {{ medicamentos_value }} readonly="true" />
-			            <label for="" class="label-info"></label>
-			            <span class="historial_span">{{ medicamentos_comentarios_value}}</span>
-		            </div>
-		        </td>
-			</tr>
-		</table>
-		<br>
-	{% endif %}
-	</section>
-</section>
-<section class="paciente_detalles_card paciente_detalles_visitas">
-	<p class="paciente_detalles_header">Visitas registradas</p>
-	<table class="generic-table" valign="top" >
-		<thead>
-			<th>Fecha</th>
-			<th>Dentista</th>
-			<th>Motivo</th>
-			<th>Precio</th>
-			<th>Tipo de pago</th>
-		</thead>
-		{% for visita in visitas %}
-		<tbody>
-			<td>{{ visita.fecha_visita }}</td>
-			<td>{{ visita.dentista }}</td>
-			<td>{{ visita.motivo }}</td>
-			<td>{{ visita.precio }} {{ visita.dolares }}</td>
-			<td>{{ visita.tipo_pago }}</td>
-		</tbody>
-		{% endfor %}
-	</table>
-	<br>
-	<p class="paciente_detalles_total">Total {{ precio_total }}</p>
-</section>
-<section class="paciente_detalles_botones">
-	{% if  message != 'Registrar historia clinica' %}
-	<br>
-	<a href="/historial/editar/{{paciente.pk}}" style="margin-left:25px;">
-		<input type="button" value="Editar historia clinica" class="btn_confirmar btn btn-success">
-	</a>
-	<br><br>
-	{% endif %}
-</section>
+        <div class="modal-body" style="height:150px; background-color: white;">
+          <h3 style="text-align: center;">¿Estas seguro de eliminar este paciente<br>
+            <b id="textoBorrar"></b>?
+          </h3>
+        </div>
+        <div class="modal-footer" style="background-color: white;">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-danger">Eliminar</button>
+        </div>
+    </div>
+  </div>
+
+  <!-- *********************************** script modal *********************************** -->
+<script>
+  var content_borrar = document.getElementById('textoBorrar');
+
+  function open_modal_borrar(paciente) {
+    content_borrar.innerHTML = paciente;
+  }
+
+</script>
 
 {% endblock %}
+
+
+

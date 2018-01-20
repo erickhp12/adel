@@ -111,3 +111,7 @@
     font-family: roboto;
     background-color: rgba(13, 5, 9, 0.14);
 }
+
+.editar-historial {
+    float: right;
+}
