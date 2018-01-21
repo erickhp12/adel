@@ -77,12 +77,3 @@ class LogoutView(TemplateView):
     def get(self, request, *args, **kwargs):
         logout(request)
         return HttpResponseRedirect('/')
-
-
-def error_404(request):
-        data = {}
-        return render(request,'404.html', data)
- 
-def error_500(request):
-        data = {}
-        return render(request,'500.html', data)
