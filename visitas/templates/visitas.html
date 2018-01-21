@@ -10,8 +10,9 @@
 
 <!-- ************************************  HELPER ************************************ -->
 <div class="container thumbnail helper">
-    <div class="col-md-2">
-        <a href="../" class="glyphicon glyphicon-chevron-left bs-header-back">&nbsp;Volver</a>
+    <div class="col-md-2 volver">
+        <a href="../">
+          <label class="glyphicon glyphicon-chevron-left"></label>&nbsp;Volver</a>
     </div>
     <div class="col-md-9 bs-header-text helper-text">
             <label>Visitas actuales <label class="total">{{ total }}</label>
@@ -53,7 +54,7 @@
 
   <!-- *********************************** grid *********************************** -->
 
-  {% if mensaje != "" %}
+{% if mensaje != "" %}
   <div class="empty_query_result">{{ mensaje }}</div>
 {% endif %}  
   
@@ -64,8 +65,8 @@
         <th scope="col">Paciente</th>
         <th scope="col">Motivo</th>
         <th scope="col">Fecha</th>
-        <th scope="col">Informacion</th>
-        <th scope="col">Edicion</th>
+        <th scope="col">Información</th>
+        <th scope="col">Edición</th>
         <th scope="col">Acciones</th>
       </tr>
     </thead>
@@ -76,16 +77,19 @@
         <td>{{ visita.motivo }}</td>
         <td>{{ visita.fecha_visita }}</td>
         <td>
-          <a type="button" class="glyphicon glyphicon-search" data-toggle="modal" data-target="#modal-ver" 
+          <a type="button" data-toggle="modal" data-target="#modal-ver" 
           onclick="open_modal('{{visita.paciente}}','{{visita.fecha_visita}}','{{visita.motivo}}',
-          '{{visita.dentista}}','{{visita.precio}}','{{ visita.dolares }}','{{ visita.pk }}')"> Ver
+          '{{visita.dentista}}','{{visita.precio}}','{{ visita.dolares }}','{{ visita.pk }}')">
+          <label class="glyphicon glyphicon-search"></label> Ver
           </a>
         </td>
         <td>
-          <a href="{{ visita.url_editar_visitas }}" class="glyphicon glyphicon-pencil"> Editar</a>
+          <a href="{{ visita.url_editar_visitas }}"><label class="glyphicon glyphicon-pencil"></label> Editar</a>
         </td>
         <td>
-          <a class="glyphicon glyphicon-trash" data-toggle="modal" data-target="#modal-borrar" onclick="open_modal_borrar('{{visita.paciente }}')"> Borrar</a>
+          <a data-toggle="modal" data-target="#modal-borrar" 
+          onclick="open_modal_borrar('{{visita.paciente }}')"> 
+          <label class="glyphicon glyphicon-trash" ></label> Borrar</a>
         </td>
       </tr>
     </tbody>

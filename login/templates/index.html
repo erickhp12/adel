@@ -1,46 +1,170 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block body %}
+<head>
+	<meta charset="UTF-8">
+	<title> {% block title %} ADEL {% endblock %} </title>
+	{% load staticfiles %}
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-{% load staticfiles %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/login/index.css' %}" />
+	<!-- css google fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
 
-<section class="fondo_menu_principal">
-	<section class="seccion_menu_principal">
-		<img src="{% static 'img/iconos/login.jpg' %}" class="img_menu_card_main" alt="Pacientes">
-	</section>
-	<section class="seccion_menu_cards">
-		<a href="/lista.pacientes">
-			<div class="card_menu_cards">
-				<h4 class="texto_menu_cards">Pacientes</h4>
-				<img src="{% static 'img/iconos/pacientes.png' %}" class="img_menu_cards" alt="Pacientes">
+	<!-- script jquery -->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+	<!-- css bootstrap -->
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	 crossorigin="anonymous">
+
+	<!-- scripts bootstrap -->
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	 crossorigin="anonymous"></script>
+
+	<!-- css adel -->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'css/generic/base.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'css/login/index.css' %}" />
+</head>
+
+<body>
+	<div class="col-md-12 navegacion-main">
+		<div class="col-md-1">
+			<img class="card-img-top" src="{% static 'img/iconos/logo.png' %}" alt="pacientes">
+		</div>
+		<div class="col-md-10 adel">
+			<label class="adel-text">Administración Dental En Linea</label>
+		</div>
+		<div class="col-md-1 adel-logout">
+			<a href="./logout">
+				<label class="glyphicon glyphicon-log-out"></label> &nbsp;SALIR</a>
+		</div>
+	</div>
+	<!-- *************************************** Modulos *************************************** -->
+	<div class="col-md-12 col-sm-12 main-section">
+		<a href="./lista.pacientes">
+			<div class="card col-md-1 col-sm-3 col-xs-3 module">
+				<div class="card-block">
+					<h4 class="card-title">Pacientes</h4>
+				</div>
+				<img class="card-img-top" src="{% static 'img/iconos/pacientes.png' %}" alt="pacientes">
 			</div>
 		</a>
-		<a href="/lista.visitas">
-			<div class="card_menu_cards">
-				<h4 class="texto_menu_cards">Visitas</h4>
-				<img src="{% static 'img/iconos/visitas.png' %}" class="img_menu_cards" alt="Visitas">
-			</div>
-		</a> 
-		<a href="/lista.empleados">
-			<div class="card_menu_cards">
-			  <h4 class="texto_menu_cards">Agenda</h4> 
-			  <img src="{% static 'img/iconos/agenda.png' %}" class="img_menu_cards" alt="Empleados">
+
+		<a href="./lista.visitas">
+			<div class="card col-md-1 col-sm-3 col-xs-3 module">
+				<div class="card-block">
+					<h4 class="card-title">Visitas</h4>
+				</div>
+				<img class="card-img-top" src="{% static 'img/iconos/visitas.png' %}" alt="Visitas">
 			</div>
 		</a>
-		<a href="/lista.proveedores">
-			<div class="card_menu_cards">
-			  <h4 class="texto_menu_cards">Proveedores</h4> 
-			  <img src="{% static 'img/iconos/proveedores.png' %}" class="img_menu_cards" alt="Proveedores">
+		<a href="./lista.empleados">
+			<div class="card col-md-1 col-sm-3 col-xs-3 module">
+				<div class="card-block">
+					<h4 class="card-title">Empleados</h4>
+				</div>
+				<img class="card-img-top" src="{% static 'img/iconos/empleados.png' %}" alt="empleados">
 			</div>
 		</a>
-		<a href="/lista.gastos">
-			<div class="card_menu_cards">
-			  <h4 class="texto_menu_cards">Gastos</h4> 
-			  <img src="{% static 'img/iconos/gastos.png' %}" class="img_menu_cards" alt="Egresos">
+		<a href="./lista.proveedores">
+			<div class="card col-md-1 col-sm-3 col-xs-3 module">
+				<div class="card-block">
+					<h4 class="card-title">Proveedores</h4>
+				</div>
+				<img class="card-img-top" src="{% static 'img/iconos/proveedores.png' %}" alt="proveedores">
 			</div>
 		</a>
-	</section>
-</section>
- 
-{% endblock %}
+		<a href="./lista.gastos">
+			<div class="card col-md-1 col-sm-3 col-xs-3 module">
+				<div class="card-block">
+					<h4 class="card-title">Gastos</h4>
+				</div>
+				<img class="card-img-top" src="{% static 'img/iconos/gastos.png' %}" alt="gastos">
+			</div>
+		</a>
+		<a href="./lista.agenda">
+			<div class="card col-md-1 col-sm-3 col-xs-3 module">
+				<div class="card-block">
+					<h4 class="card-title">Agenda</h4>
+				</div>
+				<img class="card-img-top" src="{% static 'img/iconos/agenda.png' %}" alt="agenda">
+			</div>
+		</a>
+		<a href="./movimientos">
+			<div class="card col-md-1 col-sm-3 col-xs-3 module">
+				<div class="card-block">
+					<h4 class="card-title">Movimientos</h4>
+				</div>
+				<img class="card-img-top" src="{% static 'img/iconos/pacientes.png' %}" alt="movimientos">
+			</div>
+		</a>
+		<a href="./lista.pacientes">
+			<div class="card col-md-1 col-sm-3 col-xs-3 module">
+				<div class="card-block">
+					<h4 class="card-title">Ajustes</h4>
+				</div>
+				<img class="card-img-top" src="{% static 'img/iconos/gastos.png' %}" alt="Ajustes">
+			</div>
+		</a>
+	</div>
+
+	<!-- *************************************** Resumen *************************************** -->
+	<div class="col-md-12 col-sm-12 div-resumen">
+		<div class="col-md-5 col-sm-12 resumen">
+			<div class="resumen-header">Últimas visitas</div>
+			<div class="resumen-body">
+				<div class="table-responsive tbl-resumen">  
+					<table class="table tbl_main">
+						<thead>
+							<tr>
+								<th scope="col">Paciente</th>
+								<th scope="col">Motivo</th>
+								<th scope="col">Fecha</th>
+							</tr>
+						</thead>
+						{% for visita in visitas %}
+						<tbody>
+							<tr>
+								<td scope="row">{{ visita.paciente }}</td>
+								<td>{{ visita.motivo }}</td>
+								<td>{{ visita.fecha_visita }}</td>
+							</tr>
+						</tbody>
+					{% endfor %}
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-5 col-sm-12 resumen">
+			<div class="resumen-header">Próximas citas</div>
+			<div class="resumen-body">
+					<div class="table-responsive tbl-resumen">  
+						<table class="table tbl_main">
+							<thead>
+							<tr>
+								<th scope="col">Paciente</th>
+								<th scope="col">Motivo</th>
+								<th scope="col">Fecha</th>
+							</tr>
+						</thead>
+						{% for cita in citas %}
+						<tbody>
+							<tr>
+								<td scope="row">{{ cita.paciente }}</td>
+								<td>{{ cita.motivo }}</td>
+								<td>{{ cita.fecha_agenda }}</td>
+							</tr>
+						</tbody>
+					{% endfor %}
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

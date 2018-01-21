@@ -7,15 +7,16 @@
 
 <!-- ************************************  HELPER ************************************ -->
 <div class="container thumbnail helper">
-    <div class="col-md-2">
-        <a href="../" class="glyphicon glyphicon-chevron-left bs-header-back">&nbsp;Volver</a>
-    </div>
-    <div class="col-md-9 bs-header-text helper-text">
-            <label>proveedores actuales <label class="total">{{ total }}</label>
-    </div>
-    <div class="helper-img col-md-1">
-        <img src="{% static 'img/iconos/proveedores40.png' %}"  class="helper-img" alt="ups">
-    </div>
+  <div class="col-md-2 volver">
+      <a href="../">
+        <label class="glyphicon glyphicon-chevron-left"></label>&nbsp;Volver</a>
+  </div>
+  <div class="col-md-9 bs-header-text helper-text">
+    <label>proveedores actuales <label class="total">{{ total }}</label>
+  </div>
+  <div class="helper-img col-md-1">
+    <img src="{% static 'img/iconos/proveedores40.png' %}"  class="helper-img" alt="ups">
+  </div>
 </div>
 
 <section class="container thumbnail grid">
@@ -67,17 +68,19 @@
           <td>{{ proveedor.telefono }}</td>
           <td>{{ proveedor.producto }}</td>
           <td>
-            <a type="button" class="glyphicon glyphicon-search" data-toggle="modal" data-target="#modal-ver" 
+            <a type="button"data-toggle="modal" data-target="#modal-ver" 
             onclick="open_modal('{{ proveedor.nombre }}','{{ proveedor.contacto }}','{{ proveedor.telefono }}',
              '{{ proveedor.correo }}','{{proveedor.direccion }}','{{ proveedor.producto }}',
-             '{{ proveedor.fecha_inicio }}')"> Ver
+             '{{ proveedor.fecha_inicio }}')"><label  class="glyphicon glyphicon-search"></label> Ver
             </a>
           </td>
           <td>
-            <a href="{{ proveedor.url_editar_proveedor }}" class="glyphicon glyphicon-pencil"> Editar</a>
+            <a href="{{ proveedor.url_editar_proveedor }}"><label class="glyphicon glyphicon-pencil"></label> Editar</a>
           </td>
           <td>
-            <a class="glyphicon glyphicon-trash" data-toggle="modal" data-target="#modal-borrar" onclick="open_modal_borrar('{{ proveedor.nombre }}')"> Borrar</a>
+            <a data-toggle="modal" data-target="#modal-borrar"
+             onclick="open_modal_borrar('{{ proveedor.nombre }}')"> 
+             <label class="glyphicon glyphicon-trash" ></label> Borrar</a>
           </td>
         </tr>
       </tbody>

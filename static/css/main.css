@@ -1,10 +1,4 @@
 
-/* Bootstrap css */
-@import "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css";
-
-/* Propeller button */
-@import "http://propeller.in/components/button/css/button.css";
-
 /* ----------------------------------- html elementos ---------------------------------------- */
 
 body {
@@ -13,10 +7,11 @@ body {
 
 a {
 	color: #333333;
+	font-family: 'Roboto';
 }
 
-p,span,label, a{
-	font-family:roboto;
+p , span, label, a {
+	font-family: 'Roboto', sans-serif;
 }
 
 a:hover {
@@ -26,10 +21,6 @@ a:hover {
 
 input {
 	width: 100%;
-}
-
-img {
-	max-height: 50%;
 }
 
 select {
@@ -128,10 +119,13 @@ span {
 	margin-top: 20px;
 }
 
-.bs-header-back{
-	font-size:16px;
+.volver {
 	margin-top: 10px;
-	font-weight:800;	
+}
+
+.volver > a {
+	font-size:18px;
+	font-weight:600;	
 }
 
 .bs-header-text {
