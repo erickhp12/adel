@@ -26,6 +26,7 @@
                 </div>
                 <div class="login-card-body">
                     <form action="{% url 'login.view.url' %}" method="POST">
+                        {% csrf_token %}
                         <input id="username" name="username" class="input-personalized input-login" required="required" type="text" placeholder="Usuario"/><br>
                         <input id="password" name="password" class="input-personalized input-login" required="required" type="password" placeholder="Contraseña" />
                         <p id="message" class="message">{{ mensaje }}</p>
