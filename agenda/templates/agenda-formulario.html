@@ -9,8 +9,9 @@
 
 <!-- ************************************  HELPER ************************************ -->
  <div class="container col-md-8 thumbnail col-md-offset-2 bs-header">
-    <div class="col-md-2">
-        <a href="/lista.agenda" class="glyphicon glyphicon-chevron-left bs-header-back">&nbsp;Volver</a>
+    <div class="col-md-2 volver">
+        <a href="/lista.agenda">
+          <label class="glyphicon glyphicon-chevron-left"></label>&nbsp;Volver</a>
     </div>
     <div class="col-md-9 bs-header-text helper-text">
         {% if agenda.proveedor %}
@@ -120,7 +121,7 @@
                             {% if agenda.proveedor %}
                                 <button type="submit" onclick="set_empty_values()" class="btn btn-success col-md-4">Actualizar informacion</button>
                             {% else %}
-                                <button type="submit" onclick="set_empty_values()" class="btn btn-success col-md-4">Agregar agenda</button>
+                                <button type="submit" onclick="set_empty_values()" class="btn btn-success col-md-4">Agregar cita</button>
                             {% endif %}
                         <br>
                         <br>
