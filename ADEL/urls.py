@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^', include("gastos.urls")),
     url(r'^', include("agenda.urls")),
     url(r'^', include("historial.urls")),
+    url(r'^', include("recetas.urls")),
 ] + static(
         settings.STATIC_URL,
         document_root=settings.STATIC_ROOT

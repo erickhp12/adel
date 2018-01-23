@@ -35,7 +35,8 @@ INSTALLED_APPS = [
     'proveedores',
     'gastos',
     'historial',
-    'agenda'
+    'agenda',
+    'recetas'
 ]
 
 SITE_ID = 1

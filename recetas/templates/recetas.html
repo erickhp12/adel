@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+{% block title %}ADEL | recetas {% endblock %}
+
+{% block body %}
+
+{% load staticfiles %}
+<meta charset="utf-8">
+<script src="{% static '/static/js/generic/calendarios.js'%}"></script>
+
+
+<!-- ************************************  HELPER ************************************ -->
+<div class="container thumbnail helper">
+    <div class="col-md-2 volver">
+        <a href="../">
+          <label class="glyphicon glyphicon-chevron-left"></label>&nbsp;Volver</a>
+    </div>
+    <div class="col-md-9 bs-header-text helper-text">
+            <label>recetas actuales <label class="total">{{ total }}</label>
+    </div>
+    <div class="helper-img col-md-1">
+        <img src="{% static 'img/iconos/visitas40.png' %}"  class="helper-img" alt="ups">
+    </div>
+</div>
+
+
+<section class="container thumbnail grid">
+<!-- ************************************  FORM ************************************ -->
+  <section>
+    <form method=post class="container-fluid grid-elements">
+      {% csrf_token %}
+      <div class="col-md-5">
+        <input type="text" id="myInput" name="visita" placeholder="nombre o motivo" class="input-personalized"/>
+      </div> 
+
+      <div class="col-md-2">
+        <input type="text" id="datepicker" name="fecha_inicial" onclick="clear_text()" class="input-personalized" placeholder="fecha inicial" />
+      </div>
+      <div class="col-md-2">
+        <input type="text" id="datepickerf" name="fecha_final" onclick="clear_textf()" class="input-personalized" placeholder="fecha final" />
+      </div>
+      <div class="col-md-1">
+        <a>
+          <input type="submit" name="link_add_gasto" class="btn btn-default" value="Buscar"/>
+        </a>
+      </div>
+      <div class="col-md-2">
+        <a href="/registro.visita">
+          <input type="button" name="link_add_gasto" class="btn btn-success" value="Agregar visita"/>
+        </a>
+      </div>
+    </form> 
+  </section>
+<hr>
+
+  <!-- *********************************** grid *********************************** -->
+
+{% if mensaje != "" %}
+  <div class="empty_query_result">{{ mensaje }}</div>
+{% endif %}  
+  
+<div class="table-responsive grid-table">  
+  <table class="table tbl_main">
+    <thead>
+      <tr>
+        <th scope="col">Paciente</th>
+        <th scope="col">Motivo</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Información</th>
+        <th scope="col">Edición</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    {% for receta in recetas %}
+    <tbody>
+      <tr>
+        <td scope="row">{{ receta.paciente }}</td>
+        <td>{{ receta.comentario }}</td>
+        <td>{{ receta.fecha_receta }}</td>
+        <td>
+          <a type="button" data-toggle="modal" data-target="#modal-ver" 
+          onclick="open_modal('{{receta.paciente}}','{{receta.fecha_receta}}','{{receta.motivo}}',
+          '{{receta.dentista}}','{{receta.precio}}','{{ receta.dolares }}','{{ receta.pk }}')">
+          <label class="glyphicon glyphicon-search"></label> Ver
+          </a>
+        </td>
+        <td>
+          <a href="{{ receta.url_editar_receta }}"><label class="glyphicon glyphicon-pencil"></label> Editar</a>
+        </td>
+        <td>
+          <a data-toggle="modal" data-target="#modal-borrar" 
+          onclick="open_modal_borrar('{{receta.paciente }}')"> 
+          <label class="glyphicon glyphicon-trash" ></label> Borrar</a>
+        </td>
+      </tr>
+    </tbody>
+    {% endfor %}
+    </table>
+  </div>
+  </section>
+</section>
+
+
+<!-- *********************************** modal ver *********************************** -->
+
+<div class="modal fade" id="modal-ver" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <form class="modal-content" method=post>
+      <div class="modal-header" style="background-color: #dbdbdb; border-bottom: 1px solid rgb(151, 151, 151);" >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">
+          <img src="{% static 'img/iconos/recetas40.png' %}" alt="x">
+          <label id="textoPaciente" style="text-align: center;"></label> 
+        </h4>
+      </div>
+      <div class="modal-body" style="height:150px;">
+        <div class="col-md-12">
+            <label class="col-md-2">Fecha</label>
+            <label class="col-md-10" id="textoFecha"></label>
+        </div>
+        <div class="col-md-12">
+            <label class="col-md-2">Motivo</label>
+            <label class="col-md-10" id="textoMotivo"></label>
+        </div>
+        <div class="col-md-12">
+            <label class="col-md-2">Dentista</label>
+            <label class="col-md-10" id="textoDentista"></label>
+        </div>
+        <div class="col-md-12">
+            <label class="col-md-2">Precio</label>
+            <label class="col-md-10" id="textoPrecio"></label>
+        </div>
+      </div>
+  </div>
+</div>
+
+
+<!-- *********************************** modal borrar *********************************** -->
+
+<div class="modal fade" id="modal-borrar" tabindex="1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <form class="modal-content" method=post>
+      <div class="modal-header" style="background-color: #dbdbdb; border-bottom: 1px solid rgb(151, 151, 151);" >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">
+          <img src="{% static 'img/iconos/recetas40.png' %}" alt="x">
+          <label style="text-align: center;">Confirmación</label> 
+        </h4>
+      </div>
+      <div class="modal-body" style="height:150px; background-color: white;">
+        <h3 style="text-align: center;">¿Estas seguro de eliminar la visita de<br>
+          <b id="textoBorrar"></b>?
+        </h3>
+      </div>
+      <div class="modal-footer" style="background-color: white;">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+      </div>
+  </div>
+</div>
+
+
+<!-- *********************************** script modal *********************************** -->
+<script>
+  var modal = document.getElementById('myModal');
+  var content_paciente = document.getElementById('textoPaciente');
+  var content_fecha = document.getElementById('textoFecha');
+  var content_motivo = document.getElementById('textoMotivo');
+  var content_dentista = document.getElementById('textoDentista');
+  var content_precio = document.getElementById('textoPrecio');
+  var content_borrar = document.getElementById('textoBorrar');
+  var close = document.getElementsByClassName("btn-modal-close")[0];
+
+  function open_modal(paciente, fecha, motivo, dentista, precio, divisa, pk) {
+    content_paciente.innerHTML = "Visita de " + paciente;
+    content_fecha.innerHTML = fecha;
+    content_motivo.innerHTML = motivo;
+    content_dentista.innerHTML = dentista;
+    content_precio.innerHTML = precio + " " + divisa;
+  }
+
+  function open_modal_borrar(texto) {
+    content_borrar.innerHTML = texto;
+  }
+  $('#sandbox-container .input-daterange').datepicker({
+  });
+</script> {% endblock %}
