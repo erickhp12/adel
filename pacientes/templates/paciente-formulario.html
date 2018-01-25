@@ -31,6 +31,7 @@
             <br>
             <form method="post">
                 {% csrf_token %}
+
                 <fieldset class="fieldset">
                     <legend>
                         <b>Información requerida</b>
@@ -44,9 +45,61 @@
                             <input type="text" name="nombre" id="nombre" class="input-personalized"> 
                         {% endif %}
                     </div>
-                    <div class="form-group col-md-6">
-                        <label>Fecha de nacimiento</label>
-                            <input type="text" id="datepickerf" name="fecha_nacimiento" value="2018-01-18" class="input-personalized">
+
+
+                    <div class="form-group col-md-6 col-sm-6 col-sm-6">
+                        <label class="col-md-12 col-sm-12 col-xs-12">Fecha de nacimiento</label>
+                        <select class="col-md-2 col-sm-7 col-xs-7 fecha-nacimiento-dia" name="day" id="day">
+                            <option id="day" name="day" value="01">01</option>
+                            <option id="day" name="day" value="02">02</option>
+                            <option id="day" name="day" value="03">03</option>
+                            <option id="day" name="day" value="04">04</option>
+                            <option id="day" name="day" value="05">05</option>
+                            <option id="day" name="day" value="06">06</option>
+                            <option id="day" name="day" value="07">07</option>
+                            <option id="day" name="day" value="08">08</option>
+                            <option id="day" name="day" value="09">09</option>
+                            <option id="day" name="day" value="10">10</option>
+                            <option id="day" name="day" value="11">11</option>
+                            <option id="day" name="day" value="12">12</option>
+                            <option id="day" name="day" value="13">13</option>
+                            <option id="day" name="day" value="14">14</option>
+                            <option id="day" name="day" value="15">15</option>
+                            <option id="day" name="day" value="16">16</option>
+                            <option id="day" name="day" value="17">17</option>
+                            <option id="day" name="day" value="18">18</option>
+                            <option id="day" name="day" value="19">19</option>
+                            <option id="day" name="day" value="20">20</option>
+                            <option id="day" name="day" value="21">21</option>
+                            <option id="day" name="day" value="22">22</option>
+                            <option id="day" name="day" value="23">23</option>
+                            <option id="day" name="day" value="24">24</option>
+                            <option id="day" name="day" value="25">25</option>
+                            <option id="day" name="day" value="26">26</option>
+                            <option id="day" name="day" value="27">29</option>
+                            <option id="day" name="day" value="28">28</option>
+                            <option id="day" name="day" value="29">29</option>
+                            <option id="day" name="day" value="30">30</option>
+                            <option id="day" name="day" value="31">31</option>    
+                        </select>
+                        <select class="col-md-4 col-sm-7 col-xs-7 fecha-nacimiento" name="month" id="month">
+                            <option id="month" name="month" value="01">Enero</option>
+                            <option id="month" name="month" value="02">Febrero</option>
+                            <option id="month" name="month" value="03">Marzo</option>
+                            <option id="month" name="month" value="04">Abril</option>
+                            <option id="month" name="month" value="05">Mayo</option>
+                            <option id="month" name="month" value="06">Junio</option>
+                            <option id="month" name="month" value="07">Julio</option>
+                            <option id="month" name="month" value="08">Agosto</option>
+                            <option id="month" name="month" value="09">Septiembre</option>
+                            <option id="month" name="month" value="10">Octubre</option>
+                            <option id="month" name="month" value="11">Noviembre</option>
+                            <option id="month" name="month" value="12">Diciembre</option>
+                        </select>
+                        <select class="col-md-3 col-sm-7 col-xs-7 fecha-nacimiento" name="year" id="year">
+                            {% for year in years %}
+                                    <option id="year" name="year" value="{{ year }}">{{ year }}</option>
+                                {% endfor %}
                         </select>
                     </div>
                 </fieldset>
@@ -88,7 +141,7 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label>Teléfono</label>
-                        <input type="text" value="{{ paciente.telefono }}" placeholder="(656) 336-46-63"
+                        <input type="text" value="{{ paciente.telefono }}" placeholder="(656) 000-00-00"
                         name="telefono" id="telefono" class="input-personalized">
                     </div>
                 </fieldset>
@@ -130,7 +183,6 @@
     <script>
         function set_empty_values() {
             nombre = document.getElementById('nombre');
-            fecha_nacimiento = document.getElementById('datepickerf');
             sexo = document.getElementById('sexo');
             tipo_paciente = document.getElementById('tipo_paciente');
             aseguranza = document.getElementById('aseguranza');
@@ -139,24 +191,10 @@
             direccion = document.getElementById('direccion');
             comentarios = document.getElementById('comentarios');
 
-            console.log('DENTRO DE FUNCION');
-            console.log('nombre ' + nombre.value);
-            console.log('fecha_nacimiento ' + fecha_nacimiento.value);
-            console.log('sexo ' + sexo.value);
-            console.log('tipo_paciente' + tipo_paciente.value);
-            console.log('aseguranza' + aseguranza.value);
-            console.log('telefono ' + telefono.value);
-            console.log('correo ' + correo.value);
-            console.log('direccion' + direccion.value);
-
 
             if (nombre.value == "") {
                 alert('el campo nombre es requerido');
                 nombre.value = "";
-            }
-            if (fecha_nacimiento == undefined) {
-                alert('el campo fecha de nacimiento es requerido');
-                fecha_nacimiento.value = "2018-01-18";
             }
             if (sexo.value == "") {
                 sexo.value = "---";

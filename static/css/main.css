@@ -142,7 +142,9 @@ span {
 	margin-top: 10px;	
 }
 
-
+.fecha-nacimiento {
+	margin-left: 32px;
+}
 
 
 /*----------------------------------------  textos -------------------------------------------------- */
@@ -183,5 +185,12 @@ span {
 	margin-left: 30px;
 }
 
+@media screen and (max-width: 1150px){
+	.fecha-nacimiento, .fecha-nacimiento-dia {
+		margin-left: 0px;
+		width: 100%;
+		margin-bottom: 15px;
+	}
+}
 
 

@@ -75,7 +75,7 @@
       <tr>
         <td scope="row">{{ visita.paciente }}</td>
         <td>{{ visita.motivo }}</td>
-        <td>{{ visita.fecha_visita }}</td>
+        <td>{{ visita.fecha_visita|date:"l d F P" }}</td>
         <td>
           <a type="button" data-toggle="modal" data-target="#modal-ver" 
           onclick="open_modal('{{visita.paciente}}','{{visita.fecha_visita}}','{{visita.motivo}}',

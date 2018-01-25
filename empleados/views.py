@@ -7,7 +7,7 @@ from .models import Empleado
 from .forms import RegistrarEmpleado
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-
+import datetime
 
 class EmployeeListView(ListView):
     template_name = "empleados.html"
@@ -55,10 +55,21 @@ class CreateEmployeeView(ListView):
         user_logged = request.user
         empleados = Empleado.objects.filter(user=request.user)
         total = empleados.count
+        now = datetime.datetime.now()
+        currentYear = now.year
+        years = []
+        year = 1940
+
+        while currentYear >= year:
+            years.append(currentYear)
+            currentYear-=1
+
         mensaje = ""
-        context = {'empleados': empleados,
-                   'total': total,
-                   'mensaje': mensaje
+        context = {
+                    'empleados': empleados,
+                    'years':years,
+                    'total': total,
+                    'mensaje': mensaje
                    }
 
         return render(request, self.template_name, context)
@@ -70,10 +81,13 @@ class CreateEmployeeView(ListView):
         user = request.user
         nombre = request.POST.get('nombre')
         puesto = request.POST.get('puesto')
-        fecha_nacimiento = request.POST.get('fecha_nacimiento')
+        day = request.POST.get('day')
+        month = request.POST.get('month')
+        year = request.POST.get('year')
         telefono = request.POST.get('telefono')
         correo = request.POST.get('correo')
         direccion = request.POST.get('direccion')
+        birth = year + "-" + month + "-" + day
 
         try:
             if nombre == "":
@@ -83,7 +97,7 @@ class CreateEmployeeView(ListView):
                     user=user,
                     nombre=nombre,
                     puesto=puesto,
-                    fecha_nacimiento=fecha_nacimiento,
+                    fecha_nacimiento=birth,
                     telefono=telefono,
                     correo=correo,
                     direccion=direccion

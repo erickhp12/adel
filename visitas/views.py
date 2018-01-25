@@ -40,9 +40,6 @@ class VisitListView(ListView):
         fecha_final = request.POST.get('fecha_final')
         mensaje = ""
 
-        print "2018 visita"
-        print paciente
-
         
         if fecha_final and fecha_final != "":
             visitas = Visitas.objects.all().filter(fecha_visita__range=[fecha_inicial, fecha_final + " 23:59:59"],user=request.user).order_by('-fecha_visita')
@@ -69,8 +66,9 @@ class CreateVisitView(ListView):
 
     def get(self, request, *args, **kwargs):
         user_logged = request.user
-        pacientes = Paciente.objects.filter(user=request.user)
-        empleados = Empleado.objects.filter(user=request.user)
+        pacientes = Paciente.objects.filter(user=request.user).order_by('nombre')
+        empleados = Empleado.objects.filter(user=request.user).order_by('nombre')
+
         form = RegistrarVisita()
         mensaje = ""
         context = {'pacientes': pacientes,
@@ -142,11 +140,13 @@ class UpdateVisitView(ListView):
         form = RegistrarVisita()
         mensaje = ""
 
-        context = {'visita': visita,
-                   'mensaje': mensaje,
-                   'pacientes':pacientes,
-                   'form':form,
-                   'empleados':empleados
+
+        context = {
+                    'visita': visita,
+                    'mensaje': mensaje,
+                    'pacientes':pacientes,
+                    'form':form,
+                    'empleados':empleados
                    }
 
         return render(request, self.template_name, context)
@@ -166,20 +166,20 @@ class UpdateVisitView(ListView):
         tipo_pago = request.POST.get('tipo_pago')
         fecha_visita = request.POST.get('fecha')
 
-        # print "user"
-        # print user
-        # print "paciente"
-        # print paciente
-        # print "empleado"
-        # print empleado
-        # print "precio"
-        # print precio
-        # print "dolares"
-        # print dolares
-        # print "tipo_pago"
-        # print tipo_pago
-        # print "fecha_visita"
-        # print fecha_visita
+        print "user"
+        print user
+        print "paciente"
+        print paciente
+        print "empleado"
+        print empleado
+        print "precio"
+        print precio
+        print "dolares"
+        print dolares
+        print "tipo_pago"
+        print tipo_pago
+        print "fecha_visita"
+        print fecha_visita
 
         try:
             if paciente == "":

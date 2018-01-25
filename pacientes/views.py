@@ -15,6 +15,7 @@ from historial.models import Historial
 from .models import Paciente
 from .forms import RegistrarPaciente
 from .serializers import PacienteSerializer
+import datetime
 
 class PatientListView(ListView):
     template_name = "pacientes.html"
@@ -64,13 +65,23 @@ class CreatePatientView(CreateView):
         pacientes = Paciente.objects.filter(user=request.user)
         total = pacientes.count
         form = RegistrarPaciente()
-        
+        now = datetime.datetime.now()
+        currentYear = now.year
+        years = []
+        year = 1940
+
+        while currentYear >= year:
+            years.append(currentYear)
+            currentYear-=1
+
         mensaje = ""
         
-        context = {'pacientes': pacientes,
-                   'total': total,
-                   'form':form,
-                   'mensaje': mensaje
+        context = {
+                    'pacientes': pacientes,
+                    'years':years,
+                    'total': total,
+                    'form':form,
+                    'mensaje': mensaje
                    }
 
         return render(request, self.template_name, context)
@@ -82,23 +93,16 @@ class CreatePatientView(CreateView):
         user = request.user
         nombre = request.POST.get('nombre')
         sexo = request.POST.get('sexo')
-        fecha_nacimiento = request.POST.get('fecha_nacimiento')
+        day = request.POST.get('day')
+        month = request.POST.get('month')
+        year = request.POST.get('year')
         tipo_paciente = request.POST.get('tipo_paciente')
         aseguranza = request.POST.get('aseguranza')
         telefono = request.POST.get('telefono')
         correo = request.POST.get('correo')
         direccion = request.POST.get('direccion')
-        comentarios = request.POST.get('comentarios')
-        
-        # print "Nombre " + str(nombre)
-        # print "sexo " + str(sexo)
-        # print "fecha " + str(fecha_nacimiento)
-        # print "tipo paciente " + str(tipo_paciente)
-        # print "aseguranza " + str(aseguranza)
-        # print "telefono " + str(telefono)
-        # print "correo " + str(correo)
-        # print "direccion " + str(direccion)
-        # print "comentarios " + str(comentarios)
+        comentarios = request.POST.get('comentarios')   
+        birth = year + "-" + month + "-" + day
 
         try:
             if nombre == "":
@@ -108,7 +112,7 @@ class CreatePatientView(CreateView):
                     user=user,
                     nombre=nombre,
                     sexo=sexo,
-                    fecha_nacimiento=fecha_nacimiento,
+                    fecha_nacimiento=birth,
                     tipo_paciente=tipo_paciente,
                     aseguranza=aseguranza,
                     telefono=telefono,

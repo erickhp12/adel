@@ -57,7 +57,7 @@
                             {% if agenda.empleado %}
                                 <option name="empleado" id="empleado" value="{{ agenda.empleado }}">{{ agenda.empleado }}</option>
                             {% else %}
-                                <option value="%">------</option>
+                                <option name="empleado" id="empleado" value="">------</option>
                             {% endif %}
                             {% for empleado in empleados %}
                                 <option name="empleado" id="empleado" value="{{ empleado.nombre }}">{{ empleado.nombre }}</option>
@@ -69,39 +69,49 @@
                 <fieldset class="fieldset">
                     <div class="form-group col-md-6">
                         <label style="margin-bottom: 5px;">Fecha</label>
-                        <input type="text" name="fecha" id="datepicker"  class="input-personalized">
+                        {% if agenda.fecha_agenda %}
+                            <input type="date" name="fecha" id="datepicker" value="{{agenda.fecha_agenda |date:"Y-m-d"}}" class="input-personalized">
+                        {% else %}
+                            <input type="text" name="fecha" id="datepicker"  class="input-personalized">
+                        {% endif %}
                     </div>
 
                     <div class="form-group col-md-6">
                         <label>Hora</label>
                         <select name="hora" id="hora" onchange="set_date()">
-                            <option value="00:00">------</option>
-                            <option name="hora" id="hora" value="08:00">08:00</option>
-                            <option name="hora" id="hora" value="08:30">08:30</option>
-                            <option name="hora" id="hora" value="09:00">09:00</option>
-                            <option name="hora" id="hora" value="09:30">09:30</option>
-                            <option name="hora" id="hora" value="10:00">10:00</option>
-                            <option name="hora" id="hora" value="10:30">10:30</option>
-                            <option name="hora" id="hora" value="11:00">11:00</option>
-                            <option name="hora" id="hora" value="11:30">11:30</option>
-                            <option name="hora" id="hora" value="12:00">12:00</option>
-                            <option name="hora" id="hora" value="12:30">12:30</option>
-                            <option name="hora" id="hora" value="13:00">13:00</option>
-                            <option name="hora" id="hora" value="13:30">13:30</option>
-                            <option name="hora" id="hora" value="14:00">14:00</option>
-                            <option name="hora" id="hora" value="14:30">14:30</option>
-                            <option name="hora" id="hora" value="15:00">15:00</option>
-                            <option name="hora" id="hora" value="15:30">15:30</option>
-                            <option name="hora" id="hora" value="16:00">16:00</option>
-                            <option name="hora" id="hora" value="16:30">16:30</option>
-                            <option name="hora" id="hora" value="17:00">17:00</option>
-                            <option name="hora" id="hora" value="17:30">17:30</option>
-                            <option name="hora" id="hora" value="18:00">18:00</option>
-                            <option name="hora" id="hora" value="18:30">18:30</option>
-                            <option name="hora" id="hora" value="19:00">19:00</option>
-                            <option name="hora" id="hora" value="19:30">19:30</option>
-                            <option name="hora" id="hora" value="20:00">20:00</option>
-                            <option name="hora" id="hora" value="20:30">20:30</option>
+                            {% if agenda.fecha_agenda %}
+                                <option value="{{agenda.fecha_agenda | date:"h:i"}}">{{agenda.fecha_agenda | date:"h:i"}}</option>
+                            {% else %}
+                                <option value="00:00">00:00</option>
+                            {% endif %}
+                            <option name="hora" id="hora" value="08:00">08:00 AM</option>
+                            <option name="hora" id="hora" value="08:30">08:30 AM</option>
+                            <option name="hora" id="hora" value="09:00">09:00 AM</option>
+                            <option name="hora" id="hora" value="09:30">09:30 AM</option>
+                            <option name="hora" id="hora" value="10:00">10:00 AM</option>
+                            <option name="hora" id="hora" value="10:30">10:30 AM</option>
+                            <option name="hora" id="hora" value="11:00">11:00 AM</option>
+                            <option name="hora" id="hora" value="11:30">11:30 AM</option>
+                            <option name="hora" id="hora" value="12:00">12:00 PM</option>
+                            <option name="hora" id="hora" value="12:30">12:30 PM</option>
+                            <option name="hora" id="hora" value="13:00">1:00 PM</option>
+                            <option name="hora" id="hora" value="13:30">1:30 PM</option>
+                            <option name="hora" id="hora" value="14:00">2:00 PM</option>
+                            <option name="hora" id="hora" value="14:30">2:30 PM</option>
+                            <option name="hora" id="hora" value="15:00">3:00 PM</option>
+                            <option name="hora" id="hora" value="15:30">3:30 PM</option>
+                            <option name="hora" id="hora" value="16:00">4:00 PM</option>
+                            <option name="hora" id="hora" value="16:30">4:30 PM</option>
+                            <option name="hora" id="hora" value="17:00">5:00 PM</option>
+                            <option name="hora" id="hora" value="17:30">5:30 PM</option>
+                            <option name="hora" id="hora" value="18:00">6:00 PM</option>
+                            <option name="hora" id="hora" value="18:30">6:30 PM</option>
+                            <option name="hora" id="hora" value="19:00">7:00 PM</option>
+                            <option name="hora" id="hora" value="19:30">7:30 PM</option>
+                            <option name="hora" id="hora" value="20:00">8:00 PM</option>
+                            <option name="hora" id="hora" value="20:30">8:30 PM</option>
+                            <option name="hora" id="hora" value="21:00">9:00 PM</option>
+                            <option name="hora" id="hora" value="21:30">9:30 PM</option>
                         </select>
                     </div>
                 </fieldset>
@@ -171,7 +181,6 @@
         }
 
         function set_empty_values() {
-            console.log("entre al metodo");
             paciente = document.getElementById('paciente');
             motivo = document.getElementById('motivo');
             empleado = document.getElementById('empleado');
@@ -182,12 +191,15 @@
                 alert('el campo paciente es requerido');
                 paciente.value = "";
             }
+            if (empleado.value == "") {
+                alert('el campo empleado es requerido');
+                empleado.value = "No registrado";
+            }
+            
             if (motivo.value == "") {
                 motivo.value = "--";
             }
-            if (empleado.value == "") {
-                empleado.value = "No registrado";
-            }
+            
             if (precio.value == "") {
                 precio.value = "--";
             }

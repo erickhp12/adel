@@ -24,7 +24,7 @@ class AgendaListView(ListView):
         fecha_final = time.strftime("%Y-%m-%d")
         estado = 0
         mensaje = ""
-        agenda = Agenda.objects.filter(fecha_agenda__range=[fecha_inicial, fecha_final + " 23:59:59"],user=request.user).order_by('fecha_agenda')
+        agenda = Agenda.objects.filter(user=request.user).order_by('-fecha_agenda')
         total = agenda.count()
 
         if total == 0:
@@ -100,7 +100,7 @@ class CreateAgendaView(View):
         motivo = request.POST.get('motivo')
         empleadoSeleccionado = request.POST.get('empleado')
         empleado = Empleado.objects.filter(nombre=empleadoSeleccionado).first()
-        fecha_agenda = request.POST.get('fecha') 
+        fecha_agenda = request.POST.get('fecha')
 
         try:
             if paciente == "":
