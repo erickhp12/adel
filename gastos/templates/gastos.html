@@ -71,7 +71,7 @@
         <tr>
           <td scope="row">{{ gasto.proveedor }}</td>
           <td>{{ gasto.motivo }}</td>
-          <td>{{ gasto.fecha_gasto }}</td>
+          <td>{{ gasto.fecha_gasto | date:"l d F P" }}</td>
           <td>
             <a type="button" data-toggle="modal" data-target="#modal-ver" 
             onclick="open_modal('{{ gasto.proveedor }}','{{ gasto.motivo }}','{{ gasto.empleado }}',

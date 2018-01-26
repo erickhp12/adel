@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-{% block title %}ADEL | recetas {% endblock %}
+{% block title %}ADEL | Recetas {% endblock %}
 
 {% block body %}
 
 {% load staticfiles %}
 <meta charset="utf-8">
-<script src="{% static '/static/js/generic/calendarios.js'%}"></script>
+<script src="{% static '/static/js/generic/calendarios.js' %}"></script>
 
 
 <!-- ************************************  HELPER ************************************ -->
@@ -29,7 +29,7 @@
     <form method=post class="container-fluid grid-elements">
       {% csrf_token %}
       <div class="col-md-5">
-        <input type="text" id="myInput" name="visita" placeholder="nombre o motivo" class="input-personalized"/>
+        <input type="text" id="myInput" name="receta" placeholder="nombre o motivo" class="input-personalized"/>
       </div> 
 
       <div class="col-md-2">
@@ -44,8 +44,8 @@
         </a>
       </div>
       <div class="col-md-2">
-        <a href="/registro.visita">
-          <input type="button" name="link_add_gasto" class="btn btn-success" value="Agregar visita"/>
+        <a href="/registro.receta">
+          <input type="button" name="link_add_gasto" class="btn btn-success" value="Agregar receta"/>
         </a>
       </div>
     </form> 
@@ -75,16 +75,16 @@
       <tr>
         <td scope="row">{{ receta.paciente }}</td>
         <td>{{ receta.comentario }}</td>
-        <td>{{ receta.fecha_receta }}</td>
+        <td>{{ receta.fecha_receta | date:"l d F P" }}</td>
         <td>
           <a type="button" data-toggle="modal" data-target="#modal-ver" 
-          onclick="open_modal('{{receta.paciente}}','{{receta.fecha_receta}}','{{receta.motivo}}',
-          '{{receta.dentista}}','{{receta.precio}}','{{ receta.dolares }}','{{ receta.pk }}')">
+          onclick="open_modal('{{receta.paciente}}','{{receta.fecha_receta}}'
+          ,'{{receta.comentario}}','{{receta.dentista}}')">
           <label class="glyphicon glyphicon-search"></label> Ver
           </a>
         </td>
         <td>
-          <a href="{{ receta.url_editar_receta }}"><label class="glyphicon glyphicon-pencil"></label> Editar</a>
+          <a href="{{ receta.url_editar_recetas }}"><label class="glyphicon glyphicon-pencil"></label> Editar</a>
         </td>
         <td>
           <a data-toggle="modal" data-target="#modal-borrar" 
@@ -110,26 +110,22 @@
           <span aria-hidden="true">&times;</span>
         </button>
         <h4 class="modal-title">
-          <img src="{% static 'img/iconos/recetas40.png' %}" alt="x">
+          <img src="{% static 'img/iconos/visitas40.png' %}" alt="x">
           <label id="textoPaciente" style="text-align: center;"></label> 
         </h4>
       </div>
       <div class="modal-body" style="height:150px;">
         <div class="col-md-12">
-            <label class="col-md-2">Fecha</label>
-            <label class="col-md-10" id="textoFecha"></label>
+            <label class="col-md-3">Fecha</label>
+            <label class="col-md-9" id="textoFecha"></label>
         </div>
         <div class="col-md-12">
-            <label class="col-md-2">Motivo</label>
-            <label class="col-md-10" id="textoMotivo"></label>
+            <label class="col-md-3">Comentarios</label>
+            <label class="col-md-9" id="textoComentario"></label>
         </div>
         <div class="col-md-12">
-            <label class="col-md-2">Dentista</label>
-            <label class="col-md-10" id="textoDentista"></label>
-        </div>
-        <div class="col-md-12">
-            <label class="col-md-2">Precio</label>
-            <label class="col-md-10" id="textoPrecio"></label>
+            <label class="col-md-3">Dentista</label>
+            <label class="col-md-9" id="textoDentista"></label>
         </div>
       </div>
   </div>
@@ -146,7 +142,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
         <h4 class="modal-title">
-          <img src="{% static 'img/iconos/recetas40.png' %}" alt="x">
+          <img src="{% static 'img/iconos/visitas40.png' %}" alt="x">
           <label style="text-align: center;">Confirmación</label> 
         </h4>
       </div>
@@ -168,18 +164,22 @@
   var modal = document.getElementById('myModal');
   var content_paciente = document.getElementById('textoPaciente');
   var content_fecha = document.getElementById('textoFecha');
-  var content_motivo = document.getElementById('textoMotivo');
+  var content_comentario = document.getElementById('textoComentario');
   var content_dentista = document.getElementById('textoDentista');
-  var content_precio = document.getElementById('textoPrecio');
   var content_borrar = document.getElementById('textoBorrar');
   var close = document.getElementsByClassName("btn-modal-close")[0];
 
-  function open_modal(paciente, fecha, motivo, dentista, precio, divisa, pk) {
-    content_paciente.innerHTML = "Visita de " + paciente;
+  function open_modal(paciente, fecha, comentario, dentista) {
+
+    console.log(paciente);
+    console.log(fecha);
+    console.log(comentario);
+    console.log(dentista);
+
+    content_paciente.innerHTML = "receta de " + paciente;
     content_fecha.innerHTML = fecha;
-    content_motivo.innerHTML = motivo;
+    content_comentario.innerHTML = comentario;
     content_dentista.innerHTML = dentista;
-    content_precio.innerHTML = precio + " " + divisa;
   }
 
   function open_modal_borrar(texto) {

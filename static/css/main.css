@@ -40,7 +40,7 @@ span {
 
 
 /* ----------------------------------- helper ---------------------------------------- */
-.helper{
+.helper {
 	width:95%;
 	margin-top: 2%;
 	margin-left: 2%;
@@ -193,4 +193,24 @@ span {
 	}
 }
 
+/* -------------------------------------- print section ------------------------------------------------ */
+.recetas-print-area{
+	width: 66.5%;
+	margin: auto;
+	margin-top: 7.5%;
+}
+@media print {
+	.no-print {
+		display: none;
+	}
+	.print {
+		width: 90%;
+	}
+}
+@media screen and (max-width: 1000px){
+	.recetas-print-area {
+		width: 95%;
+		margin-top: 7.5%;
+	}
+}
 

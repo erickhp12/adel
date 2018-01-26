@@ -62,7 +62,7 @@
 		  {% for ingreso in ingresos %}
 		  <tbody>
 			<tr>
-				<td>{{ ingreso.fecha_visita }}</td>
+				<td>{{ ingreso.fecha_visita | date:"l d F P" }}</td>
 				<td>{{ ingreso.paciente}}</td>
 				<td>{{ ingreso.motivo }}</td>
 				<td>{{ ingreso.precio }} {{ ingreso.dolares }}</td>
@@ -88,7 +88,7 @@
 		  {% for egreso in egresos %}
 		  <tbody>
 			<tr>
-				<td>{{ egreso.fecha_gasto }}</td>
+				<td>{{ egreso.fecha_gasto | date:"l d F P" }}</td>
 				<td>{{ egreso.proveedor }}</td>
 				<td>{{ egreso.motivo }}</td>
 				<td>{{ egreso.precio }} {{ egreso.dolares }}</td>

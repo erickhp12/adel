@@ -117,7 +117,7 @@
                         <div class="form-group col-md-2">
                             <label>Hora</label>
                             <select name="hora" id="hora" onchange="set_date()">
-                                {% if visita.fecha_visita %}
+                                {% if visita.fecha_visita %} 
                                     <option value="{{visita.fecha_visita | date:"h:i"}}">{{visita.fecha_visita | date:"h:i"}}</option>
                                 {% else %}
                                     <option value="00:00">00:00</option>

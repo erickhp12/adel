@@ -131,7 +131,7 @@
 							<tr>
 								<td scope="row">{{ visita.paciente }}</td>
 								<td>{{ visita.motivo }}</td>
-								<td>{{ visita.fecha_visita }}</td>
+								<td>{{ visita.fecha_visita | date:"l d F P" }}</td>
 							</tr>
 						</tbody>
 					{% endfor %}
@@ -156,7 +156,7 @@
 							<tr>
 								<td scope="row">{{ cita.paciente }}</td>
 								<td>{{ cita.motivo }}</td>
-								<td>{{ cita.fecha_agenda }}</td>
+								<td>{{ cita.fecha_agenda | date:"l d F P" }}</td>
 							</tr>
 						</tbody>
 					{% endfor %}

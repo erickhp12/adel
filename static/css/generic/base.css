@@ -8,7 +8,6 @@ body {
 }
 
 .topnav a, .topnav > div {
-  /* float: left; */
   display: block;
   text-align: center;
   text-decoration: none;

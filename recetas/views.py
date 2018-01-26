@@ -27,34 +27,34 @@ class ReceiptListView(ListView):
         if total == 0:
             mensaje = "No tienes Recetas registradas"
 
-        context = {'recetas':recetas,
+        context = {
+                    'recetas':recetas,
                     'total':total,
                     'mensaje': mensaje    
                     }
-
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
-        paciente = request.POST.get('visita')
+        paciente = request.POST.get('receta')
         fecha_inicial = request.POST.get('fecha_inicial')
         fecha_final = request.POST.get('fecha_final')
         mensaje = ""
 
-        print "2018 visita"
+        print "2018 receta"
         print paciente
 
         
         if fecha_final and fecha_final != "":
-            Recetas = Recetas.objects.all().filter(fecha_visita__range=[fecha_inicial, fecha_final + " 23:59:59"],user=request.user).order_by('-fecha_visita')
+            recetas = Recetas.objects.all().filter(fecha_receta__range=[fecha_inicial, fecha_final + " 23:59:59"],user=request.user).order_by('-fecha_receta')
         else:
-            Recetas = Recetas.objects.all().filter(paciente__nombre__icontains=paciente,user=request.user
-                ) | Recetas.objects.all().filter(motivo__icontains=paciente,user=request.user).order_by('-fecha_visita')
-        total = Recetas.count()
+            recetas = Recetas.objects.filter(paciente__nombre__icontains=paciente,user=request.user
+                ) | Recetas.objects.all().filter(comentario__icontains=paciente,user=request.user).order_by('-fecha_receta')
+        total = recetas.count
 
-        if Recetas == 0:
-            mensaje = "No tienes Recetas en estas fechas"
+        if recetas == 0:
+            mensaje = "No tienes recetas en estas fechas"
 
-        context = {'Recetas':Recetas,
+        context = {'recetas':recetas,
                     'total':total,
                     'mensaje': mensaje    
                     }
@@ -64,14 +64,14 @@ class ReceiptListView(ListView):
 
         
 class CreateReceiptView(ListView):
-    template_name = "Recetas-formulario.html"
-    template_main = "Recetas.html"
+    template_name = "recetas-formulario.html"
+    template_main = "recetas.html"
 
     def get(self, request, *args, **kwargs):
         user_logged = request.user
         pacientes = Paciente.objects.filter(user=request.user)
         empleados = Empleado.objects.filter(user=request.user)
-        form = RegistrarVisita()
+        form = RegistrarReceta()
         mensaje = ""
         context = {'pacientes': pacientes,
                     'empleados':empleados,
@@ -83,27 +83,16 @@ class CreateReceiptView(ListView):
 
     def post(self, request, *args, **kwargs):
         mensaje = ""
-        Recetas = Recetas.objects.filter(user=request.user)
-        total = Recetas.count
+        recetas = Recetas.objects.filter(user=request.user)
+        total = recetas.count
         user = request.user
         pacienteSeleccionado = request.POST.get('paciente')
         paciente = Paciente.objects.filter(nombre=pacienteSeleccionado).first()
-        motivo = request.POST.get('motivo')
+        comentario = request.POST.get('comentario')
         empleadoSeleccionado = request.POST.get('empleado')
         empleado = Empleado.objects.filter(nombre=empleadoSeleccionado).first()
-        precio = request.POST.get('precio')
-        dolares = request.POST.get('dolares')
-        tipo_pago = request.POST.get('tipo_pago')
-        fecha_visita = request.POST.get('fecha') 
+        fecha_receta = request.POST.get('fecha') 
 
-        # print "user ", user
-        # print "paciente ", paciente
-        # print "motivo ", motivo
-        # print "empleado ", empleado
-        # print "precio ", precio
-        # print "dolares ", dolares
-        # print "tipo_pago ", tipo_pago
-        # print "fecha_visita ", fecha_visita
 
         try:
             if paciente == "":
@@ -112,19 +101,81 @@ class CreateReceiptView(ListView):
                 Recetas.objects.create(
                     user=user,
                     paciente=paciente,
-                    motivo=motivo,
+                    comentario=comentario,
                     dentista=empleado,
-                    precio=precio,
-                    dolares=dolares,
-                    tipo_pago=tipo_pago,
-                    fecha_visita=fecha_visita
+                    fecha_receta=fecha_receta
                 )
         except Exception as e:
-            mensaje = "Error al crear visita " + str(e)
+            mensaje = "Error al crear receta " + str(e)
 
         context = {'Recetas': Recetas,
                    'total': total,
                    'mensaje': mensaje
                    }
 
-        return HttpResponseRedirect('/lista.Recetas')
+        return HttpResponseRedirect('/lista.recetas')
+
+
+class UpdateReceiptView(ListView):
+    template_name = "recetas-formulario.html"
+    template_main = "recetas.html"
+
+    def get(self, request, pk, *args, **kwargs):
+        user_logged = request.user
+        receta = Recetas.objects.get(user=request.user,id=pk)
+        pacientes = Paciente.objects.filter(user=request.user)
+        empleados = Empleado.objects.filter(user=request.user)
+        form = RegistrarReceta()
+        mensaje = ""
+
+
+        context = {
+                    'receta': receta,
+                    'mensaje': mensaje,
+                    'pacientes':pacientes,
+                    'form':form,
+                    'empleados':empleados
+                   }
+
+        return render(request, self.template_name, context)
+
+    def post(self, request,pk, *args, **kwargs):
+        mensaje = ""
+        recetas = Recetas.objects.filter(user=request.user)
+        total = recetas.count
+        user = request.user
+        pacienteSeleccionado = request.POST.get('paciente')
+        paciente = Paciente.objects.filter(nombre=pacienteSeleccionado).first()
+        comentario = request.POST.get('comentario')
+        empleadoSeleccionado = request.POST.get('empleado')
+        empleado = Empleado.objects.filter(nombre=empleadoSeleccionado).first()
+        fecha_receta = request.POST.get('fecha')
+
+        print "user"
+        print user
+        print "paciente"
+        print paciente
+        print "empleado"
+        print empleado
+        print "fecha_receta"
+        print fecha_receta
+
+        try:
+            if paciente == "":
+                return render(self.request, self.template_name)
+            else:
+                receta = Recetas.objects.get(user=request.user,id=pk)
+                receta.paciente = paciente
+                receta.comentario = comentario
+                receta.empleado = empleado
+                receta.fecha_receta = fecha_receta
+                receta.save()
+        except Exception as e:
+            mensaje = "Error al editar receta " + str(e)
+
+        context = {'recetas': recetas,
+                   'total': total,
+                   'mensaje': mensaje
+                   }
+
+        return HttpResponseRedirect('/lista.recetas')	
