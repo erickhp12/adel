@@ -38,6 +38,9 @@ span {
 		margin-bottom: 2em;
 	}
 
+textarea{
+	white-space: pre-wrap;
+}
 
 /* ----------------------------------- helper ---------------------------------------- */
 .helper {
@@ -198,6 +201,15 @@ span {
 	width: 66.5%;
 	margin: auto;
 	margin-top: 7.5%;
+}
+.receta-info {
+	margin-bottom: 30px;
+	/* background-color: rebeccapurple; */
+}
+.receta-contact {
+	text-align: center;
+	font-weight: bold;
+	font-size: 14px;
 }
 @media print {
 	.no-print {

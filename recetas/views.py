@@ -40,10 +40,6 @@ class ReceiptListView(ListView):
         fecha_final = request.POST.get('fecha_final')
         mensaje = ""
 
-        print "2018 receta"
-        print paciente
-
-        
         if fecha_final and fecha_final != "":
             recetas = Recetas.objects.all().filter(fecha_receta__range=[fecha_inicial, fecha_final + " 23:59:59"],user=request.user).order_by('-fecha_receta')
         else:
@@ -88,6 +84,7 @@ class CreateReceiptView(ListView):
         user = request.user
         pacienteSeleccionado = request.POST.get('paciente')
         paciente = Paciente.objects.filter(nombre=pacienteSeleccionado).first()
+        motivo = request.POST.get('motivo')
         comentario = request.POST.get('comentario')
         empleadoSeleccionado = request.POST.get('empleado')
         empleado = Empleado.objects.filter(nombre=empleadoSeleccionado).first()
@@ -101,6 +98,7 @@ class CreateReceiptView(ListView):
                 Recetas.objects.create(
                     user=user,
                     paciente=paciente,
+                    motivo=motivo,
                     comentario=comentario,
                     dentista=empleado,
                     fecha_receta=fecha_receta
@@ -146,19 +144,18 @@ class UpdateReceiptView(ListView):
         user = request.user
         pacienteSeleccionado = request.POST.get('paciente')
         paciente = Paciente.objects.filter(nombre=pacienteSeleccionado).first()
+        motivo = request.POST.get('motivo')
         comentario = request.POST.get('comentario')
         empleadoSeleccionado = request.POST.get('empleado')
         empleado = Empleado.objects.filter(nombre=empleadoSeleccionado).first()
         fecha_receta = request.POST.get('fecha')
 
-        print "user"
-        print user
-        print "paciente"
-        print paciente
-        print "empleado"
-        print empleado
-        print "fecha_receta"
-        print fecha_receta
+        print "user ", str(user)
+        print "paciente ", str(paciente)
+        print "motivo ", str(motivo)
+        print "comentario ", str(comentario)
+        print "empleado ", str(empleado)
+        print "fecha_receta ", str(fecha_receta)
 
         try:
             if paciente == "":
@@ -166,6 +163,7 @@ class UpdateReceiptView(ListView):
             else:
                 receta = Recetas.objects.get(user=request.user,id=pk)
                 receta.paciente = paciente
+                receta.motivo = motivo
                 receta.comentario = comentario
                 receta.empleado = empleado
                 receta.fecha_receta = fecha_receta

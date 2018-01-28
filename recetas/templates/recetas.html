@@ -74,12 +74,12 @@
     <tbody>
       <tr>
         <td scope="row">{{ receta.paciente }}</td>
-        <td>{{ receta.comentario }}</td>
+        <td>{{ receta.motivo }}</td>
         <td>{{ receta.fecha_receta | date:"l d F P" }}</td>
         <td>
           <a type="button" data-toggle="modal" data-target="#modal-ver" 
           onclick="open_modal('{{receta.paciente}}','{{receta.fecha_receta}}'
-          ,'{{receta.comentario}}','{{receta.dentista}}')">
+          ,'{{receta.motivo }}','{{receta.dentista}}')">
           <label class="glyphicon glyphicon-search"></label> Ver
           </a>
         </td>
@@ -120,8 +120,8 @@
             <label class="col-md-9" id="textoFecha"></label>
         </div>
         <div class="col-md-12">
-            <label class="col-md-3">Comentarios</label>
-            <label class="col-md-9" id="textoComentario"></label>
+            <label class="col-md-3">Motivo</label>
+            <label class="col-md-9" id="textoMotivo"></label>
         </div>
         <div class="col-md-12">
             <label class="col-md-3">Dentista</label>
@@ -164,21 +164,21 @@
   var modal = document.getElementById('myModal');
   var content_paciente = document.getElementById('textoPaciente');
   var content_fecha = document.getElementById('textoFecha');
-  var content_comentario = document.getElementById('textoComentario');
+  var content_motivo = document.getElementById('textoMotivo');
   var content_dentista = document.getElementById('textoDentista');
   var content_borrar = document.getElementById('textoBorrar');
   var close = document.getElementsByClassName("btn-modal-close")[0];
 
-  function open_modal(paciente, fecha, comentario, dentista) {
-
+  function open_modal(paciente, fecha, motivo, dentista) {
+    console.log('COMIENZA');
     console.log(paciente);
     console.log(fecha);
-    console.log(comentario);
+    console.log(motivo);
     console.log(dentista);
 
     content_paciente.innerHTML = "receta de " + paciente;
     content_fecha.innerHTML = fecha;
-    content_comentario.innerHTML = comentario;
+    content_motivo.innerHTML = motivo;
     content_dentista.innerHTML = dentista;
   }
 

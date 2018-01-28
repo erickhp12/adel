@@ -118,12 +118,12 @@
 			<div class="resumen-header">Últimas visitas</div>
 			<div class="resumen-body">
 				<div class="table-responsive tbl-resumen">  
-					<table class="table tbl_main">
+					<table class="table">
 						<thead>
-							<tr>
-								<th scope="col">Paciente</th>
-								<th scope="col">Motivo</th>
-								<th scope="col">Fecha</th>
+							<tr class="tbl-resumen-tr">
+								<th>Paciente</th>
+								<th>Motivo</th>
+								<th>Fecha</th>
 							</tr>
 						</thead>
 						{% for visita in visitas %}
@@ -143,9 +143,9 @@
 			<div class="resumen-header">Próximas citas</div>
 			<div class="resumen-body">
 					<div class="table-responsive tbl-resumen">  
-						<table class="table tbl_main">
+						<table class="table">
 							<thead>
-							<tr>
+							<tr class="tbl-resumen-tr">
 								<th scope="col">Paciente</th>
 								<th scope="col">Motivo</th>
 								<th scope="col">Fecha</th>

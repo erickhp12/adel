@@ -59,11 +59,11 @@
 }
 
 .resumen-body{
-	height: 400px;
+	height: 410px;
 }
 
 .tbl-resumen {
-	height: 380px;
+	height: 400px;
 }
 
 .resumen {
@@ -71,7 +71,12 @@
 	margin-left: 5%;
 	border: 1px solid rgb(195, 195, 195);
 	border-radius: 3px;
-	box-shadow: 1px 5px 8px rgb(99, 99, 99);
+	/* box-shadow: 1px 5px 8px rgb(99, 99, 99); */
+}
+
+.tbl-resumen-tr > th {
+	color: #008cba;
+	text-align: center;
 }
 
 .resumen-header {
@@ -81,6 +86,7 @@
 	color: #008cba;
 	font-size: 20px;
 	font-weight: bold;
+	border-bottom: 1px solid rgb(179, 179, 179);
 }
 
 

@@ -34,12 +34,22 @@
                 {% csrf_token %}
 
                 <fieldset class="fieldset">
-                    <legend>
-                        <b>Clinica de ejemplo 1</b>
-                    </legend>
+                    <div class="col-md-12 receta-info">
+                        <div class="col-md-2 col-md-offset-2">
+                            <img src="{% static 'img/iconos/esculapio.jpg' %}" alt="">
+                        </div>
+                        <div class="col-md-8 receta-contact"><br>
+                                <label>Clinica Numero 1 <br>
+                                    Av. Paseo de la victoria #40493 <br>
+                                    Cd. Juarez Chihuahua
+                                </label>
+                        </div>   
+                    </div>
 
                     <div class="form-group col-md-8">
-                        <input type="text" placeholder="Motivo de la consulta" class="form-control input-personalized"/>
+                        <input type="text" placeholder="Motivo de la consulta"
+                        id="motivo" name="motivo"
+                        value="{{ receta.motivo}}" class="form-control input-personalized"/>
                     </div>
 
                     <div class="form-group col-md-4">
@@ -58,7 +68,7 @@
                     <div class="form-group col-md-12">
                         <label>Observaciones</label>
                         <textarea class="form-control" id="comentario" name="comentario" 
-                         rows="12" id="comment">{{ receta.comentario }}</textarea>
+                         rows="12" id="comment" required >{{ receta.comentario }}</textarea>
                     </div>
                 </fieldset>
 
