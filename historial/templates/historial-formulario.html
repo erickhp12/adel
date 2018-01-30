@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+{% block title %}ADEL | Historial clinico {% endblock %}
+{% block body %}
+
+<body onload="alergias_show(); medicamentos_show();">
+    {% load staticfiles %}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">l
+    <link rel="stylesheet" type="text/css" href="{% static 'css/historial/creacion.historial.css'%}"/>
+
+<!-- ************************************  HELPER ************************************ -->
+<div class="container col-md-8 thumbnail col-md-offset-2 bs-header">
+    <div class="col-md-2 volver">
+        <a href="/lista.pacientes">
+          <label class="glyphicon glyphicon-chevron-left"></label>&nbsp;Volver</a>
+    </div>
+    <div class="col-md-9 bs-header-text helper-text">
+        {% if paciente.nombre %}
+            <label> Historial de {{ paciente.nombre }}</label>
+        {% else %}
+            <label>Agregar historial</label>
+        {% endif %}
+    </div>
+    <div class="helper-img col-md-1">
+        <img src="{% static 'img/iconos/historial40.png' %}"  class="helper-img" alt="ups">
+    </div>
+</div>
+
+    <!-- ************************************ FORM ************************************ -->
+    <div class="container col-md-8 thumbnail col-md-offset-2">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <br>
+                <form method="post">
+                    {% csrf_token %}
+
+                    <fieldset class="fieldset">
+                        <legend>
+                            <b>Información requerida</b>
+                        </legend>
+
+                        <div class="form-group col-md-12">
+                            <label>Paciente</label>
+                                <input type="text" value="{{ paciente.nombre }}" name="paciente" readonly="readonly">
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="fieldset">
+                        <div class="form-group col-md-6">
+                            <label>Estado civil</label>
+                            <select id="empleado" name="empleado">
+                                {% if historial_paciente.estado_civil %}
+                                    <option value="%">{{ historial_paciente.estado_civil }}</option>
+                                {% else %}
+                                    <option value="%">------</option>
+                                {% endif %}
+                                <option value="Soltero" name="estado_civil">Soltero</option>
+                                <option value="Casado" name="estado_civil">Casado</option>
+                                <option value="Otros" name="estado_civil">Otros</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Ocupacion</label>
+                            <input type="text" name="ocupacion" id="ocupacion" value="{{ historial_paciente.ocupacion}}" class="form-control input-personalized"/>
+                        </div>
+                    </fieldset>
+                    
+                    <br>
+                    
+                    <fieldset>
+                        <div class="col-md-12 alergias_checkbox">
+                            <div class="material-switch div_historial">
+                                <span class="span_historial" style="margin-bottom:8px;">¿Es alergico a alguún medicamento o antibiotico?</span>
+                                <input type="checkbox" id="alergias" name="alergias" class="input_historial" {{ alergias_value }}
+                                    onclick="alergias_show()" />
+                                <label for="alergias" class="label-info"></label>
+                                <input type="text" style="margin-bottom:10px;" class="input-personalized" name="alergias_comentarios"
+                                id="alergias_comentarios" placeholder="Describa"  value="{{ historial_paciente.alergias_comentarios }}">
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="col-md-12 material-switch div_historial">
+                                <span class="span_historial">¿Padece de enfermedades del corazón?</span>
+                                <input id="corazon" name="corazon" type="checkbox" {{ corazon_value }}/>
+                                <label for="corazon" class="label-info"></label> 
+                            </div>
+                        </div>
+                        <div>
+                            <div class="col-md-12 material-switch div_historial">
+                                <span class="span_historial">¿Padece de problemas de presion arterial?</span>
+                                <input id="presion_arterial" name="presion_arterial" 
+                                type="checkbox" {{ presion_arterial_value }}/>
+                                <label for="presion_arterial" class="label-info"></label> 
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="col-md-12 material-switch div_historial">
+                                <span class="span_historial span_diabetes">¿Padece de diabetes?</span>
+                                <input id="diabetes" name="diabetes" type="checkbox" {{ diabetes_value }}/>
+                                <label for="diabetes" class="label-info"></label> 
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="col-md-12 material-switch div_historial">
+                                <span class="span_historial">¿Padece de hepatitis?</span>
+                                <input id="hepatitis" name="hepatitis" type="checkbox" {{ hepatitis_value }}/>
+                                <label for="hepatitis" class="label-info"></label> 
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="col-md-12 material-switch div_historial">
+                                <span class="span_historial">¿Es usted portador de VIH?</span>
+                                <input id="vih" name="vih" type="checkbox" {{ vih_value }}/>
+                                <label for="vih" class="label-info"></label> 
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="col-md-12 material-switch div_historial">
+                                <span class="span_historial">¿Si es mujer, Esta usted embarazada?</span>
+                                <input id="embarazada" class="checkbox_historial" name="embarazada" 
+                                type="checkbox" {{ embarazada_value }}/>
+                                <label for="embarazada" class="label-info"></label>  
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 medicamentos_checkbox">
+                            <div class="material-switch div_historial">
+                                <span class="span_historial" style="margin-bottom:7px;">
+                                ¿Actualmente toma algun medicamento?</span>
+                                <input id="medicamentos" name="medicamentos" type="checkbox" {{ medicamentos_value}} 
+                                    onclick="medicamentos_show()" />
+                                <label for="medicamentos" class="label-info"></label>
+                            </div>
+                            <input type="text" name="medicamentos_comentarios" style="margin-bottom:10px;" 
+                            id="medicamentos_comentarios" placeholder="Describa el medicamento" class="input-personalized"
+                            value="{{ historial_paciente.medicamentos_comentarios }}">
+                        </div>
+                    </fieldset>
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                                {% if visita.paciente %}
+                                    <button type="submit" onclick="set_empty_values()" class="btn btn-success col-md-4">Actualizar informacion</button>
+                                {% else %}
+                                    <button type="submit" onclick="set_empty_values()" class="btn btn-success col-md-4">Guardar</button>
+                                {% endif %}
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ************************************ JS ************************************** -->
+    <script>
+        function alergias_show() { 
+        var checkbox = document.getElementById('alergias');
+        var comentarios = document.getElementById('alergias_comentarios');
+        if (checkbox.checked == true) {
+            comentarios.style.visibility='visible';
+        }else if (checkbox.checked == false){
+            comentarios.style.visibility='hidden';
+        }  
+    }
+        function medicamentos_show() { 
+        var checkbox = document.getElementById('medicamentos');
+        var comentarios = document.getElementById('medicamentos_comentarios');
+        if (checkbox.checked == true) {
+            comentarios.style.visibility='visible';
+        }else if (checkbox.checked == false){
+            comentarios.style.visibility='hidden';
+        }  
+    }
+    </script>
+
+{% endblock %}

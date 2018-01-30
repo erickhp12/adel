@@ -123,9 +123,10 @@ class CreatePatientView(CreateView):
         except Exception as e:
             mensaje = "Error al crear paciente " + str(e)
 
-        context = {'pacientes': pacientes,
-                   'total': total,
-                   'mensaje': mensaje
+        context = {
+                    'pacientes': pacientes,
+                    'total': total,
+                    'mensaje': mensaje
                    }
 
         return HttpResponseRedirect('/lista.pacientes')
@@ -139,9 +140,11 @@ class UpdatePatientView(UpdateView):
         paciente = Paciente.objects.get(user=request.user,id=pk)
         form = RegistrarPaciente()
         mensaje = ""
-        context = {'paciente': paciente,
+
+        context = {
+                    'paciente': paciente,
                     'form':form,
-                   'mensaje': mensaje
+                    'mensaje': mensaje
                    }
 
         return render(request, self.template_name, context)
@@ -180,9 +183,10 @@ class UpdatePatientView(UpdateView):
         except Exception as e:
             mensaje = "Error al editar paciente " + str(e)
 
-        context = {'Paciente': pacientes,
-                   'total': total,
-                   'mensaje': mensaje
+        context = {
+                    'Paciente': pacientes,
+                    'total': total,
+                    'mensaje': mensaje
                    }
 
         return HttpResponseRedirect('/lista.pacientes')
@@ -195,8 +199,8 @@ class DetailPatientView(DetailView):
     def get(self, request, pk, **kwargs):
         paciente = Paciente.objects.get(id=pk)
         visitas = Visitas.objects.filter(paciente_id=pk)
+        historial = Historial.objects.filter(id=pk)
         message = "Registrar historia clinica"
-        historial = Historial.objects.all()
         alergias_comentarios_value = ""
         medicamentos_comentarios_value = ""
         alergias_value = "unchecked"
@@ -222,8 +226,6 @@ class DetailPatientView(DetailView):
             print message
 
             for historial in ObjectHistorial:
-                print "dentro de for"
-                print historial.alergias_comentarios
                 message = "si tiene historia clinica"
 
                 alergias_comentarios_value = historial.alergias_comentarios
@@ -256,7 +258,8 @@ class DetailPatientView(DetailView):
         precio_total = precio_pesos + precio_dolares
 
 
-        context = {'visitas':visitas,
+        context = {
+                    'visitas':visitas,
                     'paciente':paciente,
                     'historial':historial,
                     'alergias_value':alergias_value,
@@ -291,7 +294,8 @@ class DeletePatientView(ListView):
         total = total.count
         Paciente.objects.all().filter(id=pk).delete()
 
-        context = {'Paciente':total,
+        context = {
+                    'Paciente':total,
                     'total':total,
                     'mensaje':mensaje     
                     }

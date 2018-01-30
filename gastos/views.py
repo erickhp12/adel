@@ -67,15 +67,16 @@ class CreateSpendingView(ListView):
 
     def get(self, request, *args, **kwargs):
         user_logged = request.user
-        proveedores = Proveedor.objects.filter(user=request.user)
-        empleados = Empleado.objects.filter(user=request.user)
+        proveedores = Proveedor.objects.filter(user=request.user).order_by('nombre')
+        empleados = Empleado.objects.filter(user=request.user).order_by('nombre')
         form = RegistrarGasto()
         mensaje = ""
         
-        context = {'proveedores': proveedores,
+        context = {
+                    'proveedores': proveedores,
                     'empleados':empleados,
                     'form':form,
-                   'mensaje': mensaje
+                    'mensaje': mensaje
                    }
 
         return render(request, self.template_name, context)
@@ -127,8 +128,8 @@ class UpdateSpendingView(ListView):
     def get(self, request, pk, *args, **kwargs):
         user_logged = request.user
         gasto = Gasto.objects.get(user=request.user,id=pk)
-        proveedores = Proveedor.objects.filter(user=request.user)
-        empleados = Empleado.objects.filter(user=request.user)
+        proveedores = Proveedor.objects.filter(user=request.user).order_by('nombre')
+        empleados = Empleado.objects.filter(user=request.user).order_by('nombre')
         form = RegistrarGasto()
 
         mensaje = ""
@@ -196,6 +197,7 @@ class UpdateSpendingView(ListView):
                    }
 
         return HttpResponseRedirect('/lista.gastos')
+
 
 class DeleteSpendingView(ListView):
     template_name = "eliminar_gastos.html"

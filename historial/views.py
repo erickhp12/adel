@@ -29,20 +29,23 @@ class RequestHistorial(APIView):
 
 
 class CreateHistoryView(CreateView):
-    template_name = "creacion_historial.html"
+    template_name = "historial-formulario.html"
     template_main = "pacientes.html"
     
     @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, pk, **kwargs):
         paciente = Paciente.objects.get(id=pk)
+        historial_paciente = ""
 
-
-        context = {'paciente':paciente}
+        context = {
+                    'historial_paciente':historial_paciente,
+                    'paciente':paciente
+                  }
 
         return render(request,self.template_name, context)
 
     def post(self, request, *args, **kwargs):
-        total = Paciente.objects.all()
+        total = Paciente.objects.filter(user=request.user).order_by('-fecha_inicio')
         total_pacientes = total.count
         mensaje = ""
         paciente = request.POST.get('paciente')
@@ -60,32 +63,6 @@ class CreateHistoryView(CreateView):
         medicamentos = request.POST.get('medicamentos')
         medicamentos_comentarios = request.POST.get('medicamentos_comentarios')
 
-        print "paciente"
-        print paciente
-        print "estado_civil "
-        print estado_civil
-        print "ocupacion "
-        print ocupacion
-        print "alergias "
-        print alergias
-        print "alergias comentarios"
-        print alergias_comentarios
-        print "corazon "
-        print corazon
-        print "presion_arterial "
-        print presion_arterial
-        print "diabetes "
-        print diabetes
-        print "hepatitis "
-        print hepatitis
-        print "vih "
-        print vih
-        print "embarazada"
-        print embarazada
-        print "medicamentos"
-        print medicamentos
-        print "medicamentos comentarios"
-        print medicamentos_comentarios
 
         if alergias is None:
             alergias = 0
@@ -119,7 +96,8 @@ class CreateHistoryView(CreateView):
                         medicamentos_comentarios=medicamentos_comentarios)
 
 
-        context = { 'Paciente':total,
+        context = { 
+                    'Paciente':total,
                     'total':total_pacientes,
                     'mensaje':mensaje
                     }
@@ -127,7 +105,7 @@ class CreateHistoryView(CreateView):
         return render(self.request, self.template_main, context)
 
 class EditHistoryView(CreateView):
-    template_name = "edicion_historial.html"
+    template_name = "historial-formulario.html"
     template_main = "pacientes.html"
     
     @method_decorator(login_required(login_url='login.view.url'))
@@ -166,7 +144,8 @@ class EditHistoryView(CreateView):
 
 
 
-        context = {'paciente':paciente,
+        context = {
+                    'paciente':paciente,
                     'historial_paciente':historial_paciente,
                     'alergias_value':alergias_value,
                     'alergias_comentarios_value':alergias_comentarios_value,
@@ -183,8 +162,8 @@ class EditHistoryView(CreateView):
         return render(request,self.template_name, context)
 
     def post(self, request, *args, **kwargs):
-        total = Paciente.objects.filter(user=request.user)
-        total_pacientes = total.count
+        pacientes = Paciente.objects.filter(user=request.user).order_by('-fecha_inicio')
+        total_pacientes = pacientes.count
         mensaje = ""
         paciente = request.POST.get('paciente')
         paciente_id = Paciente.objects.filter(nombre=paciente).first()
@@ -201,32 +180,6 @@ class EditHistoryView(CreateView):
         medicamentos = request.POST.get('medicamentos')
         medicamentos_comentarios = request.POST.get('medicamentos_comentarios')
 
-        print "Nuevo paciente"
-        print paciente
-        print "nuevo estado_civil "
-        print estado_civil
-        print "Nuevo ocupacion "
-        print ocupacion
-        print "Nuevo alergias "
-        print alergias
-        print "Nuevo alergias comentarios"
-        print alergias_comentarios
-        print "Nuevo corazon "
-        print corazon
-        print "Nuevo presion_arterial "
-        print presion_arterial
-        print "Nuevo diabetes "
-        print diabetes
-        print "Nuevo hepatitis "
-        print hepatitis
-        print "Nuevo vih "
-        print vih
-        print "Nuevo embarazada"
-        print embarazada
-        print "Nuevo medicamentos"
-        print medicamentos
-        print "Nuevo medicamentos comentarios"
-        print medicamentos_comentarios
 
         if alergias is None:
             alergias = 0
@@ -263,7 +216,8 @@ class EditHistoryView(CreateView):
         nuevo_historial_paciente.medicamentos_comentarios = medicamentos_comentarios
         nuevo_historial_paciente.save()
 
-        context = { 'Paciente':total,
+        context = { 
+                    'pacientes':pacientes,
                     'total':total_pacientes,
                     'mensaje':mensaje
                     }

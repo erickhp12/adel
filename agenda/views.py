@@ -30,7 +30,8 @@ class AgendaListView(ListView):
         if total == 0:
             mensaje = "No tienes citas para el rango de fechas seleccionado, checa en otro horario"
 
-        context = {'agenda':agenda,
+        context = {
+                    'agenda':agenda,
                     'total':total,
                     'estado':estado,
                     'fecha_inicial':fecha_inicial,
@@ -129,11 +130,12 @@ class UpdateAgendaView(UpdateView):
     
     def get(self, request, pk, *args, **kwargs):
         agenda = Agenda.objects.get(id=pk) 
-        pacientes = Paciente.objects.filter(user=request.user)
-        empleados = Empleado.objects.filter(user=request.user)
+        pacientes = Paciente.objects.filter(user=request.user).order_by('nombre')
+        empleados = Empleado.objects.filter(user=request.user).order_by('nombre')
         fecha_inicial = time.strftime("%Y-%m-%d")
 
-        ctx = {'agenda': agenda,
+        ctx = {
+                'agenda': agenda,
                 'pacientes':pacientes,
                 'fecha_inicial':fecha_inicial,
                 'empleados':empleados

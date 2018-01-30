@@ -13,9 +13,9 @@
         <label class="glyphicon glyphicon-chevron-left"></label>&nbsp;Volver</a>
   </div>
 	<div class="col-md-9 bs-header-text helper-text">
-		<label>Informacion de {{ paciente.nombre }}</label>
+		<label>Información de {{ paciente.nombre }}</label>
 	</div>
-	<div class="helper-img col-md-1">
+<div class="helper-img col-md-1">
 		<img src="{% static 'img/iconos/pacientes40.png' %}"  class="helper-img" alt="ups">
 	</div>
 </div>
@@ -45,52 +45,105 @@
 		<div class="col-md-8 margin-top-10">{{ paciente.fecha_inicio }}</div>
   	</div>
 
+	{% if message == "si tiene historia clinica" %}
 	<div class="col-md-6">
-		<div class="col-md-12 border-bottom">Historial Clínico </div>
-		<div class="col-md-5 bold margin-top-10">Estado civil</div>
-		<div class="col-md-7 margin-top-10">{{ paciente.nombre}}</div>
-		<div class="col-md-5 bold margin-top-10">Ocupación</div>
-		<div class="col-md-7 margin-top-10">{{ paciente.sexo }}</div>
-		<div class="col-md-5 bold margin-top-10">Alergias</div>
+		<div class="col-md-12 border-bottom">
+			Historial Clínico
+		</div>
+
+		<div class="col-md-5 bold margin-top-10">
+			Estado civil
+		</div>
+
+		<div class="col-md-7 margin-top-10">
+			{{ paciente.nombre}}
+		</div>
+
+		<div class="col-md-5 bold margin-top-10">
+			Ocupación
+		</div>
+
+		<div class="col-md-7 margin-top-10">
+			{{ paciente.sexo }}
+		</div>
+	
+		<div class="col-md-5 bold margin-top-10">
+			Alergias
+		</div>
 		<div class="col-md-7 margin-top-10 material-switch div_historial ">
 			<input type="checkbox" {{ alergias_value }} readonly="true"/>
 			<label class="label-info"></label>
 		</div>
-		<div class="col-md-5 bold margin-top-10">Enfermades del corazón</div>
+		{% if alergias_comentarios_value != "" %}
+			<div class="col-md-12 margin-top-10">
+				<label>{{ alergias_comentarios_value }}</label>
+			</div>
+		{% endif %}
+		<div class="col-md-5 bold margin-top-10">
+			Enfermades corazón
+		</div>
 		<div class="col-md-7 margin-top-10 material-switch div_historia">
 			<input type="checkbox" {{ corazon_value }} readonly="true"/>
 			<label class="label-info"></label>
 		</div>
-		<div class="col-md-5 bold margin-top-10">Presión arterial</div>
+
+		<div class="col-md-5 bold margin-top-10">
+			Presión arterial
+		</div>
 		<div class="col-md-7 margin-top-10 material-switch div_historial">
 			<input type="checkbox" {{ presion_arterial_value }} readonly="true"/>
 			<label class="label-info"></label>
 		</div>
-		<div class="col-md-5 bold margin-top-10">Diabetes</div>
+
+		<div class="col-md-5 bold margin-top-10">
+			Diabetes
+		</div>
 		<div class="col-md-7 margin-top-10 material-switch div_historial">
 			<input type="checkbox" {{ diabetes_value }} readonly="true"/>
 			<label class="label-info"></label>
 		</div>
-		<div class="col-md-5 bold margin-top-10">Hepatitis</div>
+
+		<div class="col-md-5 bold margin-top-10">
+			Hepatitis
+		</div>
 		<div class="col-md-7 margin-top-10 material-switch div_historial">
 			<input type="checkbox" {{ hepatitis_value }} readonly="true"/>
 			<label class="label-info"></label>
 		</div>
-		<div class="col-md-5 bold margin-top-10">Portador de VIH</div>
+
+		<div class="col-md-5 bold margin-top-10">
+			Portador de VIH
+		</div>
 		<div class="col-md-7 margin-top-10 material-switch div_historial">
 			<input type="checkbox" {{ vih_value }} readonly="true"/>
 			<label class="label-info"></label>
-		</div>	
-		<div class="col-md-5 bold margin-top-10">Embarazo</div>
+		</div>
+		
+		<div class="col-md-5 bold margin-top-10">
+			Embarazo
+		</div>
 		<div class="col-md-7 margin-top-10 material-switch div_historial">
 			<input type="checkbox" {{ corazon_value }} readonly="true"/>
 			<label class="label-info"></label>
-		</div>	
-		<div class="col-md-5 bold margin-top-10">Medicamentos</div>
+		</div>
+
+		<div class="col-md-5 bold margin-top-10">
+			Medicamentos
+		</div>
 		<div class="col-md-7 margin-top-10 material-switch div_historial">
 			<input type="checkbox" {{ medicamentos_value }} readonly="true"/>
 			<label class="label-info"></label>
 		</div>
+		{% if medicamentos_comentarios_value != "" %}
+			<div class="col-md-12 margin-top-10">
+				<label>{{ medicamentos_comentarios_value }}</label>
+			</div>
+		{% endif %}
+		<a href="/historial/editar/{{paciente.pk}}">
+			<button class="btn btn-info btn-editar">
+				Editar
+			</button>
+		</a>
 
 		<!-- Primary raised circle button with ripple effect -->
 		<!-- <a href="/historial/editar/{{paciente.pk}}">
@@ -100,6 +153,22 @@
 		</a> -->
 
 	</div>
+	 
+	{% else %}
+	 <div class="col-md-6">
+			<div class="col-md-12 border-bottom">
+				Historial Clínico
+			</div>
+			<div class="div-registrar">
+				<p>Este paciente no tiene historial clinico</p>
+				<a href="/historial/registro/{{paciente.pk}}">
+					<button class="btn btn-info">
+						Registrar
+					</button>
+				</a>
+			</div>
+		</div>
+	{% endif %}
 
 </section>
 
@@ -132,34 +201,20 @@
 	</div>
 </section>
 
-
-<!-- *********************************** modal borrar *********************************** -->
-
-<div class="modal fade" id="modal-borrar" tabindex="1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <form class="modal-content" method=post>
-        <div class="modal-header" style="background-color: #dbdbdb; border-bottom: 1px solid rgb(151, 151, 151);" >
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <h4 class="modal-title">
-            <img src="{% static 'img/iconos/pacientes40.png' %}" alt="x">
-            <label style="text-align: center;">Confirmación</label> 
-          </h4>
-        </div>
-        <div class="modal-body" style="height:150px; background-color: white;">
-          <h3 style="text-align: center;">¿Estas seguro de eliminar este paciente<br>
-            <b id="textoBorrar"></b>?
-          </h3>
-        </div>
-        <div class="modal-footer" style="background-color: white;">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-danger">Eliminar</button>
-        </div>
-    </div>
-  </div>
-
-  <!-- *********************************** script modal *********************************** -->
+	<!-- *********************************** script modal *********************************** -->
+	<style>
+		.div-registrar {
+		margin-top: 25%;
+		text-align: center;
+		font-weight: bold;
+		font-size: 20px;
+	}
+	.btn-editar {
+		margin-left: 35%;
+		width: 150px;
+		font-size: 16px;
+	}
+</style>
 <script>
   var content_borrar = document.getElementById('textoBorrar');
 
