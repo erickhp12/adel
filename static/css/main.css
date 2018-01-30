@@ -206,6 +206,10 @@ textarea{
 	margin-bottom: 30px;
 	/* background-color: rebeccapurple; */
 }
+.descripcion {
+	font-weight: 300;
+	margin-left: 35%;
+}
 .receta-contact {
 	text-align: center;
 	font-weight: bold;

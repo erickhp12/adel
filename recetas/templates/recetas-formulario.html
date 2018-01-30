@@ -35,10 +35,10 @@
 
                 <fieldset class="fieldset">
                     <div class="col-md-12 receta-info">
-                        <div class="col-md-2 col-md-offset-2">
+                        <div class="col-md-2 col-sm-2 col-xs-2 col-md-offset-2">
                             <img src="{% static 'img/iconos/esculapio.jpg' %}" alt="">
                         </div>
-                        <div class="col-md-8 receta-contact"><br>
+                        <div class="col-md-8 col-sm-8 col-xs-8 receta-contact"><br>
                                 <label> <b>Hospital Star medica</b> <br>
                                     Av. Paseo de la victoria #4093 <br>
                                     Cd. Juarez, Chihuahua Mx.
@@ -46,13 +46,14 @@
                         </div>   
                     </div>
 
-                    <div class="form-group col-md-8">
+                    <div class="form-group col-md-8 col-sm-8 col-xs-8">
                         <input type="text" placeholder="Motivo de la consulta"
                         id="motivo" name="motivo"
                         value="{{ receta.motivo}}" class="form-control input-personalized"/>
+                        <label class="descripcion">Motivo</label>
                     </div>
 
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-4 col-sm-4 col-xs-4">
                             <select id="paciente" name="paciente">
                             {% if receta.paciente %}
                                 <option name="paciente" id="paciente">{{ receta.paciente }}</option>
@@ -63,9 +64,10 @@
                                 <option name="paciente" id="paciente" value="{{ paciente.nombre }}">{{ paciente.nombre }}</option>
                             {% endfor %}
                         </select>
+                        <label class="descripcion">Paciente</label>
                     </div>
 
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
                         <label>Observaciones</label>
                         <textarea class="form-control" id="comentario" name="comentario" 
                          rows="12" id="comment" required >{{ receta.comentario }}</textarea>
@@ -73,16 +75,17 @@
                 </fieldset>
 
                 <fieldset class="fieldset">
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-4 col-sm-4 col-xs-4">
                         {% if receta.fecha_receta %}
                             <input type="date" name="fecha" id="datepicker" value="{{receta.fecha_receta |date:"Y-m-d"}}" class="input-personalized">
                         {% else %}
                             <input type="text" name="fecha" id="datepicker"  class="input-personalized">
                         {% endif %}
+                        <label class="descripcion">Fecha</label>
                     </div>
                     
-                    <div class="form-group col-md-4"></div>
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-4 col-sm-4 col-xs-4"></div>
+                    <div class="form-group col-md-4 col-sm-4 col-xs-4">
                         <select id="empleado" name="empleado">
                             {% if receta.paciente %}
                                 <option id="empleado" name="empleado">{{ receta.dentista }}</option>
@@ -93,22 +96,24 @@
                                 <option name="empleado" id="empleado" value="{{ empleado.nombre }}">{{ empleado.nombre }}</option>
                             {% endfor %}
                         </select>
+                        <label class="descripcion">Atendió</label>
                     </div>
                 </fieldset>
 
                 <div class="form-group">
                     <br>
-                    <div class="col-md-12">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
                         {% if receta.paciente %}
-                            <button type="submit" onclick="set_empty_values()" class="btn btn-success col-md-4 no-print">
+                            <button type="submit" onclick="set_empty_values()" class="btn btn-success col-md-4 col-sm-4 col-xs-4 no-print">
                                 <label class="glyphicon glyphicon-plus"></label> Actualizar informacion</button>
-                            <div class="col-md-4"></div>
-                            <div onclick="print()" class="btn btn-success col-md-4 btn-print no-print">Imprimir</div>
+                            <div class="col-md-4 col-sm-4 col-xs-4"></div>
+                            <div onclick="print()" class="btn btn-success col-md-4 col-sm-4 col-xs-4 btn-print no-print">Imprimir</div>
                         {% else %}
-                            <button type="submit" onclick="set_empty_values()" class="btn btn-success col-md-4 no-print">
+                            <button type="submit" onclick="set_empty_values()" class="btn btn-success col-md-4 col-sm-4 col-xs-4 no-print">
                                 <label class="glyphicon glyphicon-plus"></label> Agregar receta</button>
-                            <div class="col-md-4"></div>
-                            <div onclick="print()" class="btn btn-info col-md-4 no-print"><label class="glyphicon glyphicon-print"></label> Imprimir</div>
+                            <div class="col-md-4 col-sm-4 col-xs-4"></div>
+                            <div onclick="print()" class="btn btn-info col-md-4 col-sm-4 col-xs-4 no-print">
+                                <label class="glyphicon glyphicon-print"></label> Imprimir</div>
                         {% endif %}<br><br>
                     </div>
                 </div>

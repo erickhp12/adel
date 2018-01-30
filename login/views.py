@@ -1,3 +1,4 @@
+# coding=utf-8
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.contrib.auth import login, authenticate, logout
@@ -30,18 +31,22 @@ class LoginView(TemplateView):
     template_name = 'login.html'
 
     def get(self, request, *args, **kwargs):
+        mensaje = "0"
         if request.user.is_authenticated():
             return HttpResponseRedirect('/')
         else:
             if request.session.get("login"):
                 return HttpResponseRedirect('/')
-            return render(request, self.template_name)
+
+            ctx = { 'mensaje':mensaje }
+
+            return render(request, self.template_name, ctx)
 
     def post(self, request, *args, **kwargs):
         if request.user.is_authenticated():
             return HttpResponseRedirect('/')
         else:
-            mensaje = ""
+            mensaje = "0"
             form = LoginForm(request.POST)
             if form.is_valid():
                 username = form.cleaned_data["username"]
@@ -52,11 +57,13 @@ class LoginView(TemplateView):
                         login(request, user)
                         return HttpResponseRedirect('/')
                     else:
-                        mensaje = "Tu usuario esta inactivo"
+                        mensaje = "Usuario inactivo, contacta al administrador"
                 else:
-                    mensaje = "Nombre y/o password incorrectos"
+                    mensaje = "Usuario y/o contraseña incorrectos"
 
-            ctx = {'mensaje': mensaje}
+            ctx = {
+                    'mensaje': mensaje
+                    }
             return render(request, self.template_name, ctx)
 
 class AccountView(TemplateView):

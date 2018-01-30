@@ -57,6 +57,16 @@
   margin-bottom: 30px;
   }
 
+.error-message {
+  background-color: rgba(220, 4, 4, 0.98);
+  margin: 25px;
+  padding: 7px;
+  border-radius: 4px;
+  text-align: center;
+  color: white;
+  font-size: 18px;
+}
+  
 .btn-login {
   background-color: rgb(15, 168, 74);
   color: white;
@@ -65,6 +75,7 @@
   text-decoration: none;
   border: none;
   border-radius: 4px;
+  font-size: 24px;
 }
 
 .login-card-footer{
