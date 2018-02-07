@@ -94,14 +94,6 @@ class CreateVisitView(ListView):
         tipo_pago = request.POST.get('tipo_pago')
         fecha_visita = request.POST.get('fecha') 
 
-        # print "user ", user
-        # print "paciente ", paciente
-        # print "motivo ", motivo
-        # print "empleado ", empleado
-        # print "precio ", precio
-        # print "dolares ", dolares
-        # print "tipo_pago ", tipo_pago
-        # print "fecha_visita ", fecha_visita
 
         try:
             if paciente == "":
@@ -166,20 +158,6 @@ class UpdateVisitView(ListView):
         tipo_pago = request.POST.get('tipo_pago')
         fecha_visita = request.POST.get('fecha')
 
-        print "user"
-        print user
-        print "paciente"
-        print paciente
-        print "empleado"
-        print empleado
-        print "precio"
-        print precio
-        print "dolares"
-        print dolares
-        print "tipo_pago"
-        print tipo_pago
-        print "fecha_visita"
-        print fecha_visita
 
         try:
             if paciente == "":
@@ -206,23 +184,11 @@ class UpdateVisitView(ListView):
 
 
 class DeleteVisitView(ListView):
-    template_name = "eliminar_visita.html"
-
+    
+    @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, pk, **kwargs):
-        visita = Visitas.objects.all().filter(id=pk)
 
-        context = {'visita':visita,      
-                    }
-        return render(request,self.template_name, context)
+        Visitas.objects.filter(id=pk,user=request.user).delete()
 
-    def post(self, request, pk, *args, **kwargs):
-        visitas = Visitas.objects.all().order_by('fecha_visita')
-        total = visitas.count
-        mensaje = ""
-        Visitas.objects.all().filter(id=pk).delete()
-        context = {'visitas':visitas,
-                    'total':total,
-                    'mensaje': mensaje    
-                    }
-        return render(self.request,'visitas.html',context)
+        return render(request,'visitas.html')
 

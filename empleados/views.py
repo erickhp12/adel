@@ -22,9 +22,10 @@ class EmployeeListView(ListView):
         if total == 0:
             mensaje = "No tienes empleados registrados"
 
-        context = {'empleados': empleados,
-                   'total': total,
-                   'mensaje': mensaje
+        context = {
+                    'empleados': empleados,
+                    'total': total,
+                    'mensaje': mensaje
                    }
 
         return render(request, self.template_name, context)
@@ -39,9 +40,10 @@ class EmployeeListView(ListView):
         if total == 0:
             mensaje = "La busqueda no mostro ningun resultado"
 
-        context = {'empleados': empleados,
-                   'total': total,
-                   'mensaje': mensaje,
+        context = { 
+                    'empleados': empleados,
+                    'total': total,
+                    'mensaje': mensaje,
                    }
 
         return render(self.request, self.template_name, context)
@@ -105,9 +107,10 @@ class CreateEmployeeView(ListView):
         except Exception as e:
             mensaje = "Error al crear empleado " + str(e)
 
-        context = {'empleados': empleados,
-                   'total': total,
-                   'mensaje': mensaje
+        context = {
+                    'empleados': empleados,
+                    'total': total,
+                    'mensaje': mensaje
                    }
 
         return HttpResponseRedirect('/lista.empleados')
@@ -121,8 +124,10 @@ class UpdateEmployeeView(ListView):
         user_logged = request.user
         empleado = Empleado.objects.get(user=request.user,id=pk)
         mensaje = ""
-        context = {'empleado': empleado,
-                   'mensaje': mensaje
+
+        context = {
+                    'empleado': empleado,
+                    'mensaje': mensaje
                    }
 
         return render(request, self.template_name, context)
@@ -154,36 +159,20 @@ class UpdateEmployeeView(ListView):
         except Exception as e:
             mensaje = "Error al editar empleado " + str(e)
 
-        context = {'empleados': empleados,
-                   'total': total,
-                   'mensaje': mensaje
+        context = {
+                    'empleados': empleados,
+                    'total': total,
+                    'mensaje': mensaje
                    }
 
         return HttpResponseRedirect('/lista.empleados')
 
 
-class DetailEmployeeView(DetailView):
-    model = Empleado
-    template_name = "empleado_detalle.html"
-
 
 class DeleteEmployeeView(ListView):
-    template_name = "eliminar_empleado.html"
-
+    
+    @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, pk, **kwargs):
-        empleado = Empleado.objects.get(id=pk)
-        context = {'empleado': empleado}
+        Empleado.objects.filter(id=pk,user=request.user).delete()
 
-        return render(request, self.template_name, context)
-
-    def post(self, request, pk, *args, **kwargs):
-        mensaje = ""
-        Empleado.objects.get(id=pk).delete()
-        empleados = Empleado.objects.filter(user=request.user)
-        total = empleados.count
-        context = {'empleados': empleados,
-                   'total': total,
-                   'mensaje': mensaje
-                   }
-
-        return render(self.request, 'empleados.html', context)
+        return render(request,'empleados.html')

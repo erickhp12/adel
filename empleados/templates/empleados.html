@@ -4,6 +4,7 @@
 {% block body %}
 {% load staticfiles %}
 <meta charset="utf-8">
+<script src="{% static '/static/js/generic/delete.js'%}"></script>
 
 <!-- ************************************  HELPER ************************************ -->
 <div class="container thumbnail helper">
@@ -76,7 +77,8 @@
           </td>
           <td>
             <a data-toggle="modal" data-target="#modal-borrar" 
-            onclick="open_modal_borrar('{{ empleado.nombre }}')"> <label class="glyphicon glyphicon-trash"></label> Borrar</a>
+            onclick="open_modal_borrar('{{ empleado.nombre }}','{{ empleado.pk }}')">
+            <label class="glyphicon glyphicon-trash"></label> Borrar</a>
           </td>
         </tr>
       </tbody>
@@ -135,7 +137,6 @@
 
 <div class="modal fade" id="modal-borrar" tabindex="1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
-      <form class="modal-content" method=post>
         <div class="modal-header" style="background-color: #dbdbdb; border-bottom: 1px solid rgb(151, 151, 151);" >
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -145,14 +146,15 @@
             <label style="text-align: center;">Confirmación</label> 
           </h4>
         </div>
-        <div class="modal-body" style="height:150px; background-color: white;">
-          <h3 style="text-align: center;">¿Estas seguro de eliminar este empleado<br>
-            <b id="textoBorrar"></b>?
+        <div class="modal-body" style="height:200px; background-color: white;">
+          <h3 style="text-align: center;">¿Estas seguro de eliminar este empleado?<br>
+            <b id="textoBorrar"></b> <span id="idBorrar" style="visibility:hidden;"></span>
+            <p class="warning">Esto eliminará a su vez todas las citas, visitas y gastos relacionados a este usuario</p>
           </h3>
         </div>
         <div class="modal-footer" style="background-color: white;">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-danger">Eliminar</button>
+          <button type="button" class="btn btn-danger" onclick="deleteEmployee()">Eliminar</button>
         </div>
     </div>
   </div>
@@ -168,8 +170,7 @@
   var content_fecha_nacimiento = document.getElementById('textoFecha_nacimiento');
   var content_fecha = document.getElementById('textoFecha');
   var content_borrar = document.getElementById('textoBorrar');
-
-  var close = document.getElementsByClassName("btn-modal-close")[0];
+  var pk_borrar = document.getElementById('idBorrar');
 
   function open_modal(nombre, puesto, telefono, correo, direccion, fecha_nacimiento, fecha) { 
     content_nombre.innerHTML = nombre;
@@ -181,8 +182,9 @@
     content_fecha.innerHTML = fecha;
   }
 
-  function open_modal_borrar(empleado) {
-    content_borrar.innerHTML = empleado;
+  function open_modal_borrar(item, id) {
+    content_borrar.innerHTML = item;
+    pk_borrar.innerHTML = id;
   }
 
 </script>

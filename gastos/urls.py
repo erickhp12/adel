@@ -6,4 +6,5 @@ urlpatterns = [
     url(r'^registro.gasto/$', CreateSpendingView.as_view(), name='registerSpending.url'),
 	url(r'^gastos/editar/(?P<pk>\d+)/$', UpdateSpendingView.as_view(),name='editar_gasto'),
 	url(r'^movimientos/$', MovementsView.as_view(),name='movimientos'),
+    url(r'^deleteSpending/(?P<pk>\d+)/$', DeleteSpendingView.as_view()),
 ]

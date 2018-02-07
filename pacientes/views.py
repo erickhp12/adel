@@ -29,7 +29,8 @@ class PatientListView(ListView):
         if total == 0:
             mensaje = "No tienes pacientes registrados"
 
-        context = {'pacientes':pacientes,
+        context = {
+                    'pacientes':pacientes,
                     'total':total,
                     'mensaje':mensaje     
                     }
@@ -278,36 +279,11 @@ class DetailPatientView(DetailView):
         return render(request,self.template_name, context)
 
 
-class DeletePatientView(ListView):
-    template_name = "eliminar_paciente.html"
-
-    def get(self, request, pk, **kwargs):
-        paciente = Paciente.objects.all().filter(id=pk)
-
-        context = {'paciente':paciente}
-
-        return render(request,self.template_name, context)
-
-    def post(self, request, pk, *args, **kwargs):
-        mensaje = ""
-        total = Paciente.objects.filter(user=request.user)
-        total = total.count
-        Paciente.objects.all().filter(id=pk).delete()
-
-        context = {
-                    'Paciente':total,
-                    'total':total,
-                    'mensaje':mensaje     
-                    }
-
-        return render(self.request,'pacientes.html', context)
-
 class requestSinglePatient(APIView):
     def get(self, request, pk, format=None):
         snippets = Paciente.objects.get(id=pk)
         serializer = PacienteSerializer(snippets, many=False)
         return Response(serializer.data)
-
 
 
 class RequestPatients(APIView):
@@ -325,3 +301,12 @@ class RequestPatients(APIView):
                 status=status.HTTP_201_CREATED
             )
         return Response(serializer.errors, status=status.HTTP_302_FOUND)
+
+
+class DeletePatientView(ListView):
+
+    @method_decorator(login_required(login_url='login.view.url'))
+    def get(self, request, pk, **kwargs):
+        Paciente.objects.filter(id=pk,user=request.user).delete()
+
+        return render(request,'pacientes.html')

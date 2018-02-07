@@ -4,6 +4,7 @@
 {% block body %}
 {% load staticfiles %}
 <meta charset="utf-8">
+<script src="{% static '/static/js/generic/delete.js'%}"></script>
 <script src="{% static '/static/js/generic/calendarios.js'%}"></script>
 
 <!-- ************************************  HELPER ************************************ -->
@@ -83,7 +84,8 @@
             <a href="{{ cita.url_editar_agenda }}"><label class="glyphicon glyphicon-pencil"></label> Editar</a>
           </td>
           <td>
-            <a class="glyphicon glyphicon-trash" data-toggle="modal" data-target="#modal-borrar" onclick="open_modal_borrar('{{ cita.paciente }}')"> Borrar</a>
+            <a class="glyphicon glyphicon-trash" data-toggle="modal" data-target="#modal-borrar"
+            onclick="open_modal_borrar('{{ cita.paciente }}','{{ cita.pk }}')"> Borrar</a>
           </td>
         </tr>
       </tbody>
@@ -128,7 +130,6 @@
 
 <div class="modal fade" id="modal-borrar" tabindex="1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
-      <form class="modal-content" method=post>
         <div class="modal-header" style="background-color: #dbdbdb; border-bottom: 1px solid rgb(151, 151, 151);" >
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -139,13 +140,13 @@
           </h4>
         </div>
         <div class="modal-body" style="height:130px; background-color: white;">
-          <h3 style="text-align: center;">¿Estas seguro de eliminar este proveedor<br>
-            <b id="textoBorrar"></b>?
+          <h3 style="text-align: center;">¿Estas seguro de eliminar esta cita<br>
+            <b id="textoBorrar"></b>? <span id="idBorrar" style="visibility:hidden;"></span>
           </h3>
         </div>
         <div class="modal-footer" style="background-color: white;">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-danger">Eliminar</button>
+          <button type="button" class="btn btn-danger" onclick="deleteAgenda()">Eliminar</button>
         </div>
     </div>
   </div>
@@ -158,6 +159,7 @@
   var content_motivo = document.getElementById('textoMotivo');
   var content_fecha = document.getElementById('textoFecha');
   var content_borrar = document.getElementById('textoBorrar');
+  var pk_borrar = document.getElementById('idBorrar');
 
   function open_modal(paciente, empleado, motivo, fecha) { 
     content_paciente.innerHTML = "Cita de " + paciente;
@@ -166,8 +168,9 @@
     content_fecha.innerHTML = fecha;
   }
 
-  function open_modal_borrar(paciente) {
-    content_borrar.innerHTML = paciente;
+  function open_modal_borrar(item, id) {
+    content_borrar.innerHTML = item;
+    pk_borrar.innerHTML = id;
   }
 
 </script>

@@ -157,22 +157,6 @@ class UpdateSpendingView(ListView):
         tipo_pago = request.POST.get('tipo_pago')
         fecha_gasto = request.POST.get('fecha')
 
-        print "---------------------Edicion de gasto ---------------------"
-        print "user"
-        print user
-        print "proveedor"
-        print proveedor
-        print "empleado"
-        print empleado
-        print "precio"
-        print precio
-        print "dolares"
-        print dolares
-        print "tipo_pago"
-        print tipo_pago
-        print "fecha_gasto"
-        print fecha_gasto
-
 
         try:
             if proveedor == "":
@@ -348,3 +332,11 @@ class MovementsView(ListView):
                     'mensaje': mensaje,
                    }
         return render(request, self.template_name, context)
+
+class DeleteSpendingView(ListView):
+    
+    @method_decorator(login_required(login_url='login.view.url'))
+    def get(self, request, pk, **kwargs):
+        Gasto.objects.filter(id=pk,user=request.user).delete()
+
+        return render(request,'gastos.html')

@@ -3,6 +3,7 @@
 
 {% block body %}
 {% load staticfiles %}
+<script src="{% static '/static/js/generic/delete.js'%}"></script>
 <meta charset="utf-8">
 
 <!-- ************************************  HELPER ************************************ -->
@@ -22,7 +23,7 @@
 <section class="container thumbnail grid">
   <!-- ************************************  FORM ************************************ -->
     <section>
-      <form method=post class="container-fluid grid-elements">
+      <form action="" method=post class="container-fluid grid-elements">
         {% csrf_token %}
         <div class="col-md-8">
           <input type="text" id="myInput" name="paciente" placeholder="nombre tipo de paciente o aseguranza" class="input-personalized"/>
@@ -75,7 +76,7 @@
           </td>
           <td>
             <a data-toggle="modal" data-target="#modal-borrar"
-             onclick="open_modal_borrar('{{ paciente.nombre }}')"> 
+             onclick="open_modal_borrar('{{ paciente.nombre }}','{{ paciente.pk }}')"> 
              <label class="glyphicon glyphicon-trash"></label> Borrar</a>
           </td>
         </tr>
@@ -90,7 +91,7 @@
 
 <div class="modal fade" id="modal-borrar" tabindex="1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
-      <form class="modal-content" method=post>
+      <form class="modal-content" method=post> 
         <div class="modal-header" style="background-color: #dbdbdb; border-bottom: 1px solid rgb(151, 151, 151);" >
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -100,14 +101,15 @@
             <label style="text-align: center;">Confirmación</label> 
           </h4>
         </div>
-        <div class="modal-body" style="height:150px; background-color: white;">
+        <div class="modal-body" style="height:200px; background-color: white;">
           <h3 style="text-align: center;">¿Estas seguro de eliminar este paciente<br>
-            <b id="textoBorrar"></b>?
+            <b id="textoBorrar"></b>? <span id="idBorrar" style="visibility:hidden;"></span>
+            <p class="warning">Esto eliminará a su vez todas las citas, visitas e historial clinico relacionado a este paciente</p>
           </h3>
         </div>
         <div class="modal-footer" style="background-color: white;">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-danger">Eliminar</button>
+          <button type="button" class="btn btn-danger" onclick="deleteItem()">Eliminar</button>
         </div>
     </div>
   </div>
@@ -115,9 +117,10 @@
   <!-- *********************************** script modal *********************************** -->
 <script>
   var content_borrar = document.getElementById('textoBorrar');
-
-  function open_modal_borrar(paciente) {
+  var pk_borrar = document.getElementById('idBorrar');
+  function open_modal_borrar(paciente, id) {
     content_borrar.innerHTML = paciente;
+    pk_borrar.innerHTML = id;
   }
 
 </script>

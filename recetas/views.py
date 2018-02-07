@@ -150,13 +150,6 @@ class UpdateReceiptView(ListView):
         empleado = Empleado.objects.filter(nombre=empleadoSeleccionado).first()
         fecha_receta = request.POST.get('fecha')
 
-        print "user ", str(user)
-        print "paciente ", str(paciente)
-        print "motivo ", str(motivo)
-        print "comentario ", str(comentario)
-        print "empleado ", str(empleado)
-        print "fecha_receta ", str(fecha_receta)
-
         try:
             if paciente == "":
                 return render(self.request, self.template_name)
@@ -177,3 +170,11 @@ class UpdateReceiptView(ListView):
                    }
 
         return HttpResponseRedirect('/lista.recetas')	
+
+class DeleteReceiptView(ListView):
+    
+    @method_decorator(login_required(login_url='login.view.url'))
+    def get(self, request, pk, **kwargs):
+        Recetas.objects.filter(id=pk,user=request.user).delete()
+
+        return render(request,'recetas.html')

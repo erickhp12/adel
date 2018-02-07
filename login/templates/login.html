@@ -11,6 +11,7 @@
         <meta charset="UTF-8">
         <title>ADEL</title>
         <link rel="stylesheet" href="{% static 'css/login/loginstyle.css' %}">
+        <script src="{% static '/static/js/generic/mail.js'%}"></script>
     </head>
 
     <body onload="displayErrorMessage()">
@@ -21,22 +22,26 @@
             </div>
 
 
-            <div class="container thumbnail login-card">
-                <div class="login-card-header">
-                    Inicio de sesión
-                </div>
-                <div class="login-card-body">
-                    <form action="{% url 'login.view.url' %}" method="POST">
-                        {% csrf_token %}
-                        <input id="username" name="username" class="input-personalized input-login" required="required" type="text" placeholder="Usuario"/><br>
-                        <input id="password" name="password" class="input-personalized input-login" required="required" type="password" placeholder="Contraseña" />
-                        
-                        <p id="message" class="error-message" id="message">{{ mensaje }}</p>
-                        <button type="submit" class="btn-login" value="Login" >Iniciar sesion</button>
-                    </form>
-                </div>
+        <div class="container thumbnail login-card">
+            <div class="login-card-header">
+                Inicio de sesión
+            </div>
+            <div class="login-card-body">
+                <form action="{% url 'login.view.url' %}" method="POST">
+                    {% csrf_token %}
+                    <input id="username" name="username" class="input-personalized input-login" required="required" type="text" placeholder="Usuario"/><br>
+                    <input id="password" name="password" class="input-personalized input-login" required="required" type="password" placeholder="Contraseña" />
+                    
+                    <p id="message" class="error-message" id="message">{{ mensaje }}</p>
+                    <button type="submit" class="btn-login" value="Login" >Iniciar sesion</button>
+                
+                    </div>
+                </form>
                 <div class="login-card-footer">
-                    <a href="#">No recuerdo mi usuario</a>
+                    <a href="">No recuerdo mi usuario</a>
+                    <!-- <form action="/send_email/" method="POST" id="post-form">
+                        <button type="button" class="btn btn-info" onclick="sendEmail()">No recuerdo mi usuario</button>
+                    </form> -->
                 </div>
             </div>
         </div>

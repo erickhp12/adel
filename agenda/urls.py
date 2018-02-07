@@ -6,4 +6,5 @@ urlpatterns = [
 	url(r'^registro.agenda/$', CreateAgendaView.as_view(), name='registerAgenda.url'),
 	url(r'^agenda/editar/(?P<pk>\d+)/$',UpdateAgendaView.as_view(),name='editar_agenda'),
 	url(r'^agenda/borrar/(?P<pk>\d+)/$',DeleteAgendaView.as_view(),name='borrar_agenda'),
+	url(r'^deleteAgenda/(?P<pk>\d+)/$', DeleteAgendaView.as_view())
 ]

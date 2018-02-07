@@ -76,12 +76,6 @@ class CreateProviderView(CreateView):
         direccion = request.POST.get('direccion')
         producto = request.POST.get('producto')
 
-        # print "nombre  " + str(nombre)
-        # print "contacto  " + str(contacto)
-        # print "producto  " + str(producto)
-        # print "telefono  " + str(telefono)
-        # print "correo  " + str(correo)
-        # print "direccion  " + str(direccion)
         
         try:
             if nombre == "":
@@ -155,30 +149,10 @@ class UpdateProviderView(View):
 
         return HttpResponseRedirect('/lista.proveedores')
 
-
 class DeleteProviderView(ListView):
-    template_name = "eliminar_proveedor.html"
-
+    
+    @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, pk, **kwargs):
-        proveedor = Proveedor.objects.all().filter(id=pk)
+        Proveedor.objects.filter(id=pk,user=request.user).delete()
 
-        context = {'proveedor':proveedor}
-
-        return render(request,self.template_name, context)
-
-    def post(self, request, pk, *args, **kwargs):
-        mensaje = ""
-        proveedores = Proveedor.objects.filter(user=request.user)
-        total = proveedores.count
-        Proveedor.objects.all().filter(id=pk).delete()
-
-        context = {'proveedores': proveedores,
-                   'total': total,
-                   'mensaje': mensaje
-                   }
-
-        return render(self.request,'proveedores.html', context)
-
-
- 
-
+        return render(request,'proveedores.html')

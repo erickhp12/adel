@@ -155,12 +155,31 @@ textarea{
 	font-size: 18px;
 	font-weight: 700;
 }
+
 .border-bottom {
 	border-bottom: 1px solid #8b8b8b;
 	text-align: center;
 	font-size: 18px;
 	font-weight: 800;
 	margin-bottom: 5px;
+}
+
+.error-message {
+	background-color: rgba(220, 4, 4, 0.98);
+	margin: 25px;
+	padding: 7px;
+	border-radius: 4px;
+	text-align: center;
+	color: white;
+	font-size: 18px;
+  }
+
+.warning {
+	margin: 1em;
+	color: rgb(233, 1, 1);
+	font-weight: bold;
+	font-size: 20px;
+	text-align: center;
 }
 
 /*----------------------------------------  botones -------------------------------------------------- */
@@ -202,14 +221,17 @@ textarea{
 	margin: auto;
 	margin-top: 7.5%;
 }
+
 .receta-info {
 	margin-bottom: 30px;
 	/* background-color: rebeccapurple; */
 }
+
 .descripcion {
 	font-weight: 300;
 	margin-left: 35%;
 }
+
 .receta-contact {
 	text-align: center;
 	font-weight: bold;

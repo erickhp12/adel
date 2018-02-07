@@ -49,9 +49,6 @@ class AgendaListView(ListView):
         fecha_final = request.POST.get('fecha_final') 
         mensaje = ""
 
-        print "busqueda " + str(busqueda)
-        print "Fecha inicial " + str(fecha_inicial)
-        print "Fecha final " + str(fecha_final)
 
         if fecha_final and fecha_final != "":
             agenda = Agenda.objects.filter(
@@ -82,12 +79,13 @@ class CreateAgendaView(View):
         empleados = Empleado.objects.filter(user=request.user)
         fecha_inicial = time.strftime("%Y-%m-%d")
         
-        ctx = {'fechai':fecha_inicial,
-                'pacientes': pacientes,
-                'empleados':empleados
+        context = { 
+                    'fechai':fecha_inicial,
+                    'pacientes': pacientes,
+                    'empleados':empleados
                 }
 
-        return render(request,self.template_name,ctx)
+        return render(request,self.template_name,context)
 
     def post(self, request, *args, **kwargs):
         mensaje = ""
@@ -117,9 +115,10 @@ class CreateAgendaView(View):
         except Exception as e:
             mensaje = "Error al crear visita " + str(e)
 
-        context = {'visitas': visitas,
-                   'total_visitas': total_visitas,
-                   'mensaje': mensaje
+        context = {
+                    'visitas': visitas,
+                    'total_visitas': total_visitas,
+                    'mensaje': mensaje
                    }
 
         return HttpResponseRedirect('/lista.agenda')
@@ -157,19 +156,6 @@ class UpdateAgendaView(UpdateView):
         empleado = Empleado.objects.filter(nombre=empleadoSeleccionado).first()
         fecha_agenda = request.POST.get('fecha') 
 
-        # print "---------------------Edicion de cita ---------------------"
-        # print "user"
-        # print user
-        # print "paciente"
-        # print paciente
-        # print "empleado"
-        # print empleado
-        # print "motivo"
-        # print motivo
-        # print "fecha_agenda"
-        # print fecha_agenda
-
-
         try:
             if paciente == "":
                 return render(self.request, self.template_name)
@@ -184,7 +170,8 @@ class UpdateAgendaView(UpdateView):
         except Exception as e:
             mensaje = "Error al editar cita " + str(e)
 
-        context = {'visitas': visitas,
+        context = {
+                    'visitas': visitas,
                     'total_visitas': total_visitas,
                     'mensaje': mensaje
                    }
@@ -192,25 +179,10 @@ class UpdateAgendaView(UpdateView):
         return HttpResponseRedirect('/lista.agenda')   
 
 
-class DetailAgendaView(DetailView):
-    model = Agenda
-    template_name = "agenda_detalle.html"
-
-
 class DeleteAgendaView(ListView):
-    template_name = "eliminar_agenda.html"
-
+    
+    @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, pk, **kwargs):
-        agenda = Agenda.objects.all().filter(id=pk)
+        Agenda.objects.filter(id=pk,user=request.user).delete()
 
-        context = {'agenda':agenda}
-
-        return render(request,self.template_name, context)
-
-    def post(self, request, pk, *args, **kwargs):
-        Agenda.objects.all().filter(id=pk).delete()
-        return render(self.request,'agenda.html')
-
-
- 
-
+        return render(request,'agenda.html')

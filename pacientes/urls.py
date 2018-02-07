@@ -8,4 +8,5 @@ urlpatterns = [
 	url(r'^pacientes/editar/(?P<pk>\d+)/$',UpdatePatientView.as_view(),name='editar_paciente'),
     url(r'^requestPatients/$', RequestPatients.as_view()),
     url(r'^requestSinglePatient/(?P<pk>\d+)/$', requestSinglePatient.as_view()),
+    url(r'^deletePatient/(?P<pk>\d+)/$', DeletePatientView.as_view()),
 ]
