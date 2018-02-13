@@ -56,25 +56,20 @@
           <th scope="col">Contacto</th>
           <th scope="col">Teléfono</th>
           <th scope="col">Producto</th>
-          <th scope="col">Información</th>
           <th scope="col">Edición</th>
           <th scope="col">Acciones</th>
         </tr>
       </thead>
       {% for proveedor in proveedores %}
       <tbody>
-        <tr>
-          <td scope="row">{{ proveedor.nombre }}</td>
+        <tr data-toggle="modal" data-target="#modal-ver" 
+        onclick="open_modal('{{ proveedor.nombre }}','{{ proveedor.contacto }}','{{ proveedor.telefono }}',
+         '{{ proveedor.correo }}','{{proveedor.direccion }}','{{ proveedor.producto }}',
+         '{{ proveedor.fecha_inicio }}')">
+          <td scope="row"><b>{{ proveedor.nombre }}</b></td>
           <td>{{ proveedor.contacto }}</td>
           <td>{{ proveedor.telefono }}</td>
           <td>{{ proveedor.producto }}</td>
-          <td>
-            <a type="button"data-toggle="modal" data-target="#modal-ver" 
-            onclick="open_modal('{{ proveedor.nombre }}','{{ proveedor.contacto }}','{{ proveedor.telefono }}',
-             '{{ proveedor.correo }}','{{proveedor.direccion }}','{{ proveedor.producto }}',
-             '{{ proveedor.fecha_inicio }}')"><label  class="glyphicon glyphicon-search"></label> Ver
-            </a>
-          </td>
           <td>
             <a href="{{ proveedor.url_editar_proveedor }}"><label class="glyphicon glyphicon-pencil"></label> Editar</a>
           </td>

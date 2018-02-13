@@ -75,8 +75,8 @@ class CreateAgendaView(View):
     template_name = "agenda-formulario.html"
     
     def get(self, request, *args, **kwargs):
-        pacientes = Paciente.objects.filter(user=request.user)
-        empleados = Empleado.objects.filter(user=request.user)
+        pacientes = Paciente.objects.filter(user=request.user).order_by('nombre')
+        empleados = Empleado.objects.filter(user=request.user).order_by('nombre')
         fecha_inicial = time.strftime("%Y-%m-%d")
         
         context = { 

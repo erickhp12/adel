@@ -62,24 +62,19 @@
           <th scope="col">Empleado</th>
           <th scope="col">Motivo</th>
           <th scope="col">Fecha</th>
-          <th scope="col">Información</th>
           <th scope="col">Edición</th>
           <th scope="col">Acciones</th>
         </tr>
       </thead>
       {% for cita in agenda %}
       <tbody>
-        <tr>
-          <td scope="row">{{ cita.paciente }}</td>
+        <tr data-toggle="modal" data-target="#modal-ver" 
+        onclick="open_modal('{{ cita.paciente }}','{{ cita.empleado }}',
+        '{{ cita.motivo }}','{{ cita.fecha_agenda }}')">
+          <td scope="row"><b>{{ cita.paciente }}</b></td>
           <td>{{ cita.empleado}}</td>
           <td>{{ cita.motivo }}</td>
           <td>{{ cita.fecha_agenda|date:"l d F P" }}</td>
-          <td>
-            <a type="button" data-toggle="modal" data-target="#modal-ver" 
-            onclick="open_modal('{{ cita.paciente }}','{{ cita.empleado }}',
-            '{{ cita.motivo }}','{{ cita.fecha_agenda }}')"> <label class="glyphicon glyphicon-search" ></label> Ver
-            </a>
-          </td>
           <td>
             <a href="{{ cita.url_editar_agenda }}"><label class="glyphicon glyphicon-pencil"></label> Editar</a>
           </td>

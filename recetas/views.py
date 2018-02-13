@@ -65,8 +65,8 @@ class CreateReceiptView(ListView):
 
     def get(self, request, *args, **kwargs):
         user_logged = request.user
-        pacientes = Paciente.objects.filter(user=request.user)
-        empleados = Empleado.objects.filter(user=request.user)
+        pacientes = Paciente.objects.filter(user=request.user).order_by('nombre')
+        empleados = Empleado.objects.filter(user=request.user).order_by('nombre')
         form = RegistrarReceta()
         mensaje = ""
         context = {'pacientes': pacientes,
@@ -121,8 +121,8 @@ class UpdateReceiptView(ListView):
     def get(self, request, pk, *args, **kwargs):
         user_logged = request.user
         receta = Recetas.objects.get(user=request.user,id=pk)
-        pacientes = Paciente.objects.filter(user=request.user)
-        empleados = Empleado.objects.filter(user=request.user)
+        pacientes = Paciente.objects.filter(user=request.user).order_by('nombre')
+        empleados = Empleado.objects.filter(user=request.user).order_by('nombre')
         form = RegistrarReceta()
         mensaje = ""
 

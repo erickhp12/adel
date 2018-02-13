@@ -54,24 +54,19 @@
           <th scope="col">Nombre</th>
           <th scope="col">Teléfono</th>
           <th scope="col">Correo electrónico</th>
-          <th scope="col">Información</th>
           <th scope="col">Edición</th>
           <th scope="col">Acciones</th>
         </tr>
       </thead>
       {% for empleado in empleados %}
       <tbody>
-        <tr>
-          <td scope="row">{{ empleado.nombre }}</td>
+        <tr data-toggle="modal" data-target="#modal-ver" 
+        onclick="open_modal('{{ empleado.nombre }}','{{ empleado.puesto }}','{{ empleado.telefono }}',
+          '{{ empleado.correo }}','{{empleado.direccion }}','{{ empleado.fecha_nacimiento }}',
+          '{{ empleado.fecha_inicio }}')">
+          <td scope="row"><b>{{ empleado.nombre }}</b></td>
           <td>{{ empleado.telefono }}</td>
           <td>{{ empleado.correo }}</td>
-          <td>
-            <a type="button" data-toggle="modal" data-target="#modal-ver" 
-            onclick="open_modal('{{ empleado.nombre }}','{{ empleado.puesto }}','{{ empleado.telefono }}',
-              '{{ empleado.correo }}','{{empleado.direccion }}','{{ empleado.fecha_nacimiento }}',
-              '{{ empleado.fecha_inicio }}')"> <label class="glyphicon glyphicon-search" ></label> Ver
-            </a>
-          </td>
           <td>
             <a href="{{ empleado.url_editar_empleado }}"> <label class="glyphicon glyphicon-pencil"></label> Editar</a>
           </td>

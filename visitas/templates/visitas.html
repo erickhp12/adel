@@ -66,24 +66,18 @@
         <th scope="col">Paciente</th>
         <th scope="col">Motivo</th>
         <th scope="col">Fecha</th>
-        <th scope="col">Información</th>
         <th scope="col">Edición</th>
         <th scope="col">Acciones</th>
       </tr>
     </thead>
     {% for visita in visitas %}
     <tbody>
-      <tr>
-        <td scope="row">{{ visita.paciente }}</td>
+      <tr data-toggle="modal" data-target="#modal-ver" 
+      onclick="open_modal('{{visita.paciente}}','{{visita.fecha_visita}}','{{visita.motivo}}',
+      '{{visita.dentista}}','{{visita.precio}}','{{ visita.dolares }}','{{ visita.pk }}')">
+        <td scope="row"><b>{{ visita.paciente }}</b></td>
         <td>{{ visita.motivo }}</td>
         <td>{{ visita.fecha_visita|date:"l d F P" }}</td>
-        <td>
-          <a type="button" data-toggle="modal" data-target="#modal-ver" 
-          onclick="open_modal('{{visita.paciente}}','{{visita.fecha_visita}}','{{visita.motivo}}',
-          '{{visita.dentista}}','{{visita.precio}}','{{ visita.dolares }}','{{ visita.pk }}')">
-          <label class="glyphicon glyphicon-search"></label> Ver
-          </a>
-        </td>
         <td>
           <a href="{{ visita.url_editar_visitas }}"><label class="glyphicon glyphicon-pencil"></label> Editar</a>
         </td>

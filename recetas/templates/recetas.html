@@ -74,7 +74,7 @@
     {% for receta in recetas %}
     <tbody>
       <tr>
-        <td scope="row">{{ receta.paciente }}</td>
+        <td scope="row"><b>{{ receta.paciente }}</b></td>
         <td>{{ receta.motivo }}</td>
         <td>{{ receta.fecha_receta | date:"l d F P" }}</td>
         <td>
