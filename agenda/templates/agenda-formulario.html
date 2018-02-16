@@ -80,7 +80,7 @@
                         <label>Hora</label>
                         <select name="hora" id="hora" onchange="set_date()">
                             {% if agenda.fecha_agenda %}
-                                <option value="{{agenda.fecha_agenda | date:"h:i"}}">{{agenda.fecha_agenda | date:"h:i"}}</option>
+                                <option value="{{agenda.fecha_agenda | date:"H:i"}}">{{agenda.fecha_agenda | date:"h:i"}}</option>
                             {% else %}
                                 <option value="00:00">00:00</option>
                             {% endif %}
@@ -207,6 +207,20 @@
             empleado = document.getElementById('empleado');
             precio = document.getElementById('precio');
             dolares = document.getElementById('dolares');
+            var fecha = document.getElementById('datepicker');
+            var hora = document.getElementById('hora');
+
+            if (fecha.value.length > 10) {
+                if (hora.value != "00:00") {
+                        fecha.value = fecha.value.substring(0, 10);
+                        fecha.value = fecha.value + " " + hora.value;
+                    } else {
+                        fecha.value = fecha.value.substring(0, 10);
+                    }
+                }
+            else {
+                fecha.value = fecha.value + " " + hora.value;
+            }
 
             if (paciente.value == "") {
                 alert('el campo paciente es requerido');
@@ -216,11 +230,9 @@
                 alert('el campo empleado es requerido');
                 empleado.value = "No registrado";
             }
-            
             if (motivo.value == "") {
                 motivo.value = "--";
             }
-            
             if (precio.value == "") {
                 precio.value = "--";
             }

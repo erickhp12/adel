@@ -115,7 +115,7 @@
                         <label>Hora</label>
                         <select name="hora" id="hora" onchange="set_date()">
                             {% if gasto.fecha_gasto %} 
-                                    <option value="{{gasto.fecha_gasto | date:"h:i"}}">{{ gasto.fecha_gasto | date:"h:i"}}</option>
+                                    <option value="{{gasto.fecha_gasto | date:"H:i"}}">{{ gasto.fecha_gasto | date:"h:i"}}</option>
                             {% else %}
                                 <option value="00:00">00:00</option>
                             {% endif %}
