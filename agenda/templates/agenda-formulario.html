@@ -40,7 +40,7 @@
                     <div class="form-group col-md-6">
                         <label>Paciente</label>
                         {% if agenda.paciente %}
-                            <input type="text" value="{{ agenda.paciente}}" name="paciente" readonly="readonly"> 
+                            <input type="text" value="{{ agenda.paciente}}" name="paciente" id="paciente" readonly="readonly"> 
                         {% else %}
                             <select id="paciente" name="paciente">
                             <option value="%">------</option>
@@ -70,7 +70,7 @@
                     <div class="form-group col-md-6">
                         <label style="margin-bottom: 5px;">Fecha</label>
                         {% if agenda.fecha_agenda %}
-                            <input type="date" name="fecha" id="datepicker" value="{{agenda.fecha_agenda |date:"Y-m-d"}}" class="input-personalized">
+                            <input type="text" name="fecha" id="datepicker" value="{{agenda.fecha_agenda |date:"Y-m-d"}}" class="input-personalized">
                         {% else %}
                             <input type="text" name="fecha" id="datepicker"  class="input-personalized">
                         {% endif %}
@@ -205,8 +205,6 @@
             paciente = document.getElementById('paciente');
             motivo = document.getElementById('motivo');
             empleado = document.getElementById('empleado');
-            precio = document.getElementById('precio');
-            dolares = document.getElementById('dolares');
             var fecha = document.getElementById('datepicker');
             var hora = document.getElementById('hora');
 
@@ -217,10 +215,10 @@
                     } else {
                         fecha.value = fecha.value.substring(0, 10);
                     }
-                }
-            else {
+            } else {
                 fecha.value = fecha.value + " " + hora.value;
             }
+
 
             if (paciente.value == "") {
                 alert('el campo paciente es requerido');
@@ -232,12 +230,6 @@
             }
             if (motivo.value == "") {
                 motivo.value = "--";
-            }
-            if (precio.value == "") {
-                precio.value = "--";
-            }
-            if (dolares.value == "") {
-                dolares.value = "--";
             }
         }
 

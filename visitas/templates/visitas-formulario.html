@@ -108,7 +108,7 @@
                         <div class="form-group col-md-4">
                             <label style="margin-bottom: 5px;">Fecha</label>
                             {% if visita.fecha_visita %}
-                                <input type="date" name="fecha" id="datepicker" value="{{visita.fecha_visita |date:"Y-m-d"}}" class="input-personalized">
+                                <input type="text" name="fecha" id="datepicker" value="{{visita.fecha_visita |date:"Y-m-d"}}" class="input-personalized">
                             {% else %}
                                 <input type="text" name="fecha" id="datepicker"  class="input-personalized">
                             {% endif %}
