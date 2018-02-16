@@ -52,7 +52,7 @@ class AgendaListView(ListView):
 
         if fecha_final and fecha_final != "":
             agenda = Agenda.objects.filter(
-                fecha_agenda__range=[fecha_inicial, fecha_final + " 23:59:59"],user=request.user)
+                fecha_agenda__range=[fecha_inicial, fecha_final + " 23:59:59"],user=request.user).order_by('-fecha_agenda')
         else:
             agenda = Agenda.objects.filter(empleado__nombre__icontains=busqueda,user=request.user
                 ) | Agenda.objects.filter(paciente__nombre__icontains=busqueda,user=request.user
@@ -100,6 +100,7 @@ class CreateAgendaView(View):
         empleadoSeleccionado = request.POST.get('empleado')
         empleado = Empleado.objects.filter(nombre=empleadoSeleccionado).first()
         fecha_agenda = request.POST.get('fecha')
+        confirmacion = request.POST.get('group')
 
         try:
             if paciente == "":
@@ -110,6 +111,7 @@ class CreateAgendaView(View):
                     empleado=empleado,
                     paciente=paciente,
                     motivo=motivo,
+                    confirmacion = confirmacion,
                     fecha_agenda=fecha_agenda
                 )
         except Exception as e:
@@ -132,10 +134,23 @@ class UpdateAgendaView(UpdateView):
         pacientes = Paciente.objects.filter(user=request.user).order_by('nombre')
         empleados = Empleado.objects.filter(user=request.user).order_by('nombre')
         fecha_inicial = time.strftime("%Y-%m-%d")
+        pendiente_value = "unchecked"
+        confirmada_value = "unchecked"
+        cancelada_value = "unchecked"
+        
+        if agenda.confirmacion == 'Pendiente':
+            pendiente_value = 'Checked'
+        elif agenda.confirmacion == 'Confirmada':
+            confirmada_value = 'Checked'
+        elif agenda.confirmacion == 'Cancelada':
+            cancelada_value = 'Checked'
 
         ctx = {
                 'agenda': agenda,
                 'pacientes':pacientes,
+                'pendiente_value':pendiente_value,
+                'confirmada_value':confirmada_value,
+                'cancelada_value':cancelada_value,
                 'fecha_inicial':fecha_inicial,
                 'empleados':empleados
                 }
@@ -154,7 +169,8 @@ class UpdateAgendaView(UpdateView):
         motivo = request.POST.get('motivo')
         empleadoSeleccionado = request.POST.get('empleado')
         empleado = Empleado.objects.filter(nombre=empleadoSeleccionado).first()
-        fecha_agenda = request.POST.get('fecha') 
+        fecha_agenda = request.POST.get('fecha')
+        confirmacion = request.POST.get('group')
 
         try:
             if paciente == "":
@@ -166,6 +182,7 @@ class UpdateAgendaView(UpdateView):
                 agenda.empleado = empleado
                 agenda.motivo = motivo
                 agenda.fecha_agenda = fecha_agenda
+                agenda.confirmacion = confirmacion
                 agenda.save()
         except Exception as e:
             mensaje = "Error al editar cita " + str(e)

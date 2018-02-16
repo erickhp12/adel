@@ -2,7 +2,7 @@
 {% block title %}ADEL | agenda {% endblock %}
 {% block body %}
 
-<body onload="set_initial_date()">
+<body onload="set_initial_date(), confirmaCita()">
     {% load staticfiles %}
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <script src="{% static '/static/js/generic/calendarios.js'%}"></script>
@@ -126,9 +126,30 @@
                         {% endif %}
                     </div>
                 </fieldset>
+
+
+                <fieldset>
+                    <div class="form-group col-md-12" style="margin-left:-2%;">
+                        <div class="col-md-12" style="margin-top:10px;">
+                            <h4>Confirmar cita</h4>
+                        </div>
+                        <div class="col-md-4">
+                            <input name="group" type="radio" id="pendiente" style="width:15%;" onclick="confirmaCita()" {{ pendiente_value }}>
+                            <label for="Pendiente" style="color:rgba(255,147, 5, 1);"><label class="glyphicon glyphicon-minus"></label>&nbsp;&nbsp;Pendiente</label>
+                        </div>
+                        <div class="col-md-4 material-switch div_historial">
+                            <input name="group" type="radio" id="confirmada" style="width:15%;" onclick="confirmaCita()" {{ confirmada_value }}>
+                            <label for="confirmar" style="color:rgba(4, 161, 22, 1);"><label class="glyphicon glyphicon-ok"></label>&nbsp;&nbsp;Confirmar</label>
+                        </div>
+                        <div class="col-md-4">
+                            <input name="group" type="radio" id="cancelada" style="width:15%;" onclick="confirmaCita()" {{ cancelada_value }}>
+                            <label for="Cancelar" style="color:rgba(255, 5, 7, 0.98);"><label class="glyphicon glyphicon-remove"></label>&nbsp;&nbsp;Cancelar</label>
+                        </div>
+                    </div>
+                </fieldset>
                 <div class="form-group">
                     <div class="col-md-12">
-                            {% if agenda.proveedor %}
+                            {% if agenda.paciente %}
                                 <button type="submit" onclick="set_empty_values()" class="btn btn-success col-md-4">Actualizar informacion</button>
                             {% else %}
                                 <button type="submit" onclick="set_empty_values()" class="btn btn-success col-md-4">Agregar cita</button>
@@ -207,6 +228,23 @@
                 dolares.value = "--";
             }
         }
-    </script> 
+
+        function confirmaCita() {
+            console.log('hola');
+            pendiente = document.getElementById('pendiente');
+            confirmada = document.getElementById('confirmada');
+            cancelada = document.getElementById('cancelada');
+            
+            if ( pendiente.checked == true){
+                pendiente.value = "Pendiente";
+            }
+            if ( confirmada.checked == true){
+                confirmada.value = "Confirmada";
+            }
+            if ( cancelada.checked == true){
+                cancelada.value = "Cancelada";
+            }
+        }
+    </script>
 
 {% endblock %} 

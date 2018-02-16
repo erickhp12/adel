@@ -114,7 +114,7 @@ class EditHistoryView(CreateView):
         historial_paciente = Historial.objects.get(paciente_id=pk)
         alergias_comentarios_value = ""
         medicamentos_comentarios_value = ""
-        alergias_value = "unchecked"
+        alergias_value = "unchecked" 
         corazon_value = "unchecked"
         presion_arterial_value = "unchecked"
         diabetes_value = "unchecked"

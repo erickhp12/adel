@@ -2,6 +2,8 @@
 {% block title %}ADEL | agenda {% endblock %}
 
 {% block body %}
+
+<body onload="checaCitasConfirmadas()">
 {% load staticfiles %}
 <meta charset="utf-8">
 <script src="{% static '/static/js/generic/delete.js'%}"></script>
@@ -62,27 +64,30 @@
           <th scope="col">Empleado</th>
           <th scope="col">Motivo</th>
           <th scope="col">Fecha</th>
+          <th scope="col">Status</th>
           <th scope="col">Edición</th>
           <th scope="col">Acciones</th>
         </tr>
       </thead>
       {% for cita in agenda %}
-      <tbody>
-        <tr data-toggle="modal" data-target="#modal-ver" 
+      <tbody>   
+        <tr data-toggle="modal" data-target="#modal-ver" class="citaTR"
         onclick="open_modal('{{ cita.paciente }}','{{ cita.empleado }}',
-        '{{ cita.motivo }}','{{ cita.fecha_agenda }}')">
+        '{{ cita.motivo }}','{{ cita.fecha_agenda }}','{{ cita.confirmacion }}')">
           <td scope="row"><b>{{ cita.paciente }}</b></td>
           <td>{{ cita.empleado}}</td>
           <td>{{ cita.motivo }}</td>
           <td>{{ cita.fecha_agenda|date:"l d F P" }}</td>
+          <td class="citaTD">{{ cita.confirmacion }}</td>
           <td>
-            <a href="{{ cita.url_editar_agenda }}"><label class="glyphicon glyphicon-pencil"></label> Editar</a>
+            <a class="citaE" href="{{ cita.url_editar_agenda }}"><label class="glyphicon glyphicon-pencil"></label> Editar</a>
           </td>
           <td>
-            <a class="glyphicon glyphicon-trash" data-toggle="modal" data-target="#modal-borrar"
+            <a class="glyphicon glyphicon-trash citaB" data-toggle="modal" data-target="#modal-borrar"
             onclick="open_modal_borrar('{{ cita.paciente }}','{{ cita.pk }}')"> Borrar</a>
           </td>
         </tr>
+        
       </tbody>
       {% endfor %}
     </table>
@@ -116,6 +121,10 @@
         <div class="col-md-12">
             <label class="col-md-4">Fecha</label>
             <label class="col-md-8" id="textoFecha"></label>
+        </div>
+        <div class="col-md-12">
+            <label class="col-md-4">Status</label>
+            <label class="col-md-8" id="textoConfirmacion"></label>
         </div>
       </div>
   </div>
@@ -153,19 +162,41 @@
   var content_empleado = document.getElementById('textoEmpleado');
   var content_motivo = document.getElementById('textoMotivo');
   var content_fecha = document.getElementById('textoFecha');
+  var content_confirmacion = document.getElementById('textoConfirmacion');
   var content_borrar = document.getElementById('textoBorrar');
   var pk_borrar = document.getElementById('idBorrar');
 
-  function open_modal(paciente, empleado, motivo, fecha) { 
+  function open_modal(paciente, empleado, motivo, fecha,confirmacion) { 
     content_paciente.innerHTML = "Cita de " + paciente;
     content_empleado.innerHTML = empleado;
     content_motivo.innerHTML = motivo;
     content_fecha.innerHTML = fecha;
+    content_confirmacion.innerHTML = confirmacion
   }
 
   function open_modal_borrar(item, id) {
     content_borrar.innerHTML = item;
     pk_borrar.innerHTML = id;
+  }
+
+  function checaCitasConfirmadas(){
+    var citaTD = document.getElementsByClassName('citaTD');
+    var citaTR = document.getElementsByClassName('citaTR');
+
+   for (i = 0; i < citaTR.length; i++) { 
+      if (citaTD[i].innerHTML == 'Confirmada'){
+        console.log('entre');
+        citaTR[i].style.backgroundColor = 'rgba(65, 198, 92, 0.47)';
+        citaTD[i].innerHTML = '<label class="glyphicon glyphicon-ok"></label>';
+      } else if (citaTD[i].innerHTML == 'Pendiente') {
+        citaTR[i].style.backgroundColor = 'rgba(255, 224, 5, 0.23)';
+        citaTD[i].innerHTML = '<label class="glyphicon glyphicon-minus"></label>';
+      } else if (citaTD[i].innerHTML == 'Cancelada') {
+        citaTR[i].style.backgroundColor = 'rgba(255, 10, 7, 0.55)';
+        citaTD[i].innerHTML = '<label class="glyphicon glyphicon-remove"></label>';
+      }
+
+    }
   }
 
 </script>
