@@ -12,6 +12,7 @@ from visitas.models import Visitas
 from .forms import RegistrarAgenda
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import time 
 
 
@@ -20,12 +21,21 @@ class AgendaListView(ListView):
 
     @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
-        fecha_inicial = time.strftime("%Y-%m-%d")
-        fecha_final = time.strftime("%Y-%m-%d")
         estado = 0
+        QueryAgenda = Agenda.objects.filter(user=request.user).order_by('-fecha_agenda')
+        total = QueryAgenda.count()
+        paginator = Paginator(QueryAgenda, 50)
+        page = request.GET.get('page')
         mensaje = ""
-        agenda = Agenda.objects.filter(user=request.user).order_by('-fecha_agenda')
-        total = agenda.count()
+        
+        try:
+            agenda = paginator.page(page)
+        except PageNotAnInteger:
+            agenda = paginator.page(1)
+        except EmptyPage:
+            agenda = paginator.page(paginator.num_pages)
+
+
 
         if total == 0:
             mensaje = "No tienes citas para el rango de fechas seleccionado, checa en otro horario"
@@ -34,8 +44,6 @@ class AgendaListView(ListView):
                     'agenda':agenda,
                     'total':total,
                     'estado':estado,
-                    'fecha_inicial':fecha_inicial,
-                    'fecha_final':fecha_final,
                     'mensaje': mensaje      
                     }
 

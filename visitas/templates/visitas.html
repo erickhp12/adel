@@ -58,7 +58,7 @@
 {% if mensaje != "" %}
   <div class="empty_query_result">{{ mensaje }}</div>
 {% endif %}  
-  
+
 <div class="table-responsive grid-table">  
   <table class="table tbl_main">
     <thead>
@@ -92,6 +92,25 @@
     </table>
   </div>
   </section>
+
+  <div class="div-paginador">
+    <label style="margin-top: 10px;margin-left:10px;font-size: 15px;">
+        {% if visitas.has_previous %}
+            <a class="a-paginador" href="?page={{ visitas.previous_page_number }}">
+              <label class="glyphicon glyphicon-menu-left">Anterior</label>
+            </a>
+        {% endif %}
+        <label style="margin-left:5px; margin-right:5px;">
+             {{ visitas.number }} de {{ visitas.paginator.num_pages }}
+        </label>
+
+        {% if visitas.has_next %}
+            <a class="a-paginador" href="?page={{ visitas.next_page_number }}">
+                Siguiente<label class="glyphicon glyphicon-menu-right"></label>
+            </a>
+        {% endif %}
+    </label>
+  </div>
 </section>
 
 

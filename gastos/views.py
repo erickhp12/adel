@@ -3,6 +3,7 @@ from django.shortcuts import render, render_to_response
 from django.template import RequestContext
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import ListView, DetailView, DeleteView
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse_lazy
 from django.db.models import Sum
 from django.contrib.auth.decorators import login_required
@@ -21,10 +22,19 @@ class SpendingListView(ListView):
 
     @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
-        gastos = Gasto.objects.filter(user=request.user).order_by('-fecha_gasto')
-        total = gastos.count()
+        QueryGastos = Gasto.objects.filter(user=request.user).order_by('-fecha_gasto')
+        total = QueryGastos.count()
+        paginator = Paginator(QueryGastos, 50)
+        page = request.GET.get('page')
         mensaje = ""
         
+        try:
+            gastos = paginator.page(page)
+        except PageNotAnInteger:
+            gastos = paginator.page(1)
+        except EmptyPage:
+            gastos = paginator.page(paginator.num_pages)
+
         if total == 0:
             mensaje = "No tienes gastos registrados"
 

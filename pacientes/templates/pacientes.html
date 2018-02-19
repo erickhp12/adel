@@ -43,46 +43,63 @@
   <hr>
 
   <!-- *********************************** grid *********************************** -->
-
-{% if mensaje != "" %}
-  <div class="empty_query_result">{{ mensaje }}</div>
-{% endif %}
-
-  <div class="table-responsive grid-table">  
-    <table class="table tbl_main">
-      <thead>
-        <tr>
-          <th scope="col">Nombre</th>
-          <th scope="col">Tipo</th>
-          <th scope="col">Aseguranza</th>
-          <th scope="col">Teléfono</th>
-          <th scope="col">Edición</th>
-          <th scope="col">Acciones</th>
-        </tr>
-      </thead>
-      {% for paciente in pacientes %}
-      <tbody>
-        <tr>
+  {% if mensaje != "" %}
+    <div class="empty_query_result">{{ mensaje }}</div>
+  {% endif %}
+    <div class="table-responsive grid-table">  
+      <table class="table tbl_main">
+        <thead>
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Aseguranza</th>
+            <th scope="col">Teléfono</th>
+            <th scope="col">Edición</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        {% for paciente in pacientes %}
+        <tbody>
+          <tr>
+            
+            <th scope="row" data-link="{{ paciente.url_ver_paciente }}">{{ paciente.nombre }}</th>
+            <td>{{ paciente.tipo_paciente }}</td>
+            <td>{{ paciente.aseguranza }}</td>
+            <td>{{ paciente.telefono }}</td>
+            <td>
+              <a href="{{ paciente.url_editar_paciente }}"><label class="glyphicon glyphicon-pencil"></label> Editar</a>
+            </td>
+            <td>
+              <a data-toggle="modal" data-target="#modal-borrar"
+              onclick="open_modal_borrar('{{ paciente.nombre }}','{{ paciente.pk }}')"> 
+              <label class="glyphicon glyphicon-trash"></label> Borrar</a>
+            </td>
+          </tr>
           
-          <th scope="row" data-link="{{ paciente.url_ver_paciente }}">{{ paciente.nombre }}</th>
-          <td>{{ paciente.tipo_paciente }}</td>
-          <td>{{ paciente.aseguranza }}</td>
-          <td>{{ paciente.telefono }}</td>
-          <td>
-            <a href="{{ paciente.url_editar_paciente }}"><label class="glyphicon glyphicon-pencil"></label> Editar</a>
-          </td>
-          <td>
-            <a data-toggle="modal" data-target="#modal-borrar"
-             onclick="open_modal_borrar('{{ paciente.nombre }}','{{ paciente.pk }}')"> 
-             <label class="glyphicon glyphicon-trash"></label> Borrar</a>
-          </td>
-        </tr>
-        
-      </tbody>
-      {% endfor %}
-    </table>
+        </tbody>
+        {% endfor %}
+      </table>
+    </div>
+  </section>
+  
+  <div class="div-paginador">
+    <label style="margin-top: 10px;margin-left:10px;font-size: 15px;">
+    {% if pacientes.has_previous %}
+      <a class="a-paginador" href="?page={{ pacientes.previous_page_number }}">
+        <label class="glyphicon glyphicon-menu-left">Anterior</label>
+      </a>
+    {% endif %}
+      <label style="margin-left:5px; margin-right:5px;">
+        {{ pacientes.number }} de {{ pacientes.paginator.num_pages }}
+      </label>
+    {% if pacientes.has_next %}
+      <a class="a-paginador" href="?page={{ pacientes.next_page_number }}">
+        Siguiente<label class="glyphicon glyphicon-menu-right"></label>
+      </a>
+    {% endif %}
+    </label>
   </div>
-</section>
+
 </section>
 
 <!-- *********************************** modal borrar *********************************** -->

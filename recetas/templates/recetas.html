@@ -98,6 +98,26 @@
     </table>
   </div>
   </section>
+
+  <div class="div-paginador">
+      <label style="margin-top: 10px;margin-left:10px;font-size: 15px;">
+          {% if recetas.has_previous %}
+              <a class="a-paginador" href="?page={{ recetas.previous_page_number }}">
+                <label class="glyphicon glyphicon-menu-left">Anterior</label>
+              </a>
+          {% endif %}
+          <label style="margin-left:5px; margin-right:5px;">
+               {{ recetas.number }} de {{ recetas.paginator.num_pages }}
+          </label>
+  
+          {% if recetas.has_next %}
+              <a class="a-paginador" href="?page={{ recetas.next_page_number }}">
+                  Siguiente<label class="glyphicon glyphicon-menu-right"></label>
+              </a>
+        {% endif %}
+    </label>
+  </div>
+
 </section>
 
 

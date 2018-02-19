@@ -15,6 +15,7 @@ from historial.models import Historial
 from .models import Paciente
 from .forms import RegistrarPaciente
 from .serializers import PacienteSerializer
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import datetime
 
 
@@ -23,9 +24,19 @@ class PatientListView(ListView):
 
     @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
-        pacientes = Paciente.objects.filter(user=request.user).order_by('-fecha_inicio')
-        total = pacientes.count()
+        QueryPacientes = Paciente.objects.filter(user=request.user).order_by('-fecha_inicio')
+        total = QueryPacientes.count()
+        paginator = Paginator(QueryPacientes, 50)
+        page = request.GET.get('page')
         mensaje = ""
+        
+        try:
+            pacientes = paginator.page(page)
+        except PageNotAnInteger:
+            pacientes = paginator.page(1)
+        except EmptyPage:
+            pacientes = paginator.page(paginator.num_pages)
+
 
         if total == 0:
             mensaje = "No tienes pacientes registrados"

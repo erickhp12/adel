@@ -15,7 +15,7 @@
     <a href="../"><label class="glyphicon glyphicon-chevron-left"></label>&nbsp;Volver</a>
   </div>
   <div class="col-md-9 bs-header-text helper-text">
-    <label>Citas proximas <label class="total">{{ total }}</label>
+    <label>Proximas citas<label class="total">{{ total }}</label>
   </div>
   <div class="helper-img col-md-1">
     <img src="{% static 'img/iconos/agenda40.png' %}"  class="helper-img" alt="ups">
@@ -80,7 +80,9 @@
           <td>{{ cita.fecha_agenda|date:"l d F P" }}</td>
           <td class="citaTD">{{ cita.confirmacion }}</td>
           <td>
-            <a class="citaE" href="{{ cita.url_editar_agenda }}"><label class="glyphicon glyphicon-pencil"></label> Editar</a>
+            <a class="citaE" href="{{ cita.url_editar_agenda }}">
+              <label class="glyphicon glyphicon-pencil"></label> Editar
+            </a>
           </td>
           <td>
             <a class="glyphicon glyphicon-trash citaB" data-toggle="modal" data-target="#modal-borrar"
@@ -93,6 +95,26 @@
     </table>
   </div>
 </section>
+
+<div class="div-paginador">
+    <label style="margin-top: 10px;margin-left:10px;font-size: 15px;">
+        {% if agenda.has_previous %}
+            <a class="a-paginador" href="?page={{ agenda.previous_page_number }}">
+              <label class="glyphicon glyphicon-menu-left">Anterior</label>
+            </a>
+        {% endif %}
+        <label style="margin-left:5px; margin-right:5px;">
+             {{ agenda.number }} de {{ agenda.paginator.num_pages }}
+        </label>
+
+        {% if agenda.has_next %}
+            <a class="a-paginador" href="?page={{ agenda.next_page_number }}">
+                Siguiente<label class="glyphicon glyphicon-menu-right"></label>
+            </a>
+        {% endif %}
+    </label>
+  </div>
+
 </section>
 
 <!-- *********************************** modal ver *********************************** -->  
@@ -185,7 +207,6 @@
 
    for (i = 0; i < citaTR.length; i++) { 
       if (citaTD[i].innerHTML == 'Confirmada'){
-        console.log('entre');
         citaTR[i].style.backgroundColor = 'rgba(65, 198, 92, 0.47)';
         citaTD[i].innerHTML = '<label class="glyphicon glyphicon-ok"></label>';
       } else if (citaTD[i].innerHTML == 'Pendiente') {

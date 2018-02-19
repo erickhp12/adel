@@ -7,6 +7,7 @@ from .models import Empleado
 from .forms import RegistrarEmpleado
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import datetime
 
 class EmployeeListView(ListView):
@@ -14,10 +15,18 @@ class EmployeeListView(ListView):
 
     @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
-        user_logged = request.user
-        empleados = Empleado.objects.filter(user=request.user).order_by('-fecha_inicio')
-        total = empleados.count()
+        QueryEmpleados = Empleado.objects.filter(user=request.user).order_by('-fecha_inicio')
+        total = QueryEmpleados.count()
+        paginator = Paginator(QueryEmpleados, 50)
+        page = request.GET.get('page')
         mensaje = ""
+        
+        try:
+            empleados = paginator.page(page)
+        except PageNotAnInteger:
+            empleados = paginator.page(1)
+        except EmptyPage:
+            empleados = paginator.page(paginator.num_pages)
 
         if total == 0:
             mensaje = "No tienes empleados registrados"

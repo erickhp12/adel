@@ -12,6 +12,7 @@ from .models import Empleado
 from .forms import RegistrarReceta
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.decorators import method_decorator
 
 
@@ -20,9 +21,19 @@ class ReceiptListView(ListView):
 
     @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
-        recetas = Recetas.objects.filter(user=request.user).order_by('-fecha_receta')
-        total = recetas.count()
+        QueryRecetas = Recetas.objects.filter(user=request.user).order_by('-fecha_receta')
+        total = QueryRecetas.count()
+        paginator = Paginator(QueryRecetas, 50)
+        page = request.GET.get('page')
         mensaje = ""
+        
+        try:
+            recetas = paginator.page(page)
+        except PageNotAnInteger:
+            recetas = paginator.page(1)
+        except EmptyPage:
+            recetas = paginator.page(paginator.num_pages)
+
 
         if total == 0:
             mensaje = "No tienes Recetas registradas"

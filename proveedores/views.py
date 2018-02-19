@@ -8,6 +8,7 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 class ProviderListView(ListView):
@@ -15,14 +16,25 @@ class ProviderListView(ListView):
 
     @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
-        proveedores = Proveedor.objects.filter(user=request.user)
-        total = proveedores.count()
+        QueryProveedores = Proveedor.objects.filter(user=request.user)
+        total = QueryProveedores.count()
         mensaje = ""
+        paginator = Paginator(QueryProveedores, 50)
+        page = request.GET.get('page')
+        
+        try:
+            proveedores = paginator.page(page)
+        except PageNotAnInteger:
+            proveedores = paginator.page(1)
+        except EmptyPage:
+            proveedores = paginator.page(paginator.num_pages)
+
         
         if total == 0:
             mensaje = "No tienes proveedores registrados"
 
-        context = {'proveedores':proveedores,
+        context = {
+                    'proveedores':proveedores,
                     'total':total,
                     'mensaje': mensaje        
                     }

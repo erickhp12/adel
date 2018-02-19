@@ -30,7 +30,7 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/login/index.css' %}" />
 </head>
 
-<body>
+<body onload="checaCitasConfirmadas()">
 	<div class="col-md-12 navegacion-main">
 		<div class="col-md-1">
 			<img class="img-adel" src="{% static 'img/iconos/logo.png' %}" alt="pacientes">
@@ -121,6 +121,7 @@
 					<table class="table">
 						<thead>
 							<tr class="tbl-resumen-tr">
+								<th>ID</th>
 								<th>Paciente</th>
 								<th>Motivo</th>
 								<th>Fecha</th>
@@ -129,6 +130,11 @@
 						{% for visita in visitas %}
 						<tbody>
 							<tr>
+								<td>
+									<a href="{{ visita.url_editar_visitas }}">
+										<label class="glyphicon glyphicon-pencil"></label>
+									</a>
+								</td>
 								<td scope="row">{{ visita.paciente }}</td>
 								<td>{{ visita.motivo }}</td>
 								<td>{{ visita.fecha_visita | date:"l d F P" }}</td>
@@ -146,17 +152,25 @@
 						<table class="table">
 							<thead>
 							<tr class="tbl-resumen-tr">
+								<th scope="col">ID</th>
 								<th scope="col">Paciente</th>
 								<th scope="col">Motivo</th>
 								<th scope="col">Fecha</th>
+								<th scope="col">Status</th>
 							</tr>
 						</thead>
 						{% for cita in citas %}
 						<tbody>
-							<tr>
+							<tr class="citaTR">
+								<td>
+									<a href="{{ cita.url_editar_agenda }}">
+										<label class="glyphicon glyphicon-pencil"></label>
+									</a>
+								</td>
 								<td scope="row">{{ cita.paciente }}</td>
 								<td>{{ cita.motivo }}</td>
 								<td>{{ cita.fecha_agenda | date:"l d F P" }}</td>
+								<td class="citaTD">{{ cita.confirmacion }}</td>
 							</tr>
 						</tbody>
 					{% endfor %}
@@ -166,5 +180,31 @@
 		</div>
 	</div>
 </body>
+
+<script>
+	function checaCitasConfirmadas(){
+	console.log('Entre');
+    var citaTD = document.getElementsByClassName('citaTD');
+    var citaTR = document.getElementsByClassName('citaTR');
+	console.log('1');
+	console.log(citaTR.length);
+   	for (i = 0; i < citaTR.length; i++) { 
+      if (citaTD[i].innerHTML == 'Confirmada'){
+        console.log('2');
+        citaTR[i].style.backgroundColor = 'rgba(65, 198, 92, 0.47)';
+        citaTD[i].innerHTML = '<label class="glyphicon glyphicon-ok"></label>';
+      } else if (citaTD[i].innerHTML == 'Pendiente') {
+		console.log('3');
+        citaTR[i].style.backgroundColor = 'rgba(255, 224, 5, 0.23)';
+        citaTD[i].innerHTML = '<label class="glyphicon glyphicon-minus"></label>';
+      } else if (citaTD[i].innerHTML == 'Cancelada') {
+		console.log('3');
+        citaTR[i].style.backgroundColor = 'rgba(255, 10, 7, 0.55)';
+        citaTD[i].innerHTML = '<label class="glyphicon glyphicon-remove"></label>';
+      }
+
+    }
+  }
+</script>
 
 </html>

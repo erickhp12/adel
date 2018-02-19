@@ -13,6 +13,7 @@ from .forms import RegistrarVisita
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 class VisitListView(ListView): 
@@ -20,14 +21,25 @@ class VisitListView(ListView):
 
     @method_decorator(login_required(login_url='login.view.url'))
     def get(self, request, *args, **kwargs):
-        visitas = Visitas.objects.filter(user=request.user).order_by('-fecha_visita')
-        total = visitas.count()
+        QueryVisitas = Visitas.objects.filter(user=request.user).order_by('-fecha_visita')
+        total = QueryVisitas.count()
+        paginator = Paginator(QueryVisitas, 50)
+        page = request.GET.get('page')
+        
+        try:
+            visitas = paginator.page(page)
+        except PageNotAnInteger:
+            visitas = paginator.page(1)
+        except EmptyPage:
+            visitas = paginator.page(paginator.num_pages)
+        
         mensaje = ""
 
         if total == 0:
             mensaje = "No tienes visitas registradas"
 
-        context = {'visitas':visitas,
+        context = {
+                    'visitas':visitas,
                     'total':total,
                     'mensaje': mensaje    
                     }

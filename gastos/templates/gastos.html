@@ -88,7 +88,26 @@
       {% endfor %}
     </table>
   </div>
+
 </section>
+<div class="div-paginador">
+    <label style="margin-top: 10px;margin-left:10px;font-size: 15px;">
+        {% if gastos.has_previous %}
+            <a class="a-paginador" href="?page={{ gastos.previous_page_number }}">
+              <label class="glyphicon glyphicon-menu-left">Anterior</label>
+            </a>
+        {% endif %}
+        <label style="margin-left:5px; margin-right:5px;">
+             {{ gastos.number }} de {{ gastos.paginator.num_pages }}
+        </label>
+
+        {% if gastos.has_next %}
+            <a class="a-paginador" href="?page={{ gastos.next_page_number }}">
+                Siguiente<label class="glyphicon glyphicon-menu-right"></label>
+            </a>
+        {% endif %}
+    </label>
+  </div>
 
 <!-- *********************************** modal ver *********************************** -->  
 
