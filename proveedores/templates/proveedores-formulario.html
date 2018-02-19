@@ -40,7 +40,7 @@
                     <div class="form-group col-md-6">
                         <label>Proveedor</label>
                         {% if proveedor.nombre %}
-                            <input type="text" value="{{ proveedor.nombre}}" name="nombre" id="nombre" readonly="readonly"> 
+                            <input type="text" value="{{ proveedor.nombre}}" class="input-personalized" name="nombre" id="nombre"> 
                         {% else %}
                             <input type="text" name="nombre" id="nombre" class="input-personalized"> 
                         {% endif %}

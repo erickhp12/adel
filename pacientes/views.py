@@ -17,6 +17,7 @@ from .forms import RegistrarPaciente
 from .serializers import PacienteSerializer
 import datetime
 
+
 class PatientListView(ListView):
     template_name = "pacientes.html"
 
@@ -69,7 +70,7 @@ class CreatePatientView(CreateView):
         now = datetime.datetime.now()
         currentYear = now.year
         years = []
-        year = 1940
+        year = 1920
 
         while currentYear >= year:
             years.append(currentYear)
@@ -94,16 +95,16 @@ class CreatePatientView(CreateView):
         user = request.user
         nombre = request.POST.get('nombre')
         sexo = request.POST.get('sexo')
-        day = request.POST.get('day')
-        month = request.POST.get('month')
-        year = request.POST.get('year')
+        usuarioDay = request.POST.get('day')
+        usuarioMonth = request.POST.get('month')
+        usuarioYear = request.POST.get('year')
         tipo_paciente = request.POST.get('tipo_paciente')
         aseguranza = request.POST.get('aseguranza')
         telefono = request.POST.get('telefono')
         correo = request.POST.get('correo')
         direccion = request.POST.get('direccion')
         comentarios = request.POST.get('comentarios')   
-        birth = year + "-" + month + "-" + day
+        birth = usuarioYear + "-" + usuarioMonth + "-" + usuarioDay
 
         try:
             if nombre == "":
@@ -140,11 +141,32 @@ class UpdatePatientView(UpdateView):
         user_logged = request.user
         paciente = Paciente.objects.get(user=request.user,id=pk)
         form = RegistrarPaciente()
+        now = datetime.datetime.now()
+        usuarioDia = ""
+        usuarioMes = ""
+        usuarioYear = ""
+        currentYear = now.year
+        years = []
+        year = 1920
         mensaje = ""
+
+        if paciente.fecha_nacimiento != None:
+            fecha = paciente.fecha_nacimiento.strftime('%m/%d/%Y')
+            usuarioMes = fecha[0:2]
+            usuarioDia =  fecha[3:5]
+            usuarioYear = fecha[6:10]
+
+        while currentYear >= year:
+            years.append(currentYear)
+            currentYear-=1
 
         context = {
                     'paciente': paciente,
+                    'usuarioDia':usuarioDia,
+                    'usuarioMes':usuarioMes,
+                    'usuarioYear':usuarioYear,
                     'form':form,
+                    'years':years,
                     'mensaje': mensaje
                    }
 
@@ -156,7 +178,9 @@ class UpdatePatientView(UpdateView):
         total = pacientes.count
         user = request.user
         nombre = request.POST.get('nombre')
-        fecha_nacimiento = request.POST.get('fecha_nacimiento')
+        usuarioDay = request.POST.get('day')
+        usuarioMonth = request.POST.get('month')
+        usuarioYear = request.POST.get('year')
         sexo = request.POST.get('sexo')
         tipo_paciente = request.POST.get('tipo_paciente')
         aseguranza = request.POST.get('aseguranza')
@@ -165,6 +189,7 @@ class UpdatePatientView(UpdateView):
         direccion = request.POST.get('direccion')
         contacto = request.POST.get('contacto')
         comentarios = request.POST.get('comentarios')
+        birth = usuarioYear + "-" + usuarioMonth + "-" + usuarioDay
 
         try:
             if nombre == "":
@@ -172,7 +197,7 @@ class UpdatePatientView(UpdateView):
             else:
                 paciente = Paciente.objects.get(user=request.user,id=pk)
                 paciente.nombre = nombre
-                paciente.fecha_nacimiento = fecha_nacimiento
+                paciente.fecha_nacimiento = birth
                 paciente.sexo = sexo
                 paciente.tipo_paciente = tipo_paciente
                 paciente.aseguranza = aseguranza

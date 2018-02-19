@@ -28,9 +28,10 @@ class SpendingListView(ListView):
         if total == 0:
             mensaje = "No tienes gastos registrados"
 
-        context = {'gastos': gastos,
-                   'total': total,
-                   'mensaje': mensaje
+        context = {
+                    'gastos': gastos,
+                    'total': total,
+                    'mensaje': mensaje
                    }
 
         return render(request, self.template_name, context)
@@ -113,9 +114,10 @@ class CreateSpendingView(ListView):
         except Exception as e:
             mensaje = "Error al crear empleado " + str(e)
 
-        context = {'gastos': gastos,
-                   'total': total,
-                   'mensaje': mensaje
+        context = {
+                    'gastos': gastos,
+                    'total': total,
+                    'mensaje': mensaje
                    }
 
         return HttpResponseRedirect('/lista.gastos')
@@ -133,11 +135,12 @@ class UpdateSpendingView(ListView):
         form = RegistrarGasto()
 
         mensaje = ""
-        context = {'gasto': gasto,
-                   'mensaje': mensaje,
-                   'proveedores':proveedores,
-                   'form':form,
-                   'empleados':empleados
+        context = {
+                    'gasto': gasto,
+                    'mensaje': mensaje,
+                    'proveedores':proveedores,
+                    'form':form,
+                    'empleados':empleados
                    }
 
         return render(request, self.template_name, context)

@@ -40,16 +40,18 @@
                     <div class="form-group col-md-6">
                         <label>Nombre</label>
                         {% if paciente.nombre %}
-                            <input type="text" value="{{ paciente.nombre}}" name="nombre" id="nombre" readonly="readonly"> 
+                            <input type="text" value="{{ paciente.nombre}}" class="input-personalized" name="nombre" id="nombre"> 
                         {% else %}
                             <input type="text" name="nombre" id="nombre" class="input-personalized"> 
                         {% endif %}
                     </div>
 
-
                     <div class="form-group col-md-6 col-sm-6 col-sm-6">
                         <label class="col-md-12 col-sm-12 col-xs-12">Fecha de nacimiento</label>
                         <select class="col-md-2 col-sm-7 col-xs-7 fecha-nacimiento-dia" name="day" id="day">
+                            {% if paciente.fecha_nacimiento %}
+                                <option id="day" name="day" value={{usuarioDia}} >{{ usuarioDia }}</option>
+                            {% endif %}
                             <option id="day" name="day" value="01">01</option>
                             <option id="day" name="day" value="02">02</option>
                             <option id="day" name="day" value="03">03</option>
@@ -83,6 +85,9 @@
                             <option id="day" name="day" value="31">31</option>    
                         </select>
                         <select class="col-md-4 col-sm-7 col-xs-7 fecha-nacimiento" name="month" id="month">
+                            {% if paciente.fecha_nacimiento %}
+                                <option id="month" name="month" value={{usuarioMes}} >{{ usuarioMes }}</option>
+                            {% endif %}
                             <option id="month" name="month" value="01">Enero</option>
                             <option id="month" name="month" value="02">Febrero</option>
                             <option id="month" name="month" value="03">Marzo</option>
@@ -97,6 +102,9 @@
                             <option id="month" name="month" value="12">Diciembre</option>
                         </select>
                         <select class="col-md-3 col-sm-7 col-xs-7 fecha-nacimiento" name="year" id="year">
+                            {% if paciente.fecha_nacimiento %}
+                                <option id="year" name="year" value={{usuarioYear}} >{{ usuarioYear }}</option>
+                            {% endif %}
                             {% for year in years %}
                                     <option id="year" name="year" value="{{ year }}">{{ year }}</option>
                                 {% endfor %}

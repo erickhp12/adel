@@ -60,7 +60,7 @@ class CreateEmployeeView(ListView):
         now = datetime.datetime.now()
         currentYear = now.year
         years = []
-        year = 1940
+        year = 1920
 
         while currentYear >= year:
             years.append(currentYear)
@@ -83,13 +83,13 @@ class CreateEmployeeView(ListView):
         user = request.user
         nombre = request.POST.get('nombre')
         puesto = request.POST.get('puesto')
-        day = request.POST.get('day')
-        month = request.POST.get('month')
-        year = request.POST.get('year')
+        usuarioDay = request.POST.get('day')
+        usuarioMonth = request.POST.get('month')
+        usuarioYear = request.POST.get('year')
         telefono = request.POST.get('telefono')
         correo = request.POST.get('correo')
         direccion = request.POST.get('direccion')
-        birth = year + "-" + month + "-" + day
+        birth = usuarioYear + "-" + usuarioMonth + "-" + usuarioDay
 
         try:
             if nombre == "":
@@ -123,10 +123,31 @@ class UpdateEmployeeView(ListView):
     def get(self, request, pk, *args, **kwargs):
         user_logged = request.user
         empleado = Empleado.objects.get(user=request.user,id=pk)
+        now = datetime.datetime.now()
+        currentYear = now.year
+        years = []
+        year = 1920
+        usuarioDia = ""
+        usuarioMes = ""
+        usuarioYear = ""
+
+        if empleado.fecha_nacimiento != None:
+            fecha = empleado.fecha_nacimiento.strftime('%m/%d/%Y')
+            usuarioMes = fecha[0:2]
+            usuarioDia =  fecha[3:5]
+            usuarioYear = fecha[6:10]
+
+        while currentYear >= year:
+            years.append(currentYear)
+            currentYear-=1
         mensaje = ""
 
         context = {
                     'empleado': empleado,
+                    'usuarioDia':usuarioDia,
+                    'usuarioMes':usuarioMes,
+                    'usuarioYear':usuarioYear,
+                    'years':years,
                     'mensaje': mensaje
                    }
 
@@ -139,11 +160,14 @@ class UpdateEmployeeView(ListView):
         user = request.user
         nombre = request.POST.get('nombre')
         puesto = request.POST.get('puesto')
-        fecha_nacimiento = request.POST.get('fecha_nacimiento')
+        usuarioDay = request.POST.get('day')
+        usuarioMonth = request.POST.get('month')
+        usuarioYear = request.POST.get('year')
         telefono = request.POST.get('telefono')
         correo = request.POST.get('correo')
         direccion = request.POST.get('direccion')
-
+        
+        birth = usuarioYear + "-" + usuarioMonth + "-" + usuarioDay
         try:
             if nombre == "":
                 return render(self.request, self.template_name)
@@ -151,7 +175,7 @@ class UpdateEmployeeView(ListView):
                 empleado = Empleado.objects.get(user=request.user,id=pk)
                 empleado.nombre = nombre
                 empleado.puesto = puesto
-                empleado.fecha_nacimiento = fecha_nacimiento
+                empleado.fecha_nacimiento = birth
                 empleado.telefono = telefono
                 empleado.correo = correo
                 empleado.direccion = direccion
