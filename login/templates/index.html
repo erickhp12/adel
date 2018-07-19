@@ -44,77 +44,65 @@
 		</div>
 	</div>
 	<!-- *************************************** Modulos *************************************** -->
-	<div class="col-md-12 col-sm-12 main-section">
-		<a href="./lista.pacientes">
-			<div class="card col-md-1 col-sm-6 col-xs-12 module">
-				<div class="card-block">
-					<h4 class="card-title">Pacientes</h4>
-				</div>
-				<img class="card-img-top" src="{% static 'img/iconos/pacientes.png' %}" alt="pacientes">
+	<div class="container col-md-12 col-xs-12 main-section">
+		<div class="col-md-6 col-sm-12">
+			<div class="col-md-3 col-sm-12 module">
+				<a href="./lista.pacientes">
+					<h4><b>Pacientes</b></h4>
+					<img class="card-img-top" src="{% static 'img/iconos/pacientes.png' %}" alt="Pacientes">
+				</a>
 			</div>
-		</a>
+			<div class="col-md-3 col-sm-12 module">
+				<a href="./lista.visitas">
+					<h4><b>Visitas</b></h4>
+					<img class="card-img-top" src="{% static 'img/iconos/visitas.png' %}" alt="visitas">
+				</a>
+			</div>
+			<div class="col-md-3 col-sm-12 module">
+				<a href="./lista.empleados">
+					<h4><b>Empleados</b></h4>
+					<img class="card-img-top" src="{% static 'img/iconos/empleados.png' %}" alt="empleados">
+				</a>
+			</div>
+			<div class="col-md-3 col-sm-12 module">
+				<a href="./lista.proveedores">
+					<h4><b>Proveedores</b></h4>
+					<img class="card-img-top" src="{% static 'img/iconos/proveedores.png' %}" alt="proveedores">
+				</a>
+			</div>
+		</div>
 
-		<a href="./lista.visitas">
-			<div class="card col-md-2 col-sm-6 col-xs-12 module">
-				<div class="card-block">
-					<h4 class="card-title">Visitas</h4>
-				</div>
-				<img class="card-img-top" src="{% static 'img/iconos/visitas.png' %}" alt="Visitas">
+		<div class="col-md-6 col-sm-12">
+			<div class="col-md-3 col-sm-12 module">
+				<a href="./lista.gastos">
+					<h4><b>Gastos</b></h4>
+					<img class="card-img-top" src="{% static 'img/iconos/gastos.png' %}" alt="gastos">
+				</a>
 			</div>
-		</a>
-		<a href="./lista.empleados">
-			<div class="card col-md-2 col-sm-6 col-xs-12 module">
-				<div class="card-block">
-					<h4 class="card-title">Empleados</h4>
-				</div>
-				<img class="card-img-top" src="{% static 'img/iconos/empleados.png' %}" alt="empleados">
+			<div class="col-md-3 col-sm-12 module">
+				<a href="./lista.agenda">
+					<h4><b>Agenda</b></h4>
+					<img class="card-img-top" src="{% static 'img/iconos/agenda.png' %}" alt="agenda">
+				</a>
 			</div>
-		</a>
-		<a href="./lista.proveedores">
-			<div class="card col-md-2 col-sm-6 col-xs-12 module">
-				<div class="card-block">
-					<h4 class="card-title">Proveedores</h4>
-				</div>
-				<img class="card-img-top" src="{% static 'img/iconos/proveedores.png' %}" alt="proveedores">
+			<div class="col-md-3 col-sm-12 module">
+				<a href="./lista.movimientos">
+					<h4><b>Movimientos</b></h4>
+					<img class="card-img-top" src="{% static 'img/iconos/pacientes.png' %}" alt="movimientos">
+				</a>
 			</div>
-		</a>
-		<a href="./lista.gastos">
-			<div class="card col-md-2 col-sm-6 col-xs-12 module">
-				<div class="card-block">
-					<h4 class="card-title">Gastos</h4>
-				</div>
-				<img class="card-img-top" src="{% static 'img/iconos/gastos.png' %}" alt="gastos">
+			<div class="col-md-3 col-sm-12 module">
+				<a href="./lista.proveedores">
+					<h4><b>Proveedores</b></h4>
+					<img class="card-img-top" src="{% static 'img/iconos/proveedores.png' %}" alt="proveedores">
+				</a>
 			</div>
-		</a>
-		<a href="./lista.agenda">
-			<div class="card col-md-2 col-sm-6 col-xs-12 module">
-				<div class="card-block">
-					<h4 class="card-title">Agenda</h4>
-				</div>
-				<img class="card-img-top" src="{% static 'img/iconos/agenda.png' %}" alt="agenda">
-			</div>
-		</a>
-		<a href="./movimientos">
-			<div class="card col-md-2 col-sm-6 col-xs-12 module">
-				<div class="card-block">
-					<h4 class="card-title">Movimientos</h4>
-				</div>
-				<img class="card-img-top" src="{% static 'img/iconos/pacientes.png' %}" alt="movimientos">
-			</div>
-		</a>
-		<a href="./lista.recetas">
-			<div class="card col-md-2 col-sm-6 col-xs-12 module">
-				<div class="card-block">
-					<h4 class="card-title">Recetas</h4>
-				</div>
-				<img class="card-img-top" src="{% static 'img/iconos/recetas.png' %}" alt="Ajustes">
-			</div>
-		</a>
+		</div>
 	</div>
-
 	<!-- *************************************** Resumen *************************************** -->
-	<div class="col-md-12 col-sm-12 div-resumen">
-		<div class="col-md-5 col-sm-12 resumen">
+	<div class="div-resumen">
+		
+		<div class="col-md-5 col-xs-12 resumen">
 			<div class="resumen-header">Últimas visitas</div>
 			<div class="resumen-body">
 				<div class="table-responsive tbl-resumen">  
@@ -145,6 +133,7 @@
 				</div>
 			</div>
 		</div>
+
 		<div class="col-md-5 col-sm-12 resumen">
 			<div class="resumen-header">Próximas citas</div>
 			<div class="resumen-body">

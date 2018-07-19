@@ -114,6 +114,8 @@ class CreateEmployeeView(ListView):
                     direccion=direccion
                 )
         except Exception as e:
+            print "ERROR "
+            print str(e)
             mensaje = "Error al crear empleado " + str(e)
 
         context = {

@@ -1,6 +1,6 @@
 .navegacion-main {
 	background-color:  #008cba;
-	margin-bottom: 10px;
+	margin-bottom: 15px;
 }
 
 .adel {
@@ -29,18 +29,18 @@
 .main-section {
 	border-bottom: 1px solid #b8b8b8;
 	background-color: #F7F7F7;
+	margin-bottom: 20px;
 }
 
 .module {
-	border: 1px solid rgb(156, 156, 156);
-	width: 14rem;
-	height: 15rem;
-	margin-left:13px;
-	margin-top: 15px;
-	margin-bottom: 15px;
+	box-shadow: 1px 4px 5px #b4b4b4;
+	margin-bottom: 20px;
 	border-radius: 3px;
+	height: 15rem;
 	background-color:white;
 	text-align:center;
+	width:22%;
+	margin-left: 3%;
 }
 
 .card-title {
@@ -49,17 +49,17 @@
 }
 .card-img-top{
 	max-height: 100px;
-	max-width: 13rem;
+	max-width: 15rem;
 }
 
 
 /* --------------------------------------------- resumen --------------------------------------------- */
 .div-resumen {
-	margin-top: 15px;
+	position: initial !important;
 }
 
 .resumen-body{
-	height: 410px;
+	height:450px;  
 }
 
 .tbl-resumen {
@@ -68,10 +68,8 @@
 
 .resumen {
 	background-color: white;
-	margin-left: 5%;
-	border: 1px solid rgb(195, 195, 195);
-	border-radius: 3px;
-	/* box-shadow: 1px 5px 8px rgb(99, 99, 99); */
+	box-shadow: 1px 4px 5px #b4b4b4;
+	margin-left: 6%;
 }
 
 .tbl-resumen-tr > th {
@@ -87,33 +85,27 @@
 	font-size: 20px;
 	font-weight: bold;
 	border-bottom: 1px solid rgb(179, 179, 179);
-}
-
-
-@media screen and (min-width: 1500px) {
-	.module {
-		margin-left: 90px;
-	}
-}
-
-@media screen and (max-width: 1100px) {
-	.module {
-		margin-left: 40px;
-	}
-}
+} 
 
 
 @media screen and (max-width: 1000px) {
-	.div-resumen {
-		display: none;
-	}
-	.module {
-		margin-left: 50px;
-		width: 300px;
+	.resumen {
+		width: 90%;
+		margin-bottom: 20px;
 	}
 	.img-adel {
 		display: none;
 	}
 
+}
+
+@media screen and (max-width: 770px) {
+	.div-resumen {
+		display: none;
+	}
+	.module{
+		width: auto;
+		margin-left: 0%;
+	}
 }
 
